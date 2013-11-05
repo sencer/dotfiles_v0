@@ -1,0 +1,10 @@
+vim/bundle
+ssh/authorized_keys
+ssh/environment
+ssh/known_hosts
+ssh/id*
+.*.swp
+.sw*
+*.zwc
+*.zwc.old
+zprezto/modules/*/cache.zsh

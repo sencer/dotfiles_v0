@@ -1,0 +1,45 @@
+#
+# A monochrome theme that displays basic information.
+#
+# Authors:
+#   Brian Tse <briankftse@gmail.com>
+#   Sorin Ionescu <sorin.ionescu@gmail.com>
+#
+# Screenshots:
+#   http://i.imgur.com/zLZNK.png
+#
+
+
+# function prompt_sencer_precmd {
+#   if [[ $NAMAZ -le $[`date +%s`/60+daylight*60] ]]; then
+#     source <(vakit export)
+#   fi
+# }
+
+# function prompt_kalan_vakit {
+#   [[ $NAMAZ -lt 0 ]] && exit
+#   kalan=$[NAMAZ-`date +%s`/60-daylight*60]
+#   echo "[$[kalan/60]sa$[kalan%60]dk]"
+# }
+
+function prompt_sencer_setup {
+  prompt_opts=(cr percent subst)
+  # source <(vakit export)
+  # if [ `date +%:::z` -eq -4 ];then
+  #   daylight=1
+  # else
+  #   daylight=0
+  # fi
+  # Load required functions.
+  autoload -Uz add-zsh-hook
+
+  # Add hook for calling vcs_info before each command.
+  # add-zsh-hook precmd prompt_sencer_precmd
+
+  # Define prompts.
+  export PROMPT="%F{73}%h:%F{174}%C%f " 
+  # export RPROMPT="%F{73}\$(prompt_kalan_vakit)[\${PWD/\/home\/sselcuk/~}]%f" 
+  export RPROMPT="%F{73}[\${PWD/\/home\/sselcuk/~}]%f" 
+}
+
+prompt_sencer_setup "$@"

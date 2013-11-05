@@ -1,0 +1,54 @@
+#!/bin/bash
+#
+function cin {
+	newz=$1
+	filein=${2}input.txt
+	fileout=$3
+awk 'BEGIN{
+	parse=0
+	newz='"$newz"'
+	}
+	{if($1=="!celldm(3)"){
+		next;
+	}
+	else if($1=="celldm(3)"){
+		a=gensub(",","",1,$3)
+		print "!"$0
+		printf "celldm(3)           = %6.4f,\n", newz
+		next} 
+	else if($2~/(angstrom)/){
+		print $0
+		parse=1
+		next
+	}
+	else if($2~/(crystal)/){
+		print $0
+		parse=2
+		next
+	}
+	else if($1~/K_POINTS/ || $1~/End/){
+		print $0
+		exit
+	}
+	else if(parse==2){
+		printf "%-5s %12.8f %12.8f %12.8f",  $1, $2, $3, $4*a/newz
+		if(NF==7)
+			printf "  0  0  0"
+		printf "\n"
+		next
+	}
+	print $0
+}' $filein > $fileout
+
+}
+
+
+if [ $# == 1 ];then
+        a=$(echo `basename $(pwd)`)
+	filepath="./"
+	fileout=$a".txt"
+        cin $1 $filepath $fileout 
+	mv $fileout input.txt
+else
+	echo "wrong number of arguments supplied"
+fi

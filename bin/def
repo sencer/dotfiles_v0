@@ -1,0 +1,48 @@
+#!/usr/bin/env bash 
+# set -x
+define () {
+  reset
+  echo "DEFINE $1 $2"|nc dict.org 2628|tail -n+4|head -n-2
+}
+reset(){
+  tput rc
+  tput ed
+}
+
+readChar() {
+  oldstty=`stty -g`
+  stty -icanon -echo min 1 time 0
+  echo `dd if=/dev/tty bs=1 count=1 2>/dev/null`
+  stty "$oldstty"
+  (tput cuu1; tput el;echo ) > /dev/tty
+}
+readWord(){
+  reset
+  echo -n "Enter new word: "
+  read word
+  reset
+}
+tput sc
+word=$1
+dict=$2
+while true; do
+  dict=${dict:-wn}
+  define $dict ${word:-$1}
+  tput smso
+  echo -ne "e) EN t) TR a) AR l) LA w/W) W02/95 =) THES n) New c) Chm *) Quit "
+  tput rmso
+  input=$(readChar)
+  case $input in 
+    [Ee]) dict="wn";;
+    [Tt]) dict="eng-tur";;
+    [Aa]) dict="eng-ara";;
+    [lL]) dict="lat-eng";;
+    [Cc]) dict="elements";;
+       w) dict="world02";;
+       W) dict="world95";;
+    [nN]) readWord;;
+       =) dict="moby-thes";;
+    [qQ]) reset;exit 0;;
+       *) exit 0 ;;
+  esac
+done 

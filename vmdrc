@@ -1,0 +1,47 @@
+menu main on
+menu main move 450 641
+menu graphics move 929 115
+display resize 470 500
+display reposition 450 930
+display projection orthographic
+display nearclip set 0
+display depthcue off
+axes location off
+
+global fname
+set auto_path [concat $env(HOME)/.vmd $auto_path];\
+set mol [molinfo top];\
+set tmp [split [molinfo $mol get filename] /];\
+set len [llength $tmp]-1;\
+set fname [lindex $tmp $len];\
+set tmp [join [lreplace $tmp $len $len] /];\
+if { [string length $tmp] > 0 } { cd $tmp }
+unset len mol
+
+color Display Background white
+color Name {T} silver
+color Element Ti white
+color Element O pink
+
+render options POV3 {povray +W%w +H%h -I%s -O%s.png +D +X +A +UA +FN}
+proc pov {fname} {
+  set tmp [regsub {\..*} $fname ""]
+  set i 0
+  set tmp2 $tmp
+  while { [file exists $tmp.pov] } { 
+    set i [expr $i+1] 
+    set tmp $tmp2$i }
+  puts stdout "INFO) Writing $tmp.pov" 
+  render POV3 $tmp.pov [render options POV3] 
+  exec mv -f  $tmp.pov.png $tmp.png
+  puts stdout "\033\[31mINFO) Image file saved to $tmp.png\033\[0m"
+}
+user add key v { pov $fname }
+user add key q { exit }
+
+# after idle {
+  #load my scripts in this order!
+  state
+  cell
+  # trace variable vmd_initialize_structure w {source view.vmd}
+# }

@@ -1,0 +1,107 @@
+#!/usr/bin/env bash 
+
+calculate(){
+  add=${1//m/$m}
+  add=${add//n/$n}
+  if [[ $str == "" ]]; then
+    str=${add}
+  elif [[ $1 != "" ]]; then
+    str="(${str})$add"
+  fi
+  res=`echo $str|bc -lq 2>/dev/null`
+  tput cuu1
+  tput el
+  tput cuu1
+  tput el
+  echo $res
+  # echo -n "($str)"
+  beautify
+  echo -n "($beauty)"
+}
+quit(){
+  tput cuu1
+  tput el
+  if [[ $str == "" ]]; then
+    tput cuu1
+    tput el
+  else
+    echo $beauty
+  fi
+  exit 0
+}
+
+clean(){
+  tput cuu1
+  tput el
+  echo $beauty
+  str=""
+  res=0
+  echo "---------------------"
+  echo 0
+}
+parse(){
+  len=`expr match $1 '[a-z]*'`
+  func=${1:0:$len}
+  case $func in 
+    log) func=l;;
+    exp) func=e;;
+    cos) func=c;;
+    sin) func=s;;
+   atan) func=a;;
+      r) func=sqrt;;
+esac
+input=${1:$len}
+str="${func}(${str})"
+calculate $input
+}
+
+beautify(){
+  beauty=${str/s(/sin(}
+  beauty=${beauty/a(/atan(}
+  beauty=${beauty/c(/cos(}
+  beauty=${beauty/e(/exp(}
+  beauty=${beauty/l(/log(}
+}
+
+mem(){
+  eval "$1=$res"
+  tput cuu1
+  tput el
+  echo -n "($beauty)"
+}
+digit(){
+  if [[ $res == 0 ]]; then
+    calculate $1
+  else
+    clean
+    echo $1
+    calculate $1
+  fi
+}
+
+
+if [[ $1 == '-v' ]]; then
+  gnome-calculator &
+  exit 0
+fi
+echo 0
+str=""
+res=0
+if [[ $# -gt 0 ]]; then
+  echo
+  input="$@"
+  calculate $input
+fi
+
+
+while true; do
+  read -p "" input
+  case $input in 
+    q) quit;;
+  c) clean;;
+m|n) mem $input;;
+    [0-9]*) digit $input;;
+  .[a-z]*) parse ${input:1};;
+*) calculate $input;;
+  esac
+done

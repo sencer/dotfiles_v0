@@ -1,0 +1,7 @@
+set autoeval
+set autolist
+set history filename ~/.rdebug_hist 
+set history save on 
+eval require 'ap'
+eval AwesomePrint.defaults = {:indent => -2,:limit => true}
+eval require 'debugger/completion'

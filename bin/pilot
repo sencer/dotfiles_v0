@@ -1,0 +1,78 @@
+#!/usr/bin/env zsh
+function pilot () {
+    [ $# = 2 ] && echo -en "\b\r\e[K"
+    if [[ $1 = q ]]; then
+      echo -en "\b\r\033[K"
+      rm /tmp/pilot.mb
+      break
+    elif [[ $1 = c ]]; then
+      echo -en "\b\r\033[K\b\r\033[K"
+      change_input=${change_input%;*}
+      sed -i '$d' /tmp/pilot.mb
+    elif [[ $1 = "" ]]; then
+      echo -e "\033[K\b\r\033[K\b\r"
+    elif [[ $1 = + ]];then
+      time="NOW+"$2" : "
+      echo -e "\r\033[K\b\r"
+    elif [[ $1 = dt ]]; then
+      echo $time"DT = "$2|tee -a /tmp/pilot.mb
+      change_input=${change_input}";sed -i 's/dt\s*=\s*.*$/dt = $2,/' input.txt"
+    elif [[ $1 = temp ]]; then
+      echo $time"TEMPW = "$2|tee -a /tmp/pilot.mb
+      change_input="${change_input};sed -i 's/tempw\s*=\s*.*$/tempw = $2,/' input.txt"
+    elif [[ $1 = edamp ]]; then
+      if  [[ $2 = auto ]];then
+        a=($(tail -n 900 output.txt|awk '{if(NF==12 && $1==$1+0){a0=a1;a1=a2;a2=a3;a3=a4;a4=a5;a5=$5}} END{printf "%.2f %.2f %.2f %.2f", sqrt(0.5*2.303*log((a0-a1)/(a1-a2))), sqrt(0.5*2.303*log((a1-a2)/(a2-a3))), sqrt(0.5*2.303*log((a2-a3)/(a3-a4))), sqrt(0.5*2.303*log((a3-a4)/(a4-a5)))}' 2>/dev/null))
+        if [[ $[(a[1]+a[2]+a[3]+a[4])/4-a[4]] < 0.01 ]]; then
+          echo $time"ELECTRON_DAMPING = " $a[4] |tee -a /tmp/pilot.mb
+          change_input="${change_input};sed -i 's/!*\s*electron_damping\s*=\s*.*$/electron_damping = $a[4],/' input.txt"
+        else
+          echo "Couldn't get a good estimate for electron damping. You can still supply yourself."
+          echo "Press any key to continue"
+          typeset savesetting=$(stty -g)
+          stty -echo -icrnl -icanon min 1 time 0
+          while true;do
+            keystroke=$(dd bs=1 count=1 2>/dev/null)
+            if  [[ $keystroke != "" ]];then
+              echo -en "\b\r\033[K"
+              echo -en "\b\r\033[K"
+              break
+            fi
+          done
+          stty "$savesetting"
+        fi
+      else
+        echo $time"ELECTRON_DAMPING = "$2|tee -a /tmp/pilot.mb
+          change_input="${change_input};sed -i 's/!*\s*electron_damping\s*=\s*.*$/electron_damping = $2,/' input.txt"
+        fi
+    elif [[ $1 = edyn ]]; then
+      echo $time"ELECTRON_DYNAMICS = '"$2"'"|tee -a /tmp/pilot.mb
+          change_input="${change_input};sed -i \"s/electron_dynamics\s*=\s*.*$/electron_dynamics = '$2',/\" input.txt"
+    elif [[ $1 = idyn ]]; then
+      echo $time"ION_DYNAMICS = '"$2"'"|tee -a /tmp/pilot.mb
+          change_input="${change_input};sed -i \"s/ion_dynamics\s*=\s*.*$/ion_dynamics = '$2',/\" input.txt"
+    elif [[ $1 = idamp ]]; then
+      change_input="${change_input};sed -i 's/!*\s*ion_damping\s*=\s*.*$/ion_damping = $2,/' input.txt"
+      echo $time"ION_DAMPING = "$2|tee -a /tmp/pilot.mb
+    elif [[ $1 = emass ]]; then
+      echo $time"EMASS = "$2|tee -a /tmp/pilot.mb
+      change_input="${change_input};sed -i 's/emass\s*=\s*.*$/emass = $2,/' input.txt"
+    elif [[ $1 = . ]]; then
+      echo -e "\b\r\033[KAppyling the rules"
+      mv /tmp/pilot.mb . 2>/dev/null 1>/dev/null 
+      eval "$change_input"
+      break
+    fi
+  }
+echo PILOT|tee /tmp/pilot.mb
+change_input="echo 'making changes in the input file also'"
+time="NOW : "
+while [[ $# > 0 ]]; do
+      pilot $1 $2 true
+  shift
+  shift
+done
+while true;do 
+  read input input2
+  pilot $input $input2
+done

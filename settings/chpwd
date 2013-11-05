@@ -1,0 +1,12 @@
+function chpwd(){
+  if [[ $PWD == $HOME/*  ]];then
+    folder=${PWD#$HOME/}
+    folder=${folder%%/*}
+    export SERVER=`grep "^$folder" $PBS_SERVER_FILE|cut -d' ' -f1`
+  else
+    export SERVER=''
+  fi
+  if [[ -n $TMUX ]]; then
+    tmux rename-window "${SERVER:-zsh}"
+  fi
+}

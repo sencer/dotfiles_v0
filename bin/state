@@ -1,0 +1,62 @@
+#!/bin/bash
+# set -x
+
+cd /home/sselcuk/jobs/
+# read atime mtime file name's into stat array.
+read -a stat <<< $(stat -c '%X %Y %n' msg.* 2>/dev/null)
+
+echoe(){
+  echo "$@" 1>&2
+}
+
+# get filenames of unread emails
+function unread(){
+  unread=""
+  read=""
+  for (( i = 0; i < ${#stat[@]}; i+=3 )); do
+    if [[ ${stat[i]} == ${stat[i+1]} ]]; then # if mtime <> atime
+      unread=$unread" "${stat[i+2]}
+    else
+      read=$read" "${stat[i+2]}
+    fi
+  done
+  if [[ -n $1 ]]; then
+    echo $read
+  else
+    echo $unread
+  fi
+}
+
+function parse(){
+  awk '{
+    if($0 ~ /PBS Job Id/) {
+      split($4, job, "[-.]")
+    } else if($0 ~ /Job Name/) {
+      split($3, name, ".")
+    }
+  } END {
+    printf "%-10s %-10s %s\n", job[2], job[1], name[1]
+  }' $1
+}
+
+function log(){
+  files=$(unread)
+  if [[ ! -z $files ]]; then
+    date
+    for i in $(unread); do
+      parse $i
+    done
+  else
+    echoe "No new mail."
+  fi
+}
+
+function clean(){
+  files=$(unread 1)
+  if [[ ! -z $files ]]; then
+    rm -f $files
+  fi
+}
+
+log|tee -a mails.log
+clean

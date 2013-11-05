@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if [[ $# -gt 0 ]];then
+  run_at_server -s $1 '~/bin/q'
+else
+  run_at_server -pbs '~/bin/q'
+fi

@@ -1,0 +1,247 @@
+#!/bin/bash
+function p {
+  # exec 4>/dev/tty
+  filein=$1
+  echo -n $filein " -> "
+  fileout=$2
+  echo $fileout
+  # export lns=`wc -l $filein|cut -f 1 -d " "`
+  # echo $lns
+  awk '
+  function abs(a)
+  {
+    if(a<0)
+      a=-a;
+    return a;
+  }
+
+  function acos(a)
+  {
+    pi=3.141592653589793
+    if(abs(a)==1) {
+      return (1-a)*pi/2  
+    } else {
+    return atan2(-a,sqrt(1-a*a))+2*atan2(0.5,0.5)  
+    }
+  }
+
+  function rad2deg(a) {
+    pi=3.141592653589793
+    return a/pi*180.0
+  }
+
+  function deg2rad(a) {
+    pi=3.141592653589793
+    return a*pi/180.0
+  }
+
+  BEGIN {
+    au=0.529177
+    cell=-1
+    cell_a=-1
+    cell_b=-1
+    cell_c=-1
+    cell_alpha=-1
+    cell_beta=-1
+    cell_gamma=-1
+    natom=0
+  }
+  {
+    #check the lattice type
+    if ($0 ~ /bravais-lattice/ && cell == -1)
+    {
+      cell = $4
+      if (cell != 1 && cell != 5 && cell != 8 && cell != 14)
+      {
+        printf "Is only available for ibrav=1,5,8,14\n"
+        exit
+      }
+      printf "REMARK lattice type=%d\n", cell
+    }
+
+    #get the cell lengths
+    if ($0 ~ /celldm\(1\)/ && cell_a == -1)
+    {
+      if (cell == 1)
+      {
+        cell_a = $2 * au
+        cell_b = cell_a
+        cell_c = cell_a
+      }
+      if (cell == 5)
+      {
+        cell_a = $2 * au
+        cell_b = cell_a
+        cell_c = cell_a
+      }
+
+      if (cell == 8)
+      {
+        cell_a = $2 * au
+        cell_b = $4 * cell_a
+        cell_c = $6 * cell_a
+      }
+
+      if (cell == 14)
+      {
+        cell_a = $2 * au
+        cell_b = $4 * cell_a
+        cell_c = $6 * cell_a
+      }
+
+      printf "REMARK Cell lengths %f %f %f\n", cell_a, cell_b, cell_c
+    }
+
+    #get the cell angles
+    if ($0 ~ /celldm\(4\)/ && cell_alpha == -1)
+    {
+      if (cell == 1)
+      {
+        cell_alpha = 90.0
+        cell_beta  = 90.0
+        cell_gamma = 90.0
+      }
+      if (cell == 5)
+      {
+        cell_alpha = rad2deg(acos($2))
+        cell_beta = cell_alpha
+        cell_gamma = cell_beta
+      }
+
+      if (cell == 8)
+      {
+        cell_alpha = 90.0
+        cell_beta = 90.0
+        cell_gamma = 90.0
+      }
+
+      if (cell == 14)
+      {
+        cell_alpha = rad2deg(acos($2))
+        cell_beta = rad2deg(acos($4))
+        cell_gamma = rad2deg(acos($6))
+      }
+
+      printf "REMARK Cell angles %f %f %f\n", cell_alpha, cell_beta, cell_gamma
+    }
+
+    #get the cell (used for crystal coordinates)
+    if (($0 ~ /crystal axes/))
+    {
+      getline a1
+      split(a1,tmp)
+
+      ax = tmp[4] * cell_a
+      ay = tmp[5] * cell_a
+      az = tmp[6] * cell_a
+
+      getline a1
+      split(a1,tmp)
+      bx = tmp[4] * cell_a
+      by = tmp[5] * cell_a
+      bz = tmp[6] * cell_a
+
+      getline a1
+      split(a1,tmp)
+      cx = tmp[4] * cell_a
+      cy = tmp[5] * cell_a
+      cz = tmp[6] * cell_a
+
+      printf "REMARK Cell %8.4f %8.4f %8.4f\n", ax, ay, az
+      printf "REMARK      %8.4f %8.4f %8.4f\n", bx, by, bz
+      printf "REMARK      %8.4f %8.4f %8.4f\n", cx, cy, cz
+    }
+
+    #get the number of atoms
+    if (($0 ~ /number of atoms\/cell/) && natom == 0)
+    {
+      natom = $5
+
+      printf "REMARK Number of atoms %d\n", natom
+    }
+
+    #now get the atoms
+    if ( $0 ~ /ATOMIC_POSITIONS/ )
+    {
+      if ($2 ~ /(bohr)/)
+      {
+        printf "CRYST1%9.3f%9.3f%9.3f%7.2f%7.2f%7.2f P 1           1\n", cell_a, cell_b, cell_c, cell_alpha, cell_beta, cell_gamma
+
+        for (i=1; i<=natom; i++)
+        {
+          getline a1
+          split(a1,tmp)
+          #shorten element names to two chars
+          tmp[1]=substr(tmp[1], 1, 2)
+          printf "ATOM  %5d %3s      X   1    %8.3f%8.3f%8.3f  1.00  0.00          %2s\n", i, tmp[1], tmp[2]*au, tmp[3]*au, tmp[4]*au, tmp[1]
+        }
+
+        printf "END\n"
+      }
+      else if ($2 ~ /(crystal)/)
+      {
+        printf "CRYST1%9.3f%9.3f%9.3f%7.2f%7.2f%7.2f P 1           1\n", cell_a, cell_b, cell_c, cell_alpha, cell_beta, cell_gamma
+        # system("echo -n \b\r$(("NR"/$lns)) >&4")
+        for (i=1; i<=natom; i++)
+        {
+          getline a1
+          split(a1,tmp)
+          #shorten element names to two chars
+          tmp[1]=substr(tmp[1], 1, 2)
+
+          x=tmp[2]*ax+tmp[3]*bx+tmp[4]*cx
+          y=tmp[2]*ay+tmp[3]*by+tmp[4]*cy
+          z=tmp[2]*az+tmp[3]*bz+tmp[4]*cz
+
+          printf "ATOM  %5d %3s      X   1    %8.3f%8.3f%8.3f  1.00  0.00          %2s\n", i, tmp[1], x, y, z, tmp[1]
+        }
+
+        printf "END\n" 
+      }
+      else if ($2 ~ /(angstrom)/)
+      {
+        printf "CRYST1%9.3f%9.3f%9.3f%7.2f%7.2f%7.2f P 1           1\n", cell_a, cell_b, cell_c, cell_alpha, cell_beta, cell_gamma
+
+        for (i=1; i<=natom; i++)
+        {
+          getline a1
+          split(a1,tmp)
+          #shorten element names to two chars
+          tmp[1]=substr(tmp[1], 1, 2)
+          printf "ATOM  %5d %3s      X   1    %8.3f%8.3f%8.3f  1.00  0.00          %2s\n", i, tmp[1], tmp[2], tmp[3], tmp[4], tmp[1]
+        }
+
+        printf "END\n"
+      }
+      else
+      {
+        printf "Unimplemented length unit... get to work!!!!\n"
+        exit
+      }
+    }
+  }' $filein > $fileout
+
+}
+
+if [ $# == 0 ];then
+echo $(pwd)
+a=$(echo `basename $(pwd)`)
+filein="output.txt"
+fileout=$a".pdb"
+p $filein $fileout
+else
+  if [[ ! -d "trajs" ]];then
+mkdir trajs
+fi
+echo "$(pwd)/trajs"
+while [ $# -ne 0 ];do
+filein=$1
+fileout="trajs/"$(echo `basename ${filein%/*}`)".pdb"
+p $filein $fileout
+shift
+done
+fi
+
+
+
+

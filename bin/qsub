@@ -1,0 +1,7 @@
+#!/bin/bash
+if  [[ $# = 0 ]];then
+  jobs="*.job"
+else
+  jobs="$@"
+fi
+run_at_server -pbs '~/bin/qsub' $jobs

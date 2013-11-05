@@ -1,0 +1,8 @@
+if [[ `w -h|wc -l` -lt 2 ]]; then
+  while read line;do
+    if [ -d ~/$line ]; then
+      server $line
+    fi
+  done < <(cat $PBS_SERVER_FILE|cut -d' ' -f1)
+fi
+ps aux|grep '[d]bus-launch'|tr -s ' '|cut -d' ' -f2|xargs kill -9 2>/dev/null

@@ -1,0 +1,88 @@
+mkg() {
+  mkdir $1 && cd $1
+}
+
+cpg(){
+  last=${@: -1}
+  [ -f $last ] && echo "$last is not a directory" && return 
+  [ ! -d $last ] && mkdir $last
+  while [ $# -gt 1 ];do
+    cp $1 $last
+    shift
+  done
+  cd $last
+}
+
+mvg(){
+  last=${@: -1}
+  [ -f $last ] && echo "$last is not a directory" && return 
+  [ ! -d $last ] && mkdir $last
+  while [ $# -gt 1 ];do
+    mv $1 $last
+    shift
+  done
+  cd $last
+}
+
+cd () {
+  if [[ $# > 1 ]];then
+    cd ${PWD/\/$1\///$2/}
+  elif builtin cd $@ 2>/dev/null;then
+  elif [[ -f "$@" ]]; then
+    builtin cd `dirname $@`
+  elif builtin cd "_${@//-/__}" &>/dev/null; then
+    echo $PWD
+  elif [[ $SERVER != "" ]] && d=`get_job_folder $@` ; then
+    builtin cd $d
+    echo $PWD
+    save "_$1"
+  else
+    echo "No such file or folder $1"
+    return 1
+  fi
+}
+bak (){
+  while [[ $# > 0 ]]; do
+    if [[ $1 == -c ]]; then
+      command="cp"
+    fi
+    i=0
+    if [[ ! -e $1 ]]; then
+    elif [[ $i -eq 0 && ! -e $1.bak ]]; then
+      ${command:-mv} -f $1 $1.bak
+    else
+      let i++
+      while [[ -e $1.$i.bak ]]; do
+        let i++
+      done
+      ${command:-mv} -f $1 $1.$i.bak
+    fi
+    shift
+  done
+  unset command
+}
+
+unbak (){
+  while [[ $# > 0 ]];do
+    u=${1%.bak}
+    if [[ $u == $1 ]]; then
+      f=${1}.bak
+    fi
+    if [[ -e $u ]]; then
+      bak $u
+    fi
+    mv -f $f $u
+    shift
+  done
+}
+
+ssh(){
+  if [[ -n $TMUX ]]; then
+    a=$(tmux display-message -p '#W')
+    tmux rename-window "$*"
+    command ssh "$@"
+    tmux rename-window "$a"
+  else
+    command ssh "$@"
+  fi
+}

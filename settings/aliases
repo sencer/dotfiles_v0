@@ -1,0 +1,57 @@
+alias -g zshrc="~/.zshrc"
+# alias -g vimrc="~/.vimrc"
+alias -g aliases="~/.settings/aliases"
+
+alias la='ls -AF'
+alias cp='nocorrect cp -ivdRp'
+alias bc='bc -lq'
+alias mv='nocorrect mv -iv'
+alias sudo="nocorrect sudo"
+alias less="less -R"
+alias mkdir='nocorrect mkdir -p'
+alias ph='run_at_server -s tigressdata ph'
+alias tmuxe='exec tmux'
+
+alias v="gvim"
+alias vi="vim -X"
+alias vv="v input.txt"
+alias vj="v *.job"
+alias vo="v output.txt"
+alias xi="xcrysden --pwi input.txt"
+alias xo="xcrysden --pwo output.txt"
+alias open="xdg-open"
+
+alias f="tail -F -n 2000"
+
+# alias find="noglob $HOME/bin/find"
+alias in="run_at_server 'find . -name input.txt'"
+alias job="run_at_server 'find . -name *.job'"
+alias out="run_at_server 'find . -name output.txt'"
+alias find="noglob run_at_server find"
+alias watch="run_at_server -t watch"
+
+alias e="out|xargs awk 'BEGIN{l=1}/Final energy/{if(l%2){printf \"\\033[38;5;111m\"} l=l+1; printf \"%-50s %18f\\033[0m\\n\", gensub(\"./\",\"\",\"\",gensub(\"/output.txt\",\"\",\"\",FILENAME)), \$4*13.606}'"
+alias arm='\rm -rf input_tmp.in *.job.* cp_* cp.* output.txt CRASH *.pdb *.cube pw* 2>/dev/null;ls'
+# alias b="find . -name output.txt -exec sh -c \"printf '%-50s' {};tac {}|grep -i -m1 -e 'number of bfgs' -e 'bfgs converged';printf '\n' \" \\;|sed 's/\/output.txt//;s/.\///;/^\$/d'"
+# alias c="grep -i 'Begin final coordinates' -A \$(grep nat input.txt | awk '{printf \$3+2}' | sed 's/,//') output.txt"
+# alias cln='find . -name \*.pdb -or -name input_tmp.in -or -name \*.job.\* -or -name trajs -or -name pdbs -or -name stats.txt|xargs rm -r;ls'
+# alias f="tail -f -n 2000"
+# alias grp="xargs grep"
+# alias t="out|xargs time|sed 's/output.txt/          /'"
+
+
+# alias ipython='ipython --colors=Linux'
+# alias outlook='chromium-browser --user-agent="Mozilla/5.0 (Windows NT 6.1; WOW64; rv:15.0) Gecko/20120427 Firefox/15.0a1" --app=http://owa.princeton.edu'
+# alias word='/usr/share/playonlinux/playonlinux --run "Microsoft Word 2010"'
+# alias clean_word='cd /home/sselcuk/.PlayOnLinux/wineprefix/Office2010/drive_c/users/sselcuk/Application\ Data/Microsoft/Word/STARTUP;rm \~*;cd $OLDPWD'
+# alias vesta="/home/sselcuk/software/VESTA-i686/VESTA"
+# alias gdis="/home/sselcuk/software/gdis/gdis"
+# alias gnuplot="rlwrap -a -c -i gnuplot"
+alias irb="rlwrap -a -c -i irb"
+# alias gdb="rlwrap -a -c -i gdb"
+alias pry="rlwrap -a -c -i pry"
+# alias rm='trash-put'
+# alias plot="\gnuplot -p"
+# alias xi="xcrysden --pwi input.txt"
+# alias xo="xcrysden --pwo output.txt"
+# alias tunnel="kill -9 \${\$(sudo netstat -atnp 2>/dev/null|grep '::1:2318'|tr -s ' '|cut -d ' ' -f 7)/\/*/}"

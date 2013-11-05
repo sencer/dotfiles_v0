@@ -1,0 +1,100 @@
+
+#!/bin/bash
+#
+
+filein="output.txt"
+if [ $1 ]
+  then
+    filein=$1
+fi
+fileout="traj.pdb"
+if [ $2 ]
+  then
+    fileout=$2
+fi
+
+awk '
+BEGIN {
+	au=0.529177
+#        au=1.0
+	cell=0
+}
+{
+	#get the cell parameters
+	if ($0 ~ /ibrav/ && cell == 0)
+	{
+		cell = 1
+		if ($3 != 8)
+		{
+			printf "Is only available for ibrav=8\n"
+#			exit
+		}
+		
+		#get rid of the alat line
+		getline a1
+		
+		#get a1
+		getline a1
+		split(a1, tmp)
+		if (tmp[1] ~ /a1/)
+			cell_a = tmp[3] * au
+		else
+			printf "Error getting a1"
+		
+		#get a2
+		getline a1
+		split(a1, tmp)
+		if (tmp[1] ~ /a2/)
+			cell_b = tmp[4] * au
+		else
+			printf "Error getting a2"
+				
+		#get a3
+		getline a1
+		split(a1, tmp)
+		if (tmp[1] ~ /a3/)
+			cell_c = tmp[5] * au
+		else
+			printf "Error getting a3"
+				
+		
+	}
+	
+	#get the number of atoms
+	if (($0 ~ /System geometry initialization/ || $0 ~ /sorted by specie, and converted to real a.u. coordinates/) && natom == 0)
+	{
+		natom = 0
+		isp = 0
+		while (2>1)
+		{
+			getline a1
+			split(a1,tmp)
+			if (tmp[1] ~ /Species/ && tmp[3] ~ /atoms/ && tmp[4] ~ /=/)
+			{
+				isp++
+				nisp[isp] = tmp[5]
+			}
+			if (tmp[1] ~ /Ionic/ && tmp[2] ~ /position/)
+				break
+		}
+		for (i=1; i<=isp; i++)
+			natom = natom + nisp[i]
+	}
+	
+	#now get the atoms
+	if ( $0 ~ /ATOMIC_POSITIONS/ )
+	{
+		printf "CRYST1%9.3f%9.3f%9.3f  90.00  90.00  90.00 P 1           1\n", cell_a, cell_b, cell_c
+		
+		for (i=1; i<=natom; i++)
+		{
+			getline a1
+			split(a1,tmp)
+			printf "ATOM  %5d %3s      X   1    %8.3f%8.3f%8.3f  1.00  0.00          %2s\n", i, tmp[1], tmp[2]*au, 
+tmp[3]*au, tmp[4]*au, tmp[1]
+		}
+		
+		printf "END\n"
+	}
+}' $filein > $fileout
+

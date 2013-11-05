@@ -1,0 +1,48 @@
+#!/bin/bash
+#
+echo -e "[38;5;74mdirectory                              total   per scf iteration   per bfgs iteration";
+i=0
+for a 
+do
+tput sgr0
+rem=$(( $i % 2 ))
+if [ $rem == 1 ]
+then
+echo -en "[38;5;111m";
+fi
+filein="$a"
+awk 'BEGIN {bas=0;sayi=0;sure=0;dongu=0;diger=0;dd=0;son=0}
+{
+  if($1=="total" && $2 =="cpu") 
+    temp=$9
+  if ($1  == "iteration"   &&
+      $3  == "1")                             
+      {
+        bas=temp
+        if(son>bas)
+          son=0
+        diger+=bas-son
+        getline l;
+        do
+        {
+          split(l,tmp)
+          if(tmp[1]=="total" && tmp[2]=="cpu")
+            son=tmp[9]
+          if( tmp[1]== "iteration" && tmp[2] =="#")
+            sayi=tmp[3]
+          if(tmp[1]=="Maximum")
+          {son=bas
+            sayi=0
+            break;}
+            if(getline l==0)
+              break;
+          }
+          while((tmp[1]!="End" && tmp[3]!="self-consistent")) 
+            sure+=son-bas
+          dongu+=sayi
+          dd+=1
+        }
+      } 
+END{printf "%-35s %8d %6d (%6d/%-4d) %6d (%6d/%-4d)\n", FILENAME, sure + diger,  sure/dongu ,sure, dongu,diger/dd,diger,dd}' $filein 2>/dev/null
+let i++
+done
