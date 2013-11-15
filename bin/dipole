@@ -10,7 +10,7 @@ args="$@"
 
 cd $dir
 lines=$(wc -l chden.ave|cut -d ' ' -f1)
-dim="$(sed -n '/!/!s/celldm.*=\s\+\(.*\),/\1/p' ../input.txt)"
+dim="$(sed -n '/!/!s/celldm.*=\s\+\(.*\),\?$/\1/p' ../input.txt)"
 layers="$(awk -vargs="$args" -vd="$dim" -vl=$lines -vslab=$slab 'BEGIN{
   n = split(args, nel)
   split(d, dim) # dim[1..3], cell dimensions
