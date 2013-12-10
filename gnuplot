@@ -4,7 +4,7 @@ set tmargin 0; set bmargin 0; set lmargin 0; set rmargin 0
 WXT = "set terminal wxt enhanced dashed persist lw 2 font 'Arial, 10'"
 PDF = "set terminal pdfcairo enhanced dashed transparent lw 3 font 'Arial, 10';\
        set output"
-PNG = "set terminal pngcairo enhanced dashed transparent lw 3 font 'Arial, 10';\
+PNG = "set terminal pngcairo enhanced dashed transparent lw 2 font 'Arial, 10';\
        set output"
 
 MP = "set multiplot; \
@@ -108,8 +108,8 @@ set style increment user
 set style line 1 lc rgb '#800000' lt 1 pt 6
 set style line 2 lc rgb '#006400' lt 1 pt 6
 set style line 3 lc rgb '#000080' lt 1 pt 6
-set style line 4 lc rgb '#9400d3' lt 1 pt 6
-set style line 5 lc rgb '#ff4500' lt 1 pt 6
+set style line 5 lc rgb '#9400d3' lt 1 pt 6
+set style line 4 lc rgb '#ff4500' lt 1 pt 6
 set style line 6 lc rgb '#ffa500' lt 1 pt 6
 set style line 7 lc rgb '#ff0000' lt 1 pt 6
 set style line 8 lc rgb '#00ff00' lt 1 pt 6
@@ -119,8 +119,8 @@ set style line 10 lc rgb cgri      lt 1 pt 6
 set style line 11 lc rgb '#800000' lt 2 pt 12
 set style line 12 lc rgb '#006400' lt 2 pt 12
 set style line 13 lc rgb '#000080' lt 2 pt 12
-set style line 14 lc rgb '#9400d3' lt 2 pt 12
-set style line 15 lc rgb '#ff4500' lt 2 pt 12
+set style line 15 lc rgb '#9400d3' lt 2 pt 12
+set style line 14 lc rgb '#ff4500' lt 2 pt 12
 set style line 16 lc rgb '#ffa500' lt 2 pt 12
 set style line 17 lc rgb '#ff0000' lt 2 pt 12
 set style line 18 lc rgb '#00ff00' lt 2 pt 12
@@ -130,8 +130,8 @@ set style line 20 lc rgb  cgri      lt 2 pt 12
 set style line 21 lc rgb '#800000' lt 3 pt 4
 set style line 22 lc rgb '#006400' lt 3 pt 4
 set style line 23 lc rgb '#000080' lt 3 pt 4
-set style line 24 lc rgb '#9400d3' lt 3 pt 4
-set style line 25 lc rgb '#ff4500' lt 3 pt 4
+set style line 25 lc rgb '#9400d3' lt 3 pt 4
+set style line 24 lc rgb '#ff4500' lt 3 pt 4
 set style line 26 lc rgb '#ffa500' lt 3 pt 4
 set style line 27 lc rgb '#ff0000' lt 3 pt 4
 set style line 28 lc rgb '#00ff00' lt 3 pt 4
@@ -141,8 +141,8 @@ set style line 30 lc rgb  cgri      lt 3 pt 4
 set style line 31 lc rgb '#800000' lt 0 pt 1
 set style line 32 lc rgb '#006400' lt 0 pt 1
 set style line 33 lc rgb '#000080' lt 0 pt 1
-set style line 34 lc rgb '#9400d3' lt 0 pt 1
-set style line 35 lc rgb '#ff4500' lt 0 pt 1
+set style line 35 lc rgb '#9400d3' lt 0 pt 1
+set style line 34 lc rgb '#ff4500' lt 0 pt 1
 set style line 36 lc rgb '#ffa500' lt 0 pt 1
 set style line 37 lc rgb '#ff0000' lt 0 pt 1
 set style line 38 lc rgb '#00ff00' lt 0 pt 1
@@ -166,5 +166,5 @@ set style arrow 2 nohead ls 10 lw 0.5 front
 set style arrow 3 heads size scr 0.01, 15, 45 filled ls 9 lw 0.5 front
 set style arrow 4 heads size scr 0.01, 15, 45 filled ls 10 lw 0.5 front
 set style textbox opaque noborder
-set pointintervalbox 3
+set pointintervalbox 2
 set pointsize 0.4
