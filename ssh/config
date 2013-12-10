@@ -2,6 +2,8 @@ Host tigress
 	Hostname tigressdata.princeton.edu
 Host della
 	Hostname della.princeton.edu
+Host tiger
+	Hostname tiger2.princeton.edu
 Host edison
 	Hostname edison.nersc.gov
 Host hopper
