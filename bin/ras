@@ -1,28 +1,46 @@
 #!/bin/bash
+# set -x
 
-escape(){
-  arg="$@"
-  #why not in general?
-  # ?arg="${arg/\*/\\*}"
-  for i in \( \) \;;do  # \; makes find work, messes with for
-    arg="${arg//$i/\\$i}"
-  done
-  echo "$arg"
-}
+type=1
+ras_opt=0
 
-command=`basename $0`
-args="$(escape "$@")"
-
-
-if [[ $SERVER == "" ]];then
-  # echo "Trying to run locally..." >&2
-  eval "\\$command"  #2>/dev/null ||
-    #echo -e "$(tput cuu1)`basename $command` not found in PATH.    "
-else
-  if tmp=`grep "^$SERVER" $PBS_SERVER_FILE`; then
-    read -a settings <<< $tmp
-    folder=${settings[3]}
+while [[ $# > 0 ]];do
+  if [[ $ras_opt == 0 ]]; then
+    if [[ $1 == "-fs" ]]; then
+      shift
+    elif [[ $1 == "-pbs" ]]; then
+      type=2
+      shift
+    elif [[ $1 == "-s" ]]; then
+      shift
+      server=$1
+      shift
+    elif [[ $1 == -o ]]; then
+      shift
+      o="${o} -o ${1}"
+      shift
+    elif [[ $1 == -?* ]]; then
+      o="${o} ${1}"
+      shift
+    else
+      ras_opt=1
+      arg=$1
+      shift
+    fi
+  else
+    arg="${arg} $(echo $1| sed 's/\([(); \\]\)/\\\1/g')"
+    shift
   fi
-  ssh -q$o $SERVER "cd $folder${PWD#$HOME/$SERVER}; ${command}"
+done
+if tmp=`grep "^${server:=$SERVER} " $PBS_SERVER_FILE`; then
+  read -a settings <<< $tmp
+  real_server=${settings[$type]}
+  folder=${settings[3]}
+  if [[ $SERVER == "" ]]; then
+    ssh -q${o} ${real_server} "${arg}"
+  else
+    ssh -q${o} ${real_server} "cd ${folder}${PWD#$HOME/$SERVER}; ${arg}"
+  fi
+else
+  eval "\\${arg}"
 fi
-
