@@ -8,3 +8,5 @@ ssh/id*
 *.zwc
 *.zwc.old
 zprezto/modules/*/cache.zsh
+settings/.dirs
+settings/.namaz
