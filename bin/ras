@@ -3,6 +3,15 @@
 
 type=1
 ras_opt=0
+if [[ $# == 0 ]]; then
+  echo "-d      output the command, not execute"
+  echo "-fs     use filesystem server from server settings"
+  echo "-pbs    use computation server from server settings"
+  echo "-o Opt  pass options to ssh command"
+  echo "        All other switches [-.*] before the actual command will"
+  echo "        also be passed to ssh command"
+  echo "-s      specify servername manually"
+fi
 
 while [[ $# > 0 ]];do
   if [[ $ras_opt == 0 ]]; then
@@ -10,6 +19,9 @@ while [[ $# > 0 ]];do
       shift
     elif [[ $1 == "-pbs" ]]; then
       type=2
+      shift
+    elif [[ $1 == "-d" ]]; then
+      debug=1
       shift
     elif [[ $1 == "-s" ]]; then
       shift
@@ -24,11 +36,11 @@ while [[ $# > 0 ]];do
       shift
     else
       ras_opt=1
-      arg=$1
+      cmd=$1
       shift
     fi
   else
-    arg="${arg} $(echo $1| sed 's/\([(); \\]\)/\\\1/g')"
+    arg="${arg}"$(echo $1| sed "/ /s/\(.*\)/'\1'/;s/\([();\\]\)/\\\\\1/g")" "
     shift
   fi
 done
@@ -37,10 +49,26 @@ if tmp=`grep "^${server:=$SERVER} " $PBS_SERVER_FILE`; then
   real_server=${settings[$type]}
   folder=${settings[3]}
   if [[ $SERVER == "" ]]; then
-    ssh -q${o} ${real_server} "${arg}"
+    if [[ $debug == 1 ]]; then
+      echo "ssh -q${o} ${real_server} \"${cmd} ${arg}\""
+    else
+      ssh -q${o} ${real_server} "${cmd} ${arg}"
+    fi
   else
-    ssh -q${o} ${real_server} "cd ${folder}${PWD#$HOME/$SERVER}; ${arg}"
+    if [[ $debug == 1 ]]; then
+      echo "ssh -q${o} ${real_server} \"cd ${folder}${PWD#$HOME/$SERVER}; ${cmd} ${arg}\""
+    else
+      ssh -q${o} ${real_server} "cd ${folder}${PWD#$HOME/$SERVER} 2>/dev/null; ${cmd} ${arg}"
+    fi
   fi
 else
-  eval "\\${arg}"
+  if [[ $debug == 1 ]]; then
+    echo "${cmd} ${arg}"
+  else
+    if type ${cmd} &>/dev/null; then
+      eval "\\${cmd} \\${arg}"
+    else
+      echo "Command ${cmd} not found locally."
+    fi
+  fi
 fi
