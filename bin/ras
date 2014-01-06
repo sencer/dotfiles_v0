@@ -40,7 +40,7 @@ while [[ $# > 0 ]];do
       shift
     fi
   else
-    arg="${arg}"$(echo $1| sed "/ /s/\(.*\)/'\1'/;s/\([();\\]\)/\\\\\1/g")" "
+    arg="${arg}'${1}' " #echo $1|sed "/ /s/\(.*\)/'\1'/;s/\([();\\]\)/\\\\\1/g")" "
     shift
   fi
 done
@@ -66,7 +66,7 @@ else
     echo "${cmd} ${arg}"
   else
     if type ${cmd} &>/dev/null; then
-      eval "\\${cmd} \\${arg}"
+      eval "\\${cmd} ${arg}"
     else
       echo "Command ${cmd} not found locally."
     fi
