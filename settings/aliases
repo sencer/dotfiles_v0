@@ -2,14 +2,18 @@ alias -g zshrc="~/.zshrc"
 # alias -g vimrc="~/.vimrc"
 alias -g aliases="~/.settings/aliases"
 
+alias x='unarchive'
+alias bc='bc -lq'
 alias la='ls -AF'
 alias cp='nocorrect cp -ivdRp'
-alias bc='bc -lq'
+alias rcp='nocorrect ras cp -ivdRp'
 alias mv='nocorrect mv -iv'
+alias rmv='nocorrect ras mv -iv'
 alias sudo="nocorrect sudo"
 alias less="less -R"
 alias mkdir='nocorrect mkdir -p'
-alias ph='run_at_server -s tigressdata ph'
+alias sed='sed -r'
+alias grep='grep -P'
 alias tmuxe='exec tmux'
 
 alias v="gvim"
@@ -21,18 +25,21 @@ alias xi="xcrysden --pwi input.txt|less -E"
 alias xo="xcrysden --pwo output.txt|less -E"
 alias open="xdg-open"
 
+alias xgrep="xargs grep"
+alias xsed="xargs sed"
+
 alias f="tail -F -n 2000"
 
-# alias find="noglob $HOME/bin/find"
-alias in="run_at_server 'find . -name input.txt'"
-alias job="run_at_server 'find . -name *.job'"
-alias out="run_at_server 'find . -name output.txt'"
-alias find="noglob run_at_server find"
-alias watch="run_at_server -t watch"
+alias ph='ras -s tigressdata ph'
+alias in="ras 'find . -name input.txt'"
+alias job="ras 'find . -name *.job'"
+alias out="ras 'find . -name output.txt'"
+alias find="noglob ras find"
+alias watch="ras -t watch"
 alias rejob="zmv -Q '(**/)*.job' '\$1\${\${1%/}//\//-}.job'"
 alias pwgui="$HOME/arsiv/software/PWgui-5.0.2/pwgui"
 
-alias e="out|xargs awk 'BEGIN{l=1}/Final energy/{if(l%2){printf \"\\033[38;5;111m\"} l=l+1; printf \"%-50s %18f\\033[0m\\n\", gensub(\"./\",\"\",\"\",gensub(\"/output.txt\",\"\",\"\",FILENAME)), \$4*13.606}'"
+alias e="out|xargs awk 'BEGIN{l=1}/Final energy/{if(l%2){printf \"\\033[38;5;111m\"} l=l+1; printf \"%-50s %18f\\033[0m\\n\", gensub(\"./\",\"\",\"\",gensub(\"/output.txt\",\"\",\"\",FILENAME)), \$4*13.605691930242388}'"
 alias arm='\rm -rf input_tmp.in *.job.* cp_* cp.* output.txt CRASH *.pdb *.cube pw* 2>/dev/null;ls'
 # alias b="find . -name output.txt -exec sh -c \"printf '%-50s' {};tac {}|grep -i -m1 -e 'number of bfgs' -e 'bfgs converged';printf '\n' \" \\;|sed 's/\/output.txt//;s/.\///;/^\$/d'"
 # alias c="grep -i 'Begin final coordinates' -A \$(grep nat input.txt | awk '{printf \$3+2}' | sed 's/,//') output.txt"
@@ -53,7 +60,7 @@ alias irb="rlwrap -a -c -i irb"
 # alias gdb="rlwrap -a -c -i gdb"
 alias pry="rlwrap -a -c -i pry"
 # alias rm='trash-put'
-# alias plot="\gnuplot -p"
+alias plot="gnuplot -p"
 # alias xi="xcrysden --pwi input.txt"
 # alias xo="xcrysden --pwo output.txt"
 # alias tunnel="kill -9 \${\$(sudo netstat -atnp 2>/dev/null|grep '::1:2318'|tr -s ' '|cut -d ' ' -f 7)/\/*/}"
