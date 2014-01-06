@@ -21,6 +21,7 @@ Bundle 'chrisbra/color_highlight'
 Bundle 'edsono/vim-matchit'
 " Bundle 'grncdr/camelcasemotion'
 Bundle 'salsifis/vim-transpose'
+Bundle 'sk1418/HowMuch'
 Bundle 'godlygeek/tabular'
 Bundle 'honza/vim-snippets'
 Bundle 'jiangmiao/auto-pairs'
@@ -97,6 +98,13 @@ let g:UltiSnips = {
       \ 'always_use_first_snippet': 1
       \ }
 
+
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_switch_buffer = 'Et'
+let g:AutoPairsShortcutToggle = ''
+
+let g:HowMuch_auto_engines = ['py']
+
 set nu rnu nowrap list ls=2  "showmode pastetoggle=<F2>
 set nrformats-=octal showmatch autoread
 set backspace=indent,eol,start ww+=<,>,[,],~
@@ -112,9 +120,6 @@ set autochdir scrolloff=3 siso=8 showcmd hidden formatoptions+=j nojoinspaces
 set clipboard=unnamedplus,autoselect,exclude:cons\|linux
 set t_ut=  mouse=a " tmux fixes
 let &colorcolumn="".join(range(81,999),",")
-let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_switch_buffer = 'Et'
-let g:AutoPairsShortcutToggle = ''
 
 call yankstack#setup()
 noremap <silent> <C-Z>  :GundoToggle<CR>
