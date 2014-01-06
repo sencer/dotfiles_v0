@@ -1,2 +1,2 @@
 #!/bin/bash
-run_at_server -o t -pbs '~/bin/pbstop' $@
+ras -t -pbs '~/bin/pbstop' $@

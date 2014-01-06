@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [[ $# -gt 0 ]];then
-  run_at_server -s $1 '~/bin/q'
+  ras -s $1 '~/bin/q'
 else
-  run_at_server -pbs '~/bin/q'
+  ras -pbs '~/bin/q'
 fi

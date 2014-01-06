@@ -1,2 +1,2 @@
 #!/bin/bash
-run_at_server -pbs '~/bin/qdel' $@
+ras -pbs '~/bin/qdel' $@

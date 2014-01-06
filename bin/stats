@@ -1,2 +1,2 @@
 #!/bin/bash
-run_at_server '~/bin/stats'
+ras '~/bin/stats'

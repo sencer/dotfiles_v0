@@ -4,4 +4,4 @@ if  [[ $# = 0 ]];then
 else
   jobs="$@"
 fi
-run_at_server -pbs '~/bin/qsub' $jobs
+ras -pbs '~/bin/qsub' $jobs

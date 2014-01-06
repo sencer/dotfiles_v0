@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-run_at_server -pbs '~/bin/projw'
+ras -pbs '~/bin/projw'
