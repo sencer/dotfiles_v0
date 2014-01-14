@@ -1,5 +1,5 @@
 #!/usr/bin/env bash 
-jobId=$(qstat -u `whoami`|awk -vjob=$1 '$4==job".job"{print gensub("\\..*","","",$1)}')
+jobId=$(qstat -u `whoami`|awk -vjob=$1 '$4 ~ job {print gensub("\\..*","","",$1)}')
 if [[ $jobId != "" ]]; then
   jobFolder=$(qstat -f $jobId|grep "Output_Path"|sed 's/[^/]*\(\/.*\/\).*/\1/')
   if [[ jobFolder == "" ]]; then
