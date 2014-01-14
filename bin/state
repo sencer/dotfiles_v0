@@ -32,10 +32,11 @@ function parse(){
     if($0 ~ /PBS Job Id/) {
       split($4, job, "[-.]")
     } else if($0 ~ /Job Name/) {
-      split($3, name, ".")
+      sub(".[^.]+$", "", $3)
+      name = $3
     }
   } END {
-    printf "%-10s %-10s %s\n", job[2], job[1], name[1]
+    printf "%-7s %8s %s\n", job[2], job[1], name
   }' $1
 }
 
@@ -43,7 +44,7 @@ function log(){
   files=$(unread)
   if [[ ! -z $files ]]; then
     date
-    for i in $(unread); do
+    for i in $files; do
       parse $i
     done
   else
