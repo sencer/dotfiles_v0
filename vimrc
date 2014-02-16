@@ -162,5 +162,3 @@ map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans
 au BufRead,BufNewFile input*txt set commentstring=\!\ %s
 au InsertEnter * set norelativenumber
 au InsertLeave * set relativenumber
-au FileType ruby let g:rubycomplete_buffer_loading=1
-au FileType ruby let g:rubycomplete_classes_in_global=1
