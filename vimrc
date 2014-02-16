@@ -147,7 +147,6 @@ noremap <C-l> <C-W>l
 noremap j gj
 noremap k gk
 nmap Y y$
-nnoremap g/ //e<CR>v??<CR>
 nnoremap <silent> cog :GitGutterToggle<CR>
 nnoremap <silent> coe :ColorToggle<CR>
 nnoremap <silent> <Leader>w :w!<CR>
