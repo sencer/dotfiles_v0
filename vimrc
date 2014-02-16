@@ -162,6 +162,9 @@ vnoremap < <gv
 vmap <A-=> di<C-R>=<C-R>"<CR>
 imap <A-=> <ESC>hdiWa<C-R>=<C-R>"<CR>
 inoremap <C-U> <C-G>u<C-U>
+nnoremap <silent> gl ?\W<CR>l:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o>/\w\+\_W\+<CR>:noh<CR>
+"call histdel("search", -2)<CR>
+nnoremap <silent> gh ?\W\+<CR>nW:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o>:noh<CR>
 map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
