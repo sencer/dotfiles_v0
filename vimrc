@@ -21,6 +21,7 @@ Bundle 'airblade/vim-gitgutter'
 Bundle 'chrisbra/color_highlight'
 Bundle 'edsono/vim-matchit'
 " Bundle 'grncdr/camelcasemotion'
+Bundle 'LaTeX-Box-Team/LaTeX-Box'
 Bundle 'salsifis/vim-transpose'
 Bundle 'sk1418/HowMuch'
 Bundle 'godlygeek/tabular'
@@ -106,6 +107,11 @@ let g:AutoPairsShortcutToggle = ''
 
 let g:HowMuch_auto_engines = ['py']
 
+let g:LatexBox_Folding = 1
+let g:LatexBox_viewer = "$HOME/bin/evince"
+let g:LatexBox_latexmk_async = 1
+let g:LatexBox_latexmk_preview_continuously = 1
+let g:LatexBox_quickfix = 2
 set nu rnu nowrap list ls=2  "showmode pastetoggle=<F2>
 set nrformats-=octal showmatch autoread
 set backspace=indent,eol,start ww+=<,>,[,],~
