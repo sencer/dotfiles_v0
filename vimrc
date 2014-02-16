@@ -31,6 +31,7 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'kshenoy/vim-signature'
 " Bundle 'Lokaltog/vim-powerline'
 Bundle 'bling/vim-airline'
+Bundle 'bling/vim-bufferline'
 Bundle 'MarcWeber/ultisnips'
 Bundle 'maxbrunsfeld/vim-yankstack'
 Bundle 'scrooloose/nerdtree'
@@ -87,6 +88,7 @@ if has('gui_running')
   let g:nerdtree_tabs_open_on_gui_startup=0
 endif
 
+let g:bufferline_echo = 0
 let g:airline_theme='bubblegum'
 let g:airline_left_sep = '▶'
 let g:airline_right_sep = '◀'
