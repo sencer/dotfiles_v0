@@ -149,7 +149,7 @@ noremap k gk
 nmap Y y$
 nnoremap <silent> cog :GitGutterToggle<CR>
 nnoremap <silent> coe :ColorToggle<CR>
-nnoremap <silent> <Leader>w :w!<CR>
+nnoremap <silent> <Leader>w :up!<CR>
 nnoremap <A-=> <C-W>>
 nnoremap <A--> <C-W><
 nnoremap <silent> <C-L> :nohlsearch<CR><C-L>
