@@ -33,7 +33,6 @@ Bundle 'kshenoy/vim-signature'
 Bundle 'bling/vim-airline'
 Bundle 'bling/vim-bufferline'
 Bundle 'MarcWeber/ultisnips'
-Bundle 'maxbrunsfeld/vim-yankstack'
 Bundle 'scrooloose/nerdtree'
 Bundle 'sencer/AutoComplPop'
 "Bundle 'Valloric/YouCompleteMe'
@@ -135,7 +134,6 @@ set clipboard=unnamedplus,autoselect,exclude:cons\|linux
 set t_ut=  mouse=a " tmux fixes
 let &colorcolumn="".join(range(81,999),",")
 
-call yankstack#setup()
 noremap <silent> <C-Z>  :GundoToggle<CR>
 noremap <silent> <F2> :set invpaste<CR>
 noremap <silent> <A-o> :NERDTreeMirrorToggle<CR>
