@@ -16,7 +16,6 @@ alias sed='sed -r'
 alias grep='grep -P'
 alias tmuxe='exec tmux'
 
-alias v="gvim"
 alias vi="vim -X"
 alias vv="v input.txt"
 alias vj="v *.job"
