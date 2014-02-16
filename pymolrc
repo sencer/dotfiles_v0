@@ -1,0 +1,10 @@
+import sys, os #, readline, rlcompleter
+sys.path.append(os.path.expanduser('~/.pymol'))
+# import plugins
+import spectrumany
+
+set connect_cutoff, 0.9
+set sphere_scale, 0.3
+set stick_radius, 0.15
+set auto_show_spheres, true
+set ortho, true
