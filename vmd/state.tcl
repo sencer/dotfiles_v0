@@ -39,6 +39,7 @@ user add key W {
   set fildes [open view.vmd w]
 
   puts $fildes "display resize [display get size]"
+
   if {[display get depthcue] == "on"} {
     puts $fildes "display depthcue on"
     puts $fildes "display cuestart [display get cuestart]"
@@ -46,6 +47,12 @@ user add key W {
     puts $fildes "display cuedensity [display get cuedensity]"
     puts $fildes "display cuemode [display get cuemode]"
   }
+  foreach i [material list] {
+    foreach j [material settings $i] k {ambient specular diffuse shininess opacity outline outlinewidth transmode} { 
+      puts $fildes "material change $k $i $j"
+    }
+  }
+
   foreach mol [molinfo list] {
     puts $fildes "if {[lsearch [molinfo list] $mol] >= 0} {"
     # delete all representations
