@@ -113,7 +113,7 @@ let g:LatexBox_latexmk_preview_continuously = 1
 let g:LatexBox_quickfix = 2
 set nu rnu nowrap list ls=2  "showmode pastetoggle=<F2>
 set nrformats-=octal showmatch autoread
-set backspace=indent,eol,start ww+=<,>,[,],~
+set backspace=indent,eol,start ww+=<,>,[,],~,h,l
 set smartindent autoindent copyindent
 set smarttab tabstop=2 shiftwidth=2 shiftround expandtab
 set incsearch hlsearch ignorecase smartcase gdefault
