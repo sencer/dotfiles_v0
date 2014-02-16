@@ -1,3 +1,4 @@
+# vim: ft=zsh
 mkg() {
   mkdir $1 && cd $1
 }
