@@ -21,19 +21,19 @@ if !has("gui_running")
 "                           rename tmux window                            "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-  if $TMUX != "" 
+  if $TMUX != ""
     function! Tmux(which)
       if !exists("g:tmux")
         let g:tmux = system("tmux display-message -p '#W'")
       endif
-      if a:which == 0 
+      if a:which == 0
         call system("tmux rename-window " . expand("%:t"))
       else
         call system("tmux rename-window " . g:tmux)
       endif
-    endfunction 
-    au BufNewFile,BufReadPost,FileReadPost,BufEnter * call Tmux(0) 
-    au VimLeave * call Tmux(1) 
+    endfunction
+    au BufNewFile,BufReadPost,FileReadPost,BufEnter * call Tmux(0)
+    au VimLeave * call Tmux(1)
   endif
 endif
 
