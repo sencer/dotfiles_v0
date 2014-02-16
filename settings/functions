@@ -87,3 +87,26 @@ ssh(){
     command ssh "$@"
   fi
 }
+
+v(){
+  local a=0
+  local arg
+  local vimserver
+  arg=$*
+  while [[ $# -gt 0 && a -eq 0 ]]; do
+    if [[ -f $1 ]]; then
+      vimserver=${${(U)$(basename $1)#.}%.*}
+      a=1
+    fi
+    shift
+  done
+  if [[ ! -z $vimserver ]]; then
+    if vim --serverlist|grep $vimserver; then
+      gvim --servername $vimserver --remote-silent $arg
+    else
+      gvim --servername $vimserver $arg
+    fi
+  else
+    eval "gvim $arg"
+  fi
+}
