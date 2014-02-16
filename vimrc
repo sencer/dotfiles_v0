@@ -28,7 +28,8 @@ Bundle 'jiangmiao/auto-pairs'
 Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'kien/ctrlp.vim'
 Bundle 'kshenoy/vim-signature'
-Bundle 'Lokaltog/vim-powerline'
+" Bundle 'Lokaltog/vim-powerline'
+Bundle 'bling/vim-airline'
 Bundle 'MarcWeber/ultisnips'
 Bundle 'maxbrunsfeld/vim-yankstack'
 Bundle 'scrooloose/nerdtree'
@@ -79,14 +80,14 @@ if has('gui_running')
   " let g:Powerline_colorscheme = 'solarized16'
 endif
 
-let g:Powerline_symbols='unicode'
-let g:Powerline_mode_n=' N '
-let g:Powerline_mode_i=' I '
-let g:Powerline_mode_R=' R '
-let g:Powerline_mode_v=' V '
-let g:Powerline_mode_V=' V⋅L '
-let g:Powerline_mode_cv=' V⋅B '
-let g:Powerline_stl_path_style = 'short'
+let g:airline_theme='bubblegum'
+let g:airline_left_sep = '▶'
+let g:airline_right_sep = '◀'
+let g:airline_symbols = { 'linenr'     : '¶', 'branch'     : '⎇',
+                        \ 'paste'      : 'ρ', 'whitespace' : 'Ξ' }
+let g:airline_mode_map = { '__' : '-', 'n'  : 'N', 'i'  : 'I', 'R'  : 'R',
+                         \ 'c'  : 'C', 'v'  : 'V', 'V'  : 'VL', '' : 'VB' }
+let g:airline#extensions#tagbar#flags = 'f'
 
 let g:UltiSnips = {
       \ 'ExpandTrigger' : "<Tab>",
