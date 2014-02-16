@@ -20,6 +20,6 @@ bindkey "[6~" history-substring-search-down
 bindkey -s "[1;6D" "pushd +1\C-m"
 bindkey -s "[1;6C" "pushd -0\C-m"
 #bindkey -s "\ew" "\C-k\C-ahistory 0| grep '\\\s\\\+\C-e\\\s\\\+'\C-m"
-bindkey -s "\ew" " \eD0ihistory 0 | grep '\\\s\\\+'\C-m"
+bindkey -s "\ew" " \eD0ihistory 0 | grep '\\\s*'\C-m"
 #bindkey -s "\ew" " \eD0ihistory 0 | grep '\\\s\\\+\eA\\\s\\\+'\C-m"
 bindkey -s '\el' "ls\n"
