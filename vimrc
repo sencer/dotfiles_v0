@@ -26,7 +26,6 @@ Bundle 'salsifis/vim-transpose'
 Bundle 'sk1418/HowMuch'
 Bundle 'godlygeek/tabular'
 Bundle 'honza/vim-snippets'
-Bundle 'jiangmiao/auto-pairs'
 Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'kien/ctrlp.vim'
 Bundle 'kshenoy/vim-signature'
@@ -49,6 +48,7 @@ Bundle 'tpope/vim-fugitive'
 " Bundle 'vim-scripts/SearchComplete'
 Bundle 'vim-scripts/VIM-Color-Picker'
 Bundle 'vis'
+Bundle 'kana/vim-smartinput'
 
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'tpope/vim-rails'
@@ -103,7 +103,6 @@ let g:UltiSnips = {
 
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_switch_buffer = 'Et'
-let g:AutoPairsShortcutToggle = ''
 
 let g:HowMuch_auto_engines = ['py']
 
