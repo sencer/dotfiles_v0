@@ -33,7 +33,7 @@ Bundle 'bling/vim-bufferline'
 Bundle 'MarcWeber/ultisnips'
 Bundle 'scrooloose/nerdtree'
 Bundle 'sencer/AutoComplPop'
-"Bundle 'Valloric/YouCompleteMe'
+" Bundle 'Valloric/YouCompleteMe'
 Bundle 'sencer/normal.vim'
 Bundle 'sjl/gundo.vim'
 Bundle 'tomtom/tlib_vim'
@@ -55,7 +55,6 @@ Bundle 'kana/vim-textobj-indent'
 Bundle 'kana/vim-textobj-syntax'
 Bundle 'b4winckler/vim-angry'
 Bundle 'nelstrom/vim-textobj-rubyblock'
-
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'tpope/vim-rails'
 Bundle 'majutsushi/tagbar'
@@ -75,7 +74,6 @@ let g:syntastic_check_on_wq = 0
 
 filetype plugin indent on
 syntax on
-
 colorscheme railscasts
 " hi ColorColumn ctermbg=235 guibg=#2c2d27 " fix for wombat theme
 if has('gui_running')
@@ -164,8 +162,8 @@ nnoremap <silent> gl ?\W<CR>l:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o>/\w
 "call histdel("search", -2)<CR>
 nnoremap <silent> gh ?\W\+<CR>nW:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o>:noh<CR>
 map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+      \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+      \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
 au BufRead,BufNewFile input*txt set commentstring=\!\ %s
 au InsertEnter * set norelativenumber
