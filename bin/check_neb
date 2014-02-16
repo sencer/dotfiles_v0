@@ -7,7 +7,7 @@ class Atom
     @e = args[0].shift
     @pos = args[0]
   end
-  def to_s 
+  def to_s
     "%-5s %14.10f %14.10f %14.10f" % ([@e]+ @pos)
   end
   def dist other
@@ -33,11 +33,11 @@ File.open 'input.txt' do |f|
   $cell << f.ff(/celldm/).readline.scan(/\d+\.\d+/)[0].to_f*$cell[0]
   $cell << f.ff(/celldm/).readline.scan(/\d+\.\d+/)[0].to_f*$cell[0]
   f.ff(/atomic_positions/i).readline
-  nat.times do 
+  nat.times do
     list1 << Atom.new(f.readline.chomp.split.map{|v| Float(v) rescue v})
   end
   f.ff(/atomic_positions/i).readline
-  nat.times do 
+  nat.times do
     list2 << Atom.new(f.readline.chomp.split.map{|v| Float(v) rescue v})
   end
 end
