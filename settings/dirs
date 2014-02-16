@@ -11,7 +11,7 @@ save (){
 }
 
 del(){
-  sed -i "/^_\?${@//-/__}=/d" ~/.settings/.dirs;
+  \sed -i "/^_\?${@//-/__}=/d" ~/.settings/.dirs;
   unset {,_}${@//-/__}
 }
 source ~/.settings/.dirs  # Initialization for the above 'save' facility: source the ..settings/.dirs file
