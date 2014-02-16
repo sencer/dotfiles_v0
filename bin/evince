@@ -1,0 +1,21 @@
+#!/bin/sh
+EDITORCMD="gvim --servername '`basename "$1" .pdf`' --remote-silent '+%l<Enter>zR' %f"
+# Highlight matched column
+# EDITORCMD="gvim --servername '`basename "$1" .pdf`' --remote-silent '+%l<Enter>zR:/\%%ll/' %f"
+
+
+PDFFILE="$1"
+if [ -f "$PDFFILE" ];then
+	if [ -f "${PDFFILE%%.pdf}.synctex.gz" ];then
+		nohup &>/dev/null evince_backward_search "$PDFFILE" "$EDITORCMD"&
+		BACKWARD_SEARCH_PID=$!
+		# echo $BACKWARD_SEARCH_PID
+	fi
+fi
+
+/usr/bin/evince "$@"
+
+if [ "$BACKWARD_SEARCH_PID" ];then
+	# echo "Killing $BACKWARD_SEARCH_PID"
+	kill $BACKWARD_SEARCH_PID
+fi
