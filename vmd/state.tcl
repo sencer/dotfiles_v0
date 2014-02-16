@@ -39,6 +39,13 @@ user add key W {
   set fildes [open view.vmd w]
 
   puts $fildes "display resize [display get size]"
+  if {[display get depthcue] == "on"} {
+    puts $fildes "display depthcue on"
+    puts $fildes "display cuestart [display get cuestart]"
+    puts $fildes "display cueend [display get cueend]"
+    puts $fildes "display cuedensity [display get cuedensity]"
+    puts $fildes "display cuemode [display get cuemode]"
+  }
   foreach mol [molinfo list] {
     puts $fildes "if {[lsearch [molinfo list] $mol] >= 0} {"
     # delete all representations
