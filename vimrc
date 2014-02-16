@@ -20,7 +20,6 @@ Bundle 'chriskempson/base16-vim'
 Bundle 'mhinz/vim-signify'
 Bundle 'chrisbra/color_highlight'
 Bundle 'edsono/vim-matchit'
-" Bundle 'grncdr/camelcasemotion'
 Bundle 'LaTeX-Box-Team/LaTeX-Box'
 Bundle 'salsifis/vim-transpose'
 Bundle 'sk1418/HowMuch'
@@ -29,7 +28,6 @@ Bundle 'honza/vim-snippets'
 Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'kien/ctrlp.vim'
 Bundle 'kshenoy/vim-signature'
-" Bundle 'Lokaltog/vim-powerline'
 Bundle 'bling/vim-airline'
 Bundle 'bling/vim-bufferline'
 Bundle 'MarcWeber/ultisnips'
@@ -81,8 +79,6 @@ syntax on
 colorscheme railscasts
 " hi ColorColumn ctermbg=235 guibg=#2c2d27 " fix for wombat theme
 if has('gui_running')
-  " colorscheme solarized
-  " set background=dark
   set guifont=Dejavu\ Sans\ Mono\ 11
   let g:nerdtree_tabs_open_on_gui_startup=0
 endif
