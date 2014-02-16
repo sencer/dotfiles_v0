@@ -9,9 +9,10 @@ call vundle#rc()
 "                              Load Bundles                               "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 Bundle 'gmarik/vundle'
-Bundle 'altercation/vim-colors-solarized'
 Bundle 'sencer/vim-colors-github'
 Bundle 'jpo/vim-railscasts-theme'
+Bundle 'chriskempson/base16-vim'
+" Bundle 'altercation/vim-colors-solarized'
 " Bundle 'Lokaltog/vim-distinguished'
 " Bundle 'morhetz/gruvbox'
 " Bundle 'tomasr/molokai'
@@ -77,7 +78,6 @@ if has('gui_running')
   " set background=dark
   set guifont=Dejavu\ Sans\ Mono\ 11
   let g:nerdtree_tabs_open_on_gui_startup=0
-  " let g:Powerline_colorscheme = 'solarized16'
 endif
 
 let g:airline_theme='bubblegum'
