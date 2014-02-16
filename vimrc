@@ -114,6 +114,8 @@ let g:LatexBox_viewer = "$HOME/bin/evince"
 let g:LatexBox_latexmk_async = 1
 let g:LatexBox_latexmk_preview_continuously = 1
 let g:LatexBox_quickfix = 2
+
+set modeline
 set nu rnu nowrap list ls=2  "showmode pastetoggle=<F2>
 set nrformats-=octal showmatch autoread
 set backspace=indent,eol,start ww+=<,>,[,],~,h,l
