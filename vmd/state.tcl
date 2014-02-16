@@ -38,6 +38,7 @@ user add key W {
 
   set fildes [open view.vmd w]
 
+  puts $fildes "display resize [display get size]"
   foreach mol [molinfo list] {
     puts $fildes "if {[lsearch [molinfo list] $mol] >= 0} {"
     # delete all representations
