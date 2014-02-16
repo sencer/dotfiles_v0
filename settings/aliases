@@ -28,6 +28,7 @@ alias xgrep="xargs grep"
 alias xsed="xargs sed"
 
 alias f="tail -F -n 2000"
+alias fo="tail -F -n 2000 output.txt"
 
 alias ph='ras -s tigressdata ph'
 alias in="ras 'find . -name input.txt'"
