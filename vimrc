@@ -93,6 +93,8 @@ let g:airline_mode_map = { '__' : '-', 'n'  : 'N', 'i'  : 'I', 'R'  : 'R',
                          \ 'c'  : 'C', 'v'  : 'V', 'V'  : 'VL', '' : 'VB' }
 let g:airline#extensions#tagbar#flags = 'f'
 
+let g:signify_vcs_list = [ 'git' ]
+
 let g:UltiSnips = {
       \ 'ExpandTrigger' : "<Tab>",
       \ 'JumpForwardTrigger' : "<Tab>",
