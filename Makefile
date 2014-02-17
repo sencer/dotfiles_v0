@@ -1,4 +1,4 @@
-all: $(filter-out Makefile, $(wildcard *)) 
+all: $(filter-out Makefile, $(wildcard *))
 	for i in $^; do \
 		ln -s $(shell pwd)/$$i ${HOME}/.$$i; \
 	done; \
