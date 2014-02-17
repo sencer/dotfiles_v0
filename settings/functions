@@ -102,9 +102,9 @@ v(){
   done
   if [[ ! -z $vimserver ]]; then
     if vim --serverlist|grep $vimserver; then
-      gvim --servername $vimserver --remote-silent $arg
+      eval "gvim --servername $vimserver --remote-silent $arg"
     else
-      gvim --servername $vimserver $arg
+      eval "gvim --servername $vimserver $arg"
     fi
   else
     eval "gvim $arg"
