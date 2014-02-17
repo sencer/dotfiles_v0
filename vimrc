@@ -48,6 +48,7 @@ Bundle 'vim-scripts/VIM-Color-Picker'
 Bundle 'vis'
 Bundle 'vim-scripts/ReplaceWithRegister'
 Bundle 'kana/vim-niceblock'
+Bundle 'kana/vim-arpeggio'
 Bundle 'jiangmiao/auto-pairs'
 Bundle 'kana/vim-textobj-user'
 Bundle 'kana/vim-textobj-underscore'
@@ -135,6 +136,11 @@ set autochdir scrolloff=3 siso=8 showcmd hidden formatoptions+=j nojoinspaces
 set clipboard=unnamedplus,autoselect,exclude:cons\|linux
 set t_ut=  mouse=a " tmux fixes
 let &colorcolumn="".join(range(81,999),",")
+
+call arpeggio#load()
+Arpeggio inoremap jk <ESC>
+Arpeggio imap -= <ESC>hdiWa<C-R>=<C-R>"<CR>
+Arpeggio vmap -= di<C-R>=<C-R>"<CR>
 
 noremap <silent> <C-Z>  :GundoToggle<CR>
 noremap <silent> <F2> :set invpaste<CR>
