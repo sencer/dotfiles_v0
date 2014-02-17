@@ -48,7 +48,7 @@ Bundle 'vim-scripts/VIM-Color-Picker'
 Bundle 'vis'
 Bundle 'vim-scripts/ReplaceWithRegister'
 Bundle 'kana/vim-niceblock'
-Bundle 'kana/vim-smartinput'
+Bundle 'jiangmiao/auto-pairs'
 Bundle 'kana/vim-textobj-user'
 Bundle 'kana/vim-textobj-underscore'
 Bundle 'kana/vim-textobj-indent'
@@ -92,6 +92,8 @@ let g:airline_mode_map = { '__' : '-', 'n'  : 'N', 'i'  : 'I', 'R'  : 'R',
 let g:airline#extensions#tagbar#flags = 'f'
 
 let g:signify_vcs_list = [ 'git' ]
+let g:AutoPairsShortcutToggle = ''
+let g:AutoPairsCenterLine = 0
 
 let g:UltiSnips = {
       \ 'ExpandTrigger' : "<Tab>",
