@@ -79,6 +79,8 @@ colorscheme railscasts
 if has('gui_running')
   set guifont=Dejavu\ Sans\ Mono\ 11
   let g:nerdtree_tabs_open_on_gui_startup=0
+else
+  set term=$TERM
 endif
 
 let g:bufferline_echo = 0
