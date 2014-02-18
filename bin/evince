@@ -2,9 +2,9 @@
 PDFFILE="$1"
 VIMSERVER=`basename ${1%.pdf}|tr '[:lower:]' '[:upper:]'`
 if vim --serverlist|grep $VIMSERVER; then
-  EDITORCMD="gvim --servername '`basename "$1" .pdf`' --remote-send ':buf ${PDFFILE/.pdf/.tex}<CR>:%l<CR>'"
+  EDITORCMD="gvim --servername '`basename "$1" .pdf`' --remote-send ':buf ${PDFFILE/.pdf/.tex}<CR>:%l<CR>i<ESC>zt'"
 else
-  EDITORCMD="gvim --servername '`basename "$1" .pdf`' --remote-silent '+%l<Enter>zR' %f"
+  EDITORCMD="gvim --servername '`basename "$1" .pdf`' --remote-silent '+%l<Enter>i<ESC>zt' %f"
 fi
 
 if [ -f "$PDFFILE" ];then
