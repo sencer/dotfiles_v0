@@ -3,7 +3,7 @@ function chpwd(){
   if [[ $PWD == $HOME/*  ]];then
     folder=${PWD#$HOME/}
     folder=${folder%%/*}
-    export PBSSERVER=`grep "^$folder" $PBS_SERVER_FILE|cut -d' ' -f1`
+    export PBSSERVER=`grep "^$folder" $PBSSERVERFILE|cut -d' ' -f1`
   else
     export PBSSERVER=''
   fi

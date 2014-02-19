@@ -15,7 +15,7 @@ fi
 # Customize to your needs...
 eval `lesspipe`
 eval `lessfile`
-export PBS_SERVER_FILE=~/.settings/.server
+export PBSSERVERFILE=~/.settings/.server
 export GREP_COLORS="ms=00;38;5;157:mc=00;38;5;157:sl=:cx=:fn=00;38;5;74:ln=00;38;5;174:bn=00;38;5;174:se=00;38;5;174"
 
 export HISTSIZE=12000

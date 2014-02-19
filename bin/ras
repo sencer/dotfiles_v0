@@ -44,7 +44,7 @@ while [[ $# > 0 ]];do
     shift
   fi
 done
-if tmp=`grep "^${server:=$PBSSERVER} " $PBS_SERVER_FILE`; then
+if tmp=`grep "^${server:=$PBSSERVER} " $PBSSERVERFILE`; then
   read -a settings <<< $tmp
   real_server=${settings[$type]}
   folder=${settings[3]}
