@@ -1,5 +1,14 @@
 [user]
-	email = sencerselcuk@gmail.com
-	name = Sencer Selcuk
+  email = sencerselcuk@gmail.com
+  name = Sencer Selcuk
 [color]
-	ui = auto
+  ui = auto
+[core]
+  editor = vim
+[merge]
+  tool = vimdiff
+[alias]
+  l = log --graph --oneline
+  wdiff = diff --color-words
+[push]
+  default = simple
