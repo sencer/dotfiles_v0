@@ -102,7 +102,7 @@ v(){
     shift
   done
   if [[ ! -z $vimserver ]]; then
-    if vim --serverlist|grep $vimserver; then
+    if vim --serverlist|grep -w $vimserver; then
       eval "gvim --servername $vimserver --remote-silent $arg"
     else
       eval "gvim --servername $vimserver $arg"
