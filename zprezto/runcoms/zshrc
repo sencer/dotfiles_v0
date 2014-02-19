@@ -4,6 +4,7 @@
 # Authors:
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
+fpath=( $HOME/.settings/zshfuncs $fpath )
 export PATH=~/bin:/opt/ruby/bin/:$PATH
 export TERM=xterm-256color
 export TEXMFHOME=$HOME/.texmf
@@ -20,7 +21,7 @@ export GREP_COLORS="ms=00;38;5;157:mc=00;38;5;157:sl=:cx=:fn=00;38;5;74:ln=00;38
 
 export HISTSIZE=12000
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-for i in ~/.settings/*; do source $i;done
+for i in ~/.settings/*(.); do source $i;done
 setopt automenu banghist chasedots hashlistall histignorealldups\
        beep histreduceblanks magicequalsubst pushdignoredups\
        sharehistory nomatch
