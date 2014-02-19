@@ -4,7 +4,7 @@ mkg() {
 }
 
 cpg(){
-  last=${@: -1}
+  local last=${@: -1}
   [ -f $last ] && echo "$last is not a directory" && return
   [ ! -d $last ] && mkdir $last
   while [ $# -gt 1 ];do
@@ -15,7 +15,7 @@ cpg(){
 }
 
 mvg(){
-  last=${@: -1}
+  local last=${@: -1}
   [ -f $last ] && echo "$last is not a directory" && return
   [ ! -d $last ] && mkdir $last
   while [ $# -gt 1 ];do
@@ -26,6 +26,7 @@ mvg(){
 }
 
 cd () {
+  local d
   if [[ $# > 1 ]];then
     cd ${PWD/\/$1\///$2/}
   elif builtin cd $@ 2>/dev/null;then
@@ -45,9 +46,9 @@ cd () {
 bak (){
   while [[ $# > 0 ]]; do
     if [[ $1 == -c ]]; then
-      command="cp"
+      local command="cp"
     fi
-    i=0
+    local i=0
     if [[ ! -e $1 ]]; then
     elif [[ $i -eq 0 && ! -e $1.bak ]]; then
       ${command:-mv} -f $1 $1.bak
@@ -64,8 +65,9 @@ bak (){
 }
 
 unbak (){
+  local f=$1
   while [[ $# > 0 ]];do
-    u=${1%.bak}
+    local u=${1%.bak}
     if [[ $u == $1 ]]; then
       f=${1}.bak
     fi
@@ -79,7 +81,7 @@ unbak (){
 
 ssh(){
   if [[ -n $TMUX ]]; then
-    a=$(tmux display-message -p '#W')
+    local a=$(tmux display-message -p '#W')
     tmux rename-window "${*##*-[^ ]# }"
     command ssh "$@"
     tmux rename-window "$a"
