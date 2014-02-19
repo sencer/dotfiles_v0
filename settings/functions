@@ -80,7 +80,7 @@ unbak (){
 ssh(){
   if [[ -n $TMUX ]]; then
     a=$(tmux display-message -p '#W')
-    tmux rename-window "$*"
+    tmux rename-window "${*##*-[^ ]# }"
     command ssh "$@"
     tmux rename-window "$a"
   else
