@@ -8,7 +8,7 @@ function switch(){
     echo "Settings for $arg not found"
     exit
   fi
-  
+
   if [ -d ~/$arg ]; then
     [[ "$PWD" == $HOME/$arg* ]] && cd ~
     fusermount -z -u ~/$arg 2>/dev/null || echo "$arg is not mounted"

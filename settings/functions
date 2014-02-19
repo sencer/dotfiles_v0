@@ -33,7 +33,7 @@ cd () {
     builtin cd `dirname $@`
   elif builtin cd "_${@//-/__}" &>/dev/null; then
     echo $PWD
-  elif [[ $SERVER != "" ]] && d=`get_job_folder $@` ; then
+  elif [[ $PBSSERVER != "" ]] && d=`get_job_folder $@` ; then
     builtin cd $d
     echo $PWD
     save "_$1"

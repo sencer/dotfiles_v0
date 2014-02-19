@@ -6,9 +6,9 @@ if [[ $jobId != "" ]]; then
     exit 1
   else
     jobFolder=$(echo "$jobFolder"|sed 's/\(gpfs\|work\|gscr\|network\|scratch\)\/sselcuk/sselcuk\/\1/g')
-    folder=`grep "^$SERVER" $PBS_SERVER_FILE|cut -d' ' -f4`
+    folder=`grep "^$PBSSERVER" $PBS_SERVER_FILE|cut -d' ' -f4`
     [ $folder == "." ] && folder=""
-    echo $HOME/$SERVER/${jobFolder#*`whoami`/$folder}
+    echo $HOME/$PBSSERVER/${jobFolder#*`whoami`/$folder}
   fi
 else
   exit 1
