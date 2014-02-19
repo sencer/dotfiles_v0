@@ -1,4 +1,5 @@
 function chpwd(){
+  local folder
   if [[ $PWD == $HOME/*  ]];then
     folder=${PWD#$HOME/}
     folder=${folder%%/*}
