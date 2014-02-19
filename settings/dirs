@@ -16,3 +16,5 @@ del(){
 }
 source ~/.settings/.dirs  # Initialization for the above 'save' facility: source the ..settings/.dirs file
 # setopt cdablevars # set the bash option so that no '$' is required when using the above facility
+
+# vim: ft=zsh

@@ -19,3 +19,5 @@ bge(){
   eval "$@" |& bufferout & disown              # bg and disown to suppress notification
   setopt monitor                               # restore job monitoring
 }
+
+# vim: ft=zsh

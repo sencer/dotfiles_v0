@@ -64,3 +64,5 @@ alias plot="gnuplot -p"
 # alias xi="xcrysden --pwi input.txt"
 # alias xo="xcrysden --pwo output.txt"
 # alias tunnel="kill -9 \${\$(sudo netstat -atnp 2>/dev/null|grep '::1:2318'|tr -s ' '|cut -d ' ' -f 7)/\/*/}"
+
+# vim: ft=zsh

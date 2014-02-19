@@ -23,3 +23,5 @@ bindkey -s "[1;6C" "pushd -0\C-m"
 bindkey -s "\ew" " \eD0ihistory 0 | grep '\\\s*'\C-m"
 #bindkey -s "\ew" " \eD0ihistory 0 | grep '\\\s\\\+\eA\\\s\\\+'\C-m"
 bindkey -s '\el' "ls\n"
+
+# vim: ft=zsh

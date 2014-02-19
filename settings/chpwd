@@ -11,3 +11,5 @@ function chpwd(){
     tmux rename-window "${SERVER:-zsh}"
   fi
 }
+
+# vim: ft=zsh

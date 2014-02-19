@@ -11,3 +11,5 @@ export LESS_TERMCAP_ZN=$(tput ssubm) # Stat Subsecipt
 export LESS_TERMCAP_ZV=$(tput rsubm) # End Subsecipt
 export LESS_TERMCAP_ZO=$(tput ssupm) # Start Superscript
 export LESS_TERMCAP_ZW=$(tput rsupm) # End Superscript
+
+# vim: ft=zsh
