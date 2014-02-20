@@ -1,0 +1,58 @@
+#!/bin/bash
+
+configfile="$HOME/$PBSSERVER/.jobconfig"
+
+# read .jobconfig file
+while read lhs rhs; do
+  if [[ $lhs != '#'* && ! -z $lhs ]]; then
+    eval "$lhs='$rhs'"
+  fi
+done < $configfile
+
+# read command line arguments
+while [[ $# > 0 ]]; do
+  eval "${1#-}=$2"
+  shift 2
+done
+
+# allow lline to be set manually (TODO: think this again)
+if [[ -z $lline ]]; then
+  if [[ $cpu == separate && -z $lline ]]; then
+    lline="nodes=$nodes:ppn=$ppn,walltime=$walltime"
+  else
+    lline="mppwidth=$((nodes*ppn)),walltime=$walltime"
+  fi
+fi
+
+if [[ -t 0 ]]; then
+# if not using stdin
+  cat <<-EOF
+		#!/bin/bash
+		#PBS -l $lline
+		#PBS -q $queue
+		#PBS -j oe
+		#PBS -m ae
+		#PBS -M $email
+		#PBS -V
+
+		module load $modules
+		cd \$PBS_O_WORKDIR
+		$scheduler $prepara $((nodes*ppn)) $path/$exec $postpara $in > $out
+	EOF
+else
+# if using stdin
+  while read -r line; do
+    if [[ $line == *'#'* ]]; then
+      echo -n '#'
+      eval "echo ${line#*#}"
+    else
+      eval "echo $line"
+    fi
+  done
+fi
+# also can be ran at the servers like that
+# configfile="$HOME/.jobconfig"
+# if [[ -f $configfile ]]; then
+# else
+#   ras -t bin/jobwriter $@
+# fi
