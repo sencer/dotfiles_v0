@@ -1,0 +1,16 @@
+#compdef ras
+
+local -a args
+
+args=(
+'-t[allocate tty]'
+'-d[print out the command, do not execute]'
+'-fs[force filesystem server]'
+'-pbs[force pbs server]'
+'-s[give server name manually]'
+'-o[pass options to ssh command]'
+)
+
+_arguments $args \
+  '(-):command: _command_names -e' \
+  '*::arguments: _normal'
