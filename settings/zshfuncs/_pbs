@@ -5,7 +5,7 @@ _pbs_complete(){
   typeset -A opt_args
   case $service in
     qdel )
-      _arguments '*:Job ID:(( $(_pbs_get_jobs) ))'
+      _arguments '*:Job ID:_pbs_get_jobs'
       ;;
     qsub )
       _arguments -s -S \
@@ -17,13 +17,13 @@ _pbs_complete(){
       fi
       if [[ $state == depjob ]]; then
         _values -S : -w option \
-          'afterany:Job Id:(( $(_pbs_get_jobs) ))'\
-          'afterok:Job Id:(( $(_pbs_get_jobs) ))'
+          'afterany:Job Id:_pbs_get_jobs'\
+          'afterok:Job Id:_pbs_get_jobs'
       fi
       ;;
     qstat )
       _arguments \
-        '-f+:Job Id:(( $(_pbs_get_jobs) ))'\
+        '-f+:Job Id:_pbs_get_jobs'\
         '-u:User Id:($USER)'
       ;;
   esac
@@ -31,7 +31,9 @@ _pbs_complete(){
 
 _pbs_get_jobs(){
     # this $USER is local!
-  _call_program path "qstat -u $USER|awk 'NR>5{printf \"%s:%s---%s \n\", gensub(/\\..*/, \"\", \"\", \$1), \$4, \$10}'"
+    local arr
+    arr=( $(_call_program path "qstat -u $USER|awk 'NR>5{printf \"%s:%s--%s \", gensub(/\\..*/, \"\", \"\", \$1), \$4, \$10}'") )
+    _describe "Job ID" arr
 }
 
 _pbs_complete "$@"
