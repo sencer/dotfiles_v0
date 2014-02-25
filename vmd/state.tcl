@@ -48,7 +48,7 @@ user add key W {
     puts $fildes "display cuemode [display get cuemode]"
   }
   foreach i [material list] {
-    foreach j [material settings $i] k {ambient specular diffuse shininess opacity outline outlinewidth transmode} { 
+    foreach j [material settings $i] k {ambient specular diffuse shininess opacity outline outlinewidth transmode} {
       puts $fildes "material change $k $i $j"
     }
   }
@@ -69,17 +69,18 @@ user add key W {
         puts $fildes "  mol selection {$s}"
         puts $fildes "  mol material $m"
         puts $fildes "  mol addrep $mol"
+        puts $fildes "  mol showrep $mol $i $on"
         if {[string length $pbc]} {
           puts $fildes "  mol showperiodic top $i $pbc"
           puts $fildes "  mol numperiodic top $i $numpbc"
     }
     incr i
-  } 
+  }
 }
 puts $fildes "  molinfo $mol set {center_matrix rotate_matrix scale_matrix global_matrix} [list $viewpoints($mol)]"
 puts $fildes "}"
 puts $fildes "\# done with molecule $mol"
-} 
+}
 save_colors $fildes
 # save_labels $fildes
 if { [info exists celldm] } {
@@ -94,7 +95,7 @@ puts $fildes "pbc box -off"
 # puts $fildes "cell"
 }
 close $fildes
-puts -nonewline "" 
+puts -nonewline ""
 }
 }
 
