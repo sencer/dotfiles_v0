@@ -46,7 +46,21 @@ fi
       eval "echo ${line#*#}"
     else
       eval "echo $line"
+  if [[ -n $skip ]]; then
+    i=0
+    j=0
+    tmp=`echo "$line"|sed 's/\\\\\\$//g'`
+    for match in $(echo $tmp|command grep -P -o '(?<=\$)[A-Za-z0-9_]*'); do
+      match=${match#\{}
+      if [[ -n ${!match} ]]; then
+        let j++
+      fi
+      let i++
+    done
+    if [[ $i > $j ]]; then
+      continue
     fi
+  fi
   done
 # also can be ran at the servers like that
 # configfile="$HOME/.jobconfig"
