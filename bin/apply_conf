@@ -39,11 +39,8 @@ if [[ -z $lline ]]; then
   fi
 fi
 
-# if using stdin
-  while read -r line; do
-    if [[ $line == *'#'* ]]; then
-      echo -n '#'
-    else
+while read -r line; do
+  # check if all the variables are defined. skip the line otherwise.
   if [[ -n $skip ]]; then
     i=0
     j=0
@@ -59,9 +56,15 @@ fi
       continue
     fi
   fi
-  done
+  # if line is a comment, eval evaluates to null
+  # to write #PBS lines uncomment, eval, recomment
+  if [[ $line == '#'* ]]; then
+    echo -n '#'
     eval "echo \"${line##}\""
+  else
     eval "echo \"$line\""
+  fi
+done
 # also can be ran at the servers like that
 # configfile="$HOME/.jobconfig"
 # if [[ -f $configfile ]]; then
