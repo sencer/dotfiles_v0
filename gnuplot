@@ -3,7 +3,7 @@ set tmargin 0; set bmargin 0; set lmargin 0; set rmargin 0
 
 WXT = "set terminal wxt enhanced dashed persist lw 2 font 'Arial, 10'"
 QT = "set terminal qt enhanced dashed persist font 'Arial, 10'"
-PDF = "set terminal pdfcairo enhanced dashed transparent lw 3 font 'Arial, 10';\
+PDF = "set terminal pdfcairo enhanced dashed transparent lw 3 font 'Arial, 18';\
        set output"
 PNG = "set terminal pngcairo enhanced dashed transparent lw 2 font 'Arial, 10';\
        set output"
