@@ -160,7 +160,7 @@ set style line 40 lc rgb  cgri      lt 0 pt 1
 
 set border 3 back lc rgb cgri lw 0.5
 set grid back lc rgb cgri lw 0.5 lt 0
-set tics nomirror scale 0.5 tc rgb cgri out font ", 9"
+set tics nomirror scale 0.5 tc rgb cgri out font ", 16"
 
 unset x2tics
 unset y2tics
