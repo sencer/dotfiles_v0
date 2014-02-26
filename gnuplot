@@ -35,18 +35,18 @@ MATLAB = "set palette defined (0  0.0 0.0 0.5, \
                                7  1.0 0.0 0.0, \
                                8  0.5 0.0 0.0 )"
 
-GB = "set style line 1  lc rgb '#0025ad' lt 1;\
-      set style line 2  lc rgb '#0042ad' lt 1;\
-      set style line 3  lc rgb '#0060ad' lt 1;\
-      set style line 4  lc rgb '#007cad' lt 1;\
-      set style line 5  lc rgb '#0099ad' lt 1;\
-      set style line 6  lc rgb '#00ada4' lt 1;\
-      set style line 7  lc rgb '#00ad88' lt 1;\
-      set style line 8  lc rgb '#00ad6b' lt 1;\
-      set style line 9  lc rgb '#00ad4e' lt 1;\
-      set style line 10 lc rgb '#00ad31' lt 1;\
-      set style line 11 lc rgb '#00ad14' lt 1;\
-      set style line 12 lc rgb '#09ad00' lt 1"
+GB = "set linetype 1  lc rgb '#0025ad' lt 1;\
+      set linetype 2  lc rgb '#0042ad' lt 1;\
+      set linetype 3  lc rgb '#0060ad' lt 1;\
+      set linetype 4  lc rgb '#007cad' lt 1;\
+      set linetype 5  lc rgb '#0099ad' lt 1;\
+      set linetype 6  lc rgb '#00ada4' lt 1;\
+      set linetype 7  lc rgb '#00ad88' lt 1;\
+      set linetype 8  lc rgb '#00ad6b' lt 1;\
+      set linetype 9  lc rgb '#00ad4e' lt 1;\
+      set linetype 10 lc rgb '#00ad31' lt 1;\
+      set linetype 11 lc rgb '#00ad14' lt 1;\
+      set linetype 12 lc rgb '#09ad00' lt 1"
 
 GBP = "set palette defined (1  '#0025ad', \
                             2  '#0042ad', \
@@ -113,50 +113,51 @@ CTEX = "@TEX center"
 LTEX = "@TEX left"
 RTEX = "@TEX right"
 
-set style increment user
-set style line 1 lc rgb '#800000' lt 1 pt 6
-set style line 2 lc rgb '#006400' lt 1 pt 6
-set style line 3 lc rgb '#000080' lt 1 pt 6
-set style line 5 lc rgb '#9400d3' lt 1 pt 6
-set style line 4 lc rgb '#ff4500' lt 1 pt 6
-set style line 6 lc rgb '#ffa500' lt 1 pt 6
-set style line 7 lc rgb '#ff0000' lt 1 pt 6
-set style line 8 lc rgb '#00ff00' lt 1 pt 6
-set style line 9 lc rgb  ctex      lt 1 pt 6
-set style line 10 lc rgb cgri      lt 1 pt 6
+# set style increment user
+set linetype 31 lc rgb '#800000' lt 0 pt 1
+set linetype 32 lc rgb '#006400' lt 0 pt 1
+set linetype 33 lc rgb '#000080' lt 0 pt 1
+set linetype 35 lc rgb '#9400d3' lt 0 pt 1
+set linetype 34 lc rgb '#ff4500' lt 0 pt 1
+set linetype 36 lc rgb '#ffa500' lt 0 pt 1
+set linetype 37 lc rgb '#ff0000' lt 0 pt 1
+set linetype 38 lc rgb '#00ff00' lt 0 pt 1
+set linetype 39 lc rgb  ctex     lt 0 pt 1
+set linetype 40 lc rgb  cgri     lt 0 pt 1
 
-set style line 11 lc rgb '#800000' lt 2 pt 12
-set style line 12 lc rgb '#006400' lt 2 pt 12
-set style line 13 lc rgb '#000080' lt 2 pt 12
-set style line 15 lc rgb '#9400d3' lt 2 pt 12
-set style line 14 lc rgb '#ff4500' lt 2 pt 12
-set style line 16 lc rgb '#ffa500' lt 2 pt 12
-set style line 17 lc rgb '#ff0000' lt 2 pt 12
-set style line 18 lc rgb '#00ff00' lt 2 pt 12
-set style line 19 lc rgb  ctex      lt 2 pt 12
-set style line 20 lc rgb  cgri      lt 2 pt 12
 
-set style line 21 lc rgb '#800000' lt 3 pt 4
-set style line 22 lc rgb '#006400' lt 3 pt 4
-set style line 23 lc rgb '#000080' lt 3 pt 4
-set style line 25 lc rgb '#9400d3' lt 3 pt 4
-set style line 24 lc rgb '#ff4500' lt 3 pt 4
-set style line 26 lc rgb '#ffa500' lt 3 pt 4
-set style line 27 lc rgb '#ff0000' lt 3 pt 4
-set style line 28 lc rgb '#00ff00' lt 3 pt 4
-set style line 29 lc rgb  ctex      lt 3 pt 4
-set style line 30 lc rgb  cgri      lt 3 pt 4
+set linetype 21 lc rgb '#800000' lt 3 pt 4
+set linetype 22 lc rgb '#006400' lt 3 pt 4
+set linetype 23 lc rgb '#000080' lt 3 pt 4
+set linetype 25 lc rgb '#9400d3' lt 3 pt 4
+set linetype 24 lc rgb '#ff4500' lt 3 pt 4
+set linetype 26 lc rgb '#ffa500' lt 3 pt 4
+set linetype 27 lc rgb '#ff0000' lt 3 pt 4
+set linetype 28 lc rgb '#00ff00' lt 3 pt 4
+set linetype 29 lc rgb  ctex     lt 3 pt 4
+set linetype 30 lc rgb  cgri     lt 3 pt 4
 
-set style line 31 lc rgb '#800000' lt 0 pt 1
-set style line 32 lc rgb '#006400' lt 0 pt 1
-set style line 33 lc rgb '#000080' lt 0 pt 1
-set style line 35 lc rgb '#9400d3' lt 0 pt 1
-set style line 34 lc rgb '#ff4500' lt 0 pt 1
-set style line 36 lc rgb '#ffa500' lt 0 pt 1
-set style line 37 lc rgb '#ff0000' lt 0 pt 1
-set style line 38 lc rgb '#00ff00' lt 0 pt 1
-set style line 39 lc rgb  ctex      lt 0 pt 1
-set style line 40 lc rgb  cgri      lt 0 pt 1
+set linetype 11 lc rgb '#800000' lt 2 pt 12
+set linetype 12 lc rgb '#006400' lt 2 pt 12
+set linetype 13 lc rgb '#000080' lt 2 pt 12
+set linetype 15 lc rgb '#9400d3' lt 2 pt 12
+set linetype 14 lc rgb '#ff4500' lt 2 pt 12
+set linetype 16 lc rgb '#ffa500' lt 2 pt 12
+set linetype 17 lc rgb '#ff0000' lt 2 pt 12
+set linetype 18 lc rgb '#00ff00' lt 2 pt 12
+set linetype 19 lc rgb  ctex     lt 2 pt 12
+set linetype 20 lc rgb  cgri     lt 2 pt 12
+
+set linetype 1 lc rgb '#800000' lt 1 pt 6
+set linetype 2 lc rgb '#006400' lt 1 pt 6
+set linetype 3 lc rgb '#000080' lt 1 pt 6
+set linetype 5 lc rgb '#9400d3' lt 1 pt 6
+set linetype 4 lc rgb '#ff4500' lt 1 pt 6
+set linetype 6 lc rgb '#ffa500' lt 1 pt 6
+set linetype 7 lc rgb '#ff0000' lt 1 pt 6
+set linetype 8 lc rgb '#00ff00' lt 1 pt 6
+set linetype 9 lc rgb  ctex     lt 1 pt 6
+set linetype 10 lc rgb cgri     lt 1 pt 6
 
 set border 3 back lc rgb cgri lw 0.5
 set grid back lc rgb cgri lw 0.5 lt 0
