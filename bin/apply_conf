@@ -1,4 +1,22 @@
 #!/bin/bash
+###########################################################################
+#                                 USAGE                                   #
+# apply_conf CONFIG_FILE [-if [argument]] [-varname varvalue ...]         #
+#                                                                         #
+# CONFIG_FILE should be like following                                    #
+#      varname varvalue                                                   #
+#      anothervar multiword values are OK                                 #
+#                                                                         #
+# -if switch must be immediately after CONFIG_FILE. If this switch is     #
+# given, then the lines that contains undefined variables will not be     #
+# printed. If this switch is present, and has an argument, than program   #
+# will check for the existence of a variable with the name of given       #
+# argument, and exit immediately if it is not present.                    #
+#                                                                         #
+# Finally, one can supply variables via the command line. Variables given #
+# this way will override the variables defined in the CONFIG_FILE         #
+#                                                                         #
+###########################################################################
 
 # read .jobconfig file
 configfile=$1
