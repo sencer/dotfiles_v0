@@ -69,5 +69,5 @@ done
 # configfile="$HOME/.jobconfig"
 # if [[ -f $configfile ]]; then
 # else
-#   ras -t bin/jobwriter $@
+#   ras -t bin/apply_conf $@
 # fi
