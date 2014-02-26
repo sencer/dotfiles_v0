@@ -127,7 +127,7 @@ set backspace=indent,eol,start ww+=<,>,[,],~,h,l
 set smartindent autoindent copyindent
 set smarttab tabstop=2 shiftwidth=2 shiftround expandtab
 set incsearch hlsearch ignorecase smartcase gdefault
-set showbreak=↪\  listchars=trail:·,eol:¬,tab:»-,extends:❯,precedes:❮
+set showbreak=… listchars=trail:·,eol:¬,tab:»-,extends:❯,precedes:❮
 set wildmenu wildmode=full " set wildmode=longest:full,list  #Tab won't work
 set wildignore=*.o,*~,*.swp
 set swb=useopen,usetab,newtab showtabline=1 history=200
