@@ -9,6 +9,21 @@ while read lhs rhs; do
   fi
 done < $configfile
 
+# check if special argument -if given. when found skips lines that contains
+# unknown variables. When a variable name given after if, if given variable is
+# not defined, exits immediately.
+if [[ $1 == -if ]]; then
+  if [[ -z $2 || $2 == -* ]]; then
+    skip="skip"
+    shift
+  elif [[ -z ${!2} ]]; then
+    exit
+  else
+    skip=""
+    shift 2
+  fi
+fi
+
 # read command line arguments
 while [[ $# > 1 ]]; do
   eval "${1#-}='$2'"
