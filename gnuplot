@@ -16,6 +16,14 @@ MP = "set multiplot; \
       set border 31 back; \
       unset xlabel; \
       unset ylabel"
+CLEAN = "unset border; \
+         unset tics; \
+         unset grid; \
+         unset label; \
+         unset xlabel; \
+         unset ylabel; \
+         unset key; \
+         unset title"
 
 MATLAB = "set palette defined (0  0.0 0.0 0.5, \
                                1  0.0 0.0 1.0, \
