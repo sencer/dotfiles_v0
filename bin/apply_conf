@@ -10,8 +10,8 @@ while read lhs rhs; do
 done < $configfile
 
 # read command line arguments
-while [[ $# > 0 ]]; do
-  eval "${1#-}=$2"
+while [[ $# > 1 ]]; do
+  eval "${1#-}='$2'"
   shift 2
 done
 
