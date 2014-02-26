@@ -61,7 +61,7 @@ GBP = "set palette defined (1  '#0025ad', \
                             11 '#00ad14', \
                             12 '#09ad00' )"
 
-@WXT
+@QT
 
 nplots = "1 1"
 margins = "0.15 0.8 0.15 0.9"
