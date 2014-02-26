@@ -1,8 +1,8 @@
 #!/bin/bash
 
-configfile="$HOME/$PBSSERVER/.jobconfig"
-
 # read .jobconfig file
+configfile=$1
+shift
 while read lhs rhs; do
   if [[ $lhs != '#'* && ! -z $lhs ]]; then
     eval "$lhs='$rhs'"
