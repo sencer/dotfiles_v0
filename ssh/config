@@ -1,37 +1,38 @@
 Host tigress
-	Hostname tigressdata.princeton.edu
+  Hostname tigressdata.princeton.edu
 Host della
-	Hostname della3.princeton.edu
+  Hostname della3.princeton.edu
 Host tiger
-	Hostname tiger2.princeton.edu
+  Hostname tiger2.princeton.edu
 Host edison
-	Hostname edison.nersc.gov
+  Hostname edison.nersc.gov
 Host hopper
-	Hostname hopper.nersc.gov
+  Hostname hopper.nersc.gov
 Host bnl
   Hostname nano.bnl.gov
   ProxyCommand ssh -CTqe none ssh.bnl.gov -W %h:%p
-  # Hostname localhost
-  # HostKeyAlias bnl
-  # port 6166
 Host pc
   Hostname localhost
   HostKeyAlias pc
   port 6165
 Host arizona
-	Hostname arizona.princeton.edu
+  Hostname arizona.princeton.edu
 Host kali
-	Hostname s.princeton.edu
+  Hostname s.princeton.edu
   User root
-	ForwardAgent yes
-	RemoteForward 2319 localhost:22
+  ForwardAgent yes
+  RemoteForward 2319 localhost:22
 Host *
-	ForwardX11 yes
+  ForwardX11 yes
   ForwardX11Trusted yes
-	Compression yes
-	CompressionLevel 6
-	Cipher arcfour256
+  Compression yes
+  CompressionLevel 6
+  Ciphers arcfour256
   Protocol 2
   XAuthLocation /usr/bin/xauth
   ControlMaster auto
   ControlPath /tmp/%r@%h:%p
+  ControlPersist 60
+# PermitLocalCommand yes
+
+# vim: ft=sshconfig
