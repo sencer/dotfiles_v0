@@ -9,11 +9,12 @@ proc state {} {
     foreach mid [molinfo list] {
       molinfo $mid set {
         center_matrix rotate_matrix scale_matrix global_matrix
-      } {{{1 0 0 -5} {0 1 0 -6} {0 0 1 -6} {0 0 0 1}}
+      } {
+        {{1 0 0 -5} {0 1 0 -6} {0 0 1 -6} {0 0 0 1}}
         {{1 0 0 0} {0 0 1 0} {0 -1 0 0} {0 0 0 1}}
         {{0.19 0 0 0} {0 0.19 0 0} {0 0 0.19 0} {0 0 0 1}}
         {{1 0 0 -0.04} {0 1 0 -0.16} {0 0 1 0} {0 0 0 1}}
-     }
+      }
       mol delrep 0 $mid
       mol representation VDW 0.300000 18.000000
       mol color Name
