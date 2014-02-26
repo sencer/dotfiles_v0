@@ -36,6 +36,7 @@ alias job="ras 'find . -name *.job'"
 alias out="ras 'find . -name output.txt'"
 alias find="noglob ras find"
 alias watch="ras -t watch"
+alias rscp="ras -t scp -r"
 alias rejob="zmv -Q '(**/)*.job' '\$1\${\${1%/}//\//-}.job'"
 alias pwgui="$HOME/arsiv/software/PWgui-5.0.2/pwgui"
 
