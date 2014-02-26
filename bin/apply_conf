@@ -60,7 +60,7 @@ while read -r line; do
   # to write #PBS lines uncomment, eval, recomment
   if [[ $line == '#'* ]]; then
     echo -n '#'
-    eval "echo \"${line##}\""
+    eval "echo \"${line#\#}\""
   else
     eval "echo \"$line\""
   fi
