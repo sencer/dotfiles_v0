@@ -159,7 +159,6 @@ noremap <C-h> <C-W>h
 noremap <C-l> <C-W>l
 noremap j gj
 noremap k gk
-nmap Y y$
 nnoremap <silent> cog :GitGutterToggle<CR>
 nnoremap <silent> coe :ColorToggle<CR>
 nnoremap <silent> <Leader>w :up!<CR>
@@ -170,6 +169,7 @@ nnoremap <silent> <C-Left> :tabprevious<CR>
 nnoremap <silent> <C-Right> :tabnext<CR>
 nnoremap <silent> <A-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
 nnoremap <silent> <A-Right> :execute 'silent! tabmove ' . tabpagenr()<CR>
+nmap Y y$
 vnoremap > >gv
 vnoremap < <gv
 vmap <A-=> di<C-R>=<C-R>"<CR>
