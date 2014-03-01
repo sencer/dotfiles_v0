@@ -120,6 +120,12 @@ let g:LatexBox_viewer = "$HOME/bin/evince"
 let g:LatexBox_latexmk_async = 1
 let g:LatexBox_latexmk_preview_continuously = 1
 let g:LatexBox_quickfix = 2
+let g:LatexBox_ignore_warnings = [
+      \'Underfull',
+      \'Overfull',
+      \'specifier changed to',
+      \'Class revtex4'
+      \]
 
 set modeline
 set nu rnu nowrap list ls=2  "showmode pastetoggle=<F2>
