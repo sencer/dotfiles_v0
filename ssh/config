@@ -10,7 +10,8 @@ Host hopper
   Hostname hopper.nersc.gov
 Host bnl
   Hostname nano.bnl.gov
-  ProxyCommand ssh -CTqe none ssh.bnl.gov -W %h:%p
+  # ProxyCommand ssh -CTqe none ssh.bnl.gov -W %h:%p
+  ProxyCommand ssh -CTqe none ssh.bnl.gov nc %h %p
 Host pc
   Hostname localhost
   HostKeyAlias pc
