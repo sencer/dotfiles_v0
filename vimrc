@@ -128,7 +128,7 @@ let g:LatexBox_ignore_warnings = [
       \'Class revtex4'
       \]
 
-set modeline
+set modeline ve=block,onemore ",insert
 set nu rnu nowrap list ls=2  "showmode pastetoggle=<F2>
 set nrformats-=octal showmatch autoread
 set backspace=indent,eol,start ww+=<,>,[,],~,h,l
