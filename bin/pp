@@ -1,2 +1,127 @@
 #!/usr/bin/env bash
-ras -pbs '~/bin/pp' "$@"
+plot=0
+skip=0
+direction=0
+filename="pp"
+outdir="../"
+declare -a plots weights
+plots[0]=$filename.dat
+weights[0]=1
+time=10
+
+if [[ $1 = plot ]]; then
+  unset plots
+  unset weights
+  declare -a plots weights
+  skip=1
+fi
+
+while [[ $# > 0 ]]; do
+  if  [[ $1 = "chden" ]];then
+    filename="chden"
+    plots[0]=$filename.dat
+    index=0
+    shift
+  elif [[ $1 = "totV" ]]; then
+    filename="totV"
+    plots[0]=$filename.dat
+    index=1
+    shift
+  elif [[ $1 = "spol" ]]; then
+    filename="spol"
+    plots[0]=$filename.dat
+    index=6
+    shift
+  elif [[ $1 = "totV1" ]]; then
+    filename="totV1"
+    plots[0]=$filename.dat
+    index=11
+    shift
+  elif [[ $1 =~ ^[0-9]+$ ]]; then
+    index=$1
+    shift
+  elif [[ "$1" == *./* ]]; then
+    outdir="$1"
+    shift
+  elif [[ $1 = x ]]; then
+    direction=1
+    shift
+    ave=$1
+    shift
+  elif [[ $1 = y ]]; then
+    direction=2
+    shift
+    ave=$1
+    shift
+  elif [[ $1 = z ]]; then
+    direction=3
+    shift
+    ave=$1
+    shift
+  elif [[ $1 = -o ]]; then
+    shift
+    filename=$1
+    plots[0]=$filename.dat
+    shift
+  elif [[ $1 = -t ]]; then
+    shift
+    time=$1
+    shift
+  elif [[ $1 = plot ]]; then
+    plot=1
+    shift
+    if  [[ $1 =~ ^-?[0-9]+.?[0-9]*$ ]];then
+      weights[0]=$1
+      shift
+    fi
+    while [[ $1 != . ]]; do
+      plots=("${plots[@]}" "$1")
+      shift
+      if  [[ $1 =~ ^-?[0-9]+.?[0-9]*$ ]];then
+        weights=("${weights[@]}" "$1")
+        shift
+      else
+        weights=("${weights[@]}" "1")
+      fi
+    done
+    shift
+  fi
+done
+
+mkdir -p pp
+cd pp
+
+if [[ $skip = 0 ]]; then
+  echo -e "&INPUTPP\n  outdir = '$outdir'\n  plot_num = $index\n  filplot = '$filename.dat'\n/" > $filename.in
+else
+  echo -e "&INPUTPP\n/" > $filename.in
+fi
+
+if [[ $plot > 0 ]]; then
+  echo -e "&PLOT\n  nfile = ${#plots[@]}," >> $filename.in
+  for (( i = 0; i < ${#plots[@]}; i++ )); do
+    echo -e "  filepp($(($i+1))) = '${plots[$i]}',\n  weight($(($i+1))) = ${weights[$i]}," >> $filename.in
+  done
+  echo -e "  iflag = 3,\n  output_format = 6,\n  fileout = '${filename}.cube',\n/" >>$filename.in
+fi
+
+apply_conf $HOME/$PBSSERVER/.jobconfig -if > $filename.job <<-EOF
+	#!/bin/bash
+	#PBS -l nodes=1:ppn=1,walltime=00:$time:00
+	#PBS -q \$short
+	#PBS -j oe
+	#PBS -V
+	module load \$modules
+	cd \\\$PBS_O_WORKDIR
+	\${path}/pp.x < $filename.in > $filename.out
+EOF
+
+if [[ $direction > 0 ]]; then
+  echo -e "1\n$filename.dat\n1.0\n5000\n$direction\n$ave" > ${filename}.ave.in
+  apply_conf $HOME/$PBSSERVER/.jobconfig >> $filename.job <<-EOF
+		\$path/average.x < ${filename}.ave.in > $filename.ave
+	EOF
+fi
+
+# qsub $filename.job
+# ras -pbs '~/bin/pp' "$@"
