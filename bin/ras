@@ -40,7 +40,11 @@ while [[ $# > 0 ]];do
       shift
     fi
   else
-    arg="${arg}'${1}' " #echo $1|sed "/ /s/\(.*\)/'\1'/;s/\([();\\]\)/\\\\\1/g")" "
+    if [[ $1 =~ [\<*\>] ]]; then
+      arg="${arg}$1 "
+    else
+      arg="${arg}'${1}' " #echo $1|sed "/ /s/\(.*\)/'\1'/;s/\([();\\]\)/\\\\\1/g")" "
+    fi
     shift
   fi
 done
