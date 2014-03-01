@@ -40,5 +40,5 @@ if [[ -f $HOME/.jobconfig ]]; then
 		$scheduler $prepara \$numprocs \$exec_path/\$exec $postpara $in >> $out
 	EOF
 else
-	[[ -n $PBSSERVER ]] && ras -pbs bin/jobwriter "$@"
+	[[ -n $PBSSERVER ]] && ras -pbs \$HOME/bin/jobwriter "$@"
 fi
