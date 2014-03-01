@@ -26,7 +26,6 @@ zstyle ':prezto:*:*' color 'yes'
 zstyle ':prezto:load' pmodule \
   'environment' \
   'archive' \
-  'fasd' \
   'git' \
   'terminal' \
   'editor' \
