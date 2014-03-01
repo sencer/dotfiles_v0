@@ -22,7 +22,7 @@ function switch(){
     #   ssh -L ${settings[4]}:${settings[5]}:22 ${settings[6]} -fq "sleep 1" 
     # fi
     mkdir -p ~/$arg
-    nohup &>/dev/null sshfs ${settings[1]}:${settings[3]} ~/$arg -o transform_symlinks,follow_symlinks,workaround=rename,idmap=user||server $arg
+    nohup &>/dev/null sshfs ${settings[1]}:${settings[3]} ~/$arg -o transform_symlinks,follow_symlinks,workaround=rename,idmap=user,ssh_command="ssh -S none"||server $arg
     # ,ssh_command="ssh -S none",no_readahead,cache=no
   fi
 }
