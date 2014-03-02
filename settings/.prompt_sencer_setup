@@ -39,7 +39,7 @@ function prompt_sencer_setup {
   # Define prompts.
   export PROMPT="%F{73}%h:%F{174}%C%f " 
   # export RPROMPT="%F{73}\$(prompt_kalan_vakit)[\${PWD/\/home\/sselcuk/~}]%f" 
-  export RPROMPT="%F{73}[\${PWD/\/home\/sselcuk/~}]%f" 
+  export RPROMPT="%F{73}[\${PWD/${HOME//\//\\/}/~}]%f"
 }
 
 prompt_sencer_setup "$@"
