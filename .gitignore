@@ -10,4 +10,6 @@ ssh/id*
 zprezto/modules/*/cache.zsh
 settings/.dirs
 data/namaz
+data/history
+data/dirs
 config/antigen
