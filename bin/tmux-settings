@@ -1,0 +1,14 @@
+#!/bin/zsh
+# to be used with prompt_sencer for now
+# TODO: seperate namaz and weather as 
+# shell functions. add zsh-hook in the 
+# functions also.
+if [[ $1 == 'namaz' ]]; then
+  kalan=$[NAMAZ-`date +%s`]
+  echo "$[kalan/3600]sa$[(kalan%3600)/60]dk"
+elif [[ $1 == 'weather' ]]; then
+  tmp=( ${=WEATHER} )
+  # local condition='☈☈☈☈☈☔☔❅☔☔☔☔☔❅❅❅❅❅❅〰〰〰〰〰☴☼☁☁☁☁☁☾☼☾☼☔☼☈☈☈☔❅❅❅☁☔❅☔'
+  local condition='☈☈☈☈☈☔☔❄❄❄❄☂☂☃☃☃☃☃☃☃〰〰〰⚑⚑☼☁☁☁☁☁☆☼☾☀☔♨☈☈☈☔☃☃☃☁☇❄☇⚠'
+  echo "${condition[$[tmp[2]-1]]} $tmp[3]"
+fi
