@@ -10,17 +10,27 @@
 #
 
 
-# function prompt_sencer_precmd {
-#   if [[ $NAMAZ -le $[`date +%s`/60+daylight*60] ]]; then
-#     source <(vakit export)
-#   fi
-# }
+function prompt_sencer_precmd {
+  local DATAFILE=$HOME/.dotfiles/data/namaz
+  export NAMAZ=$(head -1 $DATAFILE)
+  if [[ $(wc -l < $DATAFILE) -lt 15 ]]; then
+    prompt_namaz_guncelle
+  fi
+  while [[ $NAMAZ -le $[`date +%s`+daylight*60] ]]; do
+    sed -i 1d $DATAFILE
+    export NAMAZ=$(head -1 $DATAFILE)
+  done
+}
 
-# function prompt_kalan_vakit {
-#   [[ $NAMAZ -lt 0 ]] && exit
-#   kalan=$[NAMAZ-`date +%s`/60-daylight*60]
-#   echo "[$[kalan/60]sa$[kalan%60]dk]"
-# }
+function prompt_namaz_guncelle {
+  local DATAFILE=$HOME/.dotfiles/data/namaz
+  local url='http://api.namazvakitleri.com.tr/getTimes/json/217'
+  date -f <(curl 2>/dev/null  $url | \
+            command sed -r 's/\{/\n{/g;s/(\{|")[ a-zD"},:]+/ /g' |\
+            tail -n +6 |\
+            awk '{for(i=3;i<9;i++)printf "%sT%s\n", $1, $i}') +%s >! \
+            $DATAFILE
+}
 
 function prompt_sencer_setup {
   prompt_opts=(cr percent subst)
