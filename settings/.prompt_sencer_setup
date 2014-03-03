@@ -43,3 +43,5 @@ function prompt_sencer_setup {
 }
 
 prompt_sencer_setup "$@"
+
+# vim: ft=zsh
