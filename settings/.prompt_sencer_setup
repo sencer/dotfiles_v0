@@ -20,16 +20,31 @@ function prompt_sencer_precmd {
     sed -i 1d $DATAFILE
     export NAMAZ=$(head -1 $DATAFILE)
   done
+  prompt_weather_timer
 }
 
 function prompt_namaz_guncelle {
   local DATAFILE=$HOME/.dotfiles/data/namaz
   local url='http://api.namazvakitleri.com.tr/getTimes/json/217'
-  date -f <(curl 2>/dev/null  $url | \
+  date -f <(curl --silent  $url | \
             command sed -r 's/\{/\n{/g;s/(\{|")[ a-zD"},:]+/ /g' |\
             tail -n +6 |\
             awk '{for(i=3;i<9;i++)printf "%sT%s\n", $1, $i}') +%s >! \
             $DATAFILE
+}
+
+function prompt_weather_update(){
+  local weather
+  weather=( $(curl --silent "http://xml.weather.yahoo.com/forecastrss?p=USNJ0427&u=c" | grep condition | command sed -r 's/[^0-9-]+/ /g') )
+  export WEATHER="$(date +%s) $weather[1] $weather[2]°C"
+}
+
+function prompt_weather_timer(){
+  local tmp
+  tmp=( ${=WEATHER} )
+  if [[ $[$(date +%s)-tmp[1]] -lt 3600 || -z $WEATHER ]]; then
+    prompt_weather_update
+  fi
 }
 
 function prompt_kalan_vakit {
@@ -47,16 +62,20 @@ function prompt_kalan_vakit {
 
 function prompt_sencer_setup {
   prompt_opts=(cr percent subst)
-  # Load required functions.
-  autoload -Uz add-zsh-hook
-
-  # Add hook for calling vcs_info before each command.
-  add-zsh-hook precmd prompt_sencer_precmd
-
   # Define prompts.
   export PROMPT="%F{73}%h:%F{174}%C%f " 
 
-  export RPROMPT="%F{73}\$(prompt_kalan_vakit)[\${PWD/${HOME//\//\\/}/~}]%f"
+  if [[ -n $TMUX ]]; then
+    export RPROMPT="%F{73}[\${PWD/${HOME//\//\\/}/~}]%f"
+  else
+    # Load required functions.
+    autoload -Uz add-zsh-hook
+
+    # Add hook for calling vcs_info before each command.
+    add-zsh-hook precmd prompt_sencer_precmd
+
+    export RPROMPT="%F{73}\$(prompt_kalan_vakit)[\${PWD/${HOME//\//\\/}/~}]%f"
+  fi
 }
 
 prompt_sencer_setup "$@"
