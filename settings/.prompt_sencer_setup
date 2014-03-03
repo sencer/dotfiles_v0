@@ -44,24 +44,19 @@ function prompt_kalan_vakit {
   kalan=$[NAMAZ-`date +%s`-daylight]
   echo "[$[kalan/3600]sa$[(kalan%3600)/60]dk]"
 }
+
 function prompt_sencer_setup {
   prompt_opts=(cr percent subst)
-  # source <(vakit export)
-  # if [ `date +%:::z` -eq -4 ];then
-  #   daylight=1
-  # else
-  #   daylight=0
-  # fi
   # Load required functions.
   autoload -Uz add-zsh-hook
 
   # Add hook for calling vcs_info before each command.
-  # add-zsh-hook precmd prompt_sencer_precmd
+  add-zsh-hook precmd prompt_sencer_precmd
 
   # Define prompts.
   export PROMPT="%F{73}%h:%F{174}%C%f " 
-  # export RPROMPT="%F{73}\$(prompt_kalan_vakit)[\${PWD/\/home\/sselcuk/~}]%f" 
-  export RPROMPT="%F{73}[\${PWD/${HOME//\//\\/}/~}]%f"
+
+  export RPROMPT="%F{73}\$(prompt_kalan_vakit)[\${PWD/${HOME//\//\\/}/~}]%f"
 }
 
 prompt_sencer_setup "$@"
