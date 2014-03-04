@@ -8,7 +8,7 @@ function precmd_updater {
     sed -i 1d $DATAFILE
     export NAMAZ=$(head -1 $DATAFILE)
   done
-  weather_timer
+  weather_update
 }
 
 function namaz_guncelle {
@@ -22,16 +22,19 @@ function namaz_guncelle {
 }
 
 function weather_update(){
-  local weather
-  weather=( $(curl --silent "http://xml.weather.yahoo.com/forecastrss?p=USNJ0427&u=c" | grep condition | command sed -r 's/[^0-9-]+/ /g') )
-  export WEATHER="$(date +%s) $weather[1] $weather[2]°C"
-}
-
-function weather_timer(){
-  local tmp
-  tmp=( ${=WEATHER} )
-  if [[ $[$(date +%s)-tmp[1]] -lt 3600 || -z $WEATHER ]]; then
-    weather_update
+  # update weather from yahoo.com if last update time
+  # is older than an hour.
+  local DATAFILE=$HOME/.dotfiles/data/weather
+  local timestamp="$(head -1 $DATAFILE)"
+  if [[ $[$(date +%s)-timestamp] -gt 3600 ]]; then
+    local weather
+    local condition='☈☈☈☈☈☔☔❄❄❄❄☂☂☃☃☃☃☃☃☃〰〰〰⚑⚑☼☁☁☁☁☁☆☼☾☀☔♨☈☈☈☔☃☃☃☁☇❄☇⚠'
+    local url="http://xml.weather.yahoo.com/forecastrss?p=USNJ0427&u=c" 
+    weather=( $(curl --silent "$url" |\
+              grep condition | command sed -r 's/[^0-9-]+/ /g') )
+    weather="${condition[$[$weather[1]-1]]} $weather[2]°C"
+    date +%s >! $DATAFILE
+    echo "$weather" >> $DATAFILE
   fi
 }
 
