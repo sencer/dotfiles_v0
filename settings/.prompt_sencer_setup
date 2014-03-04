@@ -1,3 +1,15 @@
+function prompt_namaz_yaz {
+  loc=-5
+  [[ $NAMAZ -lt 0 ]] && exit
+  if [ `date +%:::z` -eq $loc ];then
+    daylight=0
+  else
+    daylight=3600
+  fi
+  kalan=$[NAMAZ-`date +%s`-daylight]
+  echo "[$[kalan/3600]sa$[(kalan%3600)/60]dk]"
+}
+
 function prompt_sencer_setup {
   prompt_opts=(cr percent subst)
   # Define prompts.
@@ -6,7 +18,7 @@ function prompt_sencer_setup {
   if [[ -n $TMUX ]]; then
     export RPROMPT="%F{73}[\${PWD/${HOME//\//\\/}/~}]%f"
   else
-    export RPROMPT="%F{73}\$(tmux-settings namaz)[\${PWD/${HOME//\//\\/}/~}]%f"
+    export RPROMPT="%F{73}\$(prompt_namaz_yaz)[\${PWD/${HOME//\//\\/}/~}]%f"
   fi
 }
 
