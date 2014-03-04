@@ -5,17 +5,15 @@
 # functions also.
 if [[ $1 == 'namaz' ]]; then
   loc=-5
-  [[ $NAMAZ -lt 0 ]] && exit
+  namaz=$(head -1 $HOME/.dotfiles/data/namaz)
+  [[ $namaz -lt 0 ]] && exit
   if [ `date +%:::z` -eq $loc ];then
     daylight=0
   else
     daylight=3600
   fi
-  kalan=$[NAMAZ-`date +%s`-daylight]
+  kalan=$[namaz-`date +%s`-daylight]
   echo "[$[kalan/3600]sa$[(kalan%3600)/60]dk]"
 elif [[ $1 == 'weather' ]]; then
-  tmp=( ${=WEATHER} )
-  # local condition='☈☈☈☈☈☔☔❅☔☔☔☔☔❅❅❅❅❅❅〰〰〰〰〰☴☼☁☁☁☁☁☾☼☾☼☔☼☈☈☈☔❅❅❅☁☔❅☔'
-  condition='☈☈☈☈☈☔☔❄❄❄❄☂☂☃☃☃☃☃☃☃〰〰〰⚑⚑☼☁☁☁☁☁☆☼☾☀☔♨☈☈☈☔☃☃☃☁☇❄☇⚠'
-  echo "${condition[$[tmp[2]-1]]} $tmp[3]"
+  tail -1 $HOME/.dotfiles/data/weather
 fi
