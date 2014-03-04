@@ -4,11 +4,18 @@
 # shell functions. add zsh-hook in the 
 # functions also.
 if [[ $1 == 'namaz' ]]; then
-  kalan=$[NAMAZ-`date +%s`]
-  echo "$[kalan/3600]sa$[(kalan%3600)/60]dk"
+  loc=-5
+  [[ $NAMAZ -lt 0 ]] && exit
+  if [ `date +%:::z` -eq $loc ];then
+    daylight=0
+  else
+    daylight=3600
+  fi
+  kalan=$[NAMAZ-`date +%s`-daylight]
+  echo "[$[kalan/3600]sa$[(kalan%3600)/60]dk]"
 elif [[ $1 == 'weather' ]]; then
   tmp=( ${=WEATHER} )
   # local condition='☈☈☈☈☈☔☔❅☔☔☔☔☔❅❅❅❅❅❅〰〰〰〰〰☴☼☁☁☁☁☁☾☼☾☼☔☼☈☈☈☔❅❅❅☁☔❅☔'
-  local condition='☈☈☈☈☈☔☔❄❄❄❄☂☂☃☃☃☃☃☃☃〰〰〰⚑⚑☼☁☁☁☁☁☆☼☾☀☔♨☈☈☈☔☃☃☃☁☇❄☇⚠'
+  condition='☈☈☈☈☈☔☔❄❄❄❄☂☂☃☃☃☃☃☃☃〰〰〰⚑⚑☼☁☁☁☁☁☆☼☾☀☔♨☈☈☈☔☃☃☃☁☇❄☇⚠'
   echo "${condition[$[tmp[2]-1]]} $tmp[3]"
 fi

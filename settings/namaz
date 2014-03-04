@@ -1,0 +1,41 @@
+function precmd_updater {
+  local DATAFILE=$HOME/.dotfiles/data/namaz
+  export NAMAZ=$(head -1 $DATAFILE)
+  if [[ $(wc -l < $DATAFILE) -lt 15 ]]; then
+    namaz_guncelle
+  fi
+  while [[ $NAMAZ -le $[`date +%s`+daylight*60] ]]; do
+    sed -i 1d $DATAFILE
+    export NAMAZ=$(head -1 $DATAFILE)
+  done
+  weather_timer
+}
+
+function namaz_guncelle {
+  local DATAFILE=$HOME/.dotfiles/data/namaz
+  local url='http://api.namazvakitleri.com.tr/getTimes/json/217'
+  date -f <(curl --silent  $url | \
+            command sed -r 's/\{/\n{/g;s/(\{|")[ a-zD"},:]+/ /g' |\
+            tail -n +6 |\
+            awk '{for(i=3;i<9;i++)printf "%sT%s\n", $1, $i}') +%s >! \
+            $DATAFILE
+}
+
+function weather_update(){
+  local weather
+  weather=( $(curl --silent "http://xml.weather.yahoo.com/forecastrss?p=USNJ0427&u=c" | grep condition | command sed -r 's/[^0-9-]+/ /g') )
+  export WEATHER="$(date +%s) $weather[1] $weather[2]°C"
+}
+
+function weather_timer(){
+  local tmp
+  tmp=( ${=WEATHER} )
+  if [[ $[$(date +%s)-tmp[1]] -lt 3600 || -z $WEATHER ]]; then
+    weather_update
+  fi
+}
+
+autoload -Uz add-zsh-hook
+add-zsh-hook precmd precmd_updater
+
+# vim: ft=zsh
