@@ -12,6 +12,8 @@ function precmd_updater {
 }
 
 function namaz_guncelle {
+  # get prayer times from api.namazvakitleri.com.tr
+  # and write to $DATAFILE as one timestamp per line
   local DATAFILE=$HOME/.dotfiles/data/namaz
   local url='http://api.namazvakitleri.com.tr/getTimes/json/217'
   date -f <(curl --silent  $url | \
