@@ -119,7 +119,7 @@ pdfcompress(){
   while [[ $# -gt 0 ]]; do
     if [[ -f $1 ]]; then
       echo "Compressing $1..."
-      gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.5 -dPDFSETTINGS=/prepress \
+      /usr/bin/gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.5 -dPDFSETTINGS=/prepress \
         -dAutoFilterColorImages=false -dColorImageFilter=/FlateEncode -dNOPAUSE\
         -dQUIET -dBATCH -sOutputFile=${1%.pdf}.compressed.pdf $1
       if [[ inplace -eq 1 ]]; then
