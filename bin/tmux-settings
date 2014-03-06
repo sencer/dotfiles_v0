@@ -13,7 +13,7 @@ if [[ $1 == 'namaz' ]]; then
     daylight=3600
   fi
   kalan=$[namaz-`date +%s`-daylight]
-  echo "[$[kalan/3600]sa$[(kalan%3600)/60]dk]"
+  echo "$[kalan/3600]sa$[(kalan%3600)/60]dk"
 elif [[ $1 == 'weather' ]]; then
   tail -1 $HOME/.dotfiles/data/weather
 fi
