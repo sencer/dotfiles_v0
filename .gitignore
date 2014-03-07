@@ -7,10 +7,8 @@ ssh/id*
 .sw*
 *.zwc
 *.zwc.old
-zprezto/modules/*/cache.zsh
 settings/.dirs
 data/namaz
 data/history
 data/weather
 data/dirs
-config/antigen
