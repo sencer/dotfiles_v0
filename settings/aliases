@@ -14,6 +14,7 @@ alias less="less -R"
 alias mkdir='nocorrect mkdir -p'
 alias sed='sed -r'
 alias grep='grep -P'
+alias scp='rsync -azPe "ssh -q"'
 alias tmuxe='exec tmux'
 
 alias vi="vim -X"
