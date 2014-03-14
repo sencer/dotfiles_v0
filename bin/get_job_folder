@@ -1,14 +1,14 @@
-#!/usr/bin/env bash 
-jobId=($(qstat -u `whoami`|awk -vjob="$1" 'NR>5 && job".job" ~ $4 {print gensub("\\..*","","",$1)}'))
+#!/usr/bin/env bash
+jobId=($(qstat -u $USER|awk -vjob="$1" 'NR>5 && job".job" ~ $4 {print gensub("\\..*","","",$1)}'))
 if [[ $jobId != "" ]]; then
-  jobFolder=$(qstat -f $jobId|grep "Output_Path"|sed 's/[^/]*\(\/.*\/\).*/\1/')
+  jobFolder=$(qstat -f $jobId | \
+    sed -rn '/Output_Path/,+1H;g;${s/\n\s*|(.*:|'$USER'|home)\/|[^/]*$//g;p}')
   if [[ jobFolder == "" ]]; then
     exit 1
   else
-    jobFolder=$(echo "$jobFolder"|sed 's/\(gpfs\|work\|gscr\|network\|scratch\)\/sselcuk/sselcuk\/\1/g')
     folder=`grep "^$PBSSERVER" $PBSSERVERFILE|cut -d' ' -f4`
     [ $folder == "." ] && folder=""
-    echo $HOME/$PBSSERVER/${jobFolder#*`whoami`/$folder}
+    echo $HOME/$PBSSERVER/${jobFolder}
   fi
 else
   exit 1
