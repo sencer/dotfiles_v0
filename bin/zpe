@@ -21,7 +21,8 @@ if [[ -z $PBSSERVER ]]; then
   max_seconds         = 10000
   tprnfor             = .true.
   /
-  ""$(sed -n $s,${l}p input.txt| sed "/&electrons/a\  startingwfc = \'file\'\n\  startingpot = \'file\'")"
+  $(sed -n $s,${l}p input.txt |\
+    sed "/&electrons/a\  startingwfc = \'file\'\n\  startingpot = \'file\'")"
 
   for ((i=1; i<=n; i++)); do
     for j in {1..6}; do
@@ -29,50 +30,49 @@ if [[ -z $PBSSERVER ]]; then
       mkdir -p $i/$j
       echo "${header}" > $i/$j/input.txt
       awk -va=$1 -vl=$l -vj=$j 'BEGIN{
-      x = y = z = 0
-      if(j < 3) {x = 1} else if(j < 5) {y = 1} else { z = 1 }
-        if(j % 2 == 1) { x = -x; y = -y; z = -z}
-        } NR > l {
-        if (NR == l + a){
-          printf "  %-4s %14.9f %14.9f %14.9f\n", $1, $2 + 0.01 * x, $3 + 0.01 * y, $4 + 0.01 * z
-          i++
-        } else {
-        print $0
-      }
-    }' input.txt >> $i/$j/input.txt
+        x = y = z = 0
+        if(j < 3) {x = 1} else if(j < 5) {y = 1} else { z = 1 }
+          if(j % 2 == 1) { x = -x; y = -y; z = -z}
+          } NR > l {
+          if (NR == l + a){
+            printf "  %-4s %14.9f %14.9f %14.9f\n", $1, $2 + 0.01 * x, $3 + 0.01 * y, $4 + 0.01 * z
+            i++
+          } else {
+          print $0
+        }
+      }' input.txt >> $i/$j/input.txt
+    done
+    shift
   done
-  shift
-done
 
-cat <<-EOF > zpe.job
-	#!/bin/bash
-	#PBS -l nodes=4:ppn=12,walltime=02:00:00
-	#PBS -j oe
-	#PBS -m ae
-	#PBS -M sselcuk@ofis.princeton.edu
-	#PBS -V
-
-	module load openmpi fftw
-
-	kpools=1
-	images=1
-	gap=300
-	exec="pw.x"
-	exec_path="\$HOME/software/espresso-5.0.2/bin"
-
-	cd \$PBS_O_WORKDIR
-	numprocs=\`wc -l <\${PBS_NODEFILE}\`
-
-	for i in ${all};do
-	  cp -r ../pwscf.* \$i
-	  cd \$i
-	  maxseconds=\$(qstat -f \$PBS_JOBID | awk '{if(\$1=="Resource_List.walltime"){split(\$3, tmp, ":");print (tmp[1]*3600+tmp[2]*60+tmp[3])/(6*$n)-gap;}}' gap=\$gap)
-	  sed -i "s/\(max_seconds *= *\)[0-9]*,/\1\$maxseconds,/" input.txt
-	  mpiexec -np \$numprocs \$exec_path/\$exec -npool \$kpools -nimages \$images -inp input.txt >> output.txt
-	  rm -rf pwscf.*
-	  cd ../..
-	done
-EOF
+  apply_conf $HOME/$PBSSERVER/.jobconfig -if -all "$all" -kpools 1 -gap 300 -images 1 <<-'EOF' > zpe.job
+		#!/bin/bash
+		#PBS -l $lline
+		#PBS -q $queue
+		#PBS -j oe
+		#PBS -m ae
+		#PBS -M $email
+		#PBS -V
+	
+		module load $modules
+	
+		gap=$gap
+		kpools=$kpools
+		images=$images
+	
+		cd \$PBS_O_WORKDIR
+		numprocs=\`wc -l <\${PBS_NODEFILE}\`
+	
+		for i in ${all}; do
+		  cp -r ../pwscf.* \$i
+		  cd \$i
+		  maxseconds=\$(qstat -f \$PBS_JOBID | awk '{if(\$1==\"Resource_List.walltime\"){split(\$3, tmp, \":\");print (tmp[1]*3600+tmp[2]*60+tmp[3])/(6*\$n)-gap;}}' gap=\$gap)
+		  sed -i "\"s/\(max_seconds\\s*=\\s*\)[0-9]*/\\1\$maxseconds/\"" input.txt
+		  $scheduler $prepara \$numprocs $path/pw.x -npool \$kpools -nimages \$images -inp input.txt >> output.txt
+		  rm -rf pwscf.*
+		  cd ../..
+		done
+	EOF
 else
   ras "~/bin/zpe $@"
 fi
