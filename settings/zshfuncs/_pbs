@@ -1,12 +1,9 @@
-#compdef qdel qsub qstat
+#compdef qdel qsub qstat showstart
 
 _pbs_complete(){
   local curcontext="$curcontext" context state line
   typeset -A opt_args
   case $service in
-    qdel )
-      _arguments '*:Job ID:_pbs_get_jobs'
-      ;;
     qsub )
       _arguments -s -S \
         '-W+:depend on:->deptype'\
@@ -25,6 +22,9 @@ _pbs_complete(){
       _arguments \
         '-f+:Job Id:_pbs_get_jobs'\
         '-u:User Id:($USER)'
+      ;;
+    * )
+      _arguments '*:Job ID:_pbs_get_jobs'
       ;;
   esac
 }
