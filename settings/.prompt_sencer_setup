@@ -1,12 +1,6 @@
 function prompt_namaz_yaz {
-  loc=-5
   [[ $NAMAZ -lt 0 ]] && exit
-  if [ `date +%:::z` -eq $loc ];then
-    daylight=0
-  else
-    daylight=3600
-  fi
-  kalan=$[NAMAZ-`date +%s`-daylight]
+  kalan=$[NAMAZ-`date +%s`]
   echo "[$[kalan/3600]sa$[(kalan%3600)/60]dk]"
 }
 

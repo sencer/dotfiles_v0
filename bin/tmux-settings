@@ -4,15 +4,7 @@
 # shell functions. add zsh-hook in the 
 # functions also.
 if [[ $1 == 'namaz' ]]; then
-  loc=-5
-  namaz=$(head -1 $HOME/.dotfiles/data/namaz)
-  [[ $namaz -lt 0 ]] && exit
-  if [ `date +%:::z` -eq $loc ];then
-    daylight=0
-  else
-    daylight=3600
-  fi
-  kalan=$[namaz-`date +%s`-daylight]
+  kalan=$[`head -1 $HOME/.dotfiles/data/namaz`-`date +%s`]
   echo "$[kalan/3600]sa$[(kalan%3600)/60]dk"
 elif [[ $1 == 'weather' ]]; then
   tail -1 $HOME/.dotfiles/data/weather
