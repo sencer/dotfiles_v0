@@ -7,6 +7,3 @@
 [submodule "zprezto/modules/completion/external"]
 	path = zprezto/modules/completion/external
 	url = git@github.com:zsh-users/zsh-completions.git
-[submodule "config/antigen"]
-	path = config/antigen
-	url = https://github.com/zsh-users/antigen.git
