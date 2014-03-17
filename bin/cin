@@ -9,7 +9,7 @@ if [[ -z $PBSSERVER ]]; then
   # check if ions converged after last run
   c=( $(grep -n 'Begin final' output.txt|cut -d':' -f1) )
 
-  if [[ ${n[${#n[@]}-1]} < ${c[${#c[@]}-1]} ]]; then
+  if [[ -n $c && ${n[${#n[@]}-1]} < ${c[${#c[@]}-1]} ]]; then
     c=1
     echo "Using the converged ionic positions."
   else
@@ -63,4 +63,3 @@ if [[ -z $PBSSERVER ]]; then
 else
   ras -pbs '~/bin/cin'
 fi
-
