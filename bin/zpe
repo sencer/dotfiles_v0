@@ -29,8 +29,14 @@ if [[ -z $PBSSERVER ]]; then
     sed "/&electrons/a\  startingwfc = \'file\'\n\  startingpot = \'file\'")"
 
   for i in ${all[@]}; do
+    if [[ -d $i ]]; then
+      echo "There is already a folder for atom $i. Backing up the input file"
+      echo "and creating a new one. You may want to omit recalculating by"
+      echo "editing the job script."
+    fi
     for j in {1..6}; do
       mkdir -p $i/$j
+      [[ -f $i/$j/input.txt ]] && mv $i/$j/input.txt $i/$j/old.input.txt
       echo "${header}" > $i/$j/input.txt
       awk -va=$1 -vl=$l -vj=$j 'BEGIN{
         x = y = z = 0
