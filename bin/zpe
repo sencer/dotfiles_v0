@@ -10,6 +10,10 @@ if [[ -z $PBSSERVER ]]; then
   n=$#
   all=( $@ )
   inp=`basename $PWD`.txt
+  if [[ ! -f $inp ]]; then
+    echo 'First you should generate a pwscf input file using `pin`'
+    exit -1
+  fi
   mkdir -p zpe
   cp $inp zpe/input.txt
   cd zpe
