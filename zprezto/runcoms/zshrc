@@ -22,3 +22,4 @@ setopt automenu banghist chasedots hashlistall histignorealldups\
        sharehistory nomatch
 unsetopt nomatch
 source ~/.profile
+export DIRSTACKSIZE=20
