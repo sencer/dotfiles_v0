@@ -1,2 +1,73 @@
 #!/bin/bash
-ras "~/bin/zpe1 $@"
+
+if [[ -z $PBSSERVER ]]; then
+  n=$#
+  all=( $@ )
+  if [[ -z $all ]]; then
+    echo "No atom index provided. Using all the calculated atoms"
+    all=( */ )
+  fi
+  nat=$(sed -n '/nat/s/.*=\s*\([0-9]\+\),\?\s*/\1/p' input.txt)
+
+  #force matrix of the relaxed structure
+  f=$(grep 'atom.*force' ../output.txt | tail -${nat} |awk -vs=" $* " '{
+      if(match(s, " "NR" "))
+        printf "%14.9f %14.9f %14.9f ",$7, $8, $9
+    }')
+
+  echo "Force matrix" > zpe.FC
+  for i in ${all[@]}; do
+  # for (( i = 1; i <= $n; i++ )); do
+    for (( j = 1; j < 7; j++ )); do
+      grep 'atom.*force' $i/$j/output.txt | tail -${nat} | awk -vs=" $* " -vj=$j -vf="$f" -vn=$n 'BEGIN{
+        split(f, forces)
+      }{
+        if(match(s, " "NR" ")){
+          printf "%14.9f %14.9f %14.9f\n", (-1) ^ (j % 2 + 1) * ($7 - forces[++i]) * 2571.1041228,
+                                           (-1) ^ (j % 2 + 1) * ($8 - forces[++i]) * 2571.1041228,
+                                           (-1) ^ (j % 2 + 1) * ($9 - forces[++i]) * 2571.1041228
+        }
+      }' >> zpe.FC
+    done
+  done
+
+  l=$(grep -n ATOMIC_P input.txt|cut -d: -f1)
+
+  coor="$(awk -vs=" $* " -vl=$l 'BEGIN{
+        m["H"]   = 1.0079
+        m["C"]   = 12.011
+        m["O"]   = 15.9994
+        m["Ti"]  =  47.867
+        m["Co"]  = 58.933
+        m["Co1"] = 58.933
+        m["Al"]  = 58.933
+      }{
+        if(match(s, " "NR - l" ")){
+          printf "%14.9f %14.9f %14.9f %d %f\n" ,$2, $3, $4, ++i, m[$1]
+        }
+      }' input.txt)"
+
+  cat <<-EOF > zpe.fdf
+		SystemName zpe
+		SystemLabel zpe
+		NumberOfAtoms $n
+		LatticeConstant 100.0 Bohr
+
+		AtomicCoordinatesFormat NotScaledCartesianAng
+		%block AtomicCoordinatesAndAtomicSpecies
+		${coor}
+		%endblock AtomicCoordinatesAndAtomicSpecies
+
+		AtomicDispl 0.01 Ang
+		BandLinesScale pi/a
+
+		%block Bandlines
+		1 0.0 0.0 0.0 \Gamma
+		%endblock BandLines
+
+		# Eigenvectors True
+
+	EOF
+else
+  ras "~/bin/zpe1 $@"
+fi
