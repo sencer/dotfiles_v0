@@ -15,7 +15,7 @@ alias mkdir='nocorrect mkdir -p'
 alias sed='sed -r'
 alias grep='grep -P'
 alias scp='rsync -azPe "ssh -q"'
-alias tree='ras tree -d -I "pwscf.save|zpe"'
+alias tree='ras tree -d -I "pwscf.save|zpe|pp"'
 alias tmuxe='exec tmux'
 
 alias vi="vim -X"
