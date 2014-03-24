@@ -1,13 +1,23 @@
 #!/bin/bash
 
 if [[ -z $PBSSERVER ]]; then
+  if [[ -f output.txt ]]; then
+    filout="output.txt"
+    filin="input.txt"
+  elif [[ -f PW.out ]]; then
+    filout="PW.out"
+    filin="../input.txt"
+  else
+    echo "No output file was found. Exiting."
+    exit -1
+  fi
   fout="$(basename $PWD)".txt
 
   # get where the last run starts
-  n=( $(grep -n starts output.txt|cut -d':' -f1) )
+  n=( $(grep -n starts $filout|cut -d':' -f1) )
 
   # get the last ATOMIC_POSITIONS flag
-  f=( $(grep -n 'ATOMIC_POSITIONS' output.txt|cut -d':' -f1) )
+  f=( $(grep -n 'ATOMIC_POSITIONS' $filout|cut -d':' -f1) )
 
   if [[ -z $f ]];then
     echo "No atomic coordinates are found in the output file. Exiting"
@@ -21,7 +31,7 @@ if [[ -z $PBSSERVER ]]; then
     fi
   fi
 
-  sed -n -e '1,/_POS/{:c s/angstrom/CRYSTAL/i; /_POS/t c;p}' input.txt > $fout
+  sed -n -e '1,/_POS/{:c s/angstrom/CRYSTAL/i; /_POS/t c;p}' $filin > $fout
 
   awk -vn=$n -vf=${f[${#f[@]}-1]} 'BEGIN{
         b2a = 0.529177249
@@ -65,9 +75,9 @@ if [[ -z $PBSSERVER ]]; then
           }
           exit
         }
-      }' output.txt >> $fout
+      }' $filout >> $fout
 
-  sed -n -e '/K_POINTS/,$p' input.txt >> $fout
+  sed -n -e '/K_POINTS/,$p' $filin >> $fout
   echo "Written to $fout"
 else
   ras -pbs '~/bin/cin'
