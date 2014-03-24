@@ -8,6 +8,7 @@ if [[ -z $PBSSERVER ]]; then
     exit
   fi
   n=$#
+  all=( $@ )
   inp=`basename $PWD`.txt
   mkdir -p zpe
   cp $inp zpe/input.txt
@@ -15,7 +16,6 @@ if [[ -z $PBSSERVER ]]; then
   nat=$(sed -n '/nat/s/.*=\s*//p' input.txt)
   l=$(grep -n ATOMIC_P input.txt|cut -d: -f1)
   s=$(grep -n '&system' input.txt|cut -d: -f1)
-  all=""
   header="&control
   restart_mode        = 'from_scratch'
   max_seconds         = 10000
@@ -24,9 +24,8 @@ if [[ -z $PBSSERVER ]]; then
   $(sed -n $s,${l}p input.txt |\
     sed "/&electrons/a\  startingwfc = \'file\'\n\  startingpot = \'file\'")"
 
-  for ((i=1; i<=n; i++)); do
+  for i in ${all[@]}; do
     for j in {1..6}; do
-      all="${all} $i/$j"
       mkdir -p $i/$j
       echo "${header}" > $i/$j/input.txt
       awk -va=$1 -vl=$l -vj=$j 'BEGIN{
@@ -45,7 +44,7 @@ if [[ -z $PBSSERVER ]]; then
     shift
   done
 
-  apply_conf $HOME/$PBSSERVER/.jobconfig -if -all "$all" -kpools 1 -gap 300 -images 1 <<-'EOF' > zpe.job
+  apply_conf $HOME/$PBSSERVER/.jobconfig -if -all "${all[*]}" -kpools 1 -gap 300 -images 1 <<-'EOF' > zpe.job
 		#!/bin/bash
 		#PBS -l $lline
 		#PBS -q $queue
@@ -64,13 +63,15 @@ if [[ -z $PBSSERVER ]]; then
 		numprocs=\`wc -l <\${PBS_NODEFILE}\`
 	
 		for i in ${all}; do
-		  cp -r ../pwscf.* \$i
-		  cd \$i
-		  maxseconds=\$(qstat -f \$PBS_JOBID | awk '{if(\$1==\"Resource_List.walltime\"){split(\$3, tmp, \":\");print (tmp[1]*3600+tmp[2]*60+tmp[3])/(6*\$n)-gap;}}' gap=\$gap)
-		  sed -i "\"s/\(max_seconds\\s*=\\s*\)[0-9]*/\\1\$maxseconds/\"" input.txt
-		  $scheduler $prepara \$numprocs $path/pw.x -npool \$kpools -nimages \$images -inp input.txt >> output.txt
-		  rm -rf pwscf.*
-		  cd ../..
+		  for j in {1..6};do
+		    cp -r ../pwscf.* \$i/\$j
+		    cd \$i/\$j
+		    maxseconds=\$(qstat -f \$PBS_JOBID | awk '{if(\$1==\"Resource_List.walltime\"){split(\$3, tmp, \":\");print (tmp[1]*3600+tmp[2]*60+tmp[3])/(6*\$n)-gap;}}' gap=\$gap)
+		    sed -i "\"s/\(max_seconds\\s*=\\s*\)[0-9]*/\\1\$maxseconds/\"" input.txt
+		    $scheduler $prepara \$numprocs $path/pw.x -npool \$kpools -nimages \$images -inp input.txt >> output.txt
+		    rm -rf pwscf.*
+		    cd ../..
+		  done
 		done
 	EOF
 else
