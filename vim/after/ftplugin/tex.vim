@@ -12,8 +12,8 @@ syntax spell toplevel
 
 let g:LatexBox_complete_inlineMath = 1
 
-au FileType <buffer> exec("setl dictionary+=".$HOME."/.vim/dictionaries/tex")
 setl thesaurus+=$HOME/.vim/dictionaries/moby
+setl dictionary+=$HOME/.vim/dictionaries/tex
 au InsertLeave,CursorHold,CursorHoldI <buffer> :up
 
 function! SyncTex()
