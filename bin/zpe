@@ -74,7 +74,6 @@ if [[ -z $PBSSERVER ]]; then
 		maxseconds=\$(qstat -f \$PBS_JOBID | awk '{if(\$1==\"Resource_List.walltime\"){split(\$3, tmp, \":\");print tmp[1]*3600+tmp[2]*60+tmp[3]-gap;}}' gap=\$gap)
 		dt=\$(date +%s)
 
-	
 		for i in ${all}; do
 		  for j in {1..6};do
 		    cp -r ../pwscf.* \$i/\$j
@@ -85,6 +84,7 @@ if [[ -z $PBSSERVER ]]; then
 		    cd ../..
 		  done
 		done
+		echo \$\(\(dt-\$\(date +%s\)\)\)
 	EOF
 else
   ras "~/bin/zpe $@"
