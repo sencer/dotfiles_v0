@@ -7,4 +7,5 @@
 # a script that loads the command.
 
 set auto_index(cell) [list source [file join $dir cell.tcl]]
+set auto_index(savexyz) [list source [file join $dir write.tcl]]
 set auto_index(state) [list source [file join $dir state.tcl]]
