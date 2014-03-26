@@ -6,11 +6,12 @@ if [[ -z $PBSSERVER ]]; then
   if [[ -z $all ]]; then
     echo "No atom index provided. Using all the calculated atoms"
     all=( */ )
+    n=$((${#all}-1))
   fi
   nat=$(sed -n '/nat/s/.*=\s*\([0-9]\+\),\?\s*/\1/p' input.txt)
 
   #force matrix of the relaxed structure
-  f=$(grep 'atom.*force' ../output.txt | tail -${nat} |awk -vs=" $* " '{
+  f=$(grep 'atom.*force' ../output.txt | tail -${nat} |awk -vs=" ${all[*]//\//} " '{
       if(match(s, " "NR" "))
         printf "%14.9f %14.9f %14.9f ",$7, $8, $9
     }')
@@ -19,7 +20,7 @@ if [[ -z $PBSSERVER ]]; then
   for i in ${all[@]}; do
   # for (( i = 1; i <= $n; i++ )); do
     for (( j = 1; j < 7; j++ )); do
-      grep 'atom.*force' $i/$j/output.txt | tail -${nat} | awk -vs=" $* " -vj=$j -vf="$f" -vn=$n 'BEGIN{
+      grep 'atom.*force' $i/$j/output.txt | tail -${nat} | awk -vs=" ${all[*]//\//} " -vj=$j -vf="$f" -vn=$n 'BEGIN{
         split(f, forces)
       }{
         if(match(s, " "NR" ")){
@@ -33,7 +34,7 @@ if [[ -z $PBSSERVER ]]; then
 
   l=$(grep -n ATOMIC_P input.txt|cut -d: -f1)
 
-  coor="$(awk -vs=" $* " -vl=$l 'BEGIN{
+  coor="$(awk -vs=" ${all[*]//\//} " -vl=$l 'BEGIN{
         m["H"]   = 1.0079
         m["C"]   = 12.011
         m["O"]   = 15.9994
