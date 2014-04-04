@@ -83,9 +83,9 @@ $(sed -n "/&system/,/_POS/p;/&electrons/a\  startingwfc = 'file'\n\
 		    $scheduler $prepara \$numprocs $path/pw.x -npool \$kpools -nimages \$images -inp input.txt >> output.txt
 		    rm -rf pwscf.*
 		    cd ../..
+		    echo \$i/\$j: \$((dt-\$(date +%s)))
 		  done
 		done
-		echo \$\(\(dt-\$\(date +%s\)\)\)
 	EOF
 else
   ras "~/bin/zpe $@"
