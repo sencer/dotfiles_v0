@@ -6,6 +6,7 @@ proc state {} {
   if { [file exists view.vmd] } {
     catch { source view.vmd }
   } else {
+    #some default settings
     foreach mid [molinfo list] {
       molinfo $mid set {
         center_matrix rotate_matrix scale_matrix global_matrix
