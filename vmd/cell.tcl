@@ -8,13 +8,15 @@ proc cell {} {
   set y 0
   set z 0
   set mol [molinfo top]
-  set file [open $fname r]
-  while { [gets $file line] != -1 } { 
-    if {[lindex $line 0] == "CRYST1"} { 
-      set celldm [lrange $line 1 3]
-      break } } 
-  close $file
   if { ![info exists celldm] } {
+    set file [open $fname r]
+    while { [gets $file line] != -1 } {
+      if {[lindex $line 0] == "CRYST1"} {
+        set celldm [lrange $line 1 3]
+        break
+      }
+    }
+    close $file
     puts "Enter Cell Dimensions (x y z):"
     flush stdout
     gets stdin celldm
