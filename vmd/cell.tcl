@@ -1,5 +1,4 @@
 proc cell {} {
-  package require pbctools
   global fname
   global x
   global y

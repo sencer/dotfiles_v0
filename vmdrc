@@ -41,6 +41,7 @@ user add key q { exit }
 user add key Control-w { savexyz }
 
 # after idle {
+  package require pbctools
   #load my scripts in this order!
   state
   cell
