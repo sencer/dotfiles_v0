@@ -1,20 +1,20 @@
-if [ ! -f ~/.settings/.dirs ]; then  # if doesn't exist, create it
-  touch ~/.settings/.dirs
+if [ ! -f ~/.dotfiles/data/dirs ]; then  # if doesn't exist, create it
+  touch ~/.dotfiles/data/dirs
 fi
 
-alias show='cat ~/.settings/.dirs'
+alias show='cat ~/.dotfiles/data/dirs'
 
 save (){
-  sed -i "/!$/d" ~/.settings/.dirs 
-  echo "${@//-/__}"=\'`pwd`\' >> ~/.settings/.dirs
-  source ~/.settings/.dirs 
+  sed -i "/!$/d" ~/.dotfiles/data/dirs 
+  echo "${@//-/__}"=\'`pwd`\' >> ~/.dotfiles/data/dirs
+  source ~/.dotfiles/data/dirs 
 }
 
 del(){
-  \sed -i "/^_\?${@//-/__}=/d" ~/.settings/.dirs;
+  \sed -i "/^_\?${@//-/__}=/d" ~/.dotfiles/data/dirs;
   unset {,_}${@//-/__}
 }
-source ~/.settings/.dirs  # Initialization for the above 'save' facility: source the ..settings/.dirs file
+source ~/.dotfiles/data/dirs  # Initialization for the above 'save' facility: source the ..settings/.dirs file
 # setopt cdablevars # set the bash option so that no '$' is required when using the above facility
 
 # vim: ft=zsh
