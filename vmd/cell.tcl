@@ -17,10 +17,12 @@ proc cell {} {
       }
     }
     close $file
-    puts "Enter Cell Dimensions (x y z):"
-    flush stdout
-    gets stdin celldm
-    pbc set $celldm
+    if { ![info exists celldm] } {
+      puts "Enter Cell Dimensions (x y z):"
+      flush stdout
+      gets stdin celldm
+      pbc set $celldm
+    }
   }
   user add key u {
     pbc unwrap -all
