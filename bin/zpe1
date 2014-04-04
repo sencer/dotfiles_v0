@@ -6,7 +6,7 @@ if [[ -z $PBSSERVER ]]; then
   if [[ -z $all ]]; then
     echo "No atom index provided. Using all the calculated atoms"
     all=( */ )
-    n=$((${#all}-1))
+    n=$((${#all[@]}))
   fi
   nat=$(sed -n '/nat/s/.*=\s*\([0-9]\+\),\?\s*/\1/p' input.txt)
 
@@ -63,7 +63,7 @@ if [[ -z $PBSSERVER ]]; then
 		BandLinesScale pi/a
 
 		%block Bandlines
-		1 0.0 0.0 0.0 \Gamma
+		  1 0.0 0.0 0.0 \Gamma
 		%endblock BandLines
 
 		# Eigenvectors True
