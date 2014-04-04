@@ -77,12 +77,14 @@ $(sed -n "/&system/,/_POS/p;/&electrons/a\  startingwfc = 'file'\n\
 
 		for i in ${all}; do
 		  for j in {1..6};do
-		    cp -r ../pwscf.* \$i/\$j
-		    cd \$i/\$j
-		    sed -i "\"s/\\\(max_seconds\\s*=\\s*\\\)[0-9]*/\\1\$\(\(maxseconds+dt-\$\(date +%s\)\)\)/\"" input.txt
-		    $scheduler $prepara \$numprocs $path/pw.x -npool \$kpools -nimages \$images -inp input.txt >> output.txt
-		    rm -rf pwscf.*
-		    cd ../..
+		    if [[ \$((maxseconds+dt)) -gt \$(date +%s) ]]; then
+		      cp -r ../pwscf.* \$i/\$j
+		      cd \$i/\$j
+		      sed -i "\"s/\\\(max_seconds\\s*=\\s*\\\)[0-9]*/\\1\$\(\(maxseconds+dt-\$\(date +%s\)\)\)/\"" input.txt
+		      $scheduler $prepara \$numprocs $path/pw.x -npool \$kpools -nimages \$images -inp input.txt >> output.txt
+		      rm -rf pwscf.*
+		      cd ../..
+		    fi
 		    echo \$i/\$j: \$((dt-\$(date +%s)))
 		  done
 		done
