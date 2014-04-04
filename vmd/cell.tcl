@@ -31,30 +31,38 @@ proc cell {} {
     set x 0
     set y 0
     set z 0
-    pbc box -shiftcenter "$x $y $z" }  
-  user add key o {pbc box -toggle -shiftcenter "$x $y $z"}  
-  user add key w { pbc wrap -all }  
+    pbc box -shiftcenter "$x $y $z"
+  }
+  user add key o {pbc box -toggle -shiftcenter "$x $y $z"}
+  user add key w { pbc wrap -all }
   user add key Right {
     set x [expr $x+0.1]
     pbc wrap -all -shiftcenter "$x $y $z"
-    pbc box -shiftcenter "$x $y $z" }  
+    pbc box -shiftcenter "$x $y $z"
+  }
   user add key Left {
     set x [expr $x-0.1]
     pbc wrap -all -shiftcenter "$x $y $z"
-    pbc box -shiftcenter "$x $y $z" }  
-  user add key Page_Down {
+    pbc box -shiftcenter "$x $y $z"
+  }
+  user add key Home {
     set y [expr $y-0.1]
     pbc wrap -all -shiftcenter "$x $y $z"
-    pbc box -shiftcenter "$x $y $z" }  
-  user add key Page_Up {
+    pbc box -shiftcenter "$x $y $z"
+  }
+  user add key End {
     set y [expr $y+0.1]
     pbc wrap -all -shiftcenter "$x $y $z"
-    pbc box -shiftcenter "$x $y $z" }  
+    pbc box -shiftcenter "$x $y $z"
+  }
   user add key Up {
     set z [expr $z+0.1]
     pbc wrap -all -shiftcenter "$x $y $z"
-    pbc box -shiftcenter "$x $y $z" }
+    pbc box -shiftcenter "$x $y $z"
+  }
   user add key Down {
     set z [expr $z-0.1]
     pbc wrap -all -shiftcenter "$x $y $z"
-    pbc box -shiftcenter "$x $y $z" } }
+    pbc box -shiftcenter "$x $y $z"
+  }
+}
