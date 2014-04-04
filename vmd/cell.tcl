@@ -4,10 +4,12 @@ proc cell {} {
   global y
   global z
   global celldm
-  set x 0
-  set y 0
-  set z 0
-  set mol [molinfo top]
+  if { ![info exists x] } {
+    set x 0
+    set y 0
+    set z 0
+  }
+  # set mol [molinfo top]
   if { ![info exists celldm] } {
     set file [open $fname r]
     while { [gets $file line] != -1 } {
