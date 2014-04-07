@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
-jobId=($(qstat -u $USER|awk -vjob="$1" 'NR>5 && job".job" ~ $4 {print gensub("\\..*","","",$1)}'))
+jobId=( $( qstat -u $USER | awk -vjob="$1" '
+  NR>5 && job".job" ~ gensub(/[][^$.*?+{}\\()|]/,"\\\\&", "g", $4) {
+    print gensub("\\..*","","",$1)
+  }'
+))
 if [[ $jobId != "" ]]; then
   jobFolder=$(qstat -f $jobId | \
     sed -rn '/Output_Path/,+1H;g;${s/\n\s*|(.*:|'$USER'|home|scratch)\/|[^/]*$//g;p}')

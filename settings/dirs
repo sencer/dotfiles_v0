@@ -5,16 +5,18 @@ fi
 alias show='cat ~/.dotfiles/data/dirs'
 
 save (){
-  sed -i "/!$/d" ~/.dotfiles/data/dirs 
-  echo "${@//-/__}"=\'`pwd`\' >> ~/.dotfiles/data/dirs
+  local name=${${@//-/__}//+/_p_}
+  command sed -i "/^${name}=/d" ~/.dotfiles/data/dirs
+  echo "$name"=\'`pwd`\' >> ~/.dotfiles/data/dirs
   source ~/.dotfiles/data/dirs 
 }
 
 del(){
-  \sed -i "/^_\?${@//-/__}=/d" ~/.dotfiles/data/dirs;
-  unset {,_}${@//-/__}
+  local name=${${@//-/__}//+/_p_}
+  command sed -i "/^${name}=/d" ~/.dotfiles/data/dirs
+  unset $name
 }
-source ~/.dotfiles/data/dirs  # Initialization for the above 'save' facility: source the ..settings/.dirs file
+source ~/.dotfiles/data/dirs  # Initialization for the above 'save' facility: source the data/dirs file
 # setopt cdablevars # set the bash option so that no '$' is required when using the above facility
-
+# ${${..}} construct may not work in bash, and one may need to seperate it into two lines.
 # vim: ft=zsh

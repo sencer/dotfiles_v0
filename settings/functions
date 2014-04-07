@@ -31,12 +31,12 @@ cd () {
   elif builtin cd $@ 2>/dev/null;then
   elif [[ -f "$@" ]]; then
     builtin cd `dirname $@`
-  elif builtin cd "_${@//-/__}" &>/dev/null; then
+  elif builtin cd "${${@//-/__}//+/_p_}" &>/dev/null; then
     echo $PWD
   elif [[ $PBSSERVER != "" ]] && d=`get_job_folder $@` ; then
     builtin cd $d
     echo $PWD
-    save "_$1"
+    save "$1"
   else
     echo "No such file or folder $1"
     return 1
