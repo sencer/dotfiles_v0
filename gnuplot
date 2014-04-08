@@ -8,14 +8,14 @@ PDF = "set terminal pdfcairo enhanced dashed transparent lw 3 font 'Arial, 18';\
 PNG = "set terminal pngcairo enhanced dashed transparent lw 2 font 'Arial, 10';\
        set output"
 
-MP = "set multiplot; \
-      set tics mirror in; \
+MP = "set tics mirror in; \
       set format x ''; \
       unset x2tics; \
       unset y2tics; \
       set border 31 back; \
       unset xlabel; \
-      unset ylabel"
+      unset ylabel;\
+      set multiplot "
 CLEAN = "unset border; \
          unset tics; \
          unset grid; \
