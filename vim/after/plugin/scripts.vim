@@ -38,7 +38,7 @@ if !has("gui_running")
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                            some simple funcs                            "
+"                     Change case of Visual selection                     "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 function! TwiddleCase(str)
