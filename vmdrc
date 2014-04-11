@@ -9,7 +9,6 @@ display depthcue off
 axes location off
 
 global fname
-set auto_path [concat $env(HOME)/.vmd $auto_path];\
 
 color Display Background white
 
@@ -28,10 +27,17 @@ proc pov {fname} {
 proc puts_red {string} {
   puts stdout "\033\[31m$string\033\[0m"
 }
+
+# putting these things in a proc gets rid of unnecessary output!
+proc initial_settings {home} {
+  global auto_path
+  global fname
+  set auto_path [concat $home/.vmd $auto_path]
   if { [molinfo top] > -1 } {
     set fname [pwd]/[molinfo top get filename]
     cd [file dirname $fname]
   }
+  return ""
 }
 user add key v { pov $fname }
 user add key q { exit }
@@ -39,6 +45,7 @@ user add key Control-w { savexyz }
 
 # after idle {
   package require pbctools
+  initial_settings $env(HOME)
   #load my scripts in this order!
   state
   cell
