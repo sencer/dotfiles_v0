@@ -26,9 +26,7 @@ mvg(){
 
 cd () {
   local d
-  if [[ $# > 1 ]];then
-    cd ${PWD/\/$1\///$2/}
-  elif builtin cd $@ 2>/dev/null;then
+  if builtin cd $@ 2>/dev/null;then
   elif [[ -f "$@" ]]; then
     builtin cd `dirname $@`
   elif builtin cd "${${@//-/__}//+/_p_}" &>/dev/null; then
