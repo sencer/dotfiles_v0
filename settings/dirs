@@ -12,7 +12,6 @@ save (){
   fi
   echo "$name='$PWD'" >> ~/.dotfiles/data/dirs
   eval "$name='$PWD'"
-  # source ~/.dotfiles/data/dirs 
 }
 
 del(){
