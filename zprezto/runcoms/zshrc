@@ -23,7 +23,7 @@ for i in ~/.settings/*(.); do source $i;done
 
 setopt automenu banghist chasedots hashlistall histignorealldups\
        beep histreduceblanks magicequalsubst pushdignoredups\
-       sharehistory nomatch
+       sharehistory ignoreeof
 unsetopt nomatch
 
 source ~/.profile
