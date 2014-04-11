@@ -6,7 +6,10 @@ alias show='cat ~/.dotfiles/data/dirs'
 
 save (){
   local name=${@//[-.+]/_}
+  if [[ -n ${(P)name} ]]; then
+    echo "Deleting the previous definition of $name: ${(P)name}"
     command sed -i "/^_\?${name}=/d" ~/.dotfiles/data/dirs
+  fi
   echo "$name='$PWD'" >> ~/.dotfiles/data/dirs
   eval "$name='$PWD'"
   # source ~/.dotfiles/data/dirs 
