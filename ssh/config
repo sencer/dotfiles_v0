@@ -1,9 +1,18 @@
-Host tigress
-  Hostname tigressdata.princeton.edu
+Host ofis
+  Hostname ofis.princeton.edu
+  ForwardAgent yes
+  RemoteForward 2319 localhost:22
+Host arizona
+  Hostname arizona.princeton.edu
 Host della
   Hostname della3.princeton.edu
+  ProxyCommand ssh -CTqe none arizona -W %h:%p
 Host tiger
   Hostname tiger2.princeton.edu
+  ProxyCommand ssh -CTqe none arizona -W %h:%p
+Host tigress
+  Hostname tigressdata.princeton.edu
+  ProxyCommand ssh -CTqe none arizona -W %h:%p
 Host edison
   Hostname edison.nersc.gov
 Host hopper
@@ -12,17 +21,6 @@ Host bnl
   Hostname nano.bnl.gov
   # ProxyCommand ssh -CTqe none ssh.bnl.gov -W %h:%p
   ProxyCommand ssh -CTqe none ssh.bnl.gov nc %h %p
-Host pc
-  Hostname localhost
-  HostKeyAlias pc
-  port 6165
-Host arizona
-  Hostname arizona.princeton.edu
-Host kali
-  Hostname s.princeton.edu
-  User root
-  ForwardAgent yes
-  RemoteForward 2319 localhost:22
 Host *
   ForwardX11 yes
   ForwardX11Trusted yes
