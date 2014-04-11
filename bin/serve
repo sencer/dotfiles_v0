@@ -1,0 +1,12 @@
+#!/bin/bash
+
+type=$(file -b --mime-type $1)
+
+length=`stat -c '%s' $1`
+
+{
+  echo "HTTP/1.0 200 OK"
+  echo "Content-Length: $length"
+  echo -e "Content-Type: $type\n"
+  cat $1
+} | sudo nc -l 80
