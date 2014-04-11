@@ -1,3 +1,4 @@
+# prepare windows
 menu main on
 menu main move 450 641
 menu graphics move 929 115
@@ -7,10 +8,17 @@ display projection orthographic
 display nearclip set 0
 display depthcue off
 axes location off
+color Display Background white
 
+# make variables accessible
 global fname
 
-color Display Background white
+# assign keys
+
+user add key v { pov $fname }
+user add key q { exit }
+user add key Control-w { savexyz }
+
 # automate povray
 
 render options POV3 {povray +W%w +H%h -I%s -O%s.png +D +X +A +UA +FN}
@@ -44,9 +52,6 @@ proc initial_settings {home} {
   }
   return ""
 }
-user add key v { pov $fname }
-user add key q { exit }
-user add key Control-w { savexyz }
 
 after idle {
   package require pbctools
