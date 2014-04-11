@@ -19,9 +19,6 @@ if { [string length $tmp] > 0 } { cd $tmp }
 unset len mol
 
 color Display Background white
-color Name {T} silver
-color Element Ti white
-color Element O pink
 
 render options POV3 {povray +W%w +H%h -I%s -O%s.png +D +X +A +UA +FN}
 proc pov {fname} {

@@ -3,10 +3,30 @@ proc state {} {
   global y
   global z
   global celldm
-  if { [file exists view.vmd] } {
-    catch { source view.vmd }
+  global viewvmd
+  set viewvmddir [pwd]
+  while { ! [info exists viewvmd] && ! [string equal / $viewvmddir] } {
+    set tmp [file join $viewvmddir view.vmd]
+    if { [file exists $tmp] } {
+      set viewvmd $tmp
+      puts "Sourcing $tmp"
+    } else {
+      set viewvmddir [file dirname $viewvmddir]
+    }
+  }
+  if { ! [info exists viewvmd] } {
+    set viewvmd "view.vmd"
+  }
+  if { [file exists $viewvmd] } {
+    catch { source $viewvmd }
   } else {
     #some default settings
+    catch {color Name O pink}
+    catch {color Name Ti white}
+    catch {color Element Ti silver}
+    catch {color Element Ni silver}
+    catch {color Element Co silver}
+    catch {color Element Al gray}
     foreach mid [molinfo list] {
       molinfo $mid set {
         center_matrix rotate_matrix scale_matrix global_matrix
@@ -18,15 +38,15 @@ proc state {} {
       }
       mol delrep 0 $mid
       mol representation VDW 0.300000 18.000000
-      mol color Name
+      mol color Element
       mol selection all
       mol addrep $mid
       mol representation DynamicBonds 2.300000 0.100000 16.000000
-      mol color Name
+      mol color Element
       mol selection all and not name H
       mol addrep $mid
       mol representation DynamicBonds 1.100000 0.100000 16.000000
-      mol color Name
+      mol color Element
       mol selection all
       mol addrep $mid
     }
