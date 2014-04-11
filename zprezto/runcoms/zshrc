@@ -1,25 +1,29 @@
-
 fpath=( $HOME/.settings/zshfuncs $fpath )
-export PATH=~/bin/:/mnt/arsiv/software/espresso-5.0.2/bin/:/opt/ruby/bin/:$PATH
-export TERM=xterm-256color
-export TEXMFHOME=$HOME/.texmf
 # Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-# Customize to your needs...
+export PATH=~/bin/:/mnt/arsiv/software/espresso-5.0.2/bin/:/opt/ruby/bin/:$PATH
+export TERM=xterm-256color
+export TEXMFHOME=$HOME/.texmf
+export DIRSTACKSIZE=20
+export PBSSERVERFILE=~/.settings/.server
+export HISTSIZE=12000
+export GREP_COLORS="ms=00;38;5;157:mc=00;38;5;157:sl=:cx=:fn=00;38;5;74:ln=00;38;5;174:bn=00;38;5;174:se=00;38;5;174"
+export LANGUAGE=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+
 eval `lesspipe`
 eval `lessfile`
-export PBSSERVERFILE=~/.settings/.server
-export GREP_COLORS="ms=00;38;5;157:mc=00;38;5;157:sl=:cx=:fn=00;38;5;74:ln=00;38;5;174:bn=00;38;5;174:se=00;38;5;174"
 
-export HISTSIZE=12000
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 for i in ~/.settings/*(.); do source $i;done
+
 setopt automenu banghist chasedots hashlistall histignorealldups\
        beep histreduceblanks magicequalsubst pushdignoredups\
        sharehistory nomatch
 unsetopt nomatch
+
 source ~/.profile
-export DIRSTACKSIZE=20
