@@ -5,14 +5,14 @@ fi
 alias show='cat ~/.dotfiles/data/dirs'
 
 save (){
-  local name=${${@//-/__}//+/_p_}
+  local name=${@//[-.+]/_}
   command sed -i "/^${name}=/d" ~/.dotfiles/data/dirs
   echo "$name"=\'`pwd`\' >> ~/.dotfiles/data/dirs
   source ~/.dotfiles/data/dirs 
 }
 
 del(){
-  local name=${${@//-/__}//+/_p_}
+  local name=${@//[-.+]/_}
   command sed -i "/^${name}=/d" ~/.dotfiles/data/dirs
   unset $name
 }

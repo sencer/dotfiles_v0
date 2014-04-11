@@ -29,7 +29,7 @@ cd () {
   if builtin cd $@ 2>/dev/null;then
   elif [[ -f "$@" ]]; then
     builtin cd `dirname $@`
-  elif builtin cd "${${@//-/__}//+/_p_}" &>/dev/null; then
+  elif builtin cd "_${@//[-.+]/_}" &>/dev/null; then
     echo $PWD
   elif [[ $PBSSERVER != "" ]] && d=`get_job_folder $@` ; then
     builtin cd $d
