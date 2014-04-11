@@ -61,3 +61,5 @@ after idle {
   cell
   # trace variable vmd_initialize_structure w {source view.vmd}
 }
+
+# vim: ft=tcl
