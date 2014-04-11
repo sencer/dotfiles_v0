@@ -123,7 +123,8 @@ let g:LatexBox_ignore_warnings = [
       \'Underfull',
       \'Overfull',
       \'specifier changed to',
-      \'Class revtex4'
+      \'Class revtex4',
+      \'PDF inclusion: multiple'
       \]
 
 set modeline ve=block,onemore ",insert
