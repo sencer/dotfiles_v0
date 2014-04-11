@@ -9,8 +9,7 @@ proc cell {} {
     set y 0
     set z 0
   }
-  # set mol [molinfo top]
-  if { ![info exists celldm] } {
+  if { ![info exists celldm] && [info exists fname] } {
     set file [open $fname r]
     while { [gets $file line] != -1 } {
       if {[lindex $line 0] == "CRYST1"} {
