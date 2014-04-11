@@ -14,7 +14,7 @@ dim="$(sed -n '/!/!s/celldm.*=\s\+\(.*\),\?$/\1/p' ../input.txt)"
 layers="$(awk -vargs="$args" -vd="$dim" -vl=$lines -vslab=$slab 'BEGIN{
   n = split(args, nel)
   split(d, dim) # dim[1..3], cell dimensions
-  discard=0 # 24 for un-edited pp file!! first few lines to discard in chden.ave
+  discard=24 # 0 # 24 for un-edited pp file!! first few lines to discard in chden.ave
   dz = dim[1] * dim[3] / (l-discard)
   dT = dim[1] ^ 2 * dim[2] * dz  # differential volume!
   # sbeg = (dim[1] * dim[3] - slab)/2 #
