@@ -10,13 +10,6 @@ axes location off
 
 global fname
 set auto_path [concat $env(HOME)/.vmd $auto_path];\
-set mol [molinfo top];\
-set tmp [split [molinfo $mol get filename] /];\
-set len [llength $tmp]-1;\
-set fname [lindex $tmp $len];\
-set tmp [join [lreplace $tmp $len $len] /];\
-if { [string length $tmp] > 0 } { cd $tmp }
-unset len mol
 
 color Display Background white
 
@@ -35,6 +28,8 @@ proc pov {fname} {
 proc puts_red {string} {
   puts stdout "\033\[31m$string\033\[0m"
 }
+    set fname [pwd]/[molinfo top get filename]
+    cd [file dirname $fname]
 }
 user add key v { pov $fname }
 user add key q { exit }
