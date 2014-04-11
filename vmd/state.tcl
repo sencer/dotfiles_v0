@@ -58,7 +58,7 @@ proc state {} {
     save_viewpoint
     save_reps
 
-    set fildes [open view.vmd w]
+    set fildes [open $viewvmd w]
 
     puts $fildes "display resize [display get size]"
 
