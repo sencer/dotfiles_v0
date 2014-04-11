@@ -1,2 +1,43 @@
 #!/usr/bin/env bash
-ras -pbs '~/bin/projw'
+filename='projw'
+outdir='../../'
+time=25
+
+while [[ $# > 0 ]]; do
+  if [[ "$1" == *./* ]]; then
+    outdir="$1"
+    shift
+  elif [[ $1 = -o ]]; then
+    shift
+    filename=$1
+    shift 
+  elif [[ $1 = -t ]]; then
+    shift
+    time=$1
+    shift
+  fi
+done
+
+mkdir -p pp/$filename && cd pp/$filename
+
+cat > $filename.in <<-EOF
+	&PROJWFC
+	  outdir  = '$outdir'
+	  DeltaE  = 0.01
+	  filpdos = "pdos"
+	  filproj = "proj"
+	/
+EOF
+
+apply_conf $HOME/$PBSSERVER/.jobconfig -if > $filename.job <<-EOF
+	#!/bin/bash
+	#PBS -l nodes=1:ppn=1,walltime=00:$time:00
+	#PBS -q \$short
+	#PBS -j oe
+	#PBS -V
+	module load \$modules
+	cd \\\$PBS_O_WORKDIR
+	\${path}/projwfc.x < $filename.in > $filename.out
+EOF
+
+qsub $filename.job
