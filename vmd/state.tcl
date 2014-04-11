@@ -52,7 +52,7 @@ proc state {} {
     }
   }
   user add key W {
-    puts stdout "[tput cub 10][tput setaf 1]INFO) Saving the current view.";tput sgr0
+    puts_red "INFO) Saving the current view."
     global representations
     global viewpoints
     save_viewpoint

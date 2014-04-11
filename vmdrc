@@ -28,10 +28,13 @@ proc pov {fname} {
   while { [file exists $tmp.pov] } { 
     set i [expr $i+1] 
     set tmp $tmp2$i }
-  puts stdout "INFO) Writing $tmp.pov" 
   render POV3 $tmp.pov [render options POV3] 
   exec mv -f  $tmp.pov.png $tmp.png
-  puts stdout "\033\[31mINFO) Image file saved to $tmp.png\033\[0m"
+  puts_red "INFO) Writing $tmp.pov"
+  puts_red "INFO) Image file saved to $tmp.png"
+proc puts_red {string} {
+  puts stdout "\033\[31m$string\033\[0m"
+}
 }
 user add key v { pov $fname }
 user add key q { exit }
