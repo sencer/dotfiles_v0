@@ -32,6 +32,11 @@ while [[ $# > 0 ]]; do
     plots[0]=$filename.dat
     index=6
     shift
+  elif [[ $1 = "wfc" ]]; then
+    filename="wfc"
+    plots[0]=$filename.dat
+    index=7
+    shift
   elif [[ $1 = "totV1" ]]; then
     filename="totV1"
     plots[0]=$filename.dat
@@ -100,9 +105,9 @@ fi
 if [[ $plot > 0 ]]; then
   echo -e "&PLOT\n  nfile = ${#plots[@]}," >> $filename.in
   for (( i = 0; i < ${#plots[@]}; i++ )); do
-    echo -e "  filepp($(($i+1))) = '${plots[$i]}',\n  weight($(($i+1))) = ${weights[$i]}," >> $filename.in
+    echo -e "  filepp($(($i+1))) = '${plots[$i]}'\n  weight($(($i+1))) = ${weights[$i]}" >> $filename.in
   done
-  echo -e "  iflag = 3,\n  output_format = 6,\n  fileout = '${filename}.cube',\n/" >>$filename.in
+  echo -e "  iflag = 3\n  output_format = 6\n  fileout = '${filename}.cube'\n/" >>$filename.in
 fi
 
 apply_conf $HOME/$PBSSERVER/.jobconfig -if > $filename.job <<-EOF
