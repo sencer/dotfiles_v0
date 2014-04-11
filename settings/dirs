@@ -6,9 +6,10 @@ alias show='cat ~/.dotfiles/data/dirs'
 
 save (){
   local name=${@//[-.+]/_}
-  echo "$name"=\'`pwd`\' >> ~/.dotfiles/data/dirs
-  source ~/.dotfiles/data/dirs 
     command sed -i "/^_\?${name}=/d" ~/.dotfiles/data/dirs
+  echo "$name='$PWD'" >> ~/.dotfiles/data/dirs
+  eval "$name='$PWD'"
+  # source ~/.dotfiles/data/dirs 
 }
 
 del(){
