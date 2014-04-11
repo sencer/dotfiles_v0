@@ -11,19 +11,24 @@ axes location off
 global fname
 
 color Display Background white
+# automate povray
 
 render options POV3 {povray +W%w +H%h -I%s -O%s.png +D +X +A +UA +FN}
+
 proc pov {fname} {
-  set tmp [regsub {\..*} $fname ""]
+  set tmp [file rootname $fname]
   set i 0
   set tmp2 $tmp
-  while { [file exists $tmp.pov] } { 
-    set i [expr $i+1] 
-    set tmp $tmp2$i }
-  render POV3 $tmp.pov [render options POV3] 
-  exec mv -f  $tmp.pov.png $tmp.png
+  while { [file exists $tmp.pov] } {
+    set i [expr $i+1]
+    set tmp $tmp2$i
+  }
   puts_red "INFO) Writing $tmp.pov"
+  render POV3 $tmp.pov [render options POV3]
+  file rename  $tmp.pov.png $tmp.png
   puts_red "INFO) Image file saved to $tmp.png"
+}
+
 proc puts_red {string} {
   puts stdout "\033\[31m$string\033\[0m"
 }
