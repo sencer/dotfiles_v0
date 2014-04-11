@@ -6,15 +6,15 @@ alias show='cat ~/.dotfiles/data/dirs'
 
 save (){
   local name=${@//[-.+]/_}
-  command sed -i "/^${name}=/d" ~/.dotfiles/data/dirs
   echo "$name"=\'`pwd`\' >> ~/.dotfiles/data/dirs
   source ~/.dotfiles/data/dirs 
+    command sed -i "/^_\?${name}=/d" ~/.dotfiles/data/dirs
 }
 
 del(){
   local name=${@//[-.+]/_}
-  command sed -i "/^${name}=/d" ~/.dotfiles/data/dirs
-  unset $name
+  command sed -i "/^_\?${name}=/d" ~/.dotfiles/data/dirs
+  unset {,_}$name
 }
 source ~/.dotfiles/data/dirs  # Initialization for the above 'save' facility: source the data/dirs file
 # setopt cdablevars # set the bash option so that no '$' is required when using the above facility

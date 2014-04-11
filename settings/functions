@@ -34,7 +34,7 @@ cd () {
   elif [[ $PBSSERVER != "" ]] && d=`get_job_folder $@` ; then
     builtin cd $d
     echo $PWD
-    save "$1"
+    save "_$1"
   else
     echo "No such file or folder $1"
     return 1
