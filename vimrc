@@ -25,13 +25,11 @@ Bundle 'salsifis/vim-transpose'
 Bundle 'sk1418/HowMuch'
 Bundle 'godlygeek/tabular'
 Bundle 'honza/vim-snippets'
-Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'kien/ctrlp.vim'
 Bundle 'kshenoy/vim-signature'
 Bundle 'bling/vim-airline'
 Bundle 'bling/vim-bufferline'
 Bundle 'MarcWeber/ultisnips'
-Bundle 'scrooloose/nerdtree'
 Bundle 'sencer/AutoComplPop'
 " Bundle 'Valloric/YouCompleteMe'
 Bundle 'sencer/normal.vim'
@@ -82,7 +80,6 @@ colorscheme railscasts
 " hi ColorColumn ctermbg=235 guibg=#2c2d27 " fix for wombat theme
 if has('gui_running')
   set guifont=Dejavu\ Sans\ Mono\ 11
-  let g:nerdtree_tabs_open_on_gui_startup=0
 else
   set term=$TERM
 endif
@@ -153,7 +150,6 @@ Arpeggio vmap -= di<C-R>=<C-R>"<CR>
 
 noremap <silent> <C-Z>  :GundoToggle<CR>
 noremap <silent> <F2> :set invpaste<CR>
-noremap <silent> <A-o> :NERDTreeMirrorToggle<CR>
 noremap <silent><F9> :TagbarToggle<CR>
 noremap <C-j> <C-W>j
 noremap <C-k> <C-W>k
