@@ -28,8 +28,10 @@ proc pov {fname} {
 proc puts_red {string} {
   puts stdout "\033\[31m$string\033\[0m"
 }
+  if { [molinfo top] > -1 } {
     set fname [pwd]/[molinfo top get filename]
     cd [file dirname $fname]
+  }
 }
 user add key v { pov $fname }
 user add key q { exit }
