@@ -23,6 +23,9 @@ Host kali
   User root
   ForwardAgent yes
   RemoteForward 2319 localhost:22
+Host github.com
+  ForwardX11 no
+  ForwardX11Trusted no
 Host *
   ForwardX11 yes
   ForwardX11Trusted yes
