@@ -9,7 +9,7 @@ Host della
   ProxyCommand ssh -CTqe none arizona -W %h:%p
 Host tiger
   Hostname tiger2.princeton.edu
-  ProxyCommand ssh -CTqe none arizona -W %h:%p
+  ProxyCommand ssh -CTqe none ofis -W %h:%p
 Host tigress
   Hostname tigressdata.princeton.edu
   ProxyCommand ssh -CTqe none arizona -W %h:%p
