@@ -114,17 +114,38 @@ LTEX = "@TEX left"
 RTEX = "@TEX right"
 
 # set style increment user
-set linetype 31 lc rgb '#800000' lt 0 pt 1
-set linetype 32 lc rgb '#006400' lt 0 pt 1
-set linetype 33 lc rgb '#000080' lt 0 pt 1
-set linetype 35 lc rgb '#9400d3' lt 0 pt 1
-set linetype 34 lc rgb '#ff4500' lt 0 pt 1
-set linetype 36 lc rgb '#ffa500' lt 0 pt 1
-set linetype 37 lc rgb '#ff0000' lt 0 pt 1
-set linetype 38 lc rgb '#00ff00' lt 0 pt 1
-set linetype 39 lc rgb  ctex     lt 0 pt 1
-set linetype 40 lc rgb  cgri     lt 0 pt 1
+set linetype 51 lc rgb '#800000' lt 0 pt 1
+set linetype 52 lc rgb '#006400' lt 0 pt 1
+set linetype 53 lc rgb '#000080' lt 0 pt 1
+set linetype 55 lc rgb '#9400d3' lt 0 pt 1
+set linetype 54 lc rgb '#ff4500' lt 0 pt 1
+set linetype 56 lc rgb '#ffa500' lt 0 pt 1
+set linetype 57 lc rgb '#ff0000' lt 0 pt 1
+set linetype 58 lc rgb '#00ff00' lt 0 pt 1
+set linetype 59 lc rgb  ctex     lt 0 pt 1
+set linetype 60 lc rgb  cgri     lt 0 pt 1
 
+set linetype 41 lc rgb '#800000' lt 5 pt 4
+set linetype 42 lc rgb '#006400' lt 5 pt 4
+set linetype 43 lc rgb '#000080' lt 5 pt 4
+set linetype 45 lc rgb '#9400d3' lt 5 pt 4
+set linetype 44 lc rgb '#ff4500' lt 5 pt 4
+set linetype 46 lc rgb '#ffa500' lt 5 pt 4
+set linetype 47 lc rgb '#ff0000' lt 5 pt 4
+set linetype 48 lc rgb '#00ff00' lt 5 pt 4
+set linetype 49 lc rgb  ctex     lt 5 pt 4
+set linetype 50 lc rgb  cgri     lt 5 pt 4
+
+set linetype 31 lc rgb '#800000' lt 4 pt 4
+set linetype 32 lc rgb '#006400' lt 4 pt 4
+set linetype 33 lc rgb '#000080' lt 4 pt 4
+set linetype 35 lc rgb '#9400d3' lt 4 pt 4
+set linetype 34 lc rgb '#ff4500' lt 4 pt 4
+set linetype 36 lc rgb '#ffa500' lt 4 pt 4
+set linetype 37 lc rgb '#ff0000' lt 4 pt 4
+set linetype 38 lc rgb '#00ff00' lt 4 pt 4
+set linetype 39 lc rgb  ctex     lt 4 pt 4
+set linetype 40 lc rgb  cgri     lt 4 pt 4
 
 set linetype 21 lc rgb '#800000' lt 3 pt 4
 set linetype 22 lc rgb '#006400' lt 3 pt 4
