@@ -21,6 +21,9 @@ Host bnl
   Hostname nano.bnl.gov
   # ProxyCommand ssh -CTqe none ssh.bnl.gov -W %h:%p
   ProxyCommand ssh -CTqe none ssh.bnl.gov nc %h %p
+Host github.com
+  ForwardX11 no
+  ForwardX11Trusted no
 Host *
   ForwardX11 yes
   ForwardX11Trusted yes

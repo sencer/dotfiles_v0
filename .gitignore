@@ -1,4 +1,5 @@
-vim/bundle
+vim/bundle/*
+!vim/bundle/vundle
 ssh/authorized_keys
 ssh/environment
 ssh/known_hosts
