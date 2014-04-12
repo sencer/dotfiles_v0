@@ -9,7 +9,7 @@ proc state {} {
     set tmp [file join $viewvmddir view.vmd]
     if { [file exists $tmp] } {
       set viewvmd $tmp
-      puts "Sourcing $tmp"
+      puts_red "Sourcing $tmp"
     } else {
       set viewvmddir [file dirname $viewvmddir]
     }
