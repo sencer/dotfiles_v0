@@ -1,4 +1,5 @@
 function prompt_namaz_yaz {
+  [[ -n $TMUX ]] && exit 0
   [[ $NAMAZ -lt 0 ]] && exit
   kalan=$[NAMAZ-`date +%s`]
   echo "[$[kalan/3600]sa$[(kalan%3600)/60]dk]"
@@ -7,13 +8,8 @@ function prompt_namaz_yaz {
 function prompt_sencer_setup {
   prompt_opts=(cr percent subst)
   # Define prompts.
-  export PROMPT="%F{73}%h:%F{174}%C%f " 
-
-  if [[ -n $TMUX ]]; then
-    export RPROMPT="%F{73}[\${PWD/${HOME//\//\\/}/~}]%f"
-  else
-    export RPROMPT="%F{73}\$(prompt_namaz_yaz)[\${PWD/${HOME//\//\\/}/~}]%f"
-  fi
+  export PROMPT="%F{73}%h:%F{174}%C%f "
+  export RPROMPT="%F{73}\$(prompt_namaz_yaz)[\${PWD/${HOME//\//\\/}/~}]%f"
 }
 
 prompt_sencer_setup "$@"
