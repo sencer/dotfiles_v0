@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 PDFFILE="$1"
 VIMSERVER=`basename ${1%.pdf}|tr '[:lower:]' '[:upper:]'`
 if vim --serverlist|grep $VIMSERVER &>/dev/null; then
