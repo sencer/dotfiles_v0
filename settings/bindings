@@ -13,8 +13,8 @@ for mode in main viins vicmd; do
   bindkey -M $mode "\C-X" kill-region
 done
 
-bindkey -M mainstory-beginning-search-backward
-bindkey -M mainstory-beginning-search-forward ""
+bindkey -M main "[A" history-beginning-search-backward
+bindkey -M main "[B" history-beginning-search-forward
 bindkey "OA" history-beginning-search-backward
 bindkey "OB" history-beginning-search-forward
 bindkey "[5~" history-substring-search-up
