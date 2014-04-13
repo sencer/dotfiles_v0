@@ -1,0 +1,29 @@
+function prompt_namaz_yaz {
+  [[ -n $TMUX ]] && exit 0
+  [[ $NAMAZ -lt 0 ]] && exit
+  kalan=$[NAMAZ-`date +%s`]
+  echo "[$[kalan/3600]sa$[(kalan%3600)/60]dk]"
+}
+
+function zle-line-init zle-keymap-select {
+  if [[ $KEYMAP == "vicmd" ]]; then
+    PROMPTCOLOR=105
+  else
+    PROMPTCOLOR=73
+  fi
+  zle reset-prompt
+}
+zle -N zle-line-init
+zle -N zle-keymap-select
+
+function prompt_sencer_setup {
+  prompt_opts=(cr percent subst)
+  PROMPTCOLOR=73
+  # Define prompts.
+  export PROMPT="%F{\$PROMPTCOLOR}%h:%F{174}%C%f "
+  export RPROMPT="%F{\$PROMPTCOLOR}\$(prompt_namaz_yaz)[\${PWD/${HOME//\//\\/}/~}]%f"
+}
+
+prompt_sencer_setup "$@"
+
+# vim: ft=zsh
