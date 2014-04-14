@@ -1,5 +1,5 @@
 fpath=(
-  $HOME/.dotfiles/settings/zshfuncs
+  $HOME/.dotfiles/funcs/
   $HOME/.dotfiles/external/completion/src/
   $fpath
 )
