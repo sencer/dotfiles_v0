@@ -7,7 +7,7 @@ _pbs_complete(){
     qsub )
       _arguments -s -S \
         '-W+:depend on:->deptype'\
-        '*:Job File:_files -g "*.(#i)job"'
+        "*:Job File:_files -g '(#i)*.job(-.)'" && return 0
       if [[ $state == deptype ]]; then
         _values -w option \
           'depend:test:->depjob'
