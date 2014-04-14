@@ -1,25 +1,25 @@
-if [ ! -f ~/.dotfiles/data/dirs ]; then  # if doesn't exist, create it
-  touch ~/.dotfiles/data/dirs
+if [ ! -f ~/.dotfiles/tmp/dirs ]; then  # if doesn't exist, create it
+  touch ~/.dotfiles/tmp/dirs
 fi
 
-alias show='cat ~/.dotfiles/data/dirs'
+alias show='cat ~/.dotfiles/tmp/dirs'
 
 save (){
   local name=${@//[-.+]/_}
   if [[ -n ${(P)name} ]]; then
     echo "Deleting the previous definition of $name: ${(P)name}"
-    command sed -i "/^_\?${name}=/d" ~/.dotfiles/data/dirs
+    command sed -i "/^_\?${name}=/d" ~/.dotfiles/tmp/dirs
   fi
-  echo "$name='$PWD'" >> ~/.dotfiles/data/dirs
+  echo "$name='$PWD'" >> ~/.dotfiles/tmp/dirs
   eval "$name='$PWD'"
 }
 
 del(){
   local name=${@//[-.+]/_}
-  command sed -i "/^_\?${name}=/d" ~/.dotfiles/data/dirs
+  command sed -i "/^_\?${name}=/d" ~/.dotfiles/tmp/dirs
   unset {,_}$name
 }
-source ~/.dotfiles/data/dirs  # Initialization for the above 'save' facility: source the data/dirs file
+source ~/.dotfiles/tmp/dirs  # Initialization for the above 'save' facility: source the data/dirs file
 # setopt cdablevars # set the bash option so that no '$' is required when using the above facility
 # ${${..}} construct may not work in bash, and one may need to seperate it into two lines.
 # vim: ft=zsh

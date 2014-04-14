@@ -1,5 +1,5 @@
 function precmd_updater {
-  local DATAFILE=$HOME/.dotfiles/data/namaz
+  local DATAFILE=$HOME/.dotfiles/tmp/namaz
   export NAMAZ=$(head -1 $DATAFILE)
   if [[ $(wc -l < $DATAFILE) -lt 15 ]]; then
     namaz_guncelle
@@ -14,7 +14,7 @@ function precmd_updater {
 function namaz_guncelle {
   # get prayer times from api.namazvakitleri.com.tr
   # and write to $DATAFILE as one timestamp per line
-  local DATAFILE=$HOME/.dotfiles/data/namaz
+  local DATAFILE=$HOME/.dotfiles/tmp/namaz
   local url='http://api.namazvakitleri.com.tr/getTimes/json/217'
   date -f <(curl --silent  $url | \
             command sed -r 's/\{/\n{/g;s/(\{|")[ a-zD"},:]+/ /g' |\
@@ -26,7 +26,7 @@ function namaz_guncelle {
 function weather_update(){
   # update weather from yahoo.com if last update time
   # is older than an hour.
-  local DATAFILE=$HOME/.dotfiles/data/weather
+  local DATAFILE=$HOME/.dotfiles/tmp/weather
   local timestamp="$(head -1 $DATAFILE)"
   if [[ $[$(date +%s)-timestamp] -gt 3600 ]]; then
     local weather
