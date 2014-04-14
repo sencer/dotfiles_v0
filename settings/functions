@@ -131,4 +131,8 @@ pdfcompress(){
   done
 }
 
+function slit {
+  awk "{print ${(j:,:):-\$${^@}}}"
+}
+
 # vim: ft=zsh
