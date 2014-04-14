@@ -10,3 +10,6 @@
 [submodule "vim/bundle/vundle"]
 	path = vim/bundle/vundle
 	url = git@github.com:gmarik/Vundle.vim.git
+[submodule "external/opp"]
+	path = external/opp
+	url = https://github.com/hchbaw/opp.zsh.git
