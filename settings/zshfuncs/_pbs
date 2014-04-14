@@ -20,7 +20,7 @@ _pbs_complete(){
       ;;
     qstat )
       _arguments \
-        '-f+:Job Id:_pbs_get_jobs'\
+        '*-f+:Job Id:_pbs_get_jobs'\
         '-u:User Id:($USER)'
       ;;
     * )
