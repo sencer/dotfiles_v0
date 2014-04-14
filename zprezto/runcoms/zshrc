@@ -4,12 +4,15 @@ if [[ -s "${HOME}/.zprezto/init.zsh" ]]; then
   source "${HOME}/.zprezto/init.zsh"
 fi
 
+eval "$(dircolors "$HOME/.dotfiles/data/dircolors")"
+
 export PATH=~/bin/:/mnt/arsiv/software/espresso-5.0.2/bin/:/opt/ruby/bin/:$PATH
 export TERM=xterm-256color
 export TEXMFHOME=$HOME/.texmf
 export DIRSTACKSIZE=20
 export PBSSERVERFILE=~/.settings/.server
 export GREP_COLORS="ms=00;38;5;157:mc=00;38;5;157:sl=:cx=:fn=00;38;5;74:ln=00;38;5;174:bn=00;38;5;174:se=00;38;5;174"
+export GREP_OPTIONS='--color=auto'
 export LANGUAGE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
@@ -23,6 +26,16 @@ eval `lessfile`
 for i in ~/.settings/*(.); do source $i;done
 
 setopt CHASE_DOTS HASH_LIST_ALL IGNORE_EOF HIST_REDUCE_BLANKS MAGIC_EQUAL_SUBST
+setopt BRACE_CCL          # Allow brace character class list expansion.
+setopt COMBINING_CHARS    # Combine zero-length punctuation characters (accents)
+setopt RC_QUOTES          # Allow 'Henry''s Garage' instead of 'Henry'\''s Garage'.
+setopt LONG_LIST_JOBS     # List jobs in the long format by default.
+setopt AUTO_RESUME        # Attempt to resume existing job before creating a new process.
+setopt NOTIFY             # Report status of background jobs immediately.
+unsetopt BG_NICE          # Don't run all background jobs at a lower priority.
+unsetopt HUP              # Don't kill jobs on shell exit.
+unsetopt CHECK_JOBS       # Don't report on jobs when shell exit.
+# unsetopt MAIL_WARNING     # Don't print a warning message if a mail file has been accessed.
 unsetopt NO_MATCH
 
 source ~/.profile

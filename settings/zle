@@ -46,6 +46,10 @@ bindkey -M isearch . self-insert 2> /dev/null
 # bindkey -s "[1;6D" "pushd +1\C-m"
 # bindkey -s "[1;6C" "pushd -0\C-m"
 
+# quote url if necessary
+autoload -Uz url-quote-magic
+zle -N self-insert url-quote-magic
+
 # allow editing command line in vi
 autoload -Uz edit-command-line
 zle -N edit-command-line
