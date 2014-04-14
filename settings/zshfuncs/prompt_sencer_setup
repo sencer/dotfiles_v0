@@ -6,10 +6,14 @@ function prompt_namaz_yaz {
 }
 
 function zle-line-init zle-keymap-select {
-  if [[ $KEYMAP == "vicmd" ]]; then
-    PROMPTCOLOR=105
+  if [[ $KEYMAP == "main" ]]; then
+    if [[ $ZLE_STATE == *insert* ]]; then
+      PROMPTCOLOR=73
+    else
+      PROMPTCOLOR=226
+    fi
   else
-    PROMPTCOLOR=73
+    PROMPTCOLOR=164
   fi
   zle reset-prompt
 }
