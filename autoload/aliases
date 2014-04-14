@@ -1,6 +1,6 @@
 # alias -g zshrc="~/.zshrc"
 # alias -g vimrc="~/.vimrc"
-alias -g aliases="~/.settings/aliases"
+alias -g aliases="~/.dotfiles/autoload/aliases"
 
 alias d='dirs -v'
 for index ({1..20}) alias "$index"="cd +${index}"; unset index

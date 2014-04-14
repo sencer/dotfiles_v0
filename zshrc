@@ -54,7 +54,7 @@ prompt sencer
 eval `lesspipe`
 eval `lessfile`
 
-for i in ~/.settings/*(.); do source $i;done
+for i in ~/.dotfiles/autoload/*(.); do source $i;done
 
 setopt CHASE_DOTS HASH_LIST_ALL IGNORE_EOF HIST_REDUCE_BLANKS MAGIC_EQUAL_SUBST
 setopt BRACE_CCL          # Allow brace character class list expansion.
