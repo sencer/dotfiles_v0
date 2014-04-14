@@ -1,30 +1,3 @@
-#
-# Sets terminal window and tab titles.
-#
-# Authors:
-#   James Cox <james@imaj.es>
-#   Sorin Ionescu <sorin.ionescu@gmail.com>
-#
-
-# Return if requirements are not found.
-if [[ "$TERM" == 'dumb' ]]; then
-  return 1
-fi
-
-# Set the GNU Screen window number.
-if [[ -n "$WINDOW" ]]; then
-  export SCREEN_NO="%B${WINDOW}%b "
-else
-  export SCREEN_NO=""
-fi
-
-# Sets the GNU Screen title.
-function set-screen-window-title {
-  if [[ "$TERM" == screen* ]]; then
-    printf "\ek%s\e\\" ${(V)argv}
-  fi
-}
-
 # Sets the terminal window title.
 function set-terminal-window-title {
   if [[ "$TERM" == ((x|a|ml|dt|E)term*|(u|)rxvt*) ]]; then
@@ -102,22 +75,4 @@ function set-titles-with-path {
   fi
 }
 
-# Don't override precmd/preexec; append to hook array.
-autoload -Uz add-zsh-hook
-
-# Sets the tab and window titles before the prompt is displayed.
-function set-titles-precmd {
-  if zstyle -t ':prezto:module:terminal' auto-title; then
-    set-titles-with-path
-  fi
-}
-add-zsh-hook precmd set-titles-precmd
-
-# Sets the tab and window titles before command execution.
-function set-titles-preexec {
-  if zstyle -t ':prezto:module:terminal' auto-title; then
-    set-titles-with-command "$2"
-  fi
-}
-add-zsh-hook preexec set-titles-preexec
-
+# vim: ft=zsh

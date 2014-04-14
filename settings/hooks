@@ -1,0 +1,25 @@
+# Sets the tab and window titles before command execution.
+function set-titles-preexec {
+  set-titles-with-command "$2"
+}
+
+function set-pbsserver-var(){
+  local folder
+  if [[ $PWD == $HOME/*  ]];then
+    folder=${PWD#$HOME/}
+    folder=${folder%%/*}
+    export PBSSERVER=`grep "^$folder" $PBSSERVERFILE|cut -d' ' -f1`
+  else
+    export PBSSERVER=''
+  fi
+  if [[ -n $TMUX ]]; then
+    tmux rename-window "${PBSSERVER:-zsh}"
+  fi
+}
+# Don't override precmd/preexec; append to hook array.
+autoload -Uz add-zsh-hook
+add-zsh-hook precmd set-titles-with-path
+add-zsh-hook preexec set-titles-preexec
+add-zsh-hook chpwd set-pbsserver-var
+
+# vim: ft=zsh
