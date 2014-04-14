@@ -18,6 +18,7 @@ alias grep='grep -P'
 alias scp='rsync -azPe "ssh -q"'
 alias tree='ras tree -d -I "pwscf.save|zpe|pp"'
 alias tmuxe='exec tmux'
+alias tmuxa='tmux attach-session'
 
 alias vi="vim -X"
 alias vv="v input.txt"
