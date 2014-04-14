@@ -2,7 +2,6 @@ alias -g zshrc="~/.zshrc"
 # alias -g vimrc="~/.vimrc"
 alias -g aliases="~/.settings/aliases"
 
-alias x='unarchive'
 alias bc='bc -lq'
 alias la='ls -AF'
 alias cp='nocorrect cp -ivdRp'
