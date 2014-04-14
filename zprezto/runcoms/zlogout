@@ -5,4 +5,4 @@ if [[ `w -h|wc -l` -lt 2 ]]; then
     fi
   done < <(cat $PBSSERVERFILE|cut -d' ' -f1)
 fi
-ps aux|grep '[d]bus-launch'|tr -s ' '|cut -d' ' -f2|xargs kill -9 2>/dev/null
+# ps aux|grep '[d]bus-launch'|tr -s ' '|cut -d' ' -f2|xargs kill 2>/dev/null
