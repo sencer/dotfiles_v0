@@ -1,4 +1,4 @@
-alias -g zshrc="~/.zshrc"
+# alias -g zshrc="~/.zshrc"
 # alias -g vimrc="~/.vimrc"
 alias -g aliases="~/.settings/aliases"
 
