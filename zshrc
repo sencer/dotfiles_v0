@@ -41,7 +41,7 @@ export PATH=~/bin/:/mnt/arsiv/software/espresso-5.0.2/bin/:/opt/ruby/bin/:$PATH
 export TERM=xterm-256color
 export TEXMFHOME=$HOME/.texmf
 export DIRSTACKSIZE=20
-export PBSSERVERFILE=~/.settings/.server
+export PBSSERVERFILE=~/.dotfiles/data/server
 export GREP_COLORS="ms=00;38;5;157:mc=00;38;5;157:sl=:cx=:fn=00;38;5;74:ln=00;38;5;174:bn=00;38;5;174:se=00;38;5;174"
 export GREP_OPTIONS='--color=auto'
 export LANGUAGE=en_US.UTF-8
