@@ -1,5 +1,5 @@
-[submodule "zprezto/modules/history-substring-search/external"]
-	path = zprezto/modules/history-substring-search/external
+[submodule "external/hist-search"]
+	path = external/hist-search
 	url = git@github.com:zsh-users/zsh-history-substring-search.git
 [submodule "external/syntax"]
 	path = external/syntax
