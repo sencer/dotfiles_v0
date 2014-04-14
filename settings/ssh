@@ -1,15 +1,3 @@
-#
-# Provides for an easier use of SSH by setting up ssh-agent.
-#
-# Authors:
-#   Sorin Ionescu <sorin.ionescu@gmail.com>
-#
-
-# Return if requirements are not found.
-if [[ "$OSTYPE" == darwin* ]] || (( ! $+commands[ssh-agent] )); then
-  return 1
-fi
-
 # Set the path to the SSH directory.
 _ssh_dir="$HOME/.ssh"
 
@@ -18,6 +6,8 @@ _ssh_agent_env="${_ssh_agent_env:-$TMPDIR/ssh-agent.env}"
 
 # Set the path to the persistent authentication socket.
 _ssh_agent_sock="$TMPDIR/ssh-agent.sock"
+
+_ssh_identities=( id_rsa )
 
 # Start ssh-agent if not started.
 if [[ ! -S "$SSH_AUTH_SOCK" ]]; then
@@ -29,7 +19,6 @@ fi
 
 # Load identities.
 if ssh-add -l 2>&1 | grep 'The agent has no identities'; then
-  zstyle -a ':prezto:module:ssh:load' identities '_ssh_identities'
   if (( ${#identities} > 0 )); then
     ssh-add "$_ssh_dir/${^_ssh_identities[@]}"
   else
