@@ -5,7 +5,11 @@ alias -g aliases="~/.settings/aliases"
 alias d='dirs -v'
 for index ({1..20}) alias "$index"="cd +${index}"; unset index
 alias bc='bc -lq'
+alias ls='ls --group-directories-first --color=auto'
 alias la='ls -AF'
+alias ll='ls -lh'
+alias lx='ll -XB'
+alias sl='ls'
 alias cp='nocorrect cp -ivdRp'
 alias rcp='nocorrect ras cp -ivdRp'
 alias mv='nocorrect mv -iv'
@@ -19,6 +23,11 @@ alias scp='rsync -azPe "ssh -q"'
 alias tree='ras tree -d -I "pwscf.save|zpe|pp"'
 alias tmuxe='exec tmux'
 alias tmuxa='tmux attach-session'
+alias rm="nocorrect rm -i"
+alias locate="noglob locate"
+alias rsync="noglob rsync"
+alias ln="nocorrect ln -i"
+alias type='type -a'
 
 alias vi="vim -X"
 alias vv="v input.txt"
