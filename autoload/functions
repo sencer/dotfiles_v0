@@ -40,41 +40,6 @@ cd () {
     return 1
   fi
 }
-bak (){
-  while [[ $# > 0 ]]; do
-    if [[ $1 == -c ]]; then
-      local command="cp"
-    fi
-    local i=0
-    if [[ ! -e $1 ]]; then
-    elif [[ $i -eq 0 && ! -e $1.bak ]]; then
-      ${command:-mv} -f $1 $1.bak
-    else
-      let i++
-      while [[ -e $1.$i.bak ]]; do
-        let i++
-      done
-      ${command:-mv} -f $1 $1.$i.bak
-    fi
-    shift
-  done
-  unset command
-}
-
-unbak (){
-  local f=$1
-  while [[ $# > 0 ]];do
-    local u=${1%.bak}
-    if [[ $u == $1 ]]; then
-      f=${1}.bak
-    fi
-    if [[ -e $u ]]; then
-      bak $u
-    fi
-    mv -f $f $u
-    shift
-  done
-}
 
 ssh(){
   if [[ -n $TMUX ]]; then
@@ -109,28 +74,6 @@ v(){
     eval "gvim $arg"
   fi
 }
-pdfcompress(){
-  if [[ $1 == -i ]]; then
-    local inplace=1
-    shift
-  fi
-  while [[ $# -gt 0 ]]; do
-    if [[ -f $1 ]]; then
-      echo "Compressing $1..."
-      /usr/bin/gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.5 -dPDFSETTINGS=/prepress \
-        -dAutoFilterColorImages=false -dColorImageFilter=/FlateEncode -dNOPAUSE\
-        -dQUIET -dBATCH -sOutputFile=${1%.pdf}.compressed.pdf $1
-      if [[ inplace -eq 1 ]]; then
-        echo -n "Moving "
-        mv -f ${1%.pdf}.compressed.pdf $1
-      fi
-    else
-      echo "File $1 not found."
-    fi
-    shift
-  done
-}
-
 function slit {
   awk "{print ${(j:,:):-\$${^@}}}"
 }
