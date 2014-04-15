@@ -1,0 +1,16 @@
+local d
+if builtin cd $@ 2>/dev/null;then
+elif [[ -f "$@" ]]; then
+  builtin cd "${@:h}"
+elif builtin cd "_${@//[-.+]/_}" &>/dev/null; then
+  echo $PWD
+elif [[ $PBS_SERVER != "" ]] && d=`get_job_folder $@` ; then
+  builtin cd $d
+  echo $PWD
+  save "_$1"
+else
+  echo "No such file or folder $1"
+  exit 1
+fi
+
+# vim: ft=zsh
