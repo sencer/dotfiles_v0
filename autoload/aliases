@@ -1,6 +1,7 @@
 # alias -g zshrc="~/.zshrc"
 # alias -g vimrc="~/.vimrc"
 alias -g aliases="~/.dotfiles/autoload/aliases"
+alias history-stat="history 0 | awk '{print \$2}' | sort | uniq -c | sort -n -r | head"
 
 alias d='dirs -v'
 for index ({1..20}) alias "$index"="cd +${index}"; unset index
