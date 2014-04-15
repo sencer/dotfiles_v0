@@ -26,6 +26,7 @@ source '/etc/zsh_command_not_found'
 source $HOME/.dotfiles/tmp/dirs
 autoload -U save
 autoload -U del
+autoload -U bge
 
 zmodload zsh/pcre
 autoload -U zmv
