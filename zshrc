@@ -23,6 +23,9 @@ source $HOME/.dotfiles/external/syntax/zsh-syntax-highlighting.zsh
 source $HOME/.dotfiles/external/opp/opp.zsh
 source $HOME/.dotfiles/external/opp/opp/surround.zsh
 source '/etc/zsh_command_not_found'
+source $HOME/.dotfiles/tmp/dirs
+autoload -U save
+autoload -U del
 
 zmodload zsh/pcre
 autoload -U zmv
