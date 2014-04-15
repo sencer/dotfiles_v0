@@ -41,17 +41,6 @@ cd () {
   fi
 }
 
-ssh(){
-  if [[ -n $TMUX ]]; then
-    local a=$(tmux display-message -p '#W')
-    tmux rename-window "${*##*-[^ ]# }"
-    command ssh "$@"
-    tmux rename-window "$a"
-  else
-    command ssh "$@"
-  fi
-}
-
 v(){
   local a=0
   local arg

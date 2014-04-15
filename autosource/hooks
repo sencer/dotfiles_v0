@@ -8,5 +8,8 @@ autoload -Uz add-zsh-hook
 add-zsh-hook precmd set-titles-with-path
 add-zsh-hook preexec set-titles-preexec
 add-zsh-hook chpwd set-pbsserver-var
+if [[ -n $TMUX ]]; then
+  add-zsh-hook preexec tmux-preexec-hook
+fi
 
 # vim: ft=zsh
