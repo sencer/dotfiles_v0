@@ -1,4 +1,5 @@
 #compdef qdel qsub qstat showstart
+zstyle ':completion:*:qdel:*' ignore-line yes
 
 _pbs_complete(){
   local curcontext="$curcontext" context state line
