@@ -11,7 +11,8 @@ export XCRYSDEN_SCRATCH=/tmp
 # these only needed by shell, not the child processes
 path=($HOME/bin /opt/ruby/bin $path $XCRYSDEN_TOPDIR{,/scripts,/util})
 fpath=($HOME/.dotfiles/{autoload,external/completion/src} $fpath)
-mailpath=( "$HOME/.pbsjobs?\$(state)" )
+mailpath=( "$HOME/.pbsjobs?There are completed jobs
+\$(state|tail -n +2)" )
 DIRSTACKSIZE=20
 HISTFILE="$HOME/.dotfiles/tmp/history"
 HISTSIZE=12000
