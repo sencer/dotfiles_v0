@@ -36,7 +36,14 @@ function parse(){
       name = $3
     }
   } END {
-    printf "%-7s %8s %s\n", job[2], job[1], name
+    cmd="PBS_SERVER="job[2]" qstat -f "job[1]
+    while( (cmd | getline result) > 0 ){
+      if(result ~ /Output_Path/){
+        print result
+        split(result, path, ":")
+      }
+    }
+    printf "%-7s %8s %s\n", job[2], job[1], name, path[2]
   }' $1
 }
 

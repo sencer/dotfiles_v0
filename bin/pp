@@ -110,7 +110,7 @@ if [[ $plot > 0 ]]; then
   echo -e "  iflag = 3\n  output_format = 6\n  fileout = '${filename}.cube'\n/" >>$filename.in
 fi
 
-apply_conf $HOME/$PBSSERVER/.jobconfig -if > $filename.job <<-EOF
+apply_conf $HOME/$PBS_SERVER/.jobconfig -if > $filename.job <<-EOF
 	#!/bin/bash
 	#PBS -l nodes=1:ppn=1,walltime=00:$time:00
 	#PBS -q \$short
@@ -123,7 +123,7 @@ EOF
 
 if [[ $direction > 0 ]]; then
   echo -e "1\n$filename.dat\n1.0\n5000\n$direction\n$ave" > ${filename}.ave.in
-  apply_conf $HOME/$PBSSERVER/.jobconfig >> $filename.job <<-EOF
+  apply_conf $HOME/$PBS_SERVER/.jobconfig >> $filename.job <<-EOF
 		\$path/average.x < ${filename}.ave.in > $filename.ave
 	EOF
 fi
