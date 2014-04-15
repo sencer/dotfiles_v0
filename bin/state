@@ -28,23 +28,9 @@ function unread(){
 }
 
 function parse(){
-  awk '{
-    if($0 ~ /PBS Job Id/) {
-      split($4, job, "[-.]")
-    } else if($0 ~ /Job Name/) {
-      sub(".[^.]+$", "", $3)
-      name = $3
-    }
-  } END {
-    cmd="PBS_SERVER="job[2]" qstat -f "job[1]
-    while( (cmd | getline result) > 0 ){
-      if(result ~ /Output_Path/){
-        print result
-        split(result, path, ":")
-      }
-    }
-    printf "%-7s %8s %s\n", job[2], job[1], name, path[2]
-  }' $1
+  local job=( $(sed -nr '/PBS Job Id/,+1H;g;${s/\n|[.-]/ /gp}' $1)} )
+  local path=$(PBS_SERVER=${job[4]} get_job_folder -n ${job[3]})
+  printf "%-7s %8s %10s %s\n" ${job[4]} ${job[3]} ${job[10]} ${path:-"NA"}
 }
 
 function log(){
