@@ -27,10 +27,9 @@ source $HOME/.dotfiles/tmp/dirs
 autoload -U save
 autoload -U del
 autoload -U bge
-
-zmodload zsh/pcre
 autoload -U zmv
 autoload -U zargs
+zmodload zsh/pcre
 
 autoload -Uz promptinit && promptinit
 prompt sencer
