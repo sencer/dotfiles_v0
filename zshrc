@@ -17,7 +17,7 @@ SAVEHIST=10000
 eval "$(dircolors "$HOME/.dotfiles/data/dircolors")"
 
 # packages, modules, functions to load
-for i in $HOME/.dotfiles/autoload/*(.); do source $i;done
+for i in $HOME/.dotfiles/autoload/*(.);do source $i;done;unset i
 source $HOME/.dotfiles/external/hist-search/zsh-history-substring-search.zsh
 source $HOME/.dotfiles/external/syntax/zsh-syntax-highlighting.zsh
 source $HOME/.dotfiles/external/opp/opp.zsh
