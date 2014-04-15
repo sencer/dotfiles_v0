@@ -3,7 +3,7 @@ export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export TERM=xterm-256color
 export TEXMFHOME=$HOME/.texmf
-export PBSSERVERFILE=~/.dotfiles/data/server
+export PBS_SERVER_FILE=~/.dotfiles/data/server
 export GREP_COLORS="ms=00;38;5;157:mc=00;38;5;157:sl=:cx=:fn=00;38;5;74:ln=00;38;5;174:bn=00;38;5;174:se=00;38;5;174"
 export GREP_OPTIONS='--color=auto'
 export XCRYSDEN_TOPDIR=/mnt/arsiv/software/xcrysden-1.5.53-bin-semishared

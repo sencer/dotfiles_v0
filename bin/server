@@ -2,7 +2,7 @@
 
 function switch(){
   arg=$1
-  if [ "${server=`grep "^$arg " $PBSSERVERFILE`}" ]; then
+  if [ "${server=`grep "^$arg " $PBS_SERVER_FILE`}" ]; then
     read -a settings <<< "$server"
   else
     echo "Settings for $arg not found"
