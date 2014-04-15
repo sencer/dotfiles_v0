@@ -27,6 +27,7 @@ source $HOME/.dotfiles/tmp/dirs
 autoload -U save
 autoload -U del
 autoload -U bge
+autoload -U set-pbsserver-var
 autoload -U zmv
 autoload -U zargs
 zmodload zsh/pcre
