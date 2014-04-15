@@ -1,7 +1,7 @@
 local last=${@: -1}
 if [[ -f $last ]]; then
   echo "$last is a file"
-  exit 0
+  return 0
 elif [[ ! -e $last ]]; then
   command mkdir -p $last
 fi

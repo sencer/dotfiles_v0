@@ -10,7 +10,7 @@ elif [[ $PBS_SERVER != "" ]] && d=`get_job_folder $@` ; then
   save "_$1"
 else
   echo "No such file or folder $1"
-  exit 1
+  return 1
 fi
 
 # vim: ft=zsh
