@@ -9,8 +9,9 @@ export GREP_OPTIONS='--color=auto'
 export XCRYSDEN_TOPDIR=/mnt/arsiv/software/xcrysden-1.5.53-bin-semishared
 export XCRYSDEN_SCRATCH=/tmp
 # these only needed by shell, not the child processes
-fpath=($HOME/.dotfiles/{autoload,external/completion/src} $fpath)
 path=($HOME/bin /opt/ruby/bin $path $XCRYSDEN_TOPDIR{,/scripts,/util})
+fpath=($HOME/.dotfiles/{autoload,external/completion/src} $fpath)
+mailpath=( "$HOME/.pbsjobs?\$(state)" )
 DIRSTACKSIZE=20
 HISTFILE="$HOME/.dotfiles/tmp/history"
 HISTSIZE=12000

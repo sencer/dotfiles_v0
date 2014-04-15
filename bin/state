@@ -1,7 +1,7 @@
 #!/bin/bash
 # set -x
 
-cd /home/sselcuk/jobs/
+cd $HOME/.pbsjobs/
 # read atime mtime file name's into stat array.
 read -a stat <<< $(stat -c '%X %Y %n' msg.* 2>/dev/null)
 
@@ -59,5 +59,5 @@ function clean(){
   fi
 }
 
-log|tee -a mails.log
+log|tee -a $HOME/.dotfiles/tmp/mails.log
 clean
