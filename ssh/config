@@ -1,9 +1,9 @@
 Host tigress
   Hostname tigressdata.princeton.edu
 Host della
-  Hostname della3.princeton.edu
+  Hostname della.princeton.edu
 Host tiger
-  Hostname tiger2.princeton.edu
+  Hostname tiger3.princeton.edu
 Host edison
   Hostname edison.nersc.gov
 Host hopper
@@ -12,12 +12,12 @@ Host nano
   Hostname nano.bnl.gov
   # ProxyCommand ssh -CTqe none ssh.bnl.gov -W %h:%p
   ProxyCommand ssh -CTqe none ssh.bnl.gov nc %h %p
+Host arizona
+  Hostname arizona.princeton.edu
 Host pc
   Hostname localhost
   HostKeyAlias pc
   port 6165
-Host arizona
-  Hostname arizona.princeton.edu
 Host kali
   Hostname s.princeton.edu
   User root
