@@ -15,10 +15,14 @@ Host nano
 Host arizona
   Hostname arizona.princeton.edu
 Host pc
+  ForwardX11 yes
+  ForwardX11Trusted yes
   Hostname localhost
   HostKeyAlias pc
   port 6165
 Host kali
+  ForwardX11 yes
+  ForwardX11Trusted yes
   Hostname s.princeton.edu
   User root
   ForwardAgent yes
