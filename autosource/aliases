@@ -1,6 +1,6 @@
 # alias -g zshrc="~/.zshrc"
 # alias -g vimrc="~/.vimrc"
-alias -g aliases="~/.dotfiles/autoload/aliases"
+alias -g aliases="~/.dotfiles/autosource/aliases"
 alias history-stat="history 0 | awk '{print \$2}' | sort | uniq -c | sort -n -r | head"
 alias show='cat ~/.dotfiles/tmp/dirs'
 
