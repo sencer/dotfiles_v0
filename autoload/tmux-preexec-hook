@@ -1,0 +1,10 @@
+# local a=$(tmux display-message -p '#W')
+command=(${=1})
+case ${command[1]} in
+  ssh )
+      tmux rename-window "${command[2]}"
+    ;;
+esac
+# tmux rename-window "$a"
+
+# vim: ft=zsh

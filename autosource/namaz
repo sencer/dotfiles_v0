@@ -1,0 +1,46 @@
+function precmd_updater {
+  local DATAFILE=$HOME/.dotfiles/tmp/namaz
+  export NAMAZ=$(head -1 $DATAFILE)
+  if [[ ${#$(< $DATAFILE)} -lt 15 ]]; then
+    namaz_guncelle
+  fi
+  while [[ $NAMAZ -le $[`date +%s`+daylight*60] ]]; do
+    sed -i 1d $DATAFILE
+    export NAMAZ=$(head -1 $DATAFILE)
+  done
+  weather_update
+}
+
+function namaz_guncelle {
+  # get prayer times from api.namazvakitleri.com.tr
+  # and write to $DATAFILE as one timestamp per line
+  local DATAFILE=$HOME/.dotfiles/tmp/namaz
+  local url='http://api.namazvakitleri.com.tr/getTimes/json/217'
+  date -f <(curl --silent  $url | \
+            command sed -r 's/\{/\n{/g;s/(\{|")[ a-zD"},:]+/ /g' |\
+            tail -n +6 |\
+            awk '{for(i=3;i<9;i++)printf "%sT%s\n", $1, $i}') +%s >! \
+            $DATAFILE
+}
+
+function weather_update(){
+  # update weather from yahoo.com if last update time
+  # is older than an hour.
+  local DATAFILE=$HOME/.dotfiles/tmp/weather
+  local timestamp="$(head -1 $DATAFILE)"
+  if [[ $[$(date +%s)-timestamp] -gt 3600 ]]; then
+    local weather
+    local condition='☈☈☈☈☈☔☔❄❄❄❄☂☂☃☃☃☃☃☃☃〰〰〰⚑⚑☼☁☁☁☁☁☆☼☾☀☔♨☈☈☈☔☃☃☃☁☇❄☇⚠'
+    local url="http://xml.weather.yahoo.com/forecastrss?p=USNJ0427&u=c" 
+    weather=( $(curl --silent "$url" |\
+              grep condition | command sed -r 's/[^0-9-]+/ /g') )
+    weather="${condition[$[$weather[1]+1]]} $weather[2]°C"
+    date +%s >! $DATAFILE
+    echo "$weather" >> $DATAFILE
+  fi
+}
+
+autoload -Uz add-zsh-hook
+add-zsh-hook precmd precmd_updater
+
+# vim: ft=zsh

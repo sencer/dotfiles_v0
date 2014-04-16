@@ -1,0 +1,21 @@
+#!/bin/bash
+# TODO just unbak-ing file.bak, not any file.\d.bak
+
+while [[ $# > 0 ]];do
+  if [[ $1 == *.bak ]]; then
+    u=${1%.bak}
+    b=$1
+  elif [[ -e $1.bak ]]; then
+    u=$1
+    b=$1.bak
+  fi
+  if [[ -e $u ]]; then
+    bak $u
+    i=$?
+  fi
+  mv -vf $b $u
+  if [[ -n $i ]]; then
+    mv -vf $u.$i.bak $b
+  fi
+  shift
+done

@@ -1,0 +1,21 @@
+#!/bin/bash
+
+if [[ $1 == -i ]]; then
+  inplace=1
+  shift
+fi
+while [[ $# -gt 0 ]]; do
+  if [[ -f $1 ]]; then
+    echo "Compressing $1..."
+    /usr/bin/gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.5 -dPDFSETTINGS=/prepress \
+      -dAutoFilterColorImages=false -dColorImageFilter=/FlateEncode -dNOPAUSE\
+      -dQUIET -dBATCH -sOutputFile=${1%.pdf}.compressed.pdf $1
+    if [[ inplace -eq 1 ]]; then
+      echo -n "Moving "
+      mv -f ${1%.pdf}.compressed.pdf $1
+    fi
+  else
+    echo "File $1 not found."
+  fi
+  shift
+done

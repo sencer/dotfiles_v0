@@ -48,21 +48,19 @@ while [[ $# > 0 ]];do
     shift
   fi
 done
-if tmp=`grep "^${server:=$PBSSERVER} " $PBSSERVERFILE`; then
-  read -a settings <<< $tmp
-  real_server=${settings[$type]}
-  folder=${settings[3]}
-  if [[ $PBSSERVER == "" ]]; then
+
+if [[ -n ${server:=$PBS_SERVER} ]]; then
+  if [[ $PBS_SERVER == "" ]]; then
     if [[ $debug == 1 ]]; then
-      echo "ssh -q${o} ${real_server} \"${cmd} ${arg}\""
+      echo "ssh -q${o} ${server} \"${cmd} ${arg}\""
     else
-      ssh -q${o} ${real_server} "${cmd} ${arg}"
+      ssh -q${o} ${server} "${cmd} ${arg}"
     fi
   else
     if [[ $debug == 1 ]]; then
-      echo "ssh -q${o} ${real_server} \"cd ${folder}${PWD#$HOME/$PBSSERVER}; ${cmd} ${arg}\""
+      echo "ssh -q${o} ${server} \"cd ${PWD#$HOME/$PBS_SERVER/}; ${cmd} ${arg}\""
     else
-      ssh -q${o} ${real_server} "cd ${folder}${PWD#$HOME/$PBSSERVER} 2>/dev/null; ${cmd} ${arg}"
+      ssh -q${o} ${server} "cd ${PWD#$HOME/$PBS_SERVER/} 2>/dev/null; ${cmd} ${arg}"
     fi
   fi
 else

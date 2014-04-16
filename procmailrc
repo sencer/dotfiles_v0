@@ -1,3 +1,4 @@
-:0
+SHELL=/bin/zsh
+:0 b
 *
-/home/sselcuk/jobs
+| /home/sselcuk/bin/parse-incoming-email

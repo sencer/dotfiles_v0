@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [[ -z $PBSSERVER ]]; then
+if [[ -z $PBS_SERVER ]]; then
   n=$#
   all=( $@ )
   if [[ -z $all ]]; then

@@ -5,7 +5,7 @@ if [[ -f $HOME/.jobconfig ]]; then
   images=${1:-1}
   shift
   gap=${1:-300}
-  apply_conf $HOME/$PBSSERVER/.jobconfig -if -kpools $kpools -images $images -gap $gap <<-'EOF'
+  apply_conf $HOME/$PBS_SERVER/.jobconfig -if -kpools $kpools -images $images -gap $gap <<-'EOF'
 		#!/bin/bash
 		#PBS -l $lline
 		#PBS -q $queue
@@ -40,5 +40,5 @@ if [[ -f $HOME/.jobconfig ]]; then
 		$scheduler $prepara \$numprocs \$exec_path/\$exec $postpara $in >> $out
 	EOF
 else
-	[[ -n $PBSSERVER ]] && ras -pbs \$HOME/bin/jobwriter "$@"
+	[[ -n $PBS_SERVER ]] && ras -pbs \$HOME/bin/jobwriter "$@"
 fi

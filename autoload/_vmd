@@ -1,0 +1,6 @@
+#compdef vmd
+
+_arguments \
+  "*::chemical data:_files -g '(#i)*.(xyz|pdb|cif|cube)(-.Od)'" && return 0
+
+  # '(-v --verbose)'{-v,--remove}'[verbose archive listing]'

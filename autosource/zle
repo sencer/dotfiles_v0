@@ -1,0 +1,85 @@
+WORDCHARS='*?_-.[]~&;!#$%^(){}<>'
+# do vi bindings
+bindkey -v
+zmodload zsh/terminfo
+
+for mode in main vicmd; do
+   bindkey -M $mode "$terminfo[khome]" beginning-of-line
+   bindkey -M $mode "$terminfo[kend]"  end-of-line
+   bindkey -M $mode "\e[3~"            delete-char
+   bindkey -M $mode "\C-?"             backward-delete-char
+   bindkey -M $mode "$terminfo[kpp]"   history-substring-search-up
+   bindkey -M $mode "$terminfo[knp]"   history-substring-search-down
+   bindkey -M $mode " "                magic-space
+   bindkey -M $mode "\C-s"             prepend-sudo
+   bindkey -M $mode "\C-e"             expand-cmd-path
+   bindkey -M $mode "\C-q"             push-line-or-edit
+   bindkey -M $mode "$terminfo[kcbt]"  reverse-menu-complete
+   bindkey -M $mode "\C-I"             expand-or-complete-with-indicator
+done
+bindkey -M main  "\e[1;5D"          backward-word      #   Ctrl-Right
+bindkey -M main  "\e[1;5C"          forward-word       #   Ctrl-Left
+bindkey -M main  "\e[3;5~"          kill-word          #   Ctrl-Delete
+bindkey -M main  "\e[3;6~"          backward-kill-word #   Ctrl-Shift-Delete
+bindkey -M main  "\e[3;3~"          kill-line          #   Alt-Delete
+bindkey -M main  "\e\C-?"           backward-kill-line #   Alt-Backspace
+bindkey -M main  "$terminfo[kcuu1]" history-beginning-search-backward
+bindkey -M main  "$terminfo[kcud1]" history-beginning-search-forward
+bindkey -M main  "[A"             history-beginning-search-backward
+bindkey -M main  "[B"             history-beginning-search-forward
+bindkey -M main  "."                expand-dot-to-parent-directory-path
+
+bindkey -M vicmd "u"    undo
+bindkey -M vicmd "\C-R" redo
+bindkey -M vicmd "k"    history-beginning-search-backward
+bindkey -M vicmd "j"    history-beginning-search-forward
+bindkey -M vicmd "?"    history-incremental-pattern-search-backward
+bindkey -M vicmd "/"    history-incremental-pattern-search-forward
+bindkey -M vicmd "v"    edit-command-line
+bindkey -M vicmd "\C-L" clear-screen
+
+# Do not expand .... to ../.. during incremental search.
+bindkey -M isearch . self-insert 2> /dev/null
+
+# TODO bindkey -M $mode "\C-X" kill-region copy/paste yank
+# bindkey -M "$keymap" "$key" copy-prev-shell-word
+# bindkey -s "[1;6D" "pushd +1\C-m"
+# bindkey -s "[1;6C" "pushd -0\C-m"
+
+# quote url if necessary
+autoload -Uz url-quote-magic
+zle -N self-insert url-quote-magic
+
+# allow editing command line in vi
+autoload -Uz edit-command-line
+zle -N edit-command-line
+
+# Expands .... to ../..
+function expand-dot-to-parent-directory-path {
+  if [[ $LBUFFER = *.. ]]; then
+    LBUFFER+='/..'
+  else
+    LBUFFER+='.'
+  fi
+}
+zle -N expand-dot-to-parent-directory-path
+
+# Displays an indicator when completing.
+function expand-or-complete-with-indicator {
+  local indicator="..."
+  print -Pn "$indicator"
+  zle expand-or-complete
+  zle redisplay
+}
+zle -N expand-or-complete-with-indicator
+
+# Inserts 'sudo ' at the beginning of the line.
+function prepend-sudo {
+  if [[ "$BUFFER" != su(do|)\ * ]]; then
+    BUFFER="sudo $BUFFER"
+    (( CURSOR += 5 ))
+  fi
+}
+zle -N prepend-sudo
+
+# vim: ft=zsh

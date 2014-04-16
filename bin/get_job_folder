@@ -1,18 +1,22 @@
 #!/usr/bin/env bash
-jobId=( $( qstat -u $USER | awk -vjob="$1" '
-  NR>5 && job".job" ~ gensub(/[][^$.*?+{}\\()|]/,"\\\\&", "g", $4) {
-    print gensub("\\..*","","",$1)
-  }'
-))
+if [[ $1 = -n ]]; then
+  # look with numeric id
+  shift
+  jobId=$1
+else
+  jobId=( $( qstat -u $USER | awk -vjob="$1" '
+    NR>5 && job".job" ~ gensub(/[][^$.*?+{}\\()|]/,"\\\\&", "g", $4) {
+      print gensub("\\..*","","",$1)
+    }'
+  ))
+fi
 if [[ $jobId != "" ]]; then
   jobFolder=$(qstat -f $jobId | \
     sed -rn '/Output_Path/,+1H;g;${s/\n\s*|(.*:|'$USER'|home|scratch)\/|[^/]*$//g;p}')
   if [[ jobFolder == "" ]]; then
     exit 1
   else
-    folder=`grep "^$PBSSERVER" $PBSSERVERFILE|cut -d' ' -f4`
-    [ $folder == "." ] && folder=""
-    echo $HOME/$PBSSERVER/${jobFolder}
+    echo $HOME/$PBS_SERVER/${jobFolder}
   fi
 else
   exit 1

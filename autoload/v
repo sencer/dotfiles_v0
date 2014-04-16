@@ -1,0 +1,19 @@
+local arg="$*"
+while (( $# ));do
+  if [[ -f "$1" ]]; then
+    local server=${(U)1:t:gs/./}
+    break
+  fi
+  shift
+done
+if [[ -z $server ]]; then
+  eval "gvim $arg"
+else
+  if vim --serverlist|grep -w $server &>/dev/null;then
+    eval "gvim --servername $server --remote-silent $arg"
+  else
+    eval "gvim --servername $server $arg"
+  fi
+fi
+
+# vim: ft=zsh

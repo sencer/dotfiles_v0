@@ -1,0 +1,9 @@
+local name=${@//[-.+]/_}
+if [[ -n ${(P)name} ]]; then
+  echo "Deleting the previous definition of $name: ${(P)name}"
+  command sed -i "/^_\?${name}=/d" ~/.dotfiles/tmp/dirs
+fi
+echo "$name='$PWD'" >> ~/.dotfiles/tmp/dirs
+eval "$name='$PWD'"
+
+# vim: ft=zsh

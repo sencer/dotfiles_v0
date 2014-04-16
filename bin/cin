@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [[ -z $PBSSERVER ]]; then
+if [[ -z $PBS_SERVER ]]; then
   if [[ -f output.txt ]]; then
     filout="output.txt"
     filin="input.txt"

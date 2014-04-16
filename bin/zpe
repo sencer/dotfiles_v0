@@ -1,5 +1,5 @@
 #!/bin/bash
-if [[ -z $PBSSERVER ]]; then
+if [[ -z $PBS_SERVER ]]; then
   if [[ $# == 0 ]]; then
     echo "usage: zpe atom1 atom2..."
     echo
@@ -55,7 +55,7 @@ $(sed -n "/&system/,/_POS/p;/&electrons/a\  startingwfc = 'file'\n\
     shift
   done
 
-  apply_conf $HOME/$PBSSERVER/.jobconfig -if -all "${all[*]}" -kpools 1 -gap 300 -images 1 <<-'EOF' > $(basename ${PWD%/*})-zpe.job
+  apply_conf $HOME/$PBS_SERVER/.jobconfig -if -all "${all[*]}" -kpools 1 -gap 300 -images 1 <<-'EOF' > $(basename ${PWD%/*})-zpe.job
 		#!/bin/bash
 		#PBS -l $lline
 		#PBS -q $queue

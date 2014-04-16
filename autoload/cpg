@@ -1,0 +1,14 @@
+local last=${@: -1}
+if [[ -f $last ]]; then
+  echo "$last is a file"
+  return 0
+elif [[ ! -e $last ]]; then
+  command mkdir -p $last
+fi
+while [ $# -gt 1 ];do
+  command cp -vi $1 $last
+  shift
+done
+cd $last
+
+# vim: ft=zsh

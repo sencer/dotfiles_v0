@@ -4,8 +4,8 @@
 # shell functions. add zsh-hook in the 
 # functions also.
 if [[ $1 == 'namaz' ]]; then
-  kalan=$[`head -1 $HOME/.dotfiles/data/namaz`-`date +%s`]
+  kalan=$[`head -1 $HOME/.dotfiles/tmp/namaz`-`date +%s`]
   echo "$[kalan/3600]sa$[(kalan%3600)/60]dk"
 elif [[ $1 == 'weather' ]]; then
-  tail -1 $HOME/.dotfiles/data/weather
+  tail -1 $HOME/.dotfiles/tmp/weather
 fi
