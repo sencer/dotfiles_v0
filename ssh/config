@@ -31,7 +31,8 @@ Host *
   ForwardX11Trusted yes
   Compression yes
   CompressionLevel 6
-  Ciphers arcfour256,blowfish-cbc
+  AddressFamily inet
+  Ciphers arcfour256,arcfour128,arcfour,blowfish-cbc,aes128-cbc
   Protocol 2
   XAuthLocation /usr/bin/xauth
   ControlMaster auto
