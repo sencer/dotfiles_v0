@@ -30,7 +30,7 @@ Host *
   ForwardX11 yes
   ForwardX11Trusted yes
   Compression yes
-  CompressionLevel 6
+  # CompressionLevel 7
   AddressFamily inet
   Ciphers arcfour256,arcfour128,arcfour,blowfish-cbc,aes128-cbc
   Protocol 2
