@@ -1,7 +1,7 @@
 function precmd_updater {
   local DATAFILE=$HOME/.dotfiles/tmp/namaz
   export NAMAZ=$(head -1 $DATAFILE)
-  if [[ $(wc -l < $DATAFILE) -lt 15 ]]; then
+  if [[ ${#$(< $DATAFILE)} -lt 15 ]]; then
     namaz_guncelle
   fi
   while [[ $NAMAZ -le $[`date +%s`+daylight*60] ]]; do
