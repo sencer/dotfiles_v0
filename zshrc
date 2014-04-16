@@ -3,11 +3,12 @@ export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export TERM=xterm-256color
 export TEXMFHOME=$HOME/.texmf
-export PBS_SERVER_FILE=~/.dotfiles/data/server
 export GREP_COLORS="ms=00;38;5;157:mc=00;38;5;157:sl=:cx=:fn=00;38;5;74:ln=00;38;5;174:bn=00;38;5;174:se=00;38;5;174"
 export GREP_OPTIONS='--color=auto'
 export XCRYSDEN_TOPDIR=/mnt/arsiv/software/xcrysden-1.5.53-bin-semishared
 export XCRYSDEN_SCRATCH=/tmp
+typeset -xT pbs_server_list PBS_SERVER_LIST
+PBS_SERVER_LIST=(nano tiger della tigress edison hopper)
 # these only needed by shell, not the child processes
 path=($HOME/bin /opt/ruby/bin $path $XCRYSDEN_TOPDIR{,/scripts,/util})
 fpath=($HOME/.dotfiles/{autoload,external/completion/src} $fpath)

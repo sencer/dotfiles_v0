@@ -1,7 +1,6 @@
 #!/bin/bash
 {
   export USER="sselcuk"
-  export PBS_SERVER_FILE=$HOME/.dotfiles/data/server
   while read line; do
     if [[ $line == "PBS Job Id"* ]]; then
       job=( ${line//./ } )

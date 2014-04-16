@@ -1,20 +1,7 @@
-# this part only works once.
-# define as array, and export
-typeset -ax PBS_SERVER_LIST
-# read the file
-IFS=$'\n' PBS_SERVER_LIST=( $(< ${PBS_SERVER_FILE}) )
-# discard after first colon (keep just 1st, which is the names)
-PBS_SERVER_LIST=( ${(@)PBS_SERVER_LIST%% *} )
-
-# this part works at all cd
-function set-pbsserver-var(){
-  local folder=${${PWD#$HOME/}%%/*}
-  export PBS_SERVER=${PBS_SERVER_LIST[(r)$folder]}
-  if [[ -n $TMUX ]]; then
-    tmux rename-window "${PBS_SERVER:-zsh}"
-  fi
-}
-
-set-pbsserver-var
+local folder=${${PWD#$HOME/}%%/*}
+export PBS_SERVER=${PBS_SERVER_LIST[(r)$folder]}
+if [[ -n $TMUX ]]; then
+  tmux rename-window "${PBS_SERVER:-zsh}"
+fi
 
 # vim: ft=zsh

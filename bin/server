@@ -2,11 +2,9 @@
 
 function switch(){
   arg=$1
-  if [ "${server=`grep "^$arg " $PBS_SERVER_FILE`}" ]; then
-    read -a settings <<< "$server"
-  else
-    echo "Settings for $arg not found"
-    exit
+  if [[ "${pbs_server_list[@]}" != *$arg* ]]; then
+    echo "Server $arg is not defined."
+    exit 0
   fi
 
   if [ -d ~/$arg ]; then
