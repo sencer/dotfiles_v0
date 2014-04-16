@@ -16,8 +16,6 @@ if [[ $jobId != "" ]]; then
   if [[ jobFolder == "" ]]; then
     exit 1
   else
-    folder=`grep "^$PBS_SERVER" $PBS_SERVER_FILE|cut -d' ' -f4`
-    [ $folder == "." ] && folder=""
     echo $HOME/$PBS_SERVER/${jobFolder}
   fi
 else
