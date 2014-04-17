@@ -38,7 +38,7 @@ function zle-line-finish {
   zle reset-prompt
 }
 
-zle -N vi-line-finish
+zle -N zle-line-finish
 
 function prompt_sencer_setup {
   prompt_opts=(cr percent subst)
