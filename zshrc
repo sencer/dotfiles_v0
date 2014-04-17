@@ -14,6 +14,7 @@ DIRSTACKSIZE=20
 HISTFILE="$D/tmp/history"
 HISTSIZE=12000
 SAVEHIST=10000
+KEYTIMEOUT=1
 
 # load settings, then autoloadable functions
 
@@ -59,25 +60,23 @@ HISTORY_SUBSTRING_SEARCH_GLOBBING_FLAGS='i'
 source $D/external/syntax/zsh-syntax-highlighting.zsh
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)  # root
 
-ZSH_HIGHLIGHT_STYLES=(
-  default                         'fg=254'
-  unknown-token                   'fg=198,bold'
-  command                         'fg=123'
-  precommand                      'fg=123,underline'
-  reserved-word                   'fg=123,bold'
-  single-hyphen-option            'fg=123'
-  double-hyphen-option            'fg=123'
-  alias                           'fg=81'
-  builtin                         'fg=229'
-  function                        'fg=217'
-  double-quoted-argument          'fg=40,bold'
-  single-quoted-argument          'fg=40'
-  back-quoted-argument            'fg=51'
-  path                            'fg=254,underline'
-  dollar-double-quoted-argument   "fg=254,bold"
-  back-double-quoted-argument     'fg=40'
-  globbing                        'fg=15,standout'
-  history-expansion               'fg=81,standout'
-) # commandseparator hashed-command assign
+ZSH_HIGHLIGHT_STYLES[default]='fg=254' # commandseparator hashed-command assign
+ZSH_HIGHLIGHT_STYLES[unknown-token]='fg=198,bold'
+ZSH_HIGHLIGHT_STYLES[command]='fg=123'
+ZSH_HIGHLIGHT_STYLES[precommand]='fg=123,underline'
+ZSH_HIGHLIGHT_STYLES[reserved-word]='fg=123,bold'
+ZSH_HIGHLIGHT_STYLES[single-hyphen-option]='fg=123'
+ZSH_HIGHLIGHT_STYLES[double-hyphen-option]='fg=123'
+ZSH_HIGHLIGHT_STYLES[alias]='fg=81'
+ZSH_HIGHLIGHT_STYLES[builtin]='fg=229'
+ZSH_HIGHLIGHT_STYLES[function]='fg=217'
+ZSH_HIGHLIGHT_STYLES[double-quoted-argument]='fg=40,bold'
+ZSH_HIGHLIGHT_STYLES[single-quoted-argument]='fg=40'
+ZSH_HIGHLIGHT_STYLES[back-quoted-argument]='fg=51'
+ZSH_HIGHLIGHT_STYLES[path]='fg=254,underline'
+ZSH_HIGHLIGHT_STYLES[dollar-double-quoted-argument]="fg=254,bold"
+ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]='fg=40'
+ZSH_HIGHLIGHT_STYLES[globbing]='fg=15,standout'
+ZSH_HIGHLIGHT_STYLES[history-expansion]='fg=81,standout'
 
 unset D i
