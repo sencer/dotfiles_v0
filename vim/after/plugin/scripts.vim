@@ -72,6 +72,7 @@ function! MyFollowSymlink(...)
     return
   endif
   let resolvedfile = fnameescape(resolvedfile)
+  let resolvedfile = fnamemodify(resolvedfile, ":p")
   echohl WarningMsg | echomsg 'Resolving symlink' fname '=>' resolvedfile | echohl None
   " exec 'noautocmd file ' . resolvedfile
   " XXX: problems with AutojumpLastPosition: line("'\"") is 1 always.

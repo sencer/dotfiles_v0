@@ -13,7 +13,7 @@ function zle-line-init zle-keymap-select {
       PROMPTCOLOR=226
     fi
   else
-    let CURSOR++
+    # let CURSOR++
     PROMPTCOLOR=164
   fi
   zle reset-prompt

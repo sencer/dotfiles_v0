@@ -21,15 +21,13 @@ Host nano
   Hostname nano.bnl.gov
   # ProxyCommand ssh -CTqe none ssh.bnl.gov -W %h:%p
   ProxyCommand ssh -CTqe none ssh.bnl.gov nc %h %p
-Host github.com
+Host *
   ForwardX11 no
   ForwardX11Trusted no
-Host *
-  ForwardX11 yes
-  ForwardX11Trusted yes
   Compression yes
-  CompressionLevel 6
-  Ciphers arcfour256,blowfish-cbc
+  # CompressionLevel 7
+  AddressFamily inet
+  Ciphers arcfour256,arcfour128,arcfour,blowfish-cbc,aes128-cbc
   Protocol 2
   XAuthLocation /usr/bin/xauth
   ControlMaster auto

@@ -1,7 +1,7 @@
 if [[ -t 0 ]]; then
-  awk "{print ${(j:,:):-\$${^@}}}"
-else
   awk "{print ${(j:,:):-\$${^@:1: -1}}}" ${@: -1}
+else
+  awk "{print ${(j:,:):-\$${^@}}}"
 fi
 
 # vim: ft=zsh

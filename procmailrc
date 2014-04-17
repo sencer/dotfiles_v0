@@ -2,3 +2,9 @@ SHELL=/bin/zsh
 :0 b
 *
 | /home/sselcuk/bin/parse-incoming-email
+
+# add a "c" to previous filter and these
+# following lines to see the email itself
+# :0
+# *
+# /home/sselcuk/mail
