@@ -29,7 +29,7 @@ function vi-cmd-mode {
   let CURSOR++
 }
 
-zle -N vi-cmd-mode
+zle -N zle-cmd-mode
 
 # reset color before starting new line
 
