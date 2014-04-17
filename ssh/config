@@ -19,7 +19,7 @@ Host pc
   ForwardX11Trusted yes
   Hostname localhost
   HostKeyAlias pc
-  port 6165
+  Port 2319
 Host kali
   ForwardX11 yes
   ForwardX11Trusted yes
