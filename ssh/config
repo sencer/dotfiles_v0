@@ -32,6 +32,7 @@ Host kali
   RemoteForward 2319 localhost:22
 Host github.com
   IdentityFile id_github
+  ControlMaster no
 Host *
   ForwardX11 no
   ForwardX11Trusted no
