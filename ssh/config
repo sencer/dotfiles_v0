@@ -1,22 +1,10 @@
-Host *
-  ForwardX11 no
-  ForwardX11Trusted no
-  Compression yes
-  # CompressionLevel 7
-  AddressFamily inet
-  Ciphers arcfour256,arcfour128,arcfour,blowfish-cbc,aes128-cbc
-  Protocol 2
-  XAuthLocation /usr/bin/xauth
-  ControlMaster auto
-  ControlPath /tmp/%r@%h:%p
-  ControlPersist 60
-# PermitLocalCommand yes
 Host ofis
   Hostname ofis.princeton.edu
   RemoteForward 2319 localhost:22
   ForwardAgent yes
   ForwardX11 yes
   ForwardX11Trusted yes
+  IdentityFile id_ofis
 Host arizona
   Hostname arizona.princeton.edu
 Host della
@@ -34,7 +22,21 @@ Host hopper
   Hostname hopper.nersc.gov
 Host nano
   Hostname nano.bnl.gov
-  # ProxyCommand ssh -CTqe none ssh.bnl.gov -W %h:%p
   ProxyCommand ssh -CTqe none ssh.bnl.gov nc %h %p
+Host github.com
+  IdentityFile id_github
+Host *
+  # ForwardX11 no
+  # ForwardX11Trusted no
+  Compression yes
+  # CompressionLevel 7
+  AddressFamily inet
+  Ciphers arcfour256,arcfour128,arcfour,blowfish-cbc,aes128-cbc
+  Protocol 2
+  XAuthLocation /usr/bin/xauth
+  ControlMaster auto
+  ControlPath /tmp/%r@%h:%p
+  ControlPersist 60
+# PermitLocalCommand yes
 
 # vim: ft=sshconfig
