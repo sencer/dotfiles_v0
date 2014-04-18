@@ -2,6 +2,11 @@
 function set-titles-preexec {
   set-titles-with-command "$2"
 }
+function TRAPINT() {
+  PROMPTCOLOR=73
+  zle reset-prompt
+  return $(( 128 + $1 ))
+}
 
 # Don't override precmd/preexec; append to hook array.
 autoload -Uz add-zsh-hook
