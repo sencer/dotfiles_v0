@@ -1,7 +1,8 @@
 # env for interactive shell
-D="$HOME/.dotfiles/"
+D="$HOME/.dotfiles"
 export LANG=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
+export LC_ALL=$LANG
+export LANGUAGE=$LANG
 export TERM=xterm-256color
 export PATH=$HOME/bin:/opt/ruby/bin:$PATH
 export MAILPATH="$D/tmp/mails.log?COMPLETED: \$(tail -1 mails)"
@@ -41,7 +42,7 @@ eval $(lesspipe)                    # let less open pdfs, rars etc
 # this is for pbs server management
 
 typeset -xT pbs_server_list PBS_SERVER_LIST
-export pbs_server_list=nano:tiger:della:tigress:edison:hopper
+export pbs_server_list=nano:tiger:della:tigress:edison:hopper:della4
 
 # vi-mode inner, surround etc text objects
 

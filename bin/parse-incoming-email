@@ -10,5 +10,5 @@
   done
   job_path=$(ssh -S none -i /home/sselcuk/.ssh/id_rsa ${job[4]} "~/bin/qstat -f ${job[3]}"|\
     sed -rn '/Output_Path/,+1H;g;${s/\n\s*|(.*:|'$USER'|home|scratch)\/|[^/]*$//g;p}')
-  printf "%-10s %-5s %-8s %-8s %-20s %-50s\n" $(date +"%Y-%m-%d %H:%M") ${job[4]} ${job[3]} ${name[2]} $HOME/${job[4]}/${job_path:-"g*/${name[2]//-/\/}"}
+  printf "%-10s %-5s %-8s %-8s %-20s %s\n" $(date +"%Y-%m-%d %H:%M") ${job[4]} ${job[3]} ${name[2]} $HOME/${job[4]}/${job_path:-"g*/${name[2]//-/\/}"}
 } >> $HOME/.dotfiles/tmp/mails.log

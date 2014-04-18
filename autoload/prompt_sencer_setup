@@ -29,7 +29,7 @@ function vi-cmd-mode {
   let CURSOR++
 }
 
-zle -N zle-cmd-mode
+zle -N vi-cmd-mode
 
 # reset color before starting new line
 
@@ -38,7 +38,13 @@ function zle-line-finish {
   zle reset-prompt
 }
 
-zle -N vi-line-finish
+zle -N zle-line-finish
+
+function reset-prompt-precmd {
+  PROMPTCOLOR=73
+}
+
+add-zsh-hook precmd reset-prompt-precmd
 
 function prompt_sencer_setup {
   prompt_opts=(cr percent subst)
