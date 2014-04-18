@@ -25,9 +25,8 @@ Host nano
   ProxyCommand ssh -CTqe none ssh.bnl.gov nc %h %p
 Host github.com
   IdentityFile id_github
+  ControlMaster no
 Host *
-  # ForwardX11 no
-  # ForwardX11Trusted no
   Compression yes
   # CompressionLevel 7
   AddressFamily inet
