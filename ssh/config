@@ -1,3 +1,37 @@
+Host tigress
+  Hostname tigressdata.princeton.edu
+Host della
+  Hostname della.princeton.edu
+Host della4
+  Hostname della4.princeton.edu
+Host tiger
+  Hostname tiger3.princeton.edu
+Host edison
+  Hostname edison.nersc.gov
+Host hopper
+  Hostname hopper.nersc.gov
+Host nano
+  Hostname nano.bnl.gov
+  # ProxyCommand ssh -CTqe none ssh.bnl.gov -W %h:%p | Bad packet length packet corrupt error
+  ProxyCommand ssh -CTqe none ssh.bnl.gov nc %h %p
+Host arizona
+  Hostname arizona.princeton.edu
+Host pc
+  ForwardX11 yes
+  ForwardX11Trusted yes
+  Hostname localhost
+  HostKeyAlias pc
+  IdentityFile id_pc
+  Port 2319
+Host kali
+  ForwardX11 yes
+  ForwardX11Trusted yes
+  Hostname s.princeton.edu
+  User root
+  ForwardAgent yes
+  RemoteForward 2319 localhost:22
+Host github.com
+  IdentityFile id_github
 Host *
   ForwardX11 no
   ForwardX11Trusted no
@@ -11,34 +45,5 @@ Host *
   ControlPath /tmp/%r@%h:%p
   ControlPersist 60
 # PermitLocalCommand yes
-Host tigress
-  Hostname tigressdata.princeton.edu
-Host della
-  Hostname della.princeton.edu
-Host tiger
-  Hostname tiger3.princeton.edu
-Host edison
-  Hostname edison.nersc.gov
-Host hopper
-  Hostname hopper.nersc.gov
-Host nano
-  Hostname nano.bnl.gov
-  # ProxyCommand ssh -CTqe none ssh.bnl.gov -W %h:%p
-  ProxyCommand ssh -CTqe none ssh.bnl.gov nc %h %p
-Host arizona
-  Hostname arizona.princeton.edu
-Host pc
-  ForwardX11 yes
-  ForwardX11Trusted yes
-  Hostname localhost
-  HostKeyAlias pc
-  Port 2319
-Host kali
-  ForwardX11 yes
-  ForwardX11Trusted yes
-  Hostname s.princeton.edu
-  User root
-  ForwardAgent yes
-  RemoteForward 2319 localhost:22
 
 # vim: ft=sshconfig
