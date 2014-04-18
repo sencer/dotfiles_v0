@@ -1,4 +1,7 @@
 SHELL=/bin/zsh
+:0 h
+* ^(From slurm)
+| /home/sselcuk/bin/parse-incoming-email slurm
 :0 b
 *
 | /home/sselcuk/bin/parse-incoming-email
@@ -8,3 +11,5 @@ SHELL=/bin/zsh
 # :0
 # *
 # /home/sselcuk/mail
+
+# vim: ft=procmail

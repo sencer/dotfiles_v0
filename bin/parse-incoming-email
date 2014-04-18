@@ -1,14 +1,25 @@
 #!/bin/bash
-{
-  export USER="sselcuk"
+export USER="sselcuk"
+if (( $# )); then
   while read line; do
-    if [[ $line == "PBS Job Id"* ]]; then
-      job=( ${line//[.-]/ } )
-    elif [[ $line == "Job Name"* ]]; then
-      name=( ${line//./ } )
+    if [[ $line == *Job_id* ]]; then
+      id=${line#*=}
+      id=${id%% *}
     fi
   done
-  job_path=$(ssh -S none -i /home/sselcuk/.ssh/id_rsa ${job[4]} "~/bin/qstat -f ${job[3]}"|\
-    sed -rn '/Output_Path/,+1H;g;${s/\n\s*|(.*:|'$USER'|home|scratch)\/|[^/]*$//g;p}')
-  printf "%-10s %-5s %-8s %-8s %-20s %s\n" $(date +"%Y-%m-%d %H:%M") ${job[4]} ${job[3]} ${name[2]} $HOME/${job[4]}/${job_path:-"g*/${name[2]//-/\/}"}
-} >> $HOME/.dotfiles/tmp/mails.log
+  info=$(ras -s della4 squeue -h -j $id -o "%j %Z")
+  printf "%-10s %-5s della4   %-8s %-20s %s\n" $(date +"%Y-%m-%d %H:%M") ${id} ${info} >> $HOME/.dotfiles/tmp/mails.log
+else
+  {
+    while read line; do
+      if [[ $line == "PBS Job Id"* ]]; then
+        job=( ${line//[.-]/ } )
+      elif [[ $line == "Job Name"* ]]; then
+        name=( ${line//./ } )
+      fi
+    done
+    job_path=$(ssh -S none ${job[4]} "~/bin/qstat -f ${job[3]}"|\
+      sed -rn '/Output_Path/,+1H;g;${s/\n\s*|(.*:|'$USER'|home|scratch)\/|[^/]*$//g;p}')
+    printf "%-10s %-5s %-8s %-8s %-20s %s\n" $(date +"%Y-%m-%d %H:%M") ${job[4]} ${job[3]} ${name[2]} $HOME/${job[4]}/${job_path:-"g*/${name[2]//-/\/}"}
+  } >> $HOME/.dotfiles/tmp/mails.log
+fi
