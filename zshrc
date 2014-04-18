@@ -5,7 +5,6 @@ export LC_ALL=$LANG
 export LANGUAGE=$LANG
 export TERM=xterm-256color
 export PATH=$HOME/bin:/opt/ruby/bin:$PATH
-export MAILPATH="$D/tmp/mails.log?COMPLETED: \$(tail -1 mails)"
 export FPATH=$D/autoload:$D/external/completion/src:$FPATH
 export TEXMFHOME=$HOME/.texmf
 
@@ -16,6 +15,7 @@ HISTFILE="$D/tmp/history"
 HISTSIZE=12000
 SAVEHIST=10000
 KEYTIMEOUT=1
+mailpath=( "$D/tmp/mails.log?COMPLETED: \$(tail -1 \$_)" )
 
 # load settings, then autoloadable functions
 
