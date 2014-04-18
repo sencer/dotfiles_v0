@@ -1,10 +1,10 @@
 #!/bin/bash
 PDFFILE="$1"
-VIMSERVER=`basename ${1%.pdf}|tr '[:lower:]' '[:upper:]'`
+VIMSERVER=`basename ${1%.pdf}TEX|tr '[:lower:]' '[:upper:]'`
 if vim --serverlist|grep $VIMSERVER &>/dev/null; then
-  EDITORCMD="gvim --servername '`basename "$1" .pdf`' --remote-send ':buf ${PDFFILE/.pdf/.tex}<CR>:%l<CR>i<ESC>zt'"
+  EDITORCMD="gvim --servername $VIMSERVER --remote-send ':buf ${PDFFILE/.pdf/.tex}<CR>:%l<CR>i<ESC>zt'"
 else
-  EDITORCMD="gvim --servername '`basename "$1" .pdf`' --remote-silent '+%l<Enter>i<ESC>zt' %f"
+  EDITORCMD="gvim --servername $VIMSERVER --remote-silent '+%l<Enter>i<ESC>zt' %f"
 fi
 
 if [ -f "$PDFFILE" ];then
