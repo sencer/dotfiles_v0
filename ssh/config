@@ -1,8 +1,6 @@
 Host tigress
   Hostname tigressdata.princeton.edu
 Host della
-  Hostname della.princeton.edu
-Host della4
   Hostname della4.princeton.edu
 Host tiger
   Hostname tiger3.princeton.edu
