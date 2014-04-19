@@ -5,7 +5,6 @@ export LC_ALL=$LANG
 export LANGUAGE=$LANG
 export TERM=xterm-256color
 export PATH=$HOME/bin:/opt/ruby/bin:$PATH
-export MAILPATH="$D/tmp/mails.log?COMPLETED: \$(tail -1 mails)"
 export FPATH=$D/autoload:$D/external/completion/src:$FPATH
 export TEXMFHOME=$HOME/.texmf
 
@@ -16,11 +15,7 @@ HISTFILE="$D/tmp/history"
 HISTSIZE=12000
 SAVEHIST=10000
 KEYTIMEOUT=1
-
-# load settings, then autoloadable functions
-
-for i ($D/autosource/*(.)) source $i
-for i ($D/autoload/^_*(:t)) autoload -U $i
+mailpath=( "$D/tmp/mails.log?COMPLETED: \$(tail -1 \$_)" )
 
 # settings about colors etc
 
@@ -29,6 +24,11 @@ export GREP_COLORS="ms=00;38;5;157:mc=00;38;5;157:sl=:cx=:fn=00;38;5;74\
 :ln=00;38;5;174:bn=00;38;5;174:se=00;38;5;174"
 export GREP_OPTIONS='--color=auto'
 eval "$(dircolors "$D/data/dircolors")"
+
+# load settings, then autoloadable functions
+
+for i ($D/autosource/*(.)) source $i
+for i ($D/autoload/^_*(:t)) autoload -U $i
 
 # packages, modules, functions to load
 
@@ -41,8 +41,8 @@ eval $(lesspipe)                    # let less open pdfs, rars etc
 
 # this is for pbs server management
 
-typeset -xT pbs_server_list PBS_SERVER_LIST
-export pbs_server_list=nano:tiger:della:tigress:edison:hopper:della4
+typeset -xT PBS_SERVER_LIST pbs_server_list
+export PBS_SERVER_LIST=nano:tiger:della:tigress:edison:hopper:della4
 
 # vi-mode inner, surround etc text objects
 

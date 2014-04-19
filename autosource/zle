@@ -10,6 +10,8 @@ for mode in main vicmd; do
    bindkey -M $mode "\C-?"             backward-delete-char
    bindkey -M $mode "$terminfo[kpp]"   history-substring-search-up
    bindkey -M $mode "$terminfo[knp]"   history-substring-search-down
+   bindkey -M $mode "$terminfo[kcuu1]" history-beginning-search-backward
+   bindkey -M $mode "$terminfo[kcud1]" history-beginning-search-forward
    bindkey -M $mode " "                magic-space
    bindkey -M $mode "\C-s"             prepend-sudo
    bindkey -M $mode "\C-e"             expand-cmd-path
@@ -23,16 +25,10 @@ bindkey -M main  "\e[3;5~"          kill-word          #   Ctrl-Delete
 bindkey -M main  "\e[3;6~"          backward-kill-word #   Ctrl-Shift-Delete
 bindkey -M main  "\e[3;3~"          kill-line          #   Alt-Delete
 bindkey -M main  "\e\C-?"           backward-kill-line #   Alt-Backspace
-bindkey -M main  "$terminfo[kcuu1]" history-beginning-search-backward
-bindkey -M main  "$terminfo[kcud1]" history-beginning-search-forward
-bindkey -M main  "[A"             history-beginning-search-backward
-bindkey -M main  "[B"             history-beginning-search-forward
 bindkey -M main  "."                expand-dot-to-parent-directory-path
 
 bindkey -M vicmd "u"    undo
-bindkey -M vicmd "\C-R" redo
-bindkey -M vicmd "k"    history-beginning-search-backward
-bindkey -M vicmd "j"    history-beginning-search-forward
+bindkey -M vicmd "\C-r" redo
 bindkey -M vicmd "?"    history-incremental-pattern-search-backward
 bindkey -M vicmd "/"    history-incremental-pattern-search-forward
 bindkey -M vicmd "v"    edit-command-line

@@ -1,5 +1,5 @@
 if [[ `w -h|wc -l` -lt 2 ]]; then
-  for i in $PBS_SERVER_LIST; do 
+  for i in $pbs_server_list; do 
     if [ -d ~/$i ]; then
       server $i
     fi

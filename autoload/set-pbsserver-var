@@ -1,5 +1,5 @@
 local folder=${${PWD#$HOME/}%%/*}
-export PBS_SERVER=${PBS_SERVER_LIST[(r)$folder]}
+export PBS_SERVER=${pbs_server_list[(r)$folder]}
 if [[ -n $TMUX ]]; then
   tmux rename-window "${PBS_SERVER:-zsh}"
 fi
