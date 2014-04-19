@@ -65,7 +65,6 @@ Bundle 'Rip-Rip/clang_complete'
 Bundle 'scrooloose/syntastic'
 Bundle 'tpope/vim-endwise'
 Bundle 'sencer/gnuplot.vim'
-Bundle 'marijnh/tern_for_vim'
 " Bundle 'edkolev/tmuxline.vim'
 
 let g:syntastic_enable_balloons = 1
