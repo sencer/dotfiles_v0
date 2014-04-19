@@ -110,22 +110,17 @@ if [[ $plot > 0 ]]; then
   echo -e "  iflag = 3\n  output_format = 6\n  fileout = '${filename}.cube'\n/" >>$filename.in
 fi
 
-apply_conf $HOME/$PBS_SERVER/.jobconfig -if > $filename.job <<-EOF
-	#!/bin/bash
-	#PBS -l nodes=1:ppn=1,walltime=00:$time:00
-	#PBS -q \$short
-	#PBS -j oe
-	#PBS -V
-	module load \$modules
-	cd \\\$PBS_O_WORKDIR
-	\${path}/pp.x < $filename.in > $filename.out
-EOF
+{
+  cat $HOME/$PBS_SERVER/.jobtemplate | sed 's/%queue%/%short%/'
+  cat <<-EOF
+		path=%path%
+		\$path/pp.x < $filename.in > $filename.out
+	EOF
+} | templr $HOME/$PBS_SERVER/.jobconfig -if -nodes 1 -ppn 1 -walltime 00:10:00 > $filename.job
 
 if [[ $direction > 0 ]]; then
   echo -e "1\n$filename.dat\n1.0\n5000\n$direction\n$ave" > ${filename}.ave.in
-  apply_conf $HOME/$PBS_SERVER/.jobconfig >> $filename.job <<-EOF
-		\$path/average.x < ${filename}.ave.in > $filename.ave
-	EOF
+  echo "\$path/average.x < $filename.ave.in > $filename.ave" >> $filename.job
 fi
 
 # qsub $filename.job
