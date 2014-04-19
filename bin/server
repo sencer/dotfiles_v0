@@ -2,7 +2,7 @@
 
 function switch(){
   arg=$1
-  if [[ "${pbs_server_list[@]}" != *$arg* ]]; then
+  if [[ "${PBS_SERVER_LIST[@]}" != *$arg* ]]; then
     echo "Server $arg is not defined."
     exit 0
   fi

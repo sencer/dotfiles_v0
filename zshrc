@@ -41,8 +41,8 @@ eval $(lesspipe)                    # let less open pdfs, rars etc
 
 # this is for pbs server management
 
-typeset -xT pbs_server_list PBS_SERVER_LIST
-export pbs_server_list=nano:tiger:della:tigress:edison:hopper:della4
+typeset -xT PBS_SERVER_LIST pbs_server_list
+export PBS_SERVER_LIST=nano:tiger:della:tigress:edison:hopper:della4
 
 # vi-mode inner, surround etc text objects
 
