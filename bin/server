@@ -7,7 +7,6 @@ function switch(){
     exit 0
   fi
   if [ -d $HOME/$arg ]; then
-    [[ "$PWD" == $HOME/$arg* ]] && cd $HOME
     fusermount -z -u $HOME/$arg 2>/dev/null || echo "$arg is not mounted"
     rmdir $HOME/$arg || echo "$HOME/$arg cannot be deleted"
   else
