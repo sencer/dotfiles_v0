@@ -4,7 +4,7 @@ function set-titles-preexec {
 }
 function TRAPINT() {
   PROMPTCOLOR=73
-  zle reset-prompt
+  zle && zle reset-prompt
   return $(( 128 + $1 ))
 }
 
