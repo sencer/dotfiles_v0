@@ -8,7 +8,7 @@ Host ofis
 Host arizona
   Hostname arizona.princeton.edu
 Host della
-  Hostname della3.princeton.edu
+  Hostname della4.princeton.edu
   ProxyCommand ssh -CTqe none arizona -W %h:%p
 Host tiger
   Hostname tiger2.princeton.edu

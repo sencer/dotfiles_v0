@@ -1,44 +1,35 @@
 #!/bin/bash
-if [[ -f $HOME/.jobconfig ]]; then
-  kpools=${1:-1}
-  shift
-  images=${1:-1}
-  shift
-  gap=${1:-300}
-  apply_conf $HOME/$PBS_SERVER/.jobconfig -if -kpools $kpools -images $images -gap $gap <<-'EOF'
-		#!/bin/bash
-		#PBS -l $lline
-		#PBS -q $queue
-		#PBS -m ae
-		#PBS -M $email
-		#PBS -j oe
-		#PBS -V
-		module load $modules
-
+k=${1:-1}
+i=${2:-1}
+g=${3:-300}
+{
+  cat $HOME/$PBS_SERVER/.jobtemplate
+  cat <<-'EOF'
+		
 		##########   job parameters  ##########
 
-		kpools=$kpools
-		images=$images
-		gap=$gap
-		exec=$exec
-		exec_path=\"$path\"
+		kpools=%kpools%
+		images=%images%
+		gap=%gap%
+		exec=%exec%
+		exec_path="%path%"
 
 		##########  changes to make  ##########
 
-		cd \$PBS_O_WORKDIR
-
 		#determine the number of cpus
-		numprocs=\`wc -l <\${PBS_NODEFILE}\`
+		numprocs=%numprocs%
 
 		#calculate the max_seconds including the security gap
-		maxseconds=\$(qstat -f \$PBS_JOBID | awk '{if(\$1==\"Resource_List.walltime\"){split(\$3, tmp, \":\");print tmp[1]*3600+tmp[2]*60+tmp[3]-gap;}}' gap=\$gap)
+		maxseconds=$(grep -P -o "\\d+:\\d+:\\d+" %jobname% | sed "s/:/*3600+/;s/:/*60-$gap+/"|bc)
 
 		#change in input file
-		sed -i \"s/\(max_seconds\\s*=\\s*\)[0-9]*/\\1\$maxseconds/\" $in
+		sed -i "s/\\(max_seconds\\s*=\\s*\\)[0-9]*/\\1$maxseconds/" %in%
 
 		#now execute
-		$scheduler $prepara \$numprocs \$exec_path/\$exec $postpara $in >> $out
+		%scheduler% %prepara% $exec_path/$exec %postpara% %in% >> %out%
 	EOF
-else
-	[[ -n $PBS_SERVER ]] && ras -pbs \$HOME/bin/jobwriter "$@"
-fi
+} | templr $HOME/$PBS_SERVER/.jobconfig -if -kpools $k -images $i -gap $g
+# if [[ -f $HOME/.jobconfig ]]; then
+# else
+# 	[[ -n $PBS_SERVER ]] && ras -pbs \$HOME/bin/jobwriter "$@"
+# fi

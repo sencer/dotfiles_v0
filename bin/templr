@@ -1,7 +1,8 @@
 #!/bin/bash
+# set -x
 ###########################################################################
 #                                 USAGE                                   #
-# apply_conf CONFIG_FILE [-if [argument]] [-varname varvalue ...]         #
+# templr CONFIG_FILE [-if [argument]] [-varname varvalue ...]             #
 #                                                                         #
 # CONFIG_FILE should be like following                                    #
 #      varname varvalue                                                   #
@@ -35,6 +36,7 @@ if [[ $1 == -if ]]; then
     skip="skip"
     shift
   elif [[ -z ${!2} ]]; then
+    echo "Variable $2 not found. Exiting." 2>/dev/null
     exit
   else
     skip=""
@@ -48,38 +50,26 @@ while [[ $# > 1 ]]; do
   shift 2
 done
 
-# allow lline to be set manually (TODO: think this again)
-if [[ -z $lline ]]; then
-  if [[ $cpu == separate && -z $lline ]]; then
-    lline="nodes=$nodes:ppn=$ppn,walltime=$walltime"
-  else
-    lline="mppwidth=$((nodes*ppn)),walltime=$walltime"
-  fi
-fi
-
-while read -r line; do
+while IFS= read line; do
   # check if all the variables are defined. skip the line otherwise.
-  if [[ -n $skip ]]; then
-    i=0
-    j=0
-    tmp=`echo "$line"|sed 's/\\\\\\$//g'`
-    for match in $(echo $tmp|command grep -P -o '(?<=\$)[A-Za-z0-9_]*'); do
-      match=${match#\{}
-      if [[ -n ${!match} ]]; then
-        let j++
-      fi
-      let i++
-    done
-    if [[ $i > $j ]]; then
-      continue
+  i=0; j=0
+  for match in $(echo "$line"|command grep -P -o '%[A-Za-z_]+%'|sort|uniq); do
+    # match=${match:1:-1} not working in old bash
+    match=${match:1:${#match}-2}
+    if [[ -n ${!match} ]]; then
+      let j++
+      line="${line//%$match%/${!match}}"
     fi
+    let i++
+  done
+  # do some simple math
+  for match in $(echo "$line"|command grep -P -o '%[0-9-+*/^ ]+%'|sort|uniq); do
+    # match=${match:1:-1} not working in old bash
+    match=${match:1:${#match}-2}
+    line="${line//%$match%/$(echo $match|bc -q)}"
+  done
+  if [[ -n $skip && $i > $j ]]; then
+    continue
   fi
-  # if line is a comment, eval evaluates to null
-  # to write #PBS lines uncomment, eval, recomment
-  if [[ $line == '#'* ]]; then
-    echo -n '#'
-    eval "echo \"${line#\#}\""
-  else
-    eval "echo \"$line\""
-  fi
+  echo "$line"
 done

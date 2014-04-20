@@ -55,40 +55,31 @@ $(sed -n "/&system/,/_POS/p;/&electrons/a\  startingwfc = 'file'\n\
     shift
   done
 
-  apply_conf $HOME/$PBS_SERVER/.jobconfig -if -all "${all[*]}" -kpools 1 -gap 300 -images 1 <<-'EOF' > $(basename ${PWD%/*})-zpe.job
-		#!/bin/bash
-		#PBS -l $lline
-		#PBS -q $queue
-		#PBS -j oe
-		#PBS -m ae
-		#PBS -M $email
-		#PBS -V
+  {
+    cat $HOME/$PBS_SERVER/.jobtemplate
+    cat <<-'EOF'
+		path=%path%
+		gap=1
+		kpools=300
+		images=1
 	
-		module load $modules
-	
-		gap=$gap
-		kpools=$kpools
-		images=$images
-	
-		cd \$PBS_O_WORKDIR
-		numprocs=\`wc -l <\${PBS_NODEFILE}\`
-		maxseconds=\$(qstat -f \$PBS_JOBID | awk '{if(\$1==\"Resource_List.walltime\"){split(\$3, tmp, \":\");print tmp[1]*3600+tmp[2]*60+tmp[3]-gap;}}' gap=\$gap)
-		dt=\$(date +%s)
-
-		for i in ${all}; do
+		numprocs=%numprocs%
+		maxseconds=$(grep -P -o "\\d+:\\d+:\\d+" %jobname% | sed "s/:/*3600+/;s/:/*60-$gap+/"|bc)
+		dt=$(date +%s)
+		for i in %all%; do
 		  for j in {1..6};do
-		    if [[ \$((maxseconds+dt)) -gt \$(date +%s) ]]; then
-		      cp -r ../pwscf.* \$i/\$j
-		      cd \$i/\$j
-		      sed -i "\"s/\\\(max_seconds\\s*=\\s*\\\)[0-9]*/\\1\$\(\(maxseconds+dt-\$\(date +%s\)\)\)/\"" input.txt
-		      $scheduler $prepara \$numprocs $path/pw.x -npool \$kpools -nimages \$images -inp input.txt >> output.txt
+		    if [[ $((maxseconds+dt)) -gt $(date +%s) ]]; then
+		      cd %jobdir%/$i/$j
+		      cp -r %jobdir%/../pwscf.* .
+		      sed -i "s/\\(max_seconds\\s*=\\s*\\)[0-9]*/\\1$((maxseconds+dt-$(date +%s)))/" input.txt
+		      %scheduler% %prepara% $numprocs %path%/pw.x -npool $kpools -nimages $images -inp input.txt >> output.txt
 		      rm -rf pwscf.*
-		      cd ../..
 		    fi
-		    echo \$i/\$j: \$((dt-\$(date +%s)))
+		    echo $i/$j: $((dt-$(date +%s)))
 		  done
 		done
-	EOF
+		EOF
+	} | templr $HOME/$PBS_SERVER/.jobconfig -if -all "${all[*]}" > $(basename ${PWD%/*})-zpe.job
 else
   ras "~/bin/zpe $@"
 fi

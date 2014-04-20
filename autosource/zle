@@ -12,6 +12,8 @@ for mode in main vicmd; do
    bindkey -M $mode "$terminfo[knp]"   history-substring-search-down
    bindkey -M $mode "$terminfo[kcuu1]" history-beginning-search-backward
    bindkey -M $mode "$terminfo[kcud1]" history-beginning-search-forward
+   bindkey -M $mode "[A"             history-beginning-search-backward
+   bindkey -M $mode "[B"             history-beginning-search-forward
    bindkey -M $mode " "                magic-space
    bindkey -M $mode "\C-s"             prepend-sudo
    bindkey -M $mode "\C-e"             expand-cmd-path
