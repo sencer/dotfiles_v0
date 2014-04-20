@@ -1,23 +1,32 @@
 #!/usr/bin/env bash
-if [[ $1 = -n ]]; then
-  # look with numeric id
-  shift
-  jobId=$1
+if [[ $PBS_SERVER == della ]]; then
+  if [[ $1 == -n ]]; then
+    folder=$(ras squeue -j $2 -o '%Z' -h)
+  else
+    folder=$(ras squeue -n ${1}.job -o '%Z' -h)
+  fi
+  echo $HOME/$PBS_SERVER$(echo $folder|sed -r "s/($USER|home)\///g")
 else
-  jobId=( $( qstat -u $USER | awk -vjob="$1" '
-    NR>5 && job".job" ~ gensub(/[][^$.*?+{}\\()|]/,"\\\\&", "g", $4) {
+  if [[ $1 = -n ]]; then
+    # look with numeric id
+    shift
+    jobId=$1
+  else
+    jobId=( $( qstat -u $USER | awk -vjob="$1" '
+      NR>5 && job".job" ~ gensub(/[][^$.*?+{}\\()|]/,"\\\\&", "g", $4) {
       print gensub("\\..*","","",$1)
     }'
-  ))
-fi
-if [[ $jobId != "" ]]; then
-  jobFolder=$(qstat -f $jobId | \
-    sed -rn '/Output_Path/,+1H;g;${s/\n\s*|(.*:|'$USER'|home|scratch)\/|[^/]*$//g;p}')
-  if [[ jobFolder == "" ]]; then
-    exit 1
-  else
-    echo $HOME/$PBS_SERVER/${jobFolder}
+    ))
   fi
-else
-  exit 1
+  if [[ $jobId != "" ]]; then
+    jobFolder=$(qstat -f $jobId | \
+    sed -rn '/Output_Path/,+1H;g;${s/\n\s*|(.*:|'$USER'|home|scratch)\/|[^/]*$//g;p}')
+    if [[ jobFolder == "" ]]; then
+      exit 1
+    else
+      echo $HOME/$PBS_SERVER/${jobFolder}
+    fi
+  else
+    exit 1
+  fi
 fi

@@ -7,7 +7,7 @@ if (( $# )); then
       id=${id%% *}
     fi
   done
-  info=$(ras -s della4 squeue -h -j $id -o "%j %Z")
+  info=$(ras -s della squeue -h -j $id -o "%j %Z")
   printf "%-10s %-5s della4   %-8s %-20s %s\n" $(date +"%Y-%m-%d %H:%M") ${id} ${info} >> $HOME/.dotfiles/tmp/mails.log
 else
   {
