@@ -3,7 +3,11 @@ D="$HOME/.dotfiles"
 export LANG=en_US.UTF-8
 export LC_ALL=$LANG
 export LANGUAGE=$LANG
-export TERM=xterm-256color
+if [[ -n $TMUX ]]; then
+  export TERM=xterm-screen-256color
+else
+  export TERM=xterm-256color
+fi
 export PATH=$HOME/bin:/opt/ruby/bin:$PATH
 export FPATH=$D/autoload:$D/external/completion/src:$FPATH
 export TEXMFHOME=$HOME/.texmf
