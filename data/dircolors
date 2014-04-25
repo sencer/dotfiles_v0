@@ -32,6 +32,7 @@ TERM xterm-color
 TERM xterm-debian
 TERM xterm-16color
 TERM xterm-256color
+TERM xterm-screen-256color
 TERM rxvt
 TERM rxvt-unicode
 TERM screen
