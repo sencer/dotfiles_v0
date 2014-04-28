@@ -3,7 +3,11 @@ D="$HOME/.dotfiles"
 export LANG=en_US.UTF-8
 export LC_ALL=$LANG
 export LANGUAGE=$LANG
-export TERM=xterm-256color
+if [[ -n $TMUX ]]; then
+  export TERM=xterm-screen-256color
+else
+  export TERM=xterm-256color
+fi
 export PATH=$HOME/bin:/opt/ruby/bin:$PATH
 export FPATH=$D/autoload:$D/external/completion/src:$FPATH
 export TEXMFHOME=$HOME/.texmf
@@ -24,6 +28,7 @@ export GREP_COLORS="ms=00;38;5;157:mc=00;38;5;157:sl=:cx=:fn=00;38;5;74\
 :ln=00;38;5;174:bn=00;38;5;174:se=00;38;5;174"
 export GREP_OPTIONS='--color=auto'
 eval "$(dircolors "$D/data/dircolors")"
+tabs -2
 
 # load settings, then autoloadable functions
 
