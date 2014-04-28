@@ -22,8 +22,8 @@ proc cell {} {
       puts "Enter Cell Dimensions (x y z):"
       flush stdout
       gets stdin celldm
-      pbc set $celldm
     }
+    pbc set $celldm
   }
   user add key u {
     pbc unwrap -all
