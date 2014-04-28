@@ -6,8 +6,8 @@ SHELL=/bin/zsh
 *
 | /home/sselcuk/bin/parse-incoming-email
 
-# add a "c" to previous filter and these
-# following lines to see the email itself
+# add a "c" to previous filter and comment out
+# the following lines to see the email itself
 # :0
 # *
 # /home/sselcuk/mail
