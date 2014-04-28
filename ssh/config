@@ -4,7 +4,7 @@ Host ofis
   ForwardAgent yes
   ForwardX11 yes
   ForwardX11Trusted yes
-  IdentityFile id_ofis
+  IdentityFile ~/.ssh/id_ofis
 Host arizona
   Hostname arizona.princeton.edu
 Host della
@@ -24,7 +24,7 @@ Host nano
   Hostname nano.bnl.gov
   ProxyCommand ssh -CTqe none ssh.bnl.gov nc %h %p
 Host github.com
-  IdentityFile id_github
+  IdentityFile ~/.ssh/id_github
   ControlMaster no
 Host *
   Compression yes
