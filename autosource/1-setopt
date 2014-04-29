@@ -37,7 +37,9 @@ setopt CHASE_DOTS        \
   HIST_IGNORE_SPACE      \
   HIST_SAVE_NO_DUPS      \
   HIST_VERIFY            \
-  HIST_BEEP
+  HIST_BEEP              \
+  GLOB_DOTS              \
+  RM_STAR_WAIT
 
 unsetopt CLOBBER         \
   BG_NICE                \
