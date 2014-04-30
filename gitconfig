@@ -7,8 +7,13 @@
   editor = vim
 [merge]
   tool = vimdiff
+[push]
+  default = simple
+[difftool.latex]
+  cmd = git-latexdiff "$LOCAL" "$REMOTE"
+[difftool]
+  prompt = false
 [alias]
   l = log --graph --oneline
   wdiff = diff --color-words
-[push]
-  default = simple
+  ldiff = difftool -t latex
