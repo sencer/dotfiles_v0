@@ -1,10 +1,21 @@
-syn match texTypeStyle		"\\DIFaddbegin\>"
-syn match texTypeStyle		"\\DIFdelbegin\>"
-syn region texDiffAddStyle	matchgroup=texTypeStyle start="\\DIFaddbegin\(FL\)\?\s*\(\\DIFadd\(FL\)\?{\)\?" end="}\?\s*\\DIFaddend\(FL\)\?\s*" concealends
-syn region texDiffDelStyle	matchgroup=texTypeStyle start="\\DIFdelbegin\(FL\)\?\s*\(\\DIFdel\(FL\)\?{\)\?" end="}\?\s*\\DIFdelend\(FL\)\?\s*" concealends
-syn cluster texFoldGroup	add=texDiffAddStyle,texDiffDelStyle
-" contains=@texDiffGroup
-" syn cluster texDiffGroup	contains=texAccent,texBadMath,texComment,texDefCmd,texDelimiter,texDocType,texInput,texInputFile,texLength,texLigature,texMatcher,texMathZoneV,texMathZoneW,texMathZoneX,texMathZoneY,texMathZoneZ,texNewCmd,texNewEnv,texOnlyMath,texOption,texParen,texRefZone,texSection,texBeginEnd,texSectionZone,texSpaceCode,texSpecialChar,texStatement,texString,texTypeSize,texTypeStyle,texZone,@texMathZones,texTitle,texAbstract,texBoldStyle,texBoldItalStyle,texNoSpell,texDiffStyle
-" do the clustering -bold, italic bothways. and others
+syn region  texDiffAddStyle       matchgroup=texTypeStyle start="\\DIFaddbegin\(FL\)\?\s*" end="\s*\\DIFaddend\(FL\)\?" concealends contains=@texDiffGroup
+syn region  texDiffDelStyle       matchgroup=texTypeStyle start="\\DIFdelbegin\(FL\)\?\s*" end="\s*\\DIFdelend\(FL\)\?" concealends contains=@texDiffGroup
+syn region  texDiffInStyle        matchgroup=texTypeStyle start="\\DIF\(add\|del\)\(FL\)\?{"   skip="{\_.\{-}}" end="}" concealends transparent
+syn region  texDiffInCmd          matchgroup=texTypeStyle start="%DIF\(DEL\|AUX\)CMD\s\?<\?\s\?" end="%%%\|%DIFAUXCMD"  concealends transparent keepend
+
+syn cluster texDiffGroup          contains=texDiffInStyle,texDiffInCmd
+syn cluster texFoldGroup          add=texDiffAddStyle,texDiffDelStyle,texDiffInStyle,texDiffInCmd
+syn cluster texBoldGroup          add=texDiffAddStyle,texDiffDelStyle,texDiffInStyle,texDiffInCmd
+syn cluster texItalGroup          add=texDiffAddStyle,texDiffDelStyle,texDiffInStyle,texDiffInCmd
+syn cluster texRefGroup           add=texDiffAddStyle,texDiffDelStyle,texDiffInStyle,texDiffInCmd
+syn cluster texMathZones          add=texDiffAddStyle,texDiffDelStyle,texDiffInStyle,texDiffInCmd
+syn cluster texDocGroup           add=texDiffAddStyle,texDiffDelStyle,texDiffInStyle,texDiffInCmd
+syn cluster texPartGroup          add=texDiffAddStyle,texDiffDelStyle,texDiffInStyle,texDiffInCmd
+syn cluster texChapterGroup       add=texDiffAddStyle,texDiffDelStyle,texDiffInStyle,texDiffInCmd
+syn cluster texSectionGroup       add=texDiffAddStyle,texDiffDelStyle,texDiffInStyle,texDiffInCmd
+syn cluster texSubSectionGroup    add=texDiffAddStyle,texDiffDelStyle,texDiffInStyle,texDiffInCmd
+syn cluster texSubSubSectionGroup add=texDiffAddStyle,texDiffDelStyle,texDiffInStyle,texDiffInCmd
+syn cluster texParaGroup          add=texDiffAddStyle,texDiffDelStyle,texDiffInStyle,texDiffInCmd
+
 hi link texDiffAddStyle Underlined
 hi link texDiffDelStyle Error
