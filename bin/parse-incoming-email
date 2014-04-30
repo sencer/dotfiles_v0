@@ -3,12 +3,11 @@ export USER="sselcuk"
 if (( $# )); then
   while read line; do
     if [[ $line == *Job_id* ]]; then
-      id=${line#*=}
-      id=${id%% *}
+      id=($(echo $line|sed 's/[ .=]/\n/g'))
     fi
   done
-  info=$(ras -s della squeue -h -j $id -o "%j %Z")
-  printf "%-10s %-5s della4   %-8s %-20s %s\n" $(date +"%Y-%m-%d %H:%M") ${id} ${info} >> $HOME/.dotfiles/tmp/mails.log
+  info=$(ssh della "squeue -t all -h -j ${id[3]} -o '%Z'")
+  printf "%-10s %-5s della4   %-8s %-20s %s\n" $(date +"%Y-%m-%d %H:%M") ${id[3]} ${id[5]} ${info} >> $HOME/.dotfiles/tmp/mails.log
 else
   {
     while read line; do

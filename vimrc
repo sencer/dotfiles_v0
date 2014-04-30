@@ -64,22 +64,23 @@ Bundle 'sencer/gnuplot.vim'
 Bundle 'sheerun/vim-polyglot'
 " Bundle 'edkolev/tmuxline.vim'
 
+colorscheme railscasts
+" hi ColorColumn ctermbg=235 guibg=#2c2d27 " fix for wombat theme
+if has('gui_running')
+  set guifont=Inconsolata\ Medium\ 12
+  set guioptions=aeiM
+else
+  set term=$TERM
+endif
+
+filetype plugin indent on
+syntax on
+
 let g:syntastic_enable_balloons = 1
 let g:syntastic_error_symbol='✗'
 let g:syntastic_warning_symbol='⚠'
 let g:syntastic_check_on_wq = 0
 let g:syntastic_always_populate_loc_list = 1
-
-filetype plugin indent on
-syntax on
-colorscheme railscasts
-" hi ColorColumn ctermbg=235 guibg=#2c2d27 " fix for wombat theme
-if has('gui_running')
-  set guifont=Inconsolata\ Medium\ 12
-  set guioptions=aegit
-else
-  set term=$TERM
-endif
 
 let g:bufferline_echo = 0
 let g:airline_theme='bubblegum'
