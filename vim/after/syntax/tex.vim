@@ -1,9 +1,10 @@
-" syn region texDiffAdd start=/\\DIFaddbegin\zs/ end=/\ze\\DIFaddend/
-" syn match texDiffConceal /\\DIF[a-z ]\+/ conceal
-syn region texDiffAdd matchgroup=texDiffEnds start=/\\DIFaddbegin \\DIFadd{/ end=/}\\DIFaddend/ concealends
-syn region texDiffDel matchgroup=texDiffEnds start=/\\DIFdelbegin \\DIFdel{/ end=/}\\DIFdelend/ concealends
-hi link texDiffEnds Conceal
-hi link texDiffAdd Underlined
-hi link texDiffDel ErrorMsg
-" syn region texDiffAdd matchgroup=Delimiter  start=/\\DIFaddbegin/ end=/\\DIFaddend/ concealends
-" hi link texDiffAdd Underlined
+syn match texTypeStyle		"\\DIFaddbegin\>"
+syn match texTypeStyle		"\\DIFdelbegin\>"
+syn region texDiffAddStyle	matchgroup=texTypeStyle start="\\DIFaddbegin\(FL\)\?\s*\(\\DIFadd\(FL\)\?{\)\?" end="}\?\s*\\DIFaddend\(FL\)\?\s*" concealends
+syn region texDiffDelStyle	matchgroup=texTypeStyle start="\\DIFdelbegin\(FL\)\?\s*\(\\DIFdel\(FL\)\?{\)\?" end="}\?\s*\\DIFdelend\(FL\)\?\s*" concealends
+syn cluster texFoldGroup	add=texDiffAddStyle,texDiffDelStyle
+" contains=@texDiffGroup
+" syn cluster texDiffGroup	contains=texAccent,texBadMath,texComment,texDefCmd,texDelimiter,texDocType,texInput,texInputFile,texLength,texLigature,texMatcher,texMathZoneV,texMathZoneW,texMathZoneX,texMathZoneY,texMathZoneZ,texNewCmd,texNewEnv,texOnlyMath,texOption,texParen,texRefZone,texSection,texBeginEnd,texSectionZone,texSpaceCode,texSpecialChar,texStatement,texString,texTypeSize,texTypeStyle,texZone,@texMathZones,texTitle,texAbstract,texBoldStyle,texBoldItalStyle,texNoSpell,texDiffStyle
+" do the clustering -bold, italic bothways. and others
+hi link texDiffAddStyle Underlined
+hi link texDiffDelStyle Error
