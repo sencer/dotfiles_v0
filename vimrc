@@ -139,7 +139,7 @@ set wildignore=*.o,*~,*.swp
 set swb=useopen,usetab,newtab showtabline=1 history=200
 set lazyredraw noerrorbells visualbell ttyfast
 set autochdir scrolloff=3 siso=8 showcmd hidden formatoptions+=j nojoinspaces
-set clipboard=unnamedplus,autoselect,exclude:cons\|linux
+" set clipboard=unnamedplus,autoselect,exclude:cons\|linux
 set t_ut=  mouse=a " tmux fixes
 set mousemodel=popup_setpos
 let &colorcolumn="".join(range(81,999),",")
