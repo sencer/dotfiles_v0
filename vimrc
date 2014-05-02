@@ -68,7 +68,7 @@ colorscheme railscasts
 " hi ColorColumn ctermbg=235 guibg=#2c2d27 " fix for wombat theme
 if has('gui_running')
   set guifont=Inconsolata\ Medium\ 12
-  set guioptions=aeiM
+  set guioptions=aeip
 else
   set term=$TERM
 endif
@@ -141,6 +141,7 @@ set lazyredraw noerrorbells visualbell ttyfast
 set autochdir scrolloff=3 siso=8 showcmd hidden formatoptions+=j nojoinspaces
 set clipboard=unnamedplus,autoselect,exclude:cons\|linux
 set t_ut=  mouse=a " tmux fixes
+set mousemodel=popup_setpos
 let &colorcolumn="".join(range(81,999),",")
 
 call arpeggio#load()
