@@ -72,7 +72,7 @@ $(sed -n "/&system/,/_POS/p;/&electrons/a\  startingwfc = 'file'\n\
 		      cd %jobdir%/$i/$j
 		      cp -r %jobdir%/../pwscf.* .
 		      sed -i "s/\\(max_seconds\\s*=\\s*\\)[0-9]*/\\1$((maxseconds+dt-$(date +%s)))/" input.txt
-		      %scheduler% %prepara% $numprocs %path%/pw.x -npool $kpools -nimages $images -inp input.txt >> output.txt
+		      %scheduler% %prepara% $path/pw.x -npool $kpools -nimages $images -inp input.txt >> output.txt
 		      rm -rf pwscf.*
 		    fi
 		    echo $i/$j: $((dt-$(date +%s)))
