@@ -55,10 +55,15 @@ zle -N edit-command-line
 
 # Expands .... to ../..
 function expand-dot-to-parent-directory-path {
-  if [[ $LBUFFER = *.. ]]; then
-    LBUFFER+='/..'
+  if [[ $ZLE_STATE == *insert* ]]; then
+    if [[ $LBUFFER = *.. ]]; then
+      LBUFFER+='/..'
+    else
+      LBUFFER+='.'
+    fi
   else
     LBUFFER+='.'
+    RBUFFER=${RBUFFER:1}
   fi
 }
 zle -N expand-dot-to-parent-directory-path
