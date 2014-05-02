@@ -171,6 +171,7 @@ nnoremap <silent> <A-Right> :execute 'silent! tabmove ' . tabpagenr()<CR>
 nmap Y y$
 vnoremap > >gv
 vnoremap < <gv
+vnoremap <C-c> "+y
 vmap <A-=> di<C-R>=<C-R>"<CR>
 imap <A-=> <ESC>hdiWa<C-R>=<C-R>"<CR>
 inoremap <C-U> <C-G>u<C-U>
