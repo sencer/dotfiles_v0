@@ -82,24 +82,22 @@ function prepend-sudo {
 zle -N prepend-sudo
 
 function expand-path-then-cmd {
-  local i reply REPLY REPLY2
+  local i reply
   local -a rep
-  split-shell-arguments
-  rep=($reply)
+  rep=(${(s: :)BUFFER})
   for i in ${rep:1}; do
     if [[ -e $i ]];then
-      rep[(r)$i]=${i:A}
+      rep[(r)$i]=${(Q)i:A}
     fi
   done
-  reply=${(j::)rep:1}
-  if [[ $BUFFER == "$rep[1]$reply" ]]; then
-    BUFFER="${rep[1]:c}$reply"
+  reply=${(j: :)rep:1}
+  if [[ $BUFFER == "$rep[1] $reply" ]]; then
+    BUFFER="${rep[1]:c} $reply"
   else
-    BUFFER="$rep[1]$reply"
+    BUFFER="$rep[1] $reply"
   fi
 }
 
-autoload -U split-shell-arguments
 zle -N expand-path-then-cmd
 
 # vim: ft=zsh
