@@ -22,8 +22,6 @@ function! SyncTex()
 endfunction
 nnoremap <buffer> <silent> <Leader>ls :call SyncTex()<CR>
 
-imap <buffer> [[     \begin{
-imap <buffer> ]]     <Plug>LatexCloseCurEnv
 nmap <buffer> <F6>   <Plug>LatexChangeEnv
 vmap <buffer> <F7>   <Plug>LatexWrapSelection
 vmap <buffer> <S-F7> <Plug>LatexEnvWrapSelection

@@ -28,7 +28,7 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'kshenoy/vim-signature'
 Bundle 'bling/vim-airline'
 Bundle 'bling/vim-bufferline'
-Bundle 'MarcWeber/ultisnips'
+Bundle 'SirVer/UltiSnips'
 Bundle 'sencer/AutoComplPop'
 " Bundle 'Valloric/YouCompleteMe'
 Bundle 'sencer/normal.vim'
@@ -68,7 +68,7 @@ colorscheme railscasts
 " hi ColorColumn ctermbg=235 guibg=#2c2d27 " fix for wombat theme
 if has('gui_running')
   set guifont=Inconsolata\ Medium\ 12
-  set guioptions=aeiM
+  set guioptions=aeip
 else
   set term=$TERM
 endif
@@ -139,8 +139,9 @@ set wildignore=*.o,*~,*.swp
 set swb=useopen,usetab,newtab showtabline=1 history=200
 set lazyredraw noerrorbells visualbell ttyfast
 set autochdir scrolloff=3 siso=8 showcmd hidden formatoptions+=j nojoinspaces
-set clipboard=unnamedplus,autoselect,exclude:cons\|linux
+" set clipboard=unnamedplus,autoselect,exclude:cons\|linux
 set t_ut=  mouse=a " tmux fixes
+set mousemodel=popup_setpos
 let &colorcolumn="".join(range(81,999),",")
 
 call arpeggio#load()
@@ -170,6 +171,7 @@ nnoremap <silent> <A-Right> :execute 'silent! tabmove ' . tabpagenr()<CR>
 nmap Y y$
 vnoremap > >gv
 vnoremap < <gv
+vnoremap <C-c> "+y
 vmap <A-=> di<C-R>=<C-R>"<CR>
 imap <A-=> <ESC>hdiWa<C-R>=<C-R>"<CR>
 inoremap <C-U> <C-G>u<C-U>

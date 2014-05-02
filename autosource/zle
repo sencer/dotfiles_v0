@@ -16,8 +16,9 @@ for mode in main vicmd; do
    bindkey -M $mode "[B"             history-beginning-search-forward
    bindkey -M $mode " "                magic-space
    bindkey -M $mode "\C-s"             prepend-sudo
-   bindkey -M $mode "\C-e"             expand-cmd-path
-   bindkey -M $mode "\C-q"             push-line-or-edit
+   bindkey -M $mode "\C-e"             expand-path-then-cmd
+   bindkey -M $mode "\C-q"             push-input
+   bindkey -M $mode "q"              get-line
    bindkey -M $mode "$terminfo[kcbt]"  reverse-menu-complete
    bindkey -M $mode "\C-I"             expand-or-complete-with-indicator
 done
@@ -79,5 +80,24 @@ function prepend-sudo {
   fi
 }
 zle -N prepend-sudo
+
+function expand-path-then-cmd {
+  local i reply
+  local -a rep
+  rep=(${(s: :)BUFFER})
+  for i in ${rep:1}; do
+    if [[ -e $i ]];then
+      rep[(r)$i]=${(Q)i:A}
+    fi
+  done
+  reply=${(j: :)rep:1}
+  if [[ $BUFFER == "$rep[1] $reply" ]]; then
+    BUFFER="${rep[1]:c} $reply"
+  else
+    BUFFER="$rep[1] $reply"
+  fi
+}
+
+zle -N expand-path-then-cmd
 
 # vim: ft=zsh

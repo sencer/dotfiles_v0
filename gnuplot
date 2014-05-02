@@ -5,6 +5,10 @@ WXT = "set terminal wxt enhanced dashed persist lw 2 font 'Arial, 10'"
 QT = "set terminal qt enhanced dashed persist font 'Arial, 10'"
 PDF = "set terminal pdfcairo enhanced dashed transparent lw 3 font 'Arial, 18';\
        set output"
+A4L = "set terminal pdfcairo enhanced dashed transparent lw 3 font 'Arial, 14' size 8.5, 11;\
+       set output"
+A4P = "set terminal pdfcairo enhanced dashed transparent lw 3 font 'Arial, 14' size 11, 8.5;\
+       set output"
 PNG = "set terminal pngcairo enhanced dashed transparent lw 2 font 'Arial, 10';\
        set output"
 
