@@ -1,5 +1,5 @@
 syn region texDiffAddStyle matchgroup=texDiffStyle start="\\DIFaddbegin\(FL\)\?\s*" end="\s*\\DIFaddend\(FL\)\?"  concealends contained contains=@texDiffGroup
-syn region texDiffDelStyle matchgroup=texDiffStyle start=" \\DIFdelbegin\(FL\)\?\s*" end="\s*\\DIFdelend\(FL\)\?" concealends contained contains=@texDiffGroup
+syn region texDiffDelStyle matchgroup=texDiffStyle start="\\DIFdelbegin\(FL\)\?\s*" end="\s*\\DIFdelend\(FL\)\?" concealends contained contains=@texDiffGroup
 syn region texDiffInStyle  matchgroup=texDiffStyle start="\\DIF\(add\|del\)\(FL\)\?{" skip="{\_.\{-}}" end="}\ze" concealends contained transparent
 syn region texDiffInCmd    matchgroup=texDiffStyle start="%DIF\(DEL\|AUX\)CMD\s\?<\?\s\?" end="%%%\|%DIFAUXCMD"   concealends contained transparent keepend
 
@@ -21,33 +21,36 @@ hi link texDiffAddStyle Underlined
 hi link texDiffDelStyle Error
 hi link texDiffStyle    Statement
 
-function! LatexDiffAccept()
+" Not yet covering the cases where DIFaddbegin/DIFaddend constructs has multiple
+" DIFadd{}s. Use with care.
+"
+function! LatexDiffReview(arg)
   let pos = getpos('.')
   let syn = synID(pos[1], pos[2], 1)
   if syn == 228 || syn == 229 || syn == 230
     normal 6l
     call search ('\v\zs\\DIF(add|del)begin', 'b')
-    let beg = getpos(".")
     let chr = getline(".")[col(".")+3]
-    if chr ==? 'd'
-      call search('\\DIFdelend\(FL\)\?\zs')
-      let end = getpos(".")
-      if end[1] == beg[1]
-        exec "normal " . (end[2] - beg[2] + 1) . "dh"
-      else
-        exec "normal " . beg[1] . "gg0" . beg[2] . "lhD"
-        exec "normal " . end[1] . "gg0" . end[2] . "dl"
-        if (end[1] - beg[1]) > 1
-          exec "normal " . (beg[1] + 1) . "gg" . (end[1] - beg[1] - 1) . "dd"
-        endif
-      endif
-    elseif chr ==? 'a'
-      normal df{]}
-      let beg = getpos(".")
-      call search('\\DIFaddend\(FL\)\?\zs')
-      let end = getpos(".")
-      exec "normal " . (end[2] - beg[2]) . "dh"
+    if (a:arg == 0 && chr ==? 'd') || ( a:arg == 1 && chr ==? 'a' )
+      call s:LatexDiffDelAll()
+    elseif (a:arg == 1 && chr ==? 'd') || ( a:arg == 0 && chr ==? 'a' )
+      call s:LatexDiffDelTag()
     endif
   endif
 endfunction
-nnoremap dq :call LatexDiffAccept()<CR>
+
+function! s:LatexDiffDelTag()
+  "should be at the beginning
+  execute "normal d/{\<CR>dl]}"
+  call s:LatexDiffDelAll()
+endfunction
+
+function! s:LatexDiffDelAll()
+  "should be at the beginning
+  execute "normal d/\\vDIF(add|del)end(FL)? \\zs\<CR>"
+endfunction
+
+" accept
+nnoremap <silent> dq :call LatexDiffReview(0)<CR>
+" reject
+nnoremap <silent> dr :call LatexDiffReview(1)<CR>
