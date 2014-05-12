@@ -15,7 +15,7 @@ Bundle 'chrisbra/color_highlight'
 Bundle 'edsono/vim-matchit'
 Bundle 'salsifis/vim-transpose'
 Bundle 'sk1418/HowMuch'
-Bundle 'godlygeek/tabular'
+Bundle 'junegunn/vim-easy-align'
 Bundle 'honza/vim-snippets'
 Bundle 'kien/ctrlp.vim'
 Bundle 'kshenoy/vim-signature'
@@ -156,6 +156,7 @@ nmap Y y$
 vnoremap > >gv
 vnoremap < <gv
 vnoremap <C-c> "+y
+vmap <Leader><Enter>   <Plug>(LiveEasyAlign)
 vmap <A-=> di<C-R>=<C-R>"<CR>
 imap <A-=> <ESC>hdiWa<C-R>=<C-R>"<CR>
 inoremap <C-U> <C-G>u<C-U>
