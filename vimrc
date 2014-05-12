@@ -22,8 +22,9 @@ Bundle 'kshenoy/vim-signature'
 Bundle 'bling/vim-airline'
 Bundle 'bling/vim-bufferline'
 Bundle 'SirVer/UltiSnips'
-Bundle 'sencer/AutoComplPop'
-" Bundle 'Valloric/YouCompleteMe'
+Bundle 'Shougo/neocomplete.vim'
+Bundle 'Shougo/vimproc.vim'
+Bundle 'Shougo/neocomplcache-clang'
 Bundle 'sencer/normal.vim'
 Bundle 'sjl/gundo.vim'
 Bundle 'tpope/vim-commentary'
@@ -115,6 +116,13 @@ let g:LatexBox_ignore_warnings = [
       \'Unused global option'
       \]
 
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_auto_select =1
+let g:neocomplete#use_vimproc = 1
+let g:neocomplete#enable_auto_delimiter = 1
+let g:neocomplete#force_omni_input_patterns = {
+      \ 'tex':  '\(\\\k*\|{[^}]*\|\$[^$]*\)$',
+      \ }
 set modeline ve=block,onemore ",insert
 set nu rnu nowrap list ls=2  "showmode pastetoggle=<F2>
 set nrformats-=octal showmatch autoread
