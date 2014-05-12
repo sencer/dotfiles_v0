@@ -54,7 +54,6 @@ Bundle 'sheerun/vim-polyglot'
 " Bundle 'edkolev/tmuxline.vim'
 
 colorscheme railscasts
-" hi ColorColumn ctermbg=235 guibg=#2c2d27 " fix for wombat theme
 if has('gui_running')
   set guifont=Inconsolata\ Medium\ 12
   set guioptions=aeip
