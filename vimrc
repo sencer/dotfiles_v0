@@ -159,9 +159,8 @@ vnoremap <C-c> "+y
 vmap <A-=> di<C-R>=<C-R>"<CR>
 imap <A-=> <ESC>hdiWa<C-R>=<C-R>"<CR>
 inoremap <C-U> <C-G>u<C-U>
-nnoremap <silent> gl ?\W<CR>l:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o>/\w\+\_W\+<CR>:noh<CR>
-"call histdel("search", -2)<CR>
-nnoremap <silent> gh ?\W\+<CR>nW:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o>:noh<CR>
+nnoremap <silent> gl ?\W<CR>l:s/\v(%#\w+)(\_W+)(\w+)/\3\2\1/<CR><C-o>/\w\+\_W\+<CR>:noh<CR>
+nnoremap <silent> gh ?\W\+<CR>Bl:s/\v(%#\w+)(\_W+)(\w+)/\3\2\1/<CR><C-o>:noh<CR>
 nnoremap <Up> <nop>
 nnoremap <Down> <nop>
 nnoremap <Left> <nop>
