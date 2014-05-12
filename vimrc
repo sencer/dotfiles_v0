@@ -44,13 +44,10 @@ Bundle 'b4winckler/vim-angry'
 Bundle 'nelstrom/vim-textobj-rubyblock'
 Bundle 'c9s/vimomni.vim'
 Bundle 'majutsushi/tagbar'
-Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
-Bundle 'Rip-Rip/clang_complete'
 Bundle 'scrooloose/syntastic'
 Bundle 'tpope/vim-endwise'
 Bundle 'sencer/gnuplot.vim'
 Bundle 'sheerun/vim-polyglot'
-" Bundle 'edkolev/tmuxline.vim'
 Bundle 'tpope/vim-rails'
 Bundle 'fncll/wordnet.vim'
 
