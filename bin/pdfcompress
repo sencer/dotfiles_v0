@@ -10,10 +10,11 @@ if [[ $1 != *.pdf ]]; then
 fi
 while [[ $# -gt 0 ]]; do
   if [[ -f $1 ]]; then
-    echo "Compressing $1..."
+    echo -n "Compressing $1... ($(du -h $1|cut -f1) to "
     /usr/bin/gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.5 -dPDFSETTINGS=/prepress \
       -dAutoFilterColorImages=false -dColorImageFilter=/FlateEncode -dNOPAUSE\
       -dQUIET -dBATCH -sOutputFile=${1%.pdf}.compressed.pdf $1
+    echo "$(du -h ${1%.pdf}.compressed.pdf|cut -f1))"
     if [[ inplace -eq 1 ]]; then
       echo -n "Moving "
       mv -vf ${1%.pdf}.compressed.pdf $1
