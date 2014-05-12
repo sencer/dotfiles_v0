@@ -125,7 +125,7 @@ set incsearch hlsearch ignorecase smartcase gdefault
 set showbreak=… listchars=trail:·,eol:¬,tab:»-,extends:❯,precedes:❮
 set wildmenu wildmode=full " set wildmode=longest:full,list  #Tab won't work
 set wildignore=*.o,*~,*.swp
-set swb=useopen,usetab,newtab showtabline=1 history=200
+set swb=useopen,usetab,newtab showtabline=1 history=1000
 set lazyredraw noerrorbells visualbell ttyfast
 set autochdir scrolloff=3 siso=8 showcmd hidden formatoptions+=j nojoinspaces
 " set clipboard=unnamedplus,autoselect,exclude:cons\|linux
