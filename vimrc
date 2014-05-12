@@ -9,14 +9,7 @@ call vundle#rc()
 "                              Load Bundles                               "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 Bundle 'gmarik/vundle'
-Bundle 'sencer/vim-colors-github'
 Bundle 'jpo/vim-railscasts-theme'
-Bundle 'chriskempson/base16-vim'
-" Bundle 'altercation/vim-colors-solarized'
-" Bundle 'Lokaltog/vim-distinguished'
-" Bundle 'morhetz/gruvbox'
-" Bundle 'tomasr/molokai'
-" Bundle 'vim-scripts/wombat256.vim'
 Bundle 'mhinz/vim-signify'
 Bundle 'chrisbra/color_highlight'
 Bundle 'edsono/vim-matchit'
@@ -33,18 +26,15 @@ Bundle 'sencer/AutoComplPop'
 " Bundle 'Valloric/YouCompleteMe'
 Bundle 'sencer/normal.vim'
 Bundle 'sjl/gundo.vim'
-Bundle 'tomtom/tlib_vim'
 Bundle 'tpope/vim-commentary'
 Bundle 'tpope/vim-eunuch'
 Bundle 'kana/vim-repeat'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-unimpaired'
 Bundle 'tpope/vim-fugitive'
-" Bundle 'vim-scripts/SearchComplete'
 Bundle 'vis'
 Bundle 'vim-scripts/ReplaceWithRegister'
 Bundle 'kana/vim-niceblock'
-Bundle 'kana/vim-arpeggio'
 Bundle 'jiangmiao/auto-pairs'
 Bundle 'kana/vim-textobj-user'
 Bundle 'kana/vim-textobj-underscore'
@@ -142,11 +132,6 @@ set autochdir scrolloff=3 siso=8 showcmd hidden formatoptions+=j nojoinspaces
 set t_ut=  mouse=a " tmux fixes
 set mousemodel=popup_setpos
 let &colorcolumn="".join(range(81,999),",")
-
-call arpeggio#load()
-Arpeggio inoremap jk <ESC>
-Arpeggio imap -= <ESC>hdiWa<C-R>=<C-R>"<CR>
-Arpeggio vmap -= di<C-R>=<C-R>"<CR>
 
 noremap <silent> <C-Z>  :GundoToggle<CR>
 noremap <silent> <F2> :set invpaste<CR>
