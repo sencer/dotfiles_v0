@@ -86,17 +86,6 @@ let g:signify_vcs_list = [ 'git' ]
 let g:AutoPairsShortcutToggle = ''
 let g:AutoPairsCenterLine = 0
 
-let g:UltiSnips = {
-      \ 'ExpandTrigger' : "<Tab>",
-      \ 'JumpForwardTrigger' : "<Tab>",
-      \ 'JumpBackwardTrigger' : "<S-Tab>",
-      \ 'ListSnippets' : "<C-Tab>",
-      \ 'EditSplit' : "vertical",
-      \ 'snipmate_ft_filter': {'default': {'filetypes': ['all', 'FILETYPE']}},
-      \ 'always_use_first_snippet': 1
-      \ }
-
-
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_switch_buffer = 'Et'
 
@@ -123,6 +112,8 @@ let g:neocomplete#enable_auto_delimiter = 1
 let g:neocomplete#force_omni_input_patterns = {
       \ 'tex':  '\(\\\k*\|{[^}]*\|\$[^$]*\)$',
       \ }
+let g:UltiSnipsJumpForwardTrigger = "<Tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<S-Tab>"
 set modeline ve=block,onemore ",insert
 set nu rnu nowrap list ls=2  "showmode pastetoggle=<F2>
 set nrformats-=octal showmatch autoread
