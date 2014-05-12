@@ -52,6 +52,7 @@ Bundle 'tpope/vim-endwise'
 Bundle 'sencer/gnuplot.vim'
 Bundle 'sheerun/vim-polyglot'
 " Bundle 'edkolev/tmuxline.vim'
+Bundle 'fncll/wordnet.vim'
 
 colorscheme railscasts
 if has('gui_running')
