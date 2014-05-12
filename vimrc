@@ -12,7 +12,6 @@ Bundle 'gmarik/vundle'
 Bundle 'jpo/vim-railscasts-theme'
 Bundle 'mhinz/vim-signify'
 Bundle 'chrisbra/color_highlight'
-Bundle 'edsono/vim-matchit'
 Bundle 'salsifis/vim-transpose'
 Bundle 'sk1418/HowMuch'
 Bundle 'junegunn/vim-easy-align'
@@ -65,6 +64,7 @@ endif
 
 filetype plugin indent on
 syntax on
+runtime! macros/matchit.vim
 
 let g:syntastic_enable_balloons = 1
 let g:syntastic_error_symbol='✗'
