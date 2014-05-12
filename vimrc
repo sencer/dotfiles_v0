@@ -142,7 +142,7 @@ noremap <C-h> <C-W>h
 noremap <C-l> <C-W>l
 noremap j gj
 noremap k gk
-nnoremap <silent> cog :GitGutterToggle<CR>
+nnoremap <silent> cog :SignifyToggle<CR>
 nnoremap <silent> coe :ColorToggle<CR>
 nnoremap <silent> <Leader>w :up!<CR>
 nnoremap <A-=> <C-W>>
