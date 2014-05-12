@@ -157,8 +157,9 @@ vnoremap > >gv
 vnoremap < <gv
 vnoremap <C-c> "+y
 vmap <Leader><Enter>   <Plug>(LiveEasyAlign)
-vmap <A-=> di<C-R>=<C-R>"<CR>
-imap <A-=> <ESC>hdiWa<C-R>=<C-R>"<CR>
+vmap <expr> <A-=> ":normal " . (col("'<")+1) . "li<A-=><CR>"
+imap <A-=> <C-c>hdiWa<C-R>=<C-R>"<CR> <C-c>i
+"dirty way of adding a space w/o ACP^^^^^^^
 inoremap <C-U> <C-G>u<C-U>
 nnoremap <silent> gl ?\W<CR>l:s/\v(%#\w+)(\_W+)(\w+)/\3\2\1/<CR><C-o>/\w\+\_W\+<CR>:noh<CR>
 nnoremap <silent> gh ?\W\+<CR>Bl:s/\v(%#\w+)(\_W+)(\w+)/\3\2\1/<CR><C-o>:noh<CR>
