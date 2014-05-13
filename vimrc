@@ -106,6 +106,12 @@ let g:neocomplete#use_vimproc = 1
 let g:neocomplete#enable_auto_delimiter = 1
 let g:neocomplete#force_omni_input_patterns = {
       \    'tex' : '\v(\\\k+|\{[^}]*|\$[^$ ~]*)$',
+      \ 'python' : '\k\.\k\{1,}$',
+      \   'html' : '\(<\|<\/\|<[^>]\+ \|<[^>]\+=\"\)\k\{1,}$',
+      \    'css' : '\(^\s\|[;{]\)\s*\k\{1,}$',
+      \     'js' : '\k\.\k\{1,}$',
+      \    'xml' : '\(<\|<\/\|<[^>]\+ \|<[^>]\+=\"\)\k\{1,}$',
+      \   'ruby' : '\v([^. \t](\.|::)|(^|[^:]):)\k*$'
       \ }
 let g:UltiSnipsJumpForwardTrigger = "<Tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<S-Tab>"
