@@ -105,7 +105,7 @@ let g:neocomplete#enable_auto_select =1
 let g:neocomplete#use_vimproc = 1
 let g:neocomplete#enable_auto_delimiter = 1
 let g:neocomplete#force_omni_input_patterns = {
-      \ 'tex':  '\(\\\k*\|{[^}]*\|\$[^$]*\)$',
+      \    'tex' : '\v(\\\k+|\{[^}]*|\$[^$ ~]*)$',
       \ }
 let g:UltiSnipsJumpForwardTrigger = "<Tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<S-Tab>"
