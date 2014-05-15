@@ -8,46 +8,45 @@ call vundle#rc()
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                              Load Bundles                               "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-Bundle 'gmarik/vundle'
-Bundle 'jpo/vim-railscasts-theme'
-Bundle 'mhinz/vim-signify'
-Bundle 'chrisbra/color_highlight'
-Bundle 'salsifis/vim-transpose'
-Bundle 'sk1418/HowMuch'
-Bundle 'junegunn/vim-easy-align'
-Bundle 'kien/ctrlp.vim'
-Bundle 'kshenoy/vim-signature'
-Bundle 'bling/vim-airline'
-Bundle 'bling/vim-bufferline'
-Bundle 'SirVer/UltiSnips'
-Bundle 'honza/vim-snippets'
-Bundle 'Shougo/neocomplete.vim'
-Bundle 'Shougo/vimproc.vim'
-Bundle 'Shougo/neocomplcache-clang'
-Bundle 'sencer/normal.vim'
-Bundle 'sjl/gundo.vim'
-Bundle 'tpope/vim-commentary'
-Bundle 'tpope/vim-eunuch'
-Bundle 'kana/vim-repeat'
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-unimpaired'
-Bundle 'tpope/vim-fugitive'
-Bundle 'vis'
-Bundle 'vim-scripts/ReplaceWithRegister'
-Bundle 'kana/vim-niceblock'
-Bundle 'jiangmiao/auto-pairs'
-Bundle 'kana/vim-textobj-user'
-Bundle 'kana/vim-textobj-underscore'
-Bundle 'kana/vim-textobj-indent'
-Bundle 'kana/vim-textobj-syntax'
-Bundle 'b4winckler/vim-angry'
-Bundle 'nelstrom/vim-textobj-rubyblock'
-Bundle 'majutsushi/tagbar'
-Bundle 'scrooloose/syntastic'
-Bundle 'tpope/vim-endwise'
-Bundle 'sencer/polyglot'
-Bundle 'tpope/vim-rails'
-Bundle 'fncll/wordnet.vim'
+Plugin 'gmarik/vundle'
+Plugin 'jpo/vim-railscasts-theme'
+Plugin 'mhinz/vim-signify'
+Plugin 'chrisbra/color_highlight'
+Plugin 'salsifis/vim-transpose'
+Plugin 'sk1418/HowMuch'
+Plugin 'junegunn/vim-easy-align'
+Plugin 'kien/ctrlp.vim'
+Plugin 'kshenoy/vim-signature'
+Plugin 'bling/vim-airline'
+Plugin 'bling/vim-bufferline'
+Plugin 'SirVer/UltiSnips'
+Plugin 'sencer/vim-snippets'
+Plugin 'Shougo/neocomplete.vim'
+Plugin 'Shougo/vimproc.vim'
+Plugin 'sencer/normal.vim'
+Plugin 'sjl/gundo.vim'
+Plugin 'tpope/vim-commentary'
+Plugin 'tpope/vim-eunuch'
+Plugin 'kana/vim-repeat'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-unimpaired'
+Plugin 'tpope/vim-fugitive'
+Plugin 'vis'
+Plugin 'vim-scripts/ReplaceWithRegister'
+Plugin 'kana/vim-niceblock'
+Plugin 'jiangmiao/auto-pairs'
+Plugin 'kana/vim-textobj-user'
+Plugin 'kana/vim-textobj-underscore'
+Plugin 'kana/vim-textobj-indent'
+Plugin 'kana/vim-textobj-syntax'
+Plugin 'b4winckler/vim-angry'
+Plugin 'nelstrom/vim-textobj-rubyblock'
+Plugin 'majutsushi/tagbar'
+Plugin 'scrooloose/syntastic'
+Plugin 'tpope/vim-endwise'
+Plugin 'sencer/polyglot'
+Plugin 'tpope/vim-rails'
+Plugin 'fncll/wordnet.vim'
 
 colorscheme railscasts
 if has('gui_running')
@@ -68,6 +67,7 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_always_populate_loc_list = 1
 
 let g:bufferline_echo = 0
+
 let g:airline_theme='bubblegum'
 let g:airline_left_sep = '▶'
 let g:airline_right_sep = '◀'
@@ -106,10 +106,20 @@ let g:neocomplete#enable_auto_select =1
 let g:neocomplete#use_vimproc = 1
 let g:neocomplete#enable_auto_delimiter = 1
 let g:neocomplete#force_omni_input_patterns = {
-      \ 'tex':  '\(\\\k*\|{[^}]*\|\$[^$]*\)$',
+      \    'tex' : '\v(\\\k+|\{[^}]*|\$[^$ ~]*)$',
+      \ 'python' : '\k\.\k\{1,}$',
+      \   'html' : '\(<\|<\/\|<[^>]\+ \|<[^>]\+=\"\)\k\{1,}$',
+      \    'css' : '\(^\s\|[;{]\)\s*\k\{1,}$',
+      \     'js' : '\k\.\k\{1,}$',
+      \    'xml' : '\(<\|<\/\|<[^>]\+ \|<[^>]\+=\"\)\k\{1,}$',
+      \   'ruby' : '\v([^. \t](\.|::)|(^|[^:]):)\k*$'
       \ }
-let g:UltiSnipsJumpForwardTrigger = "<Tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<S-Tab>"
+
+let g:UltiSnipsJumpForwardTrigger = "<TAB>"
+let g:UltiSnipsJumpBackwardTrigger = "<S-TAB>"
+let g:UltiSnipsSnippetsDir = "~/.vim/bundle/vim-snippets/UltiSnips"
+let g:UltiSnipsEditSplit = "vertical"
+
 set modeline ve=block,onemore ",insert
 set nu rnu nowrap list ls=2  "showmode pastetoggle=<F2>
 set nrformats-=octal showmatch autoread
@@ -126,6 +136,7 @@ set autochdir scrolloff=3 siso=8 showcmd hidden formatoptions+=j nojoinspaces
 " set clipboard=unnamedplus,autoselect,exclude:cons\|linux
 set t_ut=  mouse=a " tmux fixes
 set mousemodel=popup_setpos shell=/bin/zsh ffs+=mac tpm=50 viminfo^=!,%
+set undofile undodir=~/.undodir undolevels=1000 undoreload=1000
 let &colorcolumn="".join(range(81,999),",")
 
 noremap <silent> <C-Z>  :GundoToggle<CR>
