@@ -1,25 +1,44 @@
 #!/bin/bash
 echo "Results:"
-ldapsearch -l 30 -LLL -x -h ldap.princeton.edu -S pudisplayname -b \
-  "o=Princeton University,c=US" "(|(cn=*$1*)(uid=*$1*))" pudisplayname ou \
-  telephonenumber mail | awk -va=$1 'BEGIN{a="^"tolower(a)}$1=="pudisplayname:"{
-    $0=gensub("pudisplayname: ", "", "g", $0)
-    split($0, n, ", ")
-    name = n[2]" "n[1]
-  }$1=="ou:"{
-    dep=gensub("ou: ", "", "g", $0)
-  }$1=="telephonenumber:"{
-    dep = dep", "gensub("telephonenumber: ", "", "g", $0)
-  }$1=="mail:"{
-    mail = gensub("mail: ", "", "g", $0)
-    tmp = sprintf("%s\t%s\t%s", mail, name ? name : "Name Not Known", dep ? dep : "")
-    if(tolower(n[2]) ~ a || tolower(n[1]) ~ a|| tolower(mail) ~ a)
-      arr1[j++] = tmp
-    else
-      arr2[i++] = tmp
-    }END{
-     for(k in arr1)
-       print arr1[k]
-     for(k in arr2)
-       print arr2[k]
-    }'
+ldapsearch -l 30 \
+           -LLL  \
+           -x \
+           -h ldap.princeton.edu \
+           -S pudisplayname \
+           -b "o=Princeton University,c=US" \
+           "(|(cn=*$1*)(uid=*$1*))" \
+           pudisplayname \
+           ou \
+           telephonenumber \
+           mail |\
+           awk -vq="^${1,,}" '{
+             split($0, line, ": ")
+             switch(line[1]){
+               case "pudisplayname":
+                 split(line[2], name, ", ")
+                 break
+               case "ou":
+                 department = line[2]
+                 break
+               case "telephonenumber":
+                 department = department ", " line[2]
+                 break
+               case "mail":
+                 if(!name[2]){
+                   name[1]="?"
+                   name[2]="?"
+                 }
+                 result = sprintf("%s\t%s\t%s", line[2],\
+                   name[2] ? name[2] " " name[1] : "???", department)
+                 if(tolower(name[2]) ~ q || tolower(name[1]) ~ q || tolower(line[2]) ~ q)
+                   priority[i++] = result
+                 else
+                   other[j++] = result
+                 break
+             }
+           } END {
+             for(k in priority)
+               print priority[k]
+             for(k in other)
+               print other[k]
+         }'
