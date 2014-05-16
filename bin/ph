@@ -5,7 +5,7 @@ ldapsearch -l 30 -LLL -x -h ldap.princeton.edu -S pudisplayname -b \
   telephonenumber mail | awk -va=$1 'BEGIN{a="^"tolower(a)}$1=="pudisplayname:"{
     $0=gensub("pudisplayname: ", "", "g", $0)
     split($0, n, ", ")
-    name = n[2]n[1]
+    name = n[2]" "n[1]
   }$1=="ou:"{
     dep=gensub("ou: ", "", "g", $0)
   }$1=="telephonenumber:"{
