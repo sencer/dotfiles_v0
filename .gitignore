@@ -15,4 +15,3 @@ data/weather
 data/dirs
 bin/cube_beautifier
 mutt/passwords.gpg
-mutt/history

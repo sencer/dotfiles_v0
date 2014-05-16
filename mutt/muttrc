@@ -105,7 +105,7 @@ set reverse_alias
 set auto_tag=yes
 set history = 100
 set save_history = 1000
-set history_file = ~/.mutt/history
+set history_file = ~/.dotfiles/tmp/mutt_history
 set alias_file   = ~/.mutt/aliases
 set forward_quote
 set fcc_attach
