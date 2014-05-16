@@ -30,7 +30,7 @@ set smtp_url=smtp://sselcuk@smtp.princeton.edu:587
 set ssl_force_tls = yes
 set ssl_min_dh_prime_bits = 128
 
-set editor="gvim -f -c 'set spell spelllang=en' -S '~/.vim/mutt.vim'"
+set editor="gvim -f -c 'set spell spelllang=en' -S '~/.mutt/query.vim'"
 
 set sidebar_visible = yes
 macro index b '<enter-command>toggle sidebar_visible<enter><refresh>'
