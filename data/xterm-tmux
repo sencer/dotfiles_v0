@@ -13,6 +13,7 @@ xterm-screen-256color|GNU Screen with 256 colors bce and tmux xterm-keys,
   kIC=\E[2;2~, kLFT=\E[1;2D, kNXT=\E[6;2~, kPRV=\E[5;2~,
   kRIT=\E[1;2C,
 
-# Change this to screen-256color if the terminal you run tmux in
-# doesn't support bce:
-  use=screen-256color-bce,
+# gnome-terminal doesn't support bce.
+# can add -bce before the comma to use
+# with other terminals
+  use=screen-256color,
