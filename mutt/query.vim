@@ -36,10 +36,10 @@ function! s:GenerateCompletions(findstart, base)
 endfunction
 
 function! QueryCommandComplete(findstart, base)
-    if synID(line('.'), 1, 1) == 99 || synID(line('.')+1, 1, 1) == 99
+    " if synID(line('.'), 1, 1) == 99 || synID(line('.')+1, 1, 1) == 99
         "synID 99 is the header syntax.
         return s:GenerateCompletions(a:findstart, a:base)
-    endif
+    " endif
 endfunction
 
 setlocal omnifunc=QueryCommandComplete
