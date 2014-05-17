@@ -1,3 +1,5 @@
 text/html; w3m %s; nametemplate=%s.html
 text/html; w3m -dump %s; nametemplate=%s.html; copiousoutput
 application/pdf; { mv -T %s %s.pdf \; ( evince 2>/dev/null %s.pdf \; rm %s.pdf \; ) & }
+text/calendar; ~/bin/gcalcli --calendar="Sencer" import %s
+text/calendar; ~/bin/gcalcli --calendar="Sencer" import -d %s; copiousoutput
