@@ -31,15 +31,13 @@ set editor                = "gvim -f -c 'set spell spelllang=en' -S '~/.mutt/que
 
 bind index,pager <F5> imap-fetch-mail
 bind index G last-entry
-bind pager <up> previous-line
-bind pager <down> next-line
 bind index,pager \CP sidebar-prev
 bind index,pager \CN sidebar-next
 bind index,pager \CO sidebar-open
 macro index,pager b '<enter-command>toggle sidebar_visible<enter><refresh>'
-macro index s "<save-message>?<toggle-mailboxes>" "save message to a folder"
-macro index C "<copy-message>?<toggle-mailboxes>" "copy message to a folder"
-macro index A <save-message>=Archives/`date +%Y`\n
+macro index,pager s "<save-message>?<toggle-mailboxes>" "save message to a folder"
+macro index,pager C "<copy-message>?<toggle-mailboxes>" "copy message to a folder"
+macro index,pager A <save-message>=Archives/`date +%Y`\n
 
 color normal     color069 color187
 color indicator  color187 color069
@@ -65,6 +63,8 @@ color body       color072 color187 (https?|ftp)://[\-\.,/%~_:?&=\#a-zA-Z0-9]+
 color bold       color039 color187
 color underline  color141 color187
 
+set nomarkers
+set mark_old
 set nosidebar_visible
 set sidebar_delim = " "
 set implicit_autoview
@@ -75,6 +75,7 @@ P)---"
 set status_chars = " +%A"
 set status_on_top
 set to_chars = " >~c<l"
+set wrap = 100
 set query_command = "~/bin/ph %s 2>/dev/null"
 alternative_order text/html text/enriched text/plain
 set autoedit
@@ -90,7 +91,7 @@ set sig_on_top
 set signature = "echo Sencer |"
 set ignore_linear_white_space
 set delete
-set quit
+set quit = ask-yes
 set noconfirmappend
 set pager_context=2
 set pager_index_lines=8
