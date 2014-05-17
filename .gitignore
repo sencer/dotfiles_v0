@@ -16,3 +16,4 @@ data/dirs
 bin/cube_beautifier
 bin/gcalcli
 mutt/passwords.gpg
+mutt/aliases
