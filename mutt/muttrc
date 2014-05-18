@@ -103,7 +103,7 @@ set ispell="aspell -e -c"
 # set arrow_cursor if set, reverse fg/bg colors
 set uncollapse_jump #jump to first unread in the thread.
 set tilde
-# set abort_nosubject=no
+set abort_nosubject = ask-no
 # set delete=yes
 set auto_tag=yes
 set history = 100
