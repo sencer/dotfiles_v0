@@ -95,7 +95,7 @@ set delete
 set quit = ask-yes
 set noconfirmappend
 set pager_context=2
-set pager_index_lines=8
+set pager_index_lines=10
 set pager_stop
 set sort=threads
 set sort_aux=reverse-last-date-received
