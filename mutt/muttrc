@@ -103,7 +103,6 @@ set ispell="aspell -e -c"
 # set arrow_cursor if set, reverse fg/bg colors
 set uncollapse_jump #jump to first unread in the thread.
 set tilde
-set reverse_alias
 # set abort_nosubject=no
 # set delete=yes
 set auto_tag=yes
@@ -111,6 +110,7 @@ set history = 100
 set save_history = 1000
 set history_file = ~/.dotfiles/tmp/mutt_history
 set alias_file   = ~/.mutt/aliases
+set reverse_alias
 source $alias_file
 set forward_quote
 set include
