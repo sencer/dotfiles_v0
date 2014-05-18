@@ -66,7 +66,6 @@ color bold       color039 color187
 color underline  color141 color187
 
 set nomarkers
-set mark_old
 set nosidebar_visible
 set sidebar_delim = " "
 set implicit_autoview
@@ -114,7 +113,6 @@ set history_file = ~/.dotfiles/tmp/mutt_history
 set alias_file   = ~/.mutt/aliases
 source $alias_file
 set forward_quote
-set fcc_attach
 set include
 auto_view text/html
 auto_view text/calendar
