@@ -105,7 +105,6 @@ set uncollapse_jump #jump to first unread in the thread.
 set tilde
 set abort_nosubject = ask-no
 # set delete=yes
-set auto_tag=yes
 set history = 100
 set save_history = 1000
 set history_file = ~/.dotfiles/tmp/mutt_history
