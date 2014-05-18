@@ -111,6 +111,7 @@ set alias_file   = ~/.mutt/aliases
 set reverse_alias
 source $alias_file
 set forward_quote
+set forward_format = "Fwd: %s"
 set include
 auto_view text/html
 auto_view text/calendar
