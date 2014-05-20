@@ -42,7 +42,7 @@ source '/etc/zsh_command_not_found' # suggest package containing command
 autoload -U zmv                     # move files using patterns
 # autoload -U zargs                 # zargs argument parser
 zmodload zsh/pcre                   # perl compatible shell regex
-eval $(lesspipe)                    # let less open pdfs, rars etc
+eval $($HOME/bin/lesspipe)                    # let less open pdfs, rars etc
 
 # this is for pbs server management
 
