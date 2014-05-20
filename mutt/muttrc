@@ -37,7 +37,7 @@ bind index G last-entry
 bind index,pager \CP sidebar-prev
 bind index,pager \CN sidebar-next
 bind index,pager \CO sidebar-open
-macro compose \e5 "F kramdown\ny^T^Utext/html; charset=utf-8\n"
+macro compose \e5 "F markdown\ny^T^Utext/html; charset=utf-8\n"
 macro index,pager b '<enter-command>toggle sidebar_visible<enter><refresh>'
 macro index,pager s "<save-message>?<toggle-mailboxes>" "save message to a folder"
 macro index,pager C "<copy-message>?<toggle-mailboxes>" "copy message to a folder"
