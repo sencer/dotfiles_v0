@@ -43,3 +43,5 @@ function! QueryCommandComplete(findstart, base)
 endfunction
 
 setlocal omnifunc=QueryCommandComplete
+
+syn match mailTable keepend contains=mailEmail "^\s*|.*" transparent
