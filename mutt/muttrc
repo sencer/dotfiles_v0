@@ -27,7 +27,8 @@ set from                  = "sselcuk@princeton.edu"
 set use_from              = yes
 set ssl_force_tls         = yes
 set ssl_min_dh_prime_bits = 128
-set editor                = "gvim -f -c 'set spell spelllang=en' -S '~/.mutt/query.vim'"
+set editor                = "gvim -f -c 'set spell spelllang=en,tr' -c 'set fo+=aw' -S '~/.mutt/query.vim'"
+set text_flowed
 
 bind index,pager <F5> imap-fetch-mail
 bind index G last-entry
