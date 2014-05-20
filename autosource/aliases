@@ -21,7 +21,6 @@ alias rcp='nocorrect ras cp -ivdRp'
 alias mv='nocorrect mv -iv'
 alias rmv='nocorrect ras mv -iv'
 alias sudo="nocorrect sudo"
-alias less="less -R"
 alias mkdir='nocorrect mkdir -p'
 alias sed='sed -r'
 alias grep='grep -P'
