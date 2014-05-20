@@ -29,6 +29,8 @@ set ssl_force_tls         = yes
 set ssl_min_dh_prime_bits = 128
 set editor                = "gvim -f -c 'set spell spelllang=en,tr' -c 'set fo+=aw' -S '~/.mutt/query.vim'"
 set text_flowed
+set pipe_decode
+set pipe_sep = "\n#### NEXT MAIL ####\n"
 
 bind index,pager <F5> imap-fetch-mail
 bind index G last-entry
