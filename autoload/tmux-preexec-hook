@@ -4,6 +4,9 @@ case ${command[1]} in
   ssh )
       tmux rename-window "${command[2]}"
     ;;
+  mutt )
+      tmux rename-window "MUTT"
+    ;;
 esac
 # tmux rename-window "$a"
 
