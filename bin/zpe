@@ -62,7 +62,7 @@ $(sed -n "/&system/,/_POS/p;/&electrons/a\  startingwfc = 'file'\n\
 		kpools=1
 		images=1
 		gap=1
-	
+
 		numprocs=%numprocs%
 		maxseconds=$(grep -P -o "\\d+:\\d+:\\d+" %jobname% | sed "s/:/*3600+/;s/:/*60-$gap+/"|bc)
 		dt=$(date +%s)
