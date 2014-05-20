@@ -18,7 +18,6 @@ Plugin 'junegunn/vim-easy-align'
 Plugin 'kien/ctrlp.vim'
 Plugin 'kshenoy/vim-signature'
 Plugin 'bling/vim-airline'
-Plugin 'bling/vim-bufferline'
 Plugin 'SirVer/UltiSnips'
 Plugin 'sencer/vim-snippets'
 Plugin 'Shougo/neocomplete.vim'
@@ -66,7 +65,6 @@ let g:syntastic_warning_symbol='⚠'
 let g:syntastic_check_on_wq = 0
 let g:syntastic_always_populate_loc_list = 1
 
-let g:bufferline_echo = 0
 
 let g:airline_theme='bubblegum'
 let g:airline_left_sep = '▶'
@@ -76,6 +74,7 @@ let g:airline_symbols = { 'linenr'     : '¶', 'branch'     : '⎇',
 let g:airline_mode_map = { '__' : '-', 'n'  : 'N', 'i'  : 'I', 'R'  : 'R',
                          \ 'c'  : 'C', 'v'  : 'V', 'V'  : 'VL', '' : 'VB' }
 let g:airline#extensions#tagbar#flags = 'f'
+let g:airline#extensions#tabline#enabled = 1
 
 let g:signify_vcs_list = [ 'git' ]
 let g:AutoPairsShortcutToggle = ''
