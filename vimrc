@@ -113,6 +113,7 @@ let g:neocomplete#force_omni_input_patterns = {
       \    'xml' : '\(<\|<\/\|<[^>]\+ \|<[^>]\+=\"\)\k\{1,}$',
       \   'ruby' : '\v([^. \t](\.|::)|(^|[^:]):)\k*$'
       \ }
+inoremap <expr> <CR>  <C-r>=pumvisible() ? neocomplete#close_popup() : "\<C-v><CR>"<CR>
 
 let g:UltiSnipsJumpForwardTrigger = "<TAB>"
 let g:UltiSnipsJumpBackwardTrigger = "<S-TAB>"
