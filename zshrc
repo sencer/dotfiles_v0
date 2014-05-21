@@ -3,7 +3,7 @@ D="$HOME/.dotfiles"
 export LANG=en_US.UTF-8
 export LC_ALL=$LANG
 export LANGUAGE=$LANG
-if [[ -n $TMUX ]]; then
+if [[ -n $TMUX  || $TERM == *screen* ]]; then
   export TERM=xterm-screen-256color
 else
   export TERM=xterm-256color
