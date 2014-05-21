@@ -5,6 +5,7 @@ require 'redcarpet'
 
 class MarkdownRenderer < Redcarpet::Render::HTML
   def block_code(code, language)
+    language ||= 'text'
     CodeRay.scan(code, language).div
   end
 end
