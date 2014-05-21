@@ -28,4 +28,26 @@ def markdown(text)
   markdown_to_html.render(text)
 end
 
-puts markdown(STDIN.read)
+#handle subscripts
+def subscript string
+  while open = string.index('_(')
+    counter = 1
+    close = open + 1
+    while counter > 0
+      c = string[close+=1]
+      if c == '('
+        counter += 1
+      elsif c == ')'
+        counter -= 1
+      end
+    end
+    string[close, 1] = '</sub>'
+    string[open, 2] =  '<sub>'
+  end
+  string
+end
+
+puts subscript(markdown(STDIN.read)).gsub(
+  /<\/sub>\s*<sup/, "\\0 style='position: relative; left:-0.5em; top:-0.2em'")
+# if a sub followed by sup, stack them on top; reverse the order if you don't
+# want that
