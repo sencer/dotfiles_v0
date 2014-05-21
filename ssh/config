@@ -3,7 +3,7 @@ Host tigress
 Host della
   Hostname della4.princeton.edu
 Host tiger
-  Hostname tiger3.princeton.edu
+  Hostname tiger2.princeton.edu
 Host edison
   Hostname edison.nersc.gov
 Host hopper
@@ -19,7 +19,7 @@ Host pc
   ForwardX11Trusted yes
   Hostname localhost
   HostKeyAlias pc
-  IdentityFile id_pc
+  IdentityFile ~/.ssh/id_pc
   Port 2319
 Host kali
   ForwardX11 yes
@@ -29,7 +29,7 @@ Host kali
   ForwardAgent yes
   RemoteForward 2319 localhost:22
 Host github.com
-  IdentityFile id_github
+  IdentityFile ~/.ssh/id_github
   ControlMaster no
 Host *
   ForwardX11 no
@@ -44,6 +44,7 @@ Host *
   ControlMaster auto
   ControlPath /tmp/%r@%h:%p
   ControlPersist 60
+  IdentityFile ~/.ssh/id_rsa
 # PermitLocalCommand yes
 
 # vim: ft=sshconfig
