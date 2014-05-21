@@ -37,6 +37,7 @@ Host *
   ControlMaster auto
   ControlPath /tmp/%r@%h:%p
   ControlPersist 60
+  IdentityFile ~/.ssh/id_rsa
 # PermitLocalCommand yes
 
 # vim: ft=sshconfig
