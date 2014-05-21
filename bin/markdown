@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# encoding: utf-8
 
 require 'coderay'
 require 'redcarpet'
@@ -6,7 +7,11 @@ require 'redcarpet'
 class MarkdownRenderer < Redcarpet::Render::HTML
   def block_code(code, language)
     language ||= 'text'
-    CodeRay.scan(code, language).div
+    ln = language.split(':')
+    CodeRay.scan(code, ln[0]).div(
+      line_numbers: ln.length > 1 ? :table : false,
+      line_number_start: ln[1].is_a?(Numeric) ? ln[1].to_i : 1
+    )
   end
 end
 
