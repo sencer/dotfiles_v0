@@ -42,6 +42,7 @@ macro index,pager b '<enter-command>toggle sidebar_visible<enter><refresh>'
 macro index,pager s "<save-message>?<toggle-mailboxes>" "save message to a folder"
 macro index,pager C "<copy-message>?<toggle-mailboxes>" "copy message to a folder"
 macro index,pager A <save-message>=Archives/`date +%Y`\n
+macro index } "<pipe-entry>~/.mutt/create_event\n"
 
 color normal     color069 color187
 color indicator  color187 color069
