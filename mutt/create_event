@@ -44,7 +44,7 @@ par = ""
 $stdin.readlines.map(&:chomp).each do |line|
   line = line.strip.gsub(/^\>+/, "")
     .gsub(/[#{ascii.keys.join}]/, ascii)  # to handle
-    .gsub(/\b#{tr.keys.join('|')}\b/, tr) # turkish dates
+    .gsub(/\b#{tr.keys.join('|')}\b/i, tr) # turkish dates
   if not line.empty? 
     if line !~ /^(From|To|Date|Sent): /
       par = "#{par}#{par.empty? ? "" : " "}#{line}"
