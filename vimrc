@@ -126,7 +126,7 @@ set nrformats-=octal showmatch autoread
 set backspace=indent,eol,start ww+=<,>,[,],~,h,l
 set smartindent autoindent copyindent
 set smarttab tabstop=2 shiftwidth=2 shiftround expandtab
-set incsearch hlsearch ignorecase smartcase gdefault
+set incsearch hlsearch ignorecase smartcase gdefault infercase
 set showbreak=… listchars=trail:·,eol:¬,tab:»-,extends:❯,precedes:❮
 set wildmenu wildmode=full " set wildmode=longest:full,list  #Tab won't work
 set wildignore=*.o,*~,*.swp
