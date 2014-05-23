@@ -2,7 +2,7 @@ function! s:FindStartingIndex()
     let cur_line = getline('.')
     " locate the start of the word
     let start = col('.') - 1
-    while start > 0 && cur_line[start - 1] =~ '[^:,]'
+    while start > 0 && cur_line[start - 1] =~ '[^:,\t]'
         let start -= 1
     endwhile
 
@@ -36,14 +36,23 @@ function! s:GenerateCompletions(findstart, base)
 endfunction
 
 function! QueryCommandComplete(findstart, base)
-    " if synID(line('.'), 1, 1) == 99 || synID(line('.')+1, 1, 1) == 99
-        "synID 99 is the header syntax.
-        return s:GenerateCompletions(a:findstart, a:base)
-    " endif
+  " if synID(line('.'), 1, 1) == 99 || synID(line('.')+1, 1, 1) == 99
+  "synID 99 is the header syntax.
+  return s:GenerateCompletions(a:findstart, a:base)
+  " endif
 endfunction
 
-setlocal omnifunc=QueryCommandComplete
+function! MuttIndent(lnum)
+  let s:prev_line = getline(a:lnum - 1)
+  if s:prev_line =~? '\v^(to|b?cc):.*,$'
+    return &shiftwidth
+  else
+    return indent(a:lnum - 1)
+  endif
+endfunction
+
+setlocal omnifunc=QueryCommandComplete indentexpr=MuttIndent(v:lnum)
 
 syn match mailTable keepend contains=mailEmail "^\s*|.*" transparent
-set spell spelllang=en,tr fo+=w
+setlocal noexpandtab autoindent spell spelllang=en,tr fo+=w
 NeoCompleteDisable
