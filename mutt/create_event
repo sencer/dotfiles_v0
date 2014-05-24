@@ -1,0 +1,105 @@
+#!/usr/bin/env ruby
+# encoding: utf-8
+
+require 'date'
+system "clear"
+regexify = ->(x, y){
+  /\b(?<#{y}>#{x[1..-1].map{|v| "#{v[0..2]}(#{v[3..-1]})?"}.join("|")})\b/
+}
+m = regexify[Date::MONTHNAMES, 'month']
+w = regexify[Date::DAYNAMES, 'weekday']
+d = /\b((?<day>\d{1,2})(\^?(st|nd|rd|th)?))\b/
+t = /\b(?<time>\d{1,2}(:\d\d|\s?[ap]\.?m\.?)(\s?[ap]\.?m\.?)?)/i
+y = /201[4-9]/
+s = /[- ,]+/
+
+# to handle Turkish dates
+tr = Hash[
+  %w[Pazar Pazartesi Sali Carsamba Persembe Cuma Cumartesi
+     Pzr Pts Sal Cars Pers Cuma Cts
+     Ocak Subat Mart Nisan Mayis Haziran Temmuz Agustos Eylul Ekim Kasim Aralik]
+  .zip(Date::DAYNAMES + Date::DAYNAMES + Date::MONTHNAMES[1..-1])]
+
+ascii = {
+  'ı' => 'i',
+  'ç' => 'c',
+  'ş' => 's',
+  'ğ' => 'g',
+  'ü' => 'u',
+  'ö' => 'o',
+  'İ' => 'I',
+  'Ç' => 'C',
+  'Ş' => 'S',
+  'Ğ' => 'G',
+  'Ü' => 'U',
+  'Ö' => 'O',
+  '∙' => ' ',
+  '^' => ''
+}
+# read paragraphs, divide into sentences
+
+sentences = []
+subj = ""
+par = ""
+$stdin.readlines.map(&:chomp).each do |line|
+  line = line.strip.gsub(/^\>+/, "")
+    .gsub(/[#{ascii.keys.join}]/, ascii)  # to handle
+    .gsub(/\b#{tr.keys.join('|')}\b/, tr) # turkish dates
+  if not line.empty? 
+    if line !~ /^(From|To|Date|Sent): /
+      par = "#{par}#{par.empty? ? "" : " "}#{line}"
+      subj = line.gsub(/^Subject:\s*((Re|Fwd):)*/i, "")if line =~ /^Subject: /
+    end
+  else
+    sentences += par.split(/\.\s+/)
+    par = ""
+  end
+end
+
+# traverse sentences
+results = []
+sentences.each do |sentence|
+  regex = Regexp.union(
+    /(#{w}#{s})?#{m}#{s}#{d}#{s}#{y}#{s}#{t}#{s}#{t}/,
+    /(#{m}#{s})?#{m}#{s}#{d}#{s}#{d}#{s}#{y}/,
+    /(#{m}#{s})?#{m}#{s}#{d}#{s}#{t}/,
+    /(#{m}#{s})?#{m}#{s}#{d}#{s}#{d}/,
+    /(#{m}#{s})?#{m}#{s}#{d}#{s}#{y}/,
+    /(#{m}#{s})?#{m}#{s}#{d}/
+  )
+  results.push({sentence => $~}) if regex.match(sentence)
+end
+$stdin.flush
+$stdin.close
+results.each.with_index do |v, i|
+  puts "%2d) %s :\n    %s" % [i + 1, v.keys[0], v.values[0]]
+end
+$stdin.reopen('/dev/tty', 'r')
+if results.length > 1
+  print "Choose one of the dates found: "
+  i = $stdin.gets.chomp.to_i - 1
+else
+  i = 0
+end
+if i == -1 || results.length == 0
+  print "When is the event? "
+  date = $stdin.gets.chomp
+else
+  date = results[i].values[0].to_s
+end
+system "clear"
+puts "Date : #{date}"
+print "Enter title [#{subj}] : "
+title = $stdin.gets.chomp
+title = subj if title.length == 0
+# print "Enter location : "
+# # loc = $stdin.gets.chomp
+# loc = "at #{loc}" if loc.length > 0
+
+# txt = "gcalcli --calendar Sencer quick '#{title} on #{date} #{loc if loc}'"
+txt = "gcalcli --calendar Sencer quick '#{title} on #{date}'"
+# puts txt
+unless system(txt)
+  puts "There was an error. Press enter to continue to Mutt"
+  $stdin.getc
+end
