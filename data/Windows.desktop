@@ -1,0 +1,9 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=1.0
+Name=Win
+Comment=Starts the VirtualBox machine Win
+Type=Application
+Exec=/home/sselcuk/bin/windows
+Icon=/home/sselcuk/.local/share/icons/hicolor/scalable/off.svg
+Name[en_US]=Windows
