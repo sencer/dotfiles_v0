@@ -254,6 +254,14 @@ if [ $# -eq 1 ] ; then
 				elif [ -x "`which unzoo`" ]; then unzoo -l "$1";
 				else echo "No unzoo or zoo available"; fi ;;
 
+			*.awk|*.groff|*.java|*.js|*.m4|*.php|*.pl|*.pm|*.pod|*.sh|\
+        *.ad[asb]|*.asm|*.inc|*.[ch]|*.[ch]pp|*.[ch]xx|*.cc|*.hh|\
+        *.lsp|*.l|*.pas|*.p|*.xml|*.xps|*.xsl|*.axp|*.ppd|*.pov|\
+        *.diff|*.patch|*.py|*.rb|*.sql|*.ebuild|*.eclass|*.vim)
+        pygmentize -O bg=dark "$1"
+        ;;
+      .*sh*)
+        pygmentize -O bg=dark -l sh "$1"	
 		esac
 	) 2>/dev/null
 
