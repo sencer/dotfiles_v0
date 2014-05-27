@@ -258,7 +258,11 @@ if [ $# -eq 1 ] ; then
         *.ad[asb]|*.asm|*.inc|*.[ch]|*.[ch]pp|*.[ch]xx|*.cc|*.hh|\
         *.lsp|*.l|*.pas|*.p|*.xml|*.xps|*.xsl|*.axp|*.ppd|*.pov|\
         *.diff|*.patch|*.py|*.rb|*.sql|*.ebuild|*.eclass|*.vim)
-        pygmentize -O bg=dark "$1"
+        if [ -x "`which pygmentize`" ]; then
+          pygmentize -O bg=dark "$1"
+        else
+          cat "$1"
+        fi
         ;;
       .*sh*)
         pygmentize -O bg=dark -l sh "$1"  
