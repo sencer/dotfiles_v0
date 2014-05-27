@@ -4,21 +4,23 @@
 require 'date'
 system "clear"
 regexify = ->(x, y){
-  /\b(?<#{y}>#{x[1..-1].map{|v| "#{v[0..2]}(#{v[3..-1]})?"}.join("|")})\b/
+  /\b(?<#{y}>#{x[0..-1].map{|v| "#{v[0..2]}(#{v[3..-1]})?"}.join("|")})\b/
 }
-m = regexify[Date::MONTHNAMES, 'month']
+m = regexify[Date::MONTHNAMES[1..-1], 'month']
 w = regexify[Date::DAYNAMES, 'weekday']
 d = /\b((?<day>\d{1,2})(\^?(st|nd|rd|th)?))\b/
 t = /\b(?<time>\d{1,2}(:\d\d|\s?[ap]\.?m\.?)(\s?[ap]\.?m\.?)?)/i
 y = /201[4-9]/
 s = /[- ,]+/
-
+c = /\b(today|tomorrow|evening|noon|morning)\b/i
 # to handle Turkish dates
 tr = Hash[
   %w[Pazar Pazartesi Sali Carsamba Persembe Cuma Cumartesi
      Pzr Pts Sal Cars Pers Cuma Cts
      Ocak Subat Mart Nisan Mayis Haziran Temmuz Agustos Eylul Ekim Kasim Aralik]
   .zip(Date::DAYNAMES + Date::DAYNAMES + Date::MONTHNAMES[1..-1])]
+tr1 = Hash[%w[ bu bugun yarin aksam oglen sabah gelecek bir\ dahaki haftaya]
+  .zip(%w[ this today tomorrow evening evening noon morning next next next ])]
 
 ascii = {
   'ı' => 'i',
@@ -45,6 +47,13 @@ $stdin.readlines.map(&:chomp).each do |line|
   line = line.strip.gsub(/^\>+/, "")
     .gsub(/[#{ascii.keys.join}]/, ascii)  # to handle
     .gsub(/\b#{tr.keys.join('|')}\b/i, tr) # turkish dates
+    .gsub(/\b(#{tr1.keys.join('|')})\S*/i) do |m|
+      ret = m
+      tr1.each do |k, v|
+        ret = v if m[/#{k}/]
+      end
+      ret
+    end
   if not line.empty? 
     if line !~ /^(From|To|Date|Sent): /
       par = "#{par}#{par.empty? ? "" : " "}#{line}"
@@ -55,17 +64,19 @@ $stdin.readlines.map(&:chomp).each do |line|
     par = ""
   end
 end
-
 # traverse sentences
 results = []
 sentences.each do |sentence|
   regex = Regexp.union(
     /(#{w}#{s})?#{m}#{s}#{d}#{s}#{y}#{s}#{t}#{s}#{t}/,
-    /(#{m}#{s})?#{m}#{s}#{d}#{s}#{d}#{s}#{y}/,
-    /(#{m}#{s})?#{m}#{s}#{d}#{s}#{t}/,
-    /(#{m}#{s})?#{m}#{s}#{d}#{s}#{d}/,
-    /(#{m}#{s})?#{m}#{s}#{d}#{s}#{y}/,
-    /(#{m}#{s})?#{m}#{s}#{d}/
+    /(#{w}#{s})?#{m}#{s}#{d}#{s}#{d}#{s}#{y}/,
+    /(#{w}#{s})?#{m}#{s}#{d}#{s}#{t}/,
+    /(#{w}#{s})?#{m}#{s}#{d}#{s}#{d}/,
+    /(#{w}#{s})?#{m}#{s}#{d}#{s}#{y}/,
+    /(#{d} #{m})? #{w} #{c}/,
+    /(#{d} #{m})? #{c}/,
+    /(#{w}#{s})?#{m}#{s}#{d}/,
+    /#{d} #{m}/
   )
   results.push({sentence => $~}) if regex.match(sentence)
 end
