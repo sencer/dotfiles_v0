@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # lessfile/lesspipe
 # $Id: lessopen,v 1.4 1998/05/12 09:37:46 torin Exp $
