@@ -266,6 +266,26 @@ if [ $# -eq 1 ] ; then
         ;;
       .*sh*)
         pygmentize -O bg=dark -l sh "$1"  
+        ;;
+      *)
+        if [[ -x "`which pygmentize`" ]]; then
+          #check if there is a shebang
+          fline=`head -1 "$1"`
+          if [[ $fline == "#!"* ]]; then
+            ftype=`echo $fline|cut -d' ' -f2`
+            if [[ $ftype == $fline ]]; then
+              ftype=${fline##*/}
+            fi
+            if [[ ftype == *sh ]]; then
+              ftype='sh' 
+            fi
+            pygmentize -O bg=dark -l $ftype "$1"
+          else
+            cat "$1"
+          fi
+        else
+          cat "$1"
+        fi
     esac
   ) 2>/dev/null
 
