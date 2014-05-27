@@ -76,7 +76,7 @@ if [ $# -eq 1 ] ; then
 		fi
 
 		# Decode file for less
-		case `echo "$1" | tr '[:upper:]' '[:lower:]'` in
+		case `basename "$1" | tr '[:upper:]' '[:lower:]'` in
 			*.a)
 				if [ -x "`which ar`" ]; then ar tv "$1"
 				else echo "No ar available"; fi ;;
