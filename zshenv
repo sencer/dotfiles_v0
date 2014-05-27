@@ -56,6 +56,10 @@ path=(
 export LESS='-g -i -M -R -W -z-4'
 
 # Set the Less input preprocessor.
+# let less open pdfs, rars etc
+#
+export LESSOPEN="| $HOME/bin/lesspipe %s"
+export LESSCLOSE="$HOME/bin/lesspipe %s %s"
 
 #
 # Temporary Files

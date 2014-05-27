@@ -316,46 +316,6 @@ elif [ $# -eq 2 ] ; then
     fi
   fi
 
-elif [ $# -eq 0 ] ; then
-  #
-  # must setup shell to use LESSOPEN/LESSCLOSE
-  #
-  # I have no idea how some of the more esoteric shells (es, rc) do
-  # things. If they don't do things in a Bourne manner, send me a patch
-  # and I'll incorporate it.
-  #
-
-  # first determine the full path of lessfile/lesspipe
-  # if you can determine a better way to do this, send me a patch, I've
-  # not shell-scripted for many a year.
-  FULLPATH=`cd \`dirname $0\`;pwd`/$BASENAME
-
-  case "$SHELL" in
-    *csh)
-      if [ $BASENAME = $LESSFILE ]; then
-        echo "setenv LESSOPEN \"$FULLPATH %s\";"
-        echo "setenv LESSCLOSE \"$FULLPATH %s %s\";"
-      else
-        echo "setenv LESSOPEN \"| $FULLPATH %s\";"
-        echo "setenv LESSCLOSE \"$FULLPATH %s %s\";"
-      fi
-      ;;
-    *)
-      if [ $BASENAME = $LESSFILE ]; then
-        echo "export LESSOPEN=\"$FULLPATH %s\";"
-        echo "export LESSCLOSE=\"$FULLPATH %s %s\";"
-      else
-        echo "export LESSOPEN=\"| $FULLPATH %s\";"
-        echo "export LESSCLOSE=\"$FULLPATH %s %s\";"
-      fi
-      ;;
-  esac
-
-  #echo "# If you tried to view a file with a name that starts with '#', you"
-  #echo "# might see this message instead of the file's contents."
-  #echo "# To view the contents, try to put './' ahead of the filename when"
-  #echo "# calling less."
-
 else
   echo "Usage: eval \`$BASENAME\`"
   exit
