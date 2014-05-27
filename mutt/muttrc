@@ -120,3 +120,4 @@ set forward_format = "Fwd: %s"
 set include
 auto_view text/html
 auto_view text/calendar
+auto_view application/msword
