@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby
+# encoding: utf-8
 
 require 'open-uri'
 require 'net/http'
-require 'iconv'
 require 'optparse'
 require 'fileutils'
 require 'cgi'
@@ -210,8 +210,7 @@ def bookmark_to_markdown(outtype)
 			source_url = %x{mdls -name 'kMDItemURL' -raw "#{file}"}.strip
 			if source_url.nil? || source_url == "(null)"
 				source_url = File.open(file,'r') do |infile|
-					ic = Iconv.new('UTF-8//IGNORE', 'UTF-8')
-					urlstring = ic.iconv(infile.read + ' ')[0..-2].match(/\<key\>URL\<\/key\>\n\s*\<string\>(.*?)\<\/string\>/)
+					urlstring = (infile.read + ' ')[0..-2].match(/\<key\>URL\<\/key\>\n\s*\<string\>(.*?)\<\/string\>/)
 					urlstring.nil? ? nil : urlstring[1]
 				end
 			end
