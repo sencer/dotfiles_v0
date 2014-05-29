@@ -9,7 +9,7 @@ call vundle#rc()
 "                              Load Bundles                               "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 Plugin 'gmarik/vundle'
-Plugin 'jpo/vim-railscasts-theme'
+Plugin 'sencer/mustang-vim'
 Plugin 'mhinz/vim-signify'
 Plugin 'chrisbra/color_highlight'
 Plugin 'salsifis/vim-transpose'
@@ -24,6 +24,7 @@ Plugin 'Shougo/neocomplete.vim'
 Plugin 'Shougo/vimproc.vim'
 Plugin 'sencer/normal.vim'
 Plugin 'sjl/gundo.vim'
+Plugin 'jaxbot/selective-undo.vim'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-eunuch'
 Plugin 'kana/vim-repeat'
@@ -49,9 +50,9 @@ Plugin 'sencer/polyglot'
 Plugin 'tpope/vim-rails'
 Plugin 'fncll/wordnet.vim'
 
-colorscheme railscasts
+colorscheme mustang
 if has('gui_running')
-  set guifont=Inconsolata\ Medium\ 12
+  set guifont=Monaco\ 11
   set guioptions=aeip
 else
   set term=$TERM
@@ -143,7 +144,7 @@ let &colorcolumn="".join(range(81,999),",")
 
 noremap <silent> <C-Z> :GundoToggle<CR>
 noremap <silent> <F2> :set invpaste<CR>
-noremap <silent><F9> :TagbarToggle<CR>
+noremap <silent> <F9> :TagbarToggle<CR>
 noremap <C-j> <C-W>j
 noremap <C-k> <C-W>k
 noremap <C-h> <C-W>h
@@ -175,10 +176,11 @@ nnoremap <Up> <nop>
 nnoremap <Down> <nop>
 nnoremap <Left> <nop>
 nnoremap <Right> <nop>
-
 map <silent> <F10> :echom "hi<" . synIDattr(synID(line("."),col("."),1),"name")
       \. '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
       \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+nnoremap <silent> <F3> :exec (&ft == 'vim' ? '' : &ft) . ' ' . getline('.')<CR>
+vnoremap <silent> <F3> :<C-U>exec (&ft == 'vim' ? '' : &ft) . ' ' . getreg('*')<CR>
 
 au BufRead,BufNewFile input*txt set commentstring=\!\ %s
 au InsertEnter * set norelativenumber
