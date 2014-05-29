@@ -97,11 +97,11 @@ fi
 while true; do
   read -p "" input
   case $input in 
-    q) quit;;
-  c) clean;;
-m|n) mem $input;;
-    [0-9]*) digit $input;;
+        q) quit;;
+        c) clean;;
+      m|n) mem $input;;
+   [0-9]*) digit $input;;
   .[a-z]*) parse ${input:1};;
-*) calculate $input;;
+        *) calculate $input;;
   esac
 done

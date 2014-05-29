@@ -1,17 +1,23 @@
 #!/usr/bin/env ruby
 # encoding: utf-8
 
-require 'coderay'
+require 'rouge'
 require 'redcarpet'
 
 class MarkdownRenderer < Redcarpet::Render::HTML
   def block_code(code, language)
-    language ||= 'text'
-    ln = language.split(':')
-    CodeRay.scan(code, ln[0]).div(
-      line_numbers: ln.length > 1 ? :table : false,
-      line_number_start: ln[1].is_a?(Numeric) ? ln[1].to_i : 1
+    ln = language.split(':') rescue ''
+    lexer = Rouge::Lexer.find_fancy(ln[0], code) || Rouge::Lexers::PlainText
+    if lexer.tag == 'make'
+      code.gsub! /^    /, "\t"
+    end
+    formatter = Rouge::Formatters::HTML.new(
+      css_class: "highlight #{lexer.tag}",
+      inline_theme: "github",
+      line_numbers: ln.length > 1,
+      start_line: ln[1] ? ln[1].to_i : 1
     )
+    formatter.format(lexer.lex(code))
   end
 end
 
@@ -19,16 +25,16 @@ def markdown(text)
   rndr = MarkdownRenderer.new(:filter_html => true, :hard_wrap => false)
   options = {
     fenced_code_blocks: true,
-     no_intra_emphasis: true,
-              autolink: true,
-         strikethrough: true,
-       lax_html_blocks: true,
-           superscript: true,
-             underline: true,
-             highlight: true,
-             footnotes: true,
-                tables: true,
-                quotes: true
+    no_intra_emphasis: true,
+    autolink: true,
+    strikethrough: true,
+    lax_html_blocks: true,
+    superscript: true,
+    underline: true,
+    highlight: true,
+    footnotes: true,
+    tables: true,
+    quotes: true
   }
   markdown_to_html = Redcarpet::Markdown.new(rndr, options)
   markdown_to_html.render(text)

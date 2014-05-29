@@ -71,10 +71,10 @@ let g:syntastic_always_populate_loc_list = 1
 let g:airline_theme='bubblegum'
 let g:airline_left_sep = '▶'
 let g:airline_right_sep = '◀'
-let g:airline_symbols = { 'linenr'     : '¶', 'branch'     : '⎇',
-                        \ 'paste'      : 'ρ', 'whitespace' : 'Ξ' }
-let g:airline_mode_map = { '__' : '-', 'n'  : 'N', 'i'  : 'I', 'R'  : 'R',
-                         \ 'c'  : 'C', 'v'  : 'V', 'V'  : 'VL', '' : 'VB' }
+let g:airline_symbols = { 'linenr': '¶', 'branch'     : '⎇',
+                        \ 'paste' : 'ρ', 'whitespace' : 'Ξ' }
+let g:airline_mode_map = { '__' : '-', 'n' : 'N', 'i' : 'I',  'R'  : 'R',
+                         \ 'c'  : 'C', 'v' : 'V', 'V' : 'VL', '' : 'VB' }
 let g:airline#extensions#tagbar#flags = 'f'
 let g:airline#extensions#tabline#enabled = 1
 
@@ -123,14 +123,14 @@ let g:UltiSnipsSnippetsDir = "~/.vim/bundle/vim-snippets/UltiSnips"
 let g:UltiSnipsEditSplit = "vertical"
 
 set modeline ve=block,onemore ",insert
-set nu rnu nowrap list ls=2  "showmode pastetoggle=<F2>
+set nu rnu nowrap list ls=2 "showmode pastetoggle=<F2>
 set nrformats-=octal showmatch autoread
 set backspace=indent,eol,start ww+=<,>,[,],~,h,l
 set smartindent autoindent copyindent
 set smarttab tabstop=2 shiftwidth=2 shiftround expandtab
 set incsearch hlsearch ignorecase smartcase gdefault infercase
 set showbreak=… listchars=trail:·,eol:¬,tab:»-,extends:❯,precedes:❮
-set wildmenu wildmode=full " set wildmode=longest:full,list  #Tab won't work
+set wildmenu wildmode=full " set wildmode=longest:full,list #Tab won't work
 set wildignore=*.o,*~,*.swp
 set swb=useopen,usetab,newtab showtabline=1 history=1000
 set lazyredraw noerrorbells visualbell ttyfast
@@ -141,7 +141,7 @@ set mousemodel=popup_setpos shell=/bin/zsh ffs+=mac tpm=50 viminfo^=!,%
 set undofile undodir=~/.undodir undolevels=1000 undoreload=1000
 let &colorcolumn="".join(range(81,999),",")
 
-noremap <silent> <C-Z>  :GundoToggle<CR>
+noremap <silent> <C-Z> :GundoToggle<CR>
 noremap <silent> <F2> :set invpaste<CR>
 noremap <silent><F9> :TagbarToggle<CR>
 noremap <C-j> <C-W>j
@@ -164,7 +164,7 @@ nmap Y y$
 vnoremap > >gv
 vnoremap < <gv
 vnoremap <C-c> "+y
-vmap <Leader><Enter>   <Plug>(LiveEasyAlign)
+vmap <Leader><Enter> <Plug>(LiveEasyAlign)
 vmap <expr> <A-=> ":normal " . (col("'<")+1) . "li<A-=><CR>"
 imap <A-=> <C-c>hdiWa<C-R>=<C-R>"<CR> <C-c>i
 "dirty way of adding a space w/o ACP^^^^^^^
