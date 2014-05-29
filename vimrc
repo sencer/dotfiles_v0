@@ -9,7 +9,7 @@ call vundle#rc()
 "                              Load Bundles                               "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 Plugin 'gmarik/vundle'
-Plugin 'jpo/vim-railscasts-theme'
+Plugin 'sencer/mustang-vim'
 Plugin 'mhinz/vim-signify'
 Plugin 'chrisbra/color_highlight'
 Plugin 'salsifis/vim-transpose'
@@ -49,9 +49,9 @@ Plugin 'sencer/polyglot'
 Plugin 'tpope/vim-rails'
 Plugin 'fncll/wordnet.vim'
 
-colorscheme railscasts
+colorscheme mustang
 if has('gui_running')
-  set guifont=Inconsolata\ Medium\ 12
+  set guifont=Monaco\ 11
   set guioptions=aeip
 else
   set term=$TERM
