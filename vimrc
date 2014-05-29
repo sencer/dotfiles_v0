@@ -143,7 +143,7 @@ let &colorcolumn="".join(range(81,999),",")
 
 noremap <silent> <C-Z> :GundoToggle<CR>
 noremap <silent> <F2> :set invpaste<CR>
-noremap <silent><F9> :TagbarToggle<CR>
+noremap <silent> <F9> :TagbarToggle<CR>
 noremap <C-j> <C-W>j
 noremap <C-k> <C-W>k
 noremap <C-h> <C-W>h
