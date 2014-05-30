@@ -31,7 +31,7 @@ Plugin 'kana/vim-repeat'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'tpope/vim-fugitive'
-Plugin 'vis'
+Plugin 'sencer/vis'
 Plugin 'tommcdo/vim-exchange'
 Plugin 'AndrewRadev/splitjoin.vim'
 Plugin 'vim-scripts/ReplaceWithRegister'
@@ -136,7 +136,7 @@ set wildignore=*.o,*~,*.swp
 set swb=useopen,usetab,newtab showtabline=1 history=1000
 set lazyredraw noerrorbells visualbell ttyfast
 set autochdir scrolloff=3 siso=8 showcmd hidden formatoptions+=j nojoinspaces
-" set clipboard=unnamedplus,autoselect,exclude:cons\|linux
+set clipboard=unnamedplus,autoselect
 set t_ut=  mouse=a " tmux fixes
 set mousemodel=popup_setpos shell=/bin/zsh ffs+=mac tpm=50 viminfo^=!,%
 set undofile undodir=~/.undodir undolevels=1000 undoreload=1000
