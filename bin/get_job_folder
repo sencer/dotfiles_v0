@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-if [[ $PBS_SERVER == della ]]; then
+if [[ $PBS_SERVER == della || $PBS_SERVER == tiger ]]; then
   if [[ $1 == -n ]]; then
     folder=( $(ras squeue -j $2 -o '%Z' -h) )
   else
