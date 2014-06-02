@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
-if [[ $PBS_SERVER == della ]]; then
+if [[ $PBS_SERVER == della || $PBS_SERVER == tiger ]]; then
   if [[ $1 == -n ]]; then
-    folder=$(ras squeue -j $2 -o '%Z' -h)
+    folder=( $(ras squeue -j $2 -o '%Z' -h) )
   else
-    folder=$(ras squeue -n ${1}.job -o '%Z' -h)
+    folder=( $(ras squeue -n ${1}.job -o '%Z' -h) )
   fi
-  echo $HOME/$PBS_SERVER$(echo $folder|sed -r "s/($USER|home)\///g")
+  echo $HOME/$PBS_SERVER$(echo $folder|sed -r "s/($USER|home|scratch)\///g")
 else
   if [[ $1 = -n ]]; then
     # look with numeric id

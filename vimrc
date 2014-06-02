@@ -115,7 +115,7 @@ let g:LatexBox_ignore_warnings = [
       \]
 
 let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#enable_auto_select =1
+let g:neocomplete#enable_auto_select = 0
 let g:neocomplete#use_vimproc = 1
 let g:neocomplete#enable_auto_delimiter = 1
 let g:neocomplete#force_omni_input_patterns = {

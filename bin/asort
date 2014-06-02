@@ -1,0 +1,110 @@
+#!/usr/bin/env ruby
+require 'optparse'
+
+options = {
+  inplace: false,
+  resolution: 0.1,
+  keys: ['1'],
+  lines: [1, nil]
+}
+
+OptionParser.new do |opts|
+  opts.banner = "Usage: asort [options] file"
+
+  opts.on("-i", "--inplace", "Overwrite the current file") do |v|
+    options[:inplace] = true
+  end
+
+  opts.on("-s", "--start line", Integer, "Start line [first line]") do |v|
+    options[:lines][0] = v
+  end
+
+  opts.on("-e", "--end line", Integer, "End line [last line]") do |v|
+    options[:lines][1] = v
+  end
+
+  opts.on("-r", "--resolution [Float]", Float,
+          "Differences will be ignored below this value [0.1]") do |v|
+    options[:resolution] = v || 0.5
+  end
+
+  opts.on("-k", "--keys [KEYS]", Array,
+          "Ordered sort keys 1r means first col, reverse [1]") do |v|
+    options[:keys] = v
+  end
+
+  opts.on_tail("-h", "--help", "Show this message") do
+    puts opts
+    exit
+  end
+end.parse!
+
+# split the line to columns from white spaces
+# and convert strings that look like numbers
+# to floats.
+def to_a str
+  str.split(' ').map{|v| Float(v) rescue v}
+end
+
+def sort x, y
+  if x.is_a? Numeric
+    if (x - y).abs < $resolution
+      return 0
+    elsif x > y
+      return 1
+    else
+      return -1
+    end
+  else
+    return x <=> y
+  end
+end
+
+def print_range arr
+  arr.each do |l|
+    puts l
+  end
+end
+if ARGV.length > 0
+  file = ARGV.pop
+  lines = File.open(file, 'r').readlines.map(&:chomp)
+else
+  lines = STDIN.readlines.map(&:chomp)
+  # cannot replace STDIN inplace!
+  options[:inplace] == false
+end
+
+options[:lines][1] ||= lines.length
+$resolution = options[:resolution]
+tmp = lines.map.with_index do |line, i|
+  if i >= options[:lines][0] - 1 and i < options[:lines][1]
+    to_a(line).unshift i
+  end
+end.delete_if(&:nil?)
+keys = []
+options[:keys].each do |key|
+  k = key.to_i
+  r = key['r'].nil? ? 1 : -1
+  keys.push [k, r]
+end
+tmp.sort! do |x, y|
+  i = 0
+  sorted = 0
+  while sorted == 0 and i < keys.length
+    sorted = sort(x[keys[i][0]], y[keys[i][0]]) * keys[i][1] rescue 0
+    i += 1
+  end
+  sorted
+end
+if options[:inplace]
+  $stdout.reopen(file, 'w')
+end
+if options[:lines][0] > 1
+  print_range lines[0..options[:lines][0]-2]
+end
+tmp.each do |l|
+  puts lines[l[0]]
+end
+if options[:lines][1] < lines.length
+  print_range lines[options[:lines][1]..-1]
+end
