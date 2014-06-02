@@ -1,8 +1,8 @@
 #!/bin/bash
 PATH=/usr/lib/virtualbox/:$PATH
-if VBoxManage showvminfo --machinereadable Win|grep 'VMState="poweroff"'; then
+if VBoxManage showvminfo --machinereadable Win|grep 'VMState="running"'; then
+  VBoxManage controlvm Win acpipowerbutton && sed -i 's/on.svg/off.svg/' $HOME/Desktop/Windows.desktop
+else
   sed -i 's/off.svg/on.svg/' $HOME/Desktop/Windows.desktop
   VBoxHeadless --startvm Win --vnc
-else
-  VBoxManage controlvm Win acpipowerbutton && sed -i 's/on.svg/off.svg/' $HOME/Desktop/Windows.desktop
 fi
