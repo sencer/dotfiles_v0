@@ -5,7 +5,7 @@ if [[ $PBS_SERVER == della || $PBS_SERVER == tiger ]]; then
   else
     folder=( $(ras squeue -n ${1}.job -o '%Z' -h) )
   fi
-  echo $HOME/$PBS_SERVER$(echo $folder|sed -r "s/($USER|home)\///g")
+  echo $HOME/$PBS_SERVER$(echo $folder|sed -r "s/($USER|home|scratch)\///g")
 else
   if [[ $1 = -n ]]; then
     # look with numeric id
