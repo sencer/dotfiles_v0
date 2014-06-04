@@ -1,9 +1,11 @@
-proc cell {} {
+proc cell {molid} {
   global fname
   global x
   global y
   global z
+  global pbcmol
   global celldm
+  set pbcmol $molid
   if { ![info exists x] } {
     set x 0
     set y 0
@@ -23,45 +25,45 @@ proc cell {} {
       flush stdout
       gets stdin celldm
     }
-    pbc set $celldm
+    pbc set $celldm -molid $pbcmol
   }
   user add key u {
-    pbc unwrap -all
+    pbc unwrap -molid $pbcmol -all
     set x 0
     set y 0
     set z 0
-    pbc box -shiftcenter "$x $y $z"
+    pbc box -molid $pbcmol -shiftcenter "$x $y $z"
   }
-  user add key o {pbc box -toggle -shiftcenter "$x $y $z"}
-  user add key w { pbc wrap -all }
+  user add key o {pbc box -molid $pbcmol -toggle -shiftcenter "$x $y $z"}
+  user add key w { pbc wrap -molid $pbcmol -all }
   user add key Right {
     set x [expr $x+0.1]
-    pbc wrap -all -shiftcenter "$x $y $z"
-    pbc box -shiftcenter "$x $y $z"
+    pbc wrap -molid $pbcmol -all -shiftcenter "$x $y $z"
+    pbc box -molid $pbcmol -shiftcenter "$x $y $z"
   }
   user add key Left {
     set x [expr $x-0.1]
-    pbc wrap -all -shiftcenter "$x $y $z"
-    pbc box -shiftcenter "$x $y $z"
+    pbc wrap -molid $pbcmol -all -shiftcenter "$x $y $z"
+    pbc box -molid $pbcmol -shiftcenter "$x $y $z"
   }
   user add key Home {
     set y [expr $y-0.1]
-    pbc wrap -all -shiftcenter "$x $y $z"
-    pbc box -shiftcenter "$x $y $z"
+    pbc wrap -molid $pbcmol -all -shiftcenter "$x $y $z"
+    pbc box -molid $pbcmol -shiftcenter "$x $y $z"
   }
   user add key End {
     set y [expr $y+0.1]
-    pbc wrap -all -shiftcenter "$x $y $z"
-    pbc box -shiftcenter "$x $y $z"
+    pbc wrap -molid $pbcmol -all -shiftcenter "$x $y $z"
+    pbc box -molid $pbcmol -shiftcenter "$x $y $z"
   }
   user add key Up {
     set z [expr $z+0.1]
-    pbc wrap -all -shiftcenter "$x $y $z"
-    pbc box -shiftcenter "$x $y $z"
+    pbc wrap -molid $pbcmol -all -shiftcenter "$x $y $z"
+    pbc box -molid $pbcmol -shiftcenter "$x $y $z"
   }
   user add key Down {
     set z [expr $z-0.1]
-    pbc wrap -all -shiftcenter "$x $y $z"
-    pbc box -shiftcenter "$x $y $z"
+    pbc wrap -molid $pbcmol -all -shiftcenter "$x $y $z"
+    pbc box -molid $pbcmol -shiftcenter "$x $y $z"
   }
 }
