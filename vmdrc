@@ -58,6 +58,11 @@ after idle {
   package require pbctools
   set auto_path [concat $env(HOME)/.vmd $auto_path]
   initial_settings 0
+  if {$argc > 0} {
+    eval $argv
+    state 0
+    cell 0
+  }
 }
 
 # vim: ft=tcl
