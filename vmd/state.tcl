@@ -51,72 +51,72 @@ proc state {} {
       mol addrep $mid
     }
   }
-  user add key W {
-    puts_red "INFO) Saving the current view."
-    global representations
-    global viewpoints
-    save_viewpoint
-    save_reps
 
-    set fildes [open $viewvmd w]
+user add key W {
+  puts_red "INFO) Saving the current view."
+  global representations
+  global viewpoints
+  save_viewpoint
+  save_reps
 
-    puts $fildes "display resize [display get size]"
+  set fildes [open $viewvmd w]
 
-    if {[display get depthcue] == "on"} {
-      puts $fildes "display depthcue on"
-      puts $fildes "display cuestart [display get cuestart]"
-      puts $fildes "display cueend [display get cueend]"
-      puts $fildes "display cuedensity [display get cuedensity]"
-      puts $fildes "display cuemode [display get cuemode]"
-    }
-    foreach i [material list] {
-      foreach j [material settings $i] k {ambient specular diffuse shininess opacity outline outlinewidth transmode} {
-        puts $fildes "material change $k $i $j"
-      }
-    }
+  puts $fildes "display resize [display get size]"
 
-    foreach mol [molinfo list] {
-      puts $fildes "if {[lsearch [molinfo list] $mol] >= 0} {"
-      # delete all representations
-      puts $fildes "  set numrep [molinfo $mol get numreps]"
-      puts $fildes "  for {set i 0} {\$i < \$numrep} {incr i} {"
-      puts $fildes "    mol delrep \$i $mol"
-      puts $fildes "  }"
-      if [info exists representations($mol)] {
-        set i 0
-        foreach rep $representations($mol) {
-          foreach {r s c m pbc numpbc on selupd colupd colminmax smooth framespec cplist} $rep { break }
-          puts $fildes "  mol representation $r"
-          puts $fildes "  mol color $c"
-          puts $fildes "  mol selection {$s}"
-          puts $fildes "  mol material $m"
-          puts $fildes "  mol addrep $mol"
-          puts $fildes "  mol showrep $mol $i $on"
-          if {[string length $pbc]} {
-            puts $fildes "  mol showperiodic top $i $pbc"
-            puts $fildes "  mol numperiodic top $i $numpbc"
-          }
-          incr i
-        }
-      }
-      puts $fildes "  molinfo $mol set {center_matrix rotate_matrix scale_matrix global_matrix} [list $viewpoints($mol)]"
-      puts $fildes "}"
-      puts $fildes "\# done with molecule $mol"
-    }
-    save_colors $fildes
-    # save_labels $fildes
-    if { [info exists celldm] } {
-      puts $fildes "set x $x"
-      puts $fildes "set y $y"
-      puts $fildes "set z $z"
-      puts $fildes "set celldm \"$celldm\""
-      puts $fildes "pbc set \$celldm"
-      puts $fildes "pbc box -shiftcenter \"\$x \$y \$z\""
-      puts $fildes "pbc wrap -shiftcenter \"\$x \$y \$z\""
-      puts $fildes "pbc box -off"
-      # puts $fildes "cell"
-    }
-    close $fildes
-    puts -nonewline ""
+  if {[display get depthcue] == "on"} {
+    puts $fildes "display depthcue on"
+    puts $fildes "display cuestart [display get cuestart]"
+    puts $fildes "display cueend [display get cueend]"
+    puts $fildes "display cuedensity [display get cuedensity]"
+    puts $fildes "display cuemode [display get cuemode]"
   }
+  foreach i [material list] {
+    foreach j [material settings $i] k {ambient specular diffuse shininess opacity outline outlinewidth transmode} {
+      puts $fildes "material change $k $i $j"
+    }
+  }
+
+  foreach mol [molinfo list] {
+    puts $fildes "if {[lsearch [molinfo list] $mol] >= 0} {"
+    # delete all representations
+    puts $fildes "  set numrep [molinfo $mol get numreps]"
+    puts $fildes "  for {set i 0} {\$i < \$numrep} {incr i} {"
+    puts $fildes "    mol delrep \$i $mol"
+    puts $fildes "  }"
+    if [info exists representations($mol)] {
+      set i 0
+      foreach rep $representations($mol) {
+        foreach {r s c m pbc numpbc on selupd colupd colminmax smooth framespec cplist} $rep { break }
+        puts $fildes "  mol representation $r"
+        puts $fildes "  mol color $c"
+        puts $fildes "  mol selection {$s}"
+        puts $fildes "  mol material $m"
+        puts $fildes "  mol addrep $mol"
+        puts $fildes "  mol showrep $mol $i $on"
+        if {[string length $pbc]} {
+          puts $fildes "  mol showperiodic top $i $pbc"
+          puts $fildes "  mol numperiodic top $i $numpbc"
+        }
+        incr i
+      }
+    }
+    puts $fildes "  molinfo $mol set {center_matrix rotate_matrix scale_matrix global_matrix} [list $viewpoints($mol)]"
+    puts $fildes "}"
+    puts $fildes "\# done with molecule $mol"
+  }
+  save_colors $fildes
+  # save_labels $fildes
+  if { [info exists celldm] } {
+    puts $fildes "set x $x"
+    puts $fildes "set y $y"
+    puts $fildes "set z $z"
+    puts $fildes "set celldm \"$celldm\""
+    puts $fildes "pbc set \$celldm"
+    puts $fildes "pbc box -shiftcenter \"\$x \$y \$z\""
+    puts $fildes "pbc wrap -shiftcenter \"\$x \$y \$z\""
+    puts $fildes "pbc box -off"
+    # puts $fildes "cell"
+  }
+  close $fildes
+  puts -nonewline ""
 }
