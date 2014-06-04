@@ -73,6 +73,9 @@ filetype plugin indent on
 syntax on
 runtime! macros/matchit.vim
 
+let g:loaded_netrw = 1
+let g:loaded_netrwPlugin = 1
+
 let g:syntastic_enable_balloons = 1
 let g:syntastic_error_symbol='✗'
 let g:syntastic_warning_symbol='⚠'

@@ -10,9 +10,6 @@ display depthcue off
 axes location off
 color Display Background white
 
-# make variables accessible
-global fname
-
 # assign keys
 
 user add key v { pov $fname }
@@ -42,24 +39,37 @@ proc puts_red {string} {
 }
 
 # putting these things in a proc gets rid of unnecessary output!
-proc initial_settings {home} {
-  global auto_path
+proc initial_settings {molid} {
   global fname
-  set auto_path [concat $home/.vmd $auto_path]
-  if { [molinfo top] > -1 } {
-    set fname [pwd]/[molinfo top get filename]
+  if { [lsearch [molinfo list] $molid] > -1 } {
+    set fname [molinfo top get filename]
+    if {[file pathtype $fname] == "relative"} {
+      set fname [pwd]/$fname
+    }
     cd [file dirname $fname]
+    # load my scripts in this order!
+    state $molid
+    cell $molid
   }
+  return ""
+}
+
+proc clean_tmp_files {args} {
+  file delete -force /tmp/vmd_auto.xyz
+  file delete -force /tmp/vmd_auto.pdb
   return ""
 }
 
 after idle {
   package require pbctools
-  initial_settings $env(HOME)
-  #load my scripts in this order!
-  state
-  cell
-  # trace variable vmd_initialize_structure w {source view.vmd}
+  set auto_path [concat $env(HOME)/.vmd $auto_path]
+  initial_settings 0
+  if {$argc > 0} {
+    eval $argv
+    state 0
+    cell 0
+  }
+  trace variable vmd_quit w clean_tmp_files
 }
 
 # vim: ft=tcl
