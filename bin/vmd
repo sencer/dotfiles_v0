@@ -1,0 +1,18 @@
+#!/bin/bash
+
+args='-args'
+while (( $# )); do
+  if [[ $1 == *input.txt ]]; then
+    args="${args} qe_input $1"
+  elif [[ $1 == *output.txt ]]; then
+    args="${args} qe_output $1"
+  else
+    other="$other $1"
+  fi
+  shift
+done
+if [[ $args == -args ]]; then
+  eval "/usr/local/bin/vmd $other"
+else
+  eval "/usr/local/bin/vmd $other $args"
+fi
