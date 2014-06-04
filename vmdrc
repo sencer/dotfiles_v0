@@ -10,9 +10,6 @@ display depthcue off
 axes location off
 color Display Background white
 
-# make variables accessible
-global fname
-
 # assign keys
 
 user add key v { pov $fname }
