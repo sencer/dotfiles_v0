@@ -219,27 +219,22 @@ function p {
         exit
       }
     }
-  }' $filein > $fileout
+  }' $filein
 
 }
 
 if [ $# == 0 ];then
-echo $(pwd)
-a=$(echo `basename $(pwd)`)
-filein="output.txt"
-fileout=$a".pdb"
-p $filein $fileout
+  echo $(pwd)
+  a=$(echo `basename $(pwd)`)
+  filein="output.txt"
+  fileout=$a".pdb"
+  p $filein > $fileout
 else
-  if [[ ! -d "trajs" ]];then
-mkdir trajs
-fi
-echo "$(pwd)/trajs"
-while [ $# -ne 0 ];do
-filein=$1
-fileout="trajs/"$(echo `basename ${filein%/*}`)".pdb"
-p $filein $fileout
-shift
-done
+  while [ $# -ne 0 ];do
+    filein=$1
+    p $filein
+    shift
+  done
 fi
 
 
