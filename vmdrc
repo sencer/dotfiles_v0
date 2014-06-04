@@ -60,15 +60,17 @@ proc clean_tmp_files {args} {
   return ""
 }
 
+proc initialize_settings_proxy {args} {
+  foreach {dummy molid dummy2} $args {}
+  eval "after idle {initial_settings $molid}"
+}
+
 after idle {
   package require pbctools
   set auto_path [concat $env(HOME)/.vmd $auto_path]
+  if {$argc > 0} { eval $argv }
   initial_settings 0
-  if {$argc > 0} {
-    eval $argv
-    state 0
-    cell 0
-  }
+  trace variable vmd_trajectory_read w initialize_settings_proxy
   trace variable vmd_quit w clean_tmp_files
 }
 
