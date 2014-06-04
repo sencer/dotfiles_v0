@@ -1,0 +1,21 @@
+#!/bin/bash
+
+awk '$1 ~ /celldm/ {
+       a = $3 * 0.529177249
+       getline
+       b = a * $3
+       getline
+       c = a * $3
+     }
+     $1 ~ /nat/ {
+       j = $3 + 0 # "+ 0" gets rid of "," at the end, if present
+     }
+     $1 ~ /ATOMIC_POSITIONS/ {
+       print j
+       printf "CRYST1 %15.10f %15.10f %15.10f\n", a, b, c
+       if(tolower($0) ~ /angstrom/) { a = 1; b = 1; c = 1 }
+       for(i = 1;i <= j;i++){
+         getline
+         printf "%-5s  %15.10f %15.10f %15.10f\n", $1, $2 * a, $3 * b, $4 * c
+       }
+     }' ${1:-input.txt}
