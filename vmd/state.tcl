@@ -1,4 +1,4 @@
-proc state {} {
+proc state {mid} {
   global x
   global y
   global z
@@ -27,30 +27,29 @@ proc state {} {
     catch {color Element Ni silver}
     catch {color Element Co silver}
     catch {color Element Al gray}
-    foreach mid [molinfo list] {
-      molinfo $mid set {
-        center_matrix rotate_matrix scale_matrix global_matrix
+    molinfo $mid set {
+      center_matrix rotate_matrix scale_matrix global_matrix
       } {
-        {{1 0 0 -5} {0 1 0 -6} {0 0 1 -6} {0 0 0 1}}
-        {{1 0 0 0} {0 0 1 0} {0 -1 0 0} {0 0 0 1}}
-        {{0.19 0 0 0} {0 0.19 0 0} {0 0 0.19 0} {0 0 0 1}}
-        {{1 0 0 -0.04} {0 1 0 -0.16} {0 0 1 0} {0 0 0 1}}
-      }
-      mol delrep 0 $mid
-      mol representation VDW 0.300000 18.000000
-      mol color Element
-      mol selection all
-      mol addrep $mid
-      mol representation DynamicBonds 2.300000 0.100000 16.000000
-      mol color Element
-      mol selection all and not name H
-      mol addrep $mid
-      mol representation DynamicBonds 1.100000 0.100000 16.000000
-      mol color Element
-      mol selection all
-      mol addrep $mid
+      {{1 0 0 -5} {0 1 0 -6} {0 0 1 -6} {0 0 0 1}}
+      {{1 0 0 0} {0 0 1 0} {0 -1 0 0} {0 0 0 1}}
+      {{0.19 0 0 0} {0 0.19 0 0} {0 0 0.19 0} {0 0 0 1}}
+      {{1 0 0 -0.04} {0 1 0 -0.16} {0 0 1 0} {0 0 0 1}}
     }
+    mol delrep 0 $mid
+    mol representation VDW 0.300000 18.000000
+    mol color Element
+    mol selection all
+    mol addrep $mid
+    mol representation DynamicBonds 2.300000 0.100000 16.000000
+    mol color Element
+    mol selection all and not name H
+    mol addrep $mid
+    mol representation DynamicBonds 1.100000 0.100000 16.000000
+    mol color Element
+    mol selection all
+    mol addrep $mid
   }
+}
 
 user add key W {
   puts_red "INFO) Saving the current view."
