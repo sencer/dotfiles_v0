@@ -1,7 +1,4 @@
 # Sets the tab and window titles before command execution.
-function set-titles-preexec {
-  set-titles-with-command "$2"
-}
 function TRAPINT() {
   PROMPTCOLOR=73
   zle && zle reset-prompt
@@ -10,8 +7,6 @@ function TRAPINT() {
 
 # Don't override precmd/preexec; append to hook array.
 autoload -Uz add-zsh-hook
-add-zsh-hook precmd set-titles-with-path
-add-zsh-hook preexec set-titles-preexec
 add-zsh-hook chpwd set-pbsserver-var
 if [[ -n $TMUX ]]; then
   add-zsh-hook preexec tmux-preexec-hook
