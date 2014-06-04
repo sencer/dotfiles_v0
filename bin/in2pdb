@@ -12,9 +12,10 @@ awk '$1 ~ /celldm/ {
        j = $3 + 1
      }
      $1 ~ /ATOMIC_POSITIONS/ {
+       if(tolower($0) ~ /angstrom/) { a = 1; b = 1; c = 1 }
        for(i = 1;i < j;i++){
          getline
-         printf "ATOM   %4d %-2s   LIG  %4d    %8.3f%8.3f%8.3f  1.00  0.00          %2s\n", i, $1, i, $2, $3, $4, $1
+         printf "ATOM   %4d %-2s   LIG  %4d    %8.3f%8.3f%8.3f  1.00  0.00          %2s\n", i, $1, i, $2 * a, $3 * b, $4 * c, $1
        }
        print "END"
      }' ${1:-input.txt}
