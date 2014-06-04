@@ -39,24 +39,25 @@ proc puts_red {string} {
 }
 
 # putting these things in a proc gets rid of unnecessary output!
-proc initial_settings {home} {
-  global auto_path
+proc initial_settings {molid} {
   global fname
-  set auto_path [concat $home/.vmd $auto_path]
-  if { [molinfo top] > -1 } {
-    set fname [pwd]/[molinfo top get filename]
+  if { [lsearch [molinfo list] $molid] > -1 } {
+    set fname [molinfo top get filename]
+    if {[file pathtype $fname] == "relative"} {
+      set fname [pwd]/$fname
+    }
     cd [file dirname $fname]
+    # load my scripts in this order!
+    state $molid
+    cell $molid
   }
   return ""
 }
 
 after idle {
   package require pbctools
-  initial_settings $env(HOME)
-  #load my scripts in this order!
-  state
-  cell
-  # trace variable vmd_initialize_structure w {source view.vmd}
+  set auto_path [concat $env(HOME)/.vmd $auto_path]
+  initial_settings 0
 }
 
 # vim: ft=tcl
