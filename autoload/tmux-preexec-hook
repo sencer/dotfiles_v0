@@ -2,7 +2,7 @@
 command=(${=1})
 case ${command[1]} in
   ssh )
-      tmux rename-window "${command[2]}"
+      tmux rename-window "${command[2]##-}"
     ;;
   mutt )
       tmux rename-window "MUTT"
