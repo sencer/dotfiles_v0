@@ -46,7 +46,10 @@ proc initial_settings {molid} {
     if {[file pathtype $fname] == "relative"} {
       set fname [pwd]/$fname
     }
-    cd [file dirname $fname]
+    # do not cd into /tmp
+    if {![string match "/tmp/*" $fname]} {
+      cd [file dirname $fname]
+    }
     # load my scripts in this order!
     state $molid
     cell $molid
