@@ -14,7 +14,7 @@ color Display Background white
 
 user add key v { pov $fname }
 user add key q { exit }
-user add key Control-w { savexyz }
+user add key Control-w { savexyz [atomselect top all] vmd.xyz }
 
 # automate povray
 
