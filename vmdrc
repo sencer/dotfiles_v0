@@ -75,6 +75,7 @@ after idle {
   initial_settings 0
   trace variable vmd_trajectory_read w initialize_settings_proxy
   trace variable vmd_quit w clean_tmp_files
+  user add key S { toggle_select_mode }
 }
 
 # vim: ft=tcl
