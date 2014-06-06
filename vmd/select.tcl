@@ -7,37 +7,35 @@ namespace eval ::VisualSelect {
   variable vselect
 }
 
+proc ::VisualSelect::Initialize {args} {
+  variable active 0
+  variable stack {""}
+  variable repids
+  variable vselect {}
+  user add key S { VisualSelect::Toggle }
+  user add key Control-s {VisualSelect::Rotate}
+}
+
 proc ::VisualSelect::Toggle {} {
   variable active
-  if {![info exists active] || $active == 0} {
-    puts_red "Visual Selection mode enabled"
-    set active 1
-    variable stack
-    if {![info exists stack]} {
-      set stack {""}
-    }
-    trace add variable ::vmd_pick_event write VisualSelect::modify
-    user add key Control-s {VisualSelect::rotate}
-    user add key Alt-s {VisualSelect::push}
-  } else {
-    puts_red "Visual Selection mode disabled"
+  if {$active} {
     set active 0
-    destroy
+    puts_red "Visual Selection mode disabled"
     trace remove variable ::vmd_pick_event write VisualSelect::Modify
+    Destroy
+  } else {
+    set active 1
+    puts_red "Visual Selection mode enabled"
     trace add variable ::vmd_pick_event write VisualSelect::Modify
     user add key Alt-s {VisualSelect::Push}
+    mouse mode pick
   }
 }
 
 proc ::VisualSelect::Modify {args} {
   global vmd_pick_atom
   global vmd_pick_mol
-  # a list of the atoms included in the current vselect
   variable vselect
-  # initialize
-  if {![info exists vselect]} {
-    set vselect {}
-  }
 
   # if picked atom is already in the vselect
   # remove it, otherwise add.
@@ -81,6 +79,9 @@ proc ::VisualSelect::Destroy {} {
   }
   foreach {mol rep} [array get repids] {
     mol delrep $rep $mol
+  }
+  if {[info exists repids]} {
+    unset repids
   }
   unset repids
 }
