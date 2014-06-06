@@ -22,6 +22,7 @@ proc ::VisualSelect::Toggle {} {
     set active 0
     puts_red "Visual Selection mode disabled"
     trace remove variable ::vmd_pick_event write VisualSelect::Modify
+    user add key Alt-s {puts "You need to be in VisualSelect mode"}
     Destroy
   } else {
     set active 1
