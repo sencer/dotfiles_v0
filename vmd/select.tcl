@@ -1,47 +1,102 @@
-proc toggle_select_mode {} {
-  global select_mode_active
-  global sel_rep
-  if {![info exists select_mode_active] || $select_mode_active == 0} {
-    set select_mode_active 1
-    trace add variable ::vmd_pick_event write add_to_selection
+package provide VisualSelect
+
+namespace eval ::VisualSelect {
+  namespace export toggle update apply destroy push rotate
+  variable active
+  variable stack
+  variable repids
+}
+
+proc ::VisualSelect::toggle {} {
+  variable active
+  if {![info exists active] || $active == 0} {
+    puts_red "Visual Selection mode enabled"
+    set active 1
+    trace add variable ::vmd_pick_event write VisualSelect::modify
+    user add key Control-s {VisualSelect::rotate}
+    user add key Alt-s {VisualSelect::push}
   } else {
-    set select_mode_active 0
-    trace add variable ::vmd_pick_event write add_to_selection
-    destroy_selection
+    puts_red "Visual Selection mode disabled"
+    set active 0
+    trace remove variable ::vmd_pick_event write VisualSelect::modify
+    destroy
   }
 }
 
-proc add_to_selection {args} {
+proc ::VisualSelect::modify {args} {
+  global vmd_pick_atom
+  # a list of the atoms included in the current vselect
+  global vselect
+
+  # initialize
+  if {![info exists vselect]} {
+    set vselect {}
+  }
+
+  # if picked atom is already in the vselect
+  # remove it, otherwise add.
+  set check_exists [lsearch $vselect $vmd_pick_atom]
+  if {$check_exists == -1} {
+    lappend vselect $vmd_pick_atom
+  } else {
+    set vselect [lreplace $vselect $check_exists $check_exists]
+  }
+  apply
+}
+
+proc ::VisualSelect::apply {} {
+  global vselect
   global vmd_pick_mol
   global vmd_pick_atom
-  global sel_rep
-  global sel_curr
-  if {![info exists sel_curr]} {
-    set sel_curr {}
-  }
-
-  set check_exists [lsearch $sel_curr $vmd_pick_atom]
-  if {$check_exists == -1} {
-    lappend sel_curr $vmd_pick_atom
+  # an array of the repid of the representation used to display vselect in
+  # with molid as the array indices
+  variable repids
+  # if representation is created, just update the vselect
+  # otherwise create the representation
+  if {[info exists repids($vmd_pick_mol)]} {
+    if {$vselect == ""} {
+      mol modselect $repids($vmd_pick_mol) $vmd_pick_mol "none"
+    } else {
+      mol modselect $repids($vmd_pick_mol) $vmd_pick_mol \
+        "index [join $vselect]"
+    }
   } else {
-    set sel_curr [lreplace $sel_curr $check_exists $check_exists]
-  }
-
-  if {[info exists sel_rep($vmd_pick_mol)]} {
-      mol modselect $sel_rep($vmd_pick_mol) $vmd_pick_mol \
-        "index [join $sel_curr]"
-  } else {
+    puts_red "OK"
     mol representation VDW 0.400000 18.000000
     mol color {ColorID 4}
     mol selection index $vmd_pick_atom
     mol addrep $vmd_pick_mol
-    set sel_rep($vmd_pick_mol) [expr [molinfo $vmd_pick_mol get numreps]-1]
+    set repids($vmd_pick_mol) [expr [molinfo $vmd_pick_mol get numreps]-1]
   }
+
 }
 
-proc destroy_selection {} {
-  global sel_rep
-  foreach {mol rep} [array get sel_rep] {
+proc ::VisualSelect::destroy {} {
+  variable repids
+  global vselect
+  if {[info exists vselect]} {
+    unset vselect
+  }
+  foreach {mol rep} [array get repids] {
     mol delrep $rep $mol
   }
+  unset repids
+}
+
+proc ::VisualSelect::push {} {
+  variable stack
+  global vselect
+  if {![info exists stack]} {
+    set stack {""}
+  }
+  lappend stack $vselect
+}
+
+proc ::VisualSelect::rotate {} {
+  variable stack
+  global vselect
+  set vselect [lindex $stack end]
+  apply
+  set stack [linsert $stack 0 $vselect]
+  set stack [lreplace $stack end end]
 }
