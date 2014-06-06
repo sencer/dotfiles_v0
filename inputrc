@@ -17,47 +17,23 @@ $if Bash
   set mark-symlinked-directories on
 $endif
 # set convert-meta on
-# set keymap vi-command
+set keymap vi-insert
 "\t": menu-complete
-"\e[A":history-search-backward
-"\e[1~": beginning-of-line
-"\e[4~": end-of-line
-"\e[B":history-search-forward
-"\e[2~": quoted-insert
-"\e[3;6~": kill-line
-"\e\C-?": backward-kill-line
-"\e[3;5~": kill-word
 "\C-?": backward-kill-word
+"\C-l": clear-screen
 "\e[1;5C": forward-word
 "\e[1;5D": backward-word
-"\C-l": clear-screen
+"\e[1~": beginning-of-line
+"\e[2~": quoted-insert
+"\e[3;5~": kill-word
+"\e[3;6~": kill-line
+"\e[4~": end-of-line
 "\e[5~": vi-search
 "\e[6~": vi-search-again
+"\e[A":history-search-backward
+"\eOA":history-search-backward
+"\e[B":history-search-forward
+"\eOB":history-search-forward
+"\e\C-?": backward-kill-line
 "\e.": insert-last-argument
-# "\C-z": undo
 "\ew": "\C-k\C-ahistory | grep '^ *[0-9]*.*\C-e.\\?'\C-m\"
-"\eo": "export PS1='\\[\\033[0m\\]\\[\\033[1;33m\\]\\W\\[\\033[0m\\] '\C-m"
-"\eO": "export PS1='\\[\\033[0m\\]\\[\\033[1;33m\\]\\w\\[\\033[0m\\] '\C-m"
-# set keymap vi-insert
-# "p": self-insert
-# "\t": menu-complete
-# "\e[A":history-search-backward
-# "\e[B":history-search-forward
-# "\e[2~": quoted-insert
-# "\e[3;6~": kill-line
-# "\e\C-?": backward-kill-line
-# "\e[3;5~": kill-word
-# "\C-?": backward-kill-word
-# "\e[1;5C": forward-word
-# "\e[1;5D": backward-word
-# "\C-l": clear-screen
-# "\e[1~": beginning-of-line
-# "\e[4~": end-of-line
-# "\e[5~": vi-search
-# "\e[6~": vi-search-again
-# "\e.": insert-last-argument
-# # "\C-z": undo
-# "\ew": "\C-k\C-ahistory | grep '^ *[0-9]*.*\C-e.\\?'\C-m\"
-# "\eo": "export PS1='\\[\\033[0m\\]\\[\\033[1;33m\\]\\W\\[\\033[0m\\] '\C-m"
-# "\eO": "export PS1='\\[\\033[0m\\]\\[\\033[1;33m\\]\\w\\[\\033[0m\\] '\C-m"
-# 
