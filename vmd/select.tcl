@@ -72,16 +72,11 @@ proc ::VisualSelect::Apply {mol} {
 proc ::VisualSelect::Destroy {} {
   variable repids
   variable vselect
-  if {[info exists vselect]} {
-    unset vselect
-  }
+  set vselect {}
   foreach {mol rep} [array get repids] {
     mol delrep $rep $mol
+    unset repids($mol)
   }
-  if {[info exists repids]} {
-    unset repids
-  }
-  unset repids
 }
 
 proc ::VisualSelect::Push {} {
