@@ -93,6 +93,10 @@ proc ::VisualSelect::Push {} {
 proc ::VisualSelect::Rotate {} {
   variable stack
   variable vselect
+  variable active
+  if {!$active} {
+    Toggle
+  }
   global vmd_pick_mol
   set vselect [lindex $stack end]
   Apply 0
