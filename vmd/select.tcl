@@ -7,7 +7,7 @@ namespace eval ::VisualSelect {
   variable vselect
 }
 
-proc ::VisualSelect::toggle {} {
+proc ::VisualSelect::Toggle {} {
   variable active
   if {![info exists active] || $active == 0} {
     puts_red "Visual Selection mode enabled"
@@ -22,12 +22,14 @@ proc ::VisualSelect::toggle {} {
   } else {
     puts_red "Visual Selection mode disabled"
     set active 0
-    trace remove variable ::vmd_pick_event write VisualSelect::modify
     destroy
+    trace remove variable ::vmd_pick_event write VisualSelect::Modify
+    trace add variable ::vmd_pick_event write VisualSelect::Modify
+    user add key Alt-s {VisualSelect::Push}
   }
 }
 
-proc ::VisualSelect::modify {args} {
+proc ::VisualSelect::Modify {args} {
   global vmd_pick_atom
   global vmd_pick_mol
   # a list of the atoms included in the current vselect
@@ -45,10 +47,10 @@ proc ::VisualSelect::modify {args} {
   } else {
     set vselect [lreplace $vselect $check_exists $check_exists]
   }
-  apply $vmd_pick_mol
+  Apply $vmd_pick_mol
 }
 
-proc ::VisualSelect::apply {mol} {
+proc ::VisualSelect::Apply {mol} {
   variable vselect
   # an array of the repid of the representation used to display vselect in
   # with molid as the array indices
@@ -71,7 +73,7 @@ proc ::VisualSelect::apply {mol} {
 
 }
 
-proc ::VisualSelect::destroy {} {
+proc ::VisualSelect::Destroy {} {
   variable repids
   variable vselect
   if {[info exists vselect]} {
@@ -83,18 +85,18 @@ proc ::VisualSelect::destroy {} {
   unset repids
 }
 
-proc ::VisualSelect::push {} {
+proc ::VisualSelect::Push {} {
   variable stack
   variable vselect
   lappend stack $vselect
 }
 
-proc ::VisualSelect::rotate {} {
+proc ::VisualSelect::Rotate {} {
   variable stack
   variable vselect
   global vmd_pick_mol
   set vselect [lindex $stack end]
-  apply $vmd_pick_mol
+  Apply 0
   set stack [linsert $stack 0 $vselect]
   set stack [lreplace $stack end end]
 }
