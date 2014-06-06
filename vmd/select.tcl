@@ -65,7 +65,6 @@ proc ::VisualSelect::apply {} {
         "index [join $vselect]"
     }
   } else {
-    puts_red "OK"
     mol representation VDW 0.400000 18.000000
     mol color {ColorID 4}
     mol selection index $vmd_pick_atom
@@ -88,10 +87,8 @@ proc ::VisualSelect::destroy {} {
 }
 
 proc ::VisualSelect::push {} {
+  variable stack
   global vselect
-  if {![info exists stack]} {
-    set stack {""}
-  }
   lappend stack $vselect
 }
 
