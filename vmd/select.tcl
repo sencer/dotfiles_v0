@@ -57,20 +57,16 @@ proc ::VisualSelect::Apply {mol} {
   variable repids
   # if representation is created, just update the vselect
   # otherwise create the representation
+  set sel [expr [llength $vselect]?"index [join $vselect]":"none"]
   if {[info exists repids($mol)]} {
-    if {[llength $vselect] == 0} {
-      mol modselect $repids($mol) $mol "none"
-    } else {
-      mol modselect $repids($mol) $mol "index [join $vselect]"
-    }
+    mol modselect $repids($mol) $mol $sel
   } else {
     mol representation CPK 1.35 0.75
     mol color {ColorID 4}
-    mol selection index [join $vselect]
+    mol selection $sel
     mol addrep $mol
     set repids($mol) [expr [molinfo $mol get numreps]-1]
   }
-
 }
 
 proc ::VisualSelect::Destroy {} {
