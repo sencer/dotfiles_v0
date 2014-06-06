@@ -6,8 +6,13 @@
 # element name is the name of a command and the value is
 # a script that loads the command.
 
+set auto_index(state) [list source [file join $dir state.tcl]]
 set auto_index(qe_input) [list source [file join $dir qe.tcl]]
 set auto_index(qe_output) [list source [file join $dir qe.tcl]]
 set auto_index(cell) [list source [file join $dir cell.tcl]]
+set auto_index(geom_center) [list source [file join $dir center.tcl]]
+set auto_index(mass_center) [list source [file join $dir center.tcl]]
 set auto_index(savexyz) [list source [file join $dir write.tcl]]
-set auto_index(state) [list source [file join $dir state.tcl]]
+set auto_index(toggle_select_mode) [list source [file join $dir select.tcl]]
+set auto_index(add_to_selection) [list source [file join $dir select.tcl]]
+set auto_index(destroy_selection) [list source [file join $dir select.tcl]]
