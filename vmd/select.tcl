@@ -30,9 +30,9 @@ proc ::VisualSelect::toggle {} {
 
 proc ::VisualSelect::modify {args} {
   global vmd_pick_atom
+  global vmd_pick_mol
   # a list of the atoms included in the current vselect
   variable vselect
-
   # initialize
   if {![info exists vselect]} {
     set vselect {}
@@ -46,31 +46,28 @@ proc ::VisualSelect::modify {args} {
   } else {
     set vselect [lreplace $vselect $check_exists $check_exists]
   }
-  apply
+  apply $vmd_pick_mol
 }
 
-proc ::VisualSelect::apply {} {
+proc ::VisualSelect::apply {mol} {
   variable vselect
-  global vmd_pick_mol
-  global vmd_pick_atom
   # an array of the repid of the representation used to display vselect in
   # with molid as the array indices
   variable repids
   # if representation is created, just update the vselect
   # otherwise create the representation
-  if {[info exists repids($vmd_pick_mol)]} {
-    if {$vselect == ""} {
-      mol modselect $repids($vmd_pick_mol) $vmd_pick_mol "none"
+  if {[info exists repids($mol)]} {
+    if {[llength $vselect] == 0} {
+      mol modselect $repids($mol) $mol "none"
     } else {
-      mol modselect $repids($vmd_pick_mol) $vmd_pick_mol \
-        "index [join $vselect]"
+      mol modselect $repids($mol) $mol "index [join $vselect]"
     }
   } else {
     mol representation CPK 1.35 0.75
     mol color {ColorID 4}
-    mol selection index $vmd_pick_atom
-    mol addrep $vmd_pick_mol
-    set repids($vmd_pick_mol) [expr [molinfo $vmd_pick_mol get numreps]-1]
+    mol selection index [join $vselect]
+    mol addrep $mol
+    set repids($mol) [expr [molinfo $mol get numreps]-1]
   }
 
 }
@@ -96,8 +93,9 @@ proc ::VisualSelect::push {} {
 proc ::VisualSelect::rotate {} {
   variable stack
   variable vselect
+  global vmd_pick_mol
   set vselect [lindex $stack end]
-  apply
+  apply $vmd_pick_mol
   set stack [linsert $stack 0 $vselect]
   set stack [lreplace $stack end end]
 }
