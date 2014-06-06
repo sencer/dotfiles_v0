@@ -12,6 +12,7 @@ proc ::VisualSelect::Initialize {args} {
   variable stack {""}
   variable repids
   variable vselect {}
+  trace add variable ::vsel write VisualSelect::Trace
   user add key S { VisualSelect::Toggle }
   user add key Control-s {VisualSelect::Rotate}
 }
@@ -101,4 +102,15 @@ proc ::VisualSelect::Rotate {} {
   Apply 0
   set stack [linsert $stack 0 $vselect]
   set stack [lreplace $stack end end]
+}
+
+proc ::VisualSelect::Trace {args} {
+  global vsel
+  variable vselect
+  variable active
+  if {!$active} {
+    Toggle
+  }
+  set vselect "[$vsel list]"
+  Apply [$vsel molid]
 }
