@@ -1,7 +1,6 @@
 package provide VisualSelect
 
 namespace eval ::VisualSelect {
-  namespace export toggle update apply destroy push rotate
   variable active
   variable stack
   variable repids
