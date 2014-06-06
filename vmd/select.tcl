@@ -5,6 +5,7 @@ namespace eval ::VisualSelect {
   variable active
   variable stack
   variable repids
+  variable vselect
 }
 
 proc ::VisualSelect::toggle {} {
@@ -30,7 +31,7 @@ proc ::VisualSelect::toggle {} {
 proc ::VisualSelect::modify {args} {
   global vmd_pick_atom
   # a list of the atoms included in the current vselect
-  global vselect
+  variable vselect
 
   # initialize
   if {![info exists vselect]} {
@@ -49,7 +50,7 @@ proc ::VisualSelect::modify {args} {
 }
 
 proc ::VisualSelect::apply {} {
-  global vselect
+  variable vselect
   global vmd_pick_mol
   global vmd_pick_atom
   # an array of the repid of the representation used to display vselect in
@@ -76,7 +77,7 @@ proc ::VisualSelect::apply {} {
 
 proc ::VisualSelect::destroy {} {
   variable repids
-  global vselect
+  variable vselect
   if {[info exists vselect]} {
     unset vselect
   }
@@ -88,13 +89,13 @@ proc ::VisualSelect::destroy {} {
 
 proc ::VisualSelect::push {} {
   variable stack
-  global vselect
+  variable vselect
   lappend stack $vselect
 }
 
 proc ::VisualSelect::rotate {} {
   variable stack
-  global vselect
+  variable vselect
   set vselect [lindex $stack end]
   apply
   set stack [linsert $stack 0 $vselect]
