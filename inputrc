@@ -1,6 +1,5 @@
 set completion-ignore-case on
 set completion-map-case on
-# set editing-mode vi
 set match-hidden-files off
 set menu-complete-display-prefix on
 set page-completions on
@@ -9,7 +8,6 @@ set show-all-if-ambiguous on
 set show-all-if-unmodified on
 set skip-completed-text on
 set visible-stats on
-# set keymap vi
 $if Bash
   Space: magic-space
   set expand-tilde on
@@ -17,7 +15,6 @@ $if Bash
   set mark-symlinked-directories on
 $endif
 # set convert-meta on
-set keymap vi-insert
 "\t": menu-complete
 "\C-?": backward-kill-word
 "\C-l": clear-screen
