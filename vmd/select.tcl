@@ -12,6 +12,10 @@ proc ::VisualSelect::toggle {} {
   if {![info exists active] || $active == 0} {
     puts_red "Visual Selection mode enabled"
     set active 1
+    variable stack
+    if {![info exists stack]} {
+      set stack {""}
+    }
     trace add variable ::vmd_pick_event write VisualSelect::modify
     user add key Control-s {VisualSelect::rotate}
     user add key Alt-s {VisualSelect::push}
@@ -84,7 +88,6 @@ proc ::VisualSelect::destroy {} {
 }
 
 proc ::VisualSelect::push {} {
-  variable stack
   global vselect
   if {![info exists stack]} {
     set stack {""}
