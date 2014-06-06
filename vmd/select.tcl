@@ -66,7 +66,7 @@ proc ::VisualSelect::apply {} {
         "index [join $vselect]"
     }
   } else {
-    mol representation VDW 0.400000 18.000000
+    mol representation CPK 1.35 0.75
     mol color {ColorID 4}
     mol selection index $vmd_pick_atom
     mol addrep $vmd_pick_mol
