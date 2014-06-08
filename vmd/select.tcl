@@ -14,7 +14,7 @@ proc ::VisualSelect::Initialize {args} {
   variable vselect {}
   trace add variable ::vsel write VisualSelect::Trace
   user add key S { VisualSelect::Toggle }
-  user add key Control-s {VisualSelect::Rotate}
+  user add key Control-s {VisualSelect::RotateStack}
 }
 
 proc ::VisualSelect::Toggle {} {
@@ -89,7 +89,7 @@ proc ::VisualSelect::Push {} {
   lappend stack $vselect
 }
 
-proc ::VisualSelect::Rotate {} {
+proc ::VisualSelect::RotateStack {} {
   variable stack
   variable vselect
   variable active
