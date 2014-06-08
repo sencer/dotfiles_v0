@@ -6,6 +6,7 @@ namespace eval ::VisualSelect {
   variable repids
   variable vselect
   variable rincr 15
+  variable tincr 0.5
 }
 
 proc ::VisualSelect::Initialize {args} {
@@ -26,6 +27,12 @@ proc ::VisualSelect::Toggle {} {
     puts_red "Visual Selection mode disabled"
     trace remove variable ::vmd_pick_event write VisualSelect::Modify
     user add key Alt-v {puts "You need to be in VisualSelect mode"}
+    user add key H {puts "You need to be in VisualSelect mode"}
+    user add key J {puts "You need to be in VisualSelect mode"}
+    user add key K {puts "You need to be in VisualSelect mode"}
+    user add key L {puts "You need to be in VisualSelect mode"}
+    user add key I {puts "You need to be in VisualSelect mode"}
+    user add key M {puts "You need to be in VisualSelect mode"}
     user add key h {rotate y by -2}
     user add key j {rotate x by  2}
     user add key k {rotate x by -2}
@@ -44,6 +51,12 @@ proc ::VisualSelect::Toggle {} {
     user add key l {VisualSelect::Rotate "y"  $VisualSelect::rincr}
     user add key m {VisualSelect::Rotate "z" -$VisualSelect::rincr}
     user add key i {VisualSelect::Rotate "z"  $VisualSelect::rincr}
+    user add key H {VisualSelect::Translate "y"  $VisualSelect::tincr}
+    user add key J {VisualSelect::Translate "x" -$VisualSelect::tincr}
+    user add key K {VisualSelect::Translate "x"  $VisualSelect::tincr}
+    user add key L {VisualSelect::Translate "y" -$VisualSelect::tincr}
+    user add key I {VisualSelect::Translate "z"  $VisualSelect::tincr}
+    user add key M {VisualSelect::Translate "z" -$VisualSelect::tincr}
     if {[info exists vsel]} {
       Trace
     }
@@ -132,4 +145,16 @@ proc ::VisualSelect::Rotate {{ axis "z" } { inc 2 }} {
   $vsel moveby [vecscale -1 $gc]
   $vsel move [transaxis $axis $inc]
   $vsel moveby $gc
+}
+
+proc ::VisualSelect::Translate { {axis "z"} { inc 0.2 } } {
+  global vsel
+  if {$axis == "x"} {
+    set vec "$inc 0 0"
+  } elseif {$axis == "y"} {
+    set vec "0 $inc 0"
+  } elseif {$axis == "z"} {
+    set vec "0 0 $inc"
+  }
+  $vsel moveby $vec
 }
