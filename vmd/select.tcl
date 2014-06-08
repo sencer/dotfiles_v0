@@ -17,6 +17,10 @@ proc ::VisualSelect::Initialize {args} {
   trace add variable ::vsel write VisualSelect::Trace
   user add key v { VisualSelect::Toggle }
   user add key Control-v {VisualSelect::RotateStack}
+  user add key Control-m {VisualSelect::TIncr $VisualSelect::tincr - 0.5}
+  user add key Control-i {VisualSelect::TIncr $VisualSelect::tincr + 0.5}
+  user add key Alt-m  {VisualSelect::RIncr $VisualSelect::rincr - 2}
+  user add key Alt-i  {VisualSelect::RIncr $VisualSelect::rincr + 2}
 }
 
 proc ::VisualSelect::Toggle {} {
@@ -157,4 +161,16 @@ proc ::VisualSelect::Translate { {axis "z"} { inc 0.2 } } {
     set vec "0 0 $inc"
   }
   $vsel moveby $vec
+}
+
+proc ::VisualSelect::RIncr {num} {
+  variable rincr
+  set rincr $num
+  return "Rotation angle set to $num degrees"
+}
+
+proc ::VisualSelect::TIncr {num} {
+  variable tincr
+  set tincr $num
+  return "Translation quantum set to $num angstroms"
 }
