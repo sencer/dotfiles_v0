@@ -19,6 +19,7 @@ proc ::VisualSelect::Initialize {args} {
 
 proc ::VisualSelect::Toggle {} {
   variable active
+  global vsel
   if {$active} {
     set active 0
     puts_red "Visual Selection mode disabled"
@@ -30,6 +31,9 @@ proc ::VisualSelect::Toggle {} {
     puts_red "Visual Selection mode enabled"
     trace add variable ::vmd_pick_event write VisualSelect::Modify
     user add key Alt-s {VisualSelect::Push}
+    if {[info exists vsel]} {
+      Trace
+    }
     mouse mode pick
   }
 }
