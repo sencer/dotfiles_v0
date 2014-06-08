@@ -25,11 +25,23 @@ proc ::VisualSelect::Toggle {} {
     puts_red "Visual Selection mode disabled"
     trace remove variable ::vmd_pick_event write VisualSelect::Modify
     user add key Alt-s {puts "You need to be in VisualSelect mode"}
+    user add key h {rotate y by -2}
+    user add key j {rotate x by  2}
+    user add key k {rotate x by -2}
+    user add key l {rotate y by  2}
+    user add key i {rotate z by  2}
+    user add key m {rotate z by -2}
     Destroy
   } else {
     set active 1
     puts_red "Visual Selection mode enabled"
     trace add variable ::vmd_pick_event write VisualSelect::Modify
+    user add key h {VisualSelect::Rotate "y" -2}
+    user add key j {VisualSelect::Rotate "x"  2}
+    user add key k {VisualSelect::Rotate "x" -2}
+    user add key l {VisualSelect::Rotate "y"  2}
+    user add key i {VisualSelect::Rotate "z"  2}
+    user add key m {VisualSelect::Rotate "z" -2}
     user add key Alt-s {VisualSelect::Push}
     if {[info exists vsel]} {
       Trace
@@ -111,4 +123,12 @@ proc ::VisualSelect::Trace {args} {
   }
   set vselect "[$vsel list]"
   Apply [$vsel molid]
+}
+
+proc ::VisualSelect::Rotate {{ axis "z" } { inc 2 }} {
+  global vsel
+  set gc [geom_center $vsel]
+  $vsel moveby [vecscale -1 $gc]
+  $vsel move [transaxis $axis $inc]
+  $vsel moveby $gc
 }
