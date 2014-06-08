@@ -16,6 +16,7 @@ proc ::VisualSelect::Initialize {args} {
   variable vselect {}
   trace add variable ::vsel write VisualSelect::Trace
   user add key v { VisualSelect::Toggle }
+  user add key V { VisualSelect::Export }
   user add key Control-v {VisualSelect::RotateStack}
   user add key Control-m {VisualSelect::TIncr $VisualSelect::tincr - 0.5}
   user add key Control-i {VisualSelect::TIncr $VisualSelect::tincr + 0.5}
@@ -173,4 +174,13 @@ proc ::VisualSelect::TIncr {num} {
   variable tincr
   set tincr $num
   return "Translation quantum set to $num angstroms"
+}
+
+proc ::VisualSelect::Export {} {
+  global vsel
+  variable vselect
+  if {[$vsel list] != [lsort vselect]} {
+    set vsel [atomselect [$vsel molid] "index $vselect"]
+    $vsel global
+  }
 }
