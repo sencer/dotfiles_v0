@@ -5,6 +5,7 @@ namespace eval ::VisualSelect {
   variable stack
   variable repids
   variable vselect
+  variable rincr 15
 }
 
 proc ::VisualSelect::Initialize {args} {
@@ -37,12 +38,12 @@ proc ::VisualSelect::Toggle {} {
     puts_red "Visual Selection mode enabled"
     trace add variable ::vmd_pick_event write VisualSelect::Modify
     user add key Alt-v {VisualSelect::Push}
-    user add key h {VisualSelect::Rotate "y" -2}
-    user add key j {VisualSelect::Rotate "x"  2}
-    user add key k {VisualSelect::Rotate "x" -2}
-    user add key l {VisualSelect::Rotate "y"  2}
-    user add key i {VisualSelect::Rotate "z"  2}
-    user add key m {VisualSelect::Rotate "z" -2}
+    user add key h {VisualSelect::Rotate "y" -$VisualSelect::rincr}
+    user add key j {VisualSelect::Rotate "x"  $VisualSelect::rincr}
+    user add key k {VisualSelect::Rotate "x" -$VisualSelect::rincr}
+    user add key l {VisualSelect::Rotate "y"  $VisualSelect::rincr}
+    user add key m {VisualSelect::Rotate "z" -$VisualSelect::rincr}
+    user add key i {VisualSelect::Rotate "z"  $VisualSelect::rincr}
     if {[info exists vsel]} {
       Trace
     }
