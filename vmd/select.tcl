@@ -175,7 +175,8 @@ proc ::VisualSelect::Export {} {
   if {[$vsel list] != [lsort vselect]} {
     set mol [$vsel molid]
     namespace inscope :: {$vsel delete}
-    set vsel [atomselect $mol "index $vselect"]
+    set sel [expr [llength $vselect]?"index [join $vselect]":"none"]
+    set vsel [atomselect $mol $sel]
     $vsel global
   }
 }
