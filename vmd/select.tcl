@@ -72,9 +72,7 @@ proc ::VisualSelect::Toggle {} {
 proc ::VisualSelect::Modify {args} {
   global vmd_pick_atom
   variable vselect
-
-  # if picked atom is already in the vselect
-  # remove it, otherwise add.
+  # if picked atom is already in the vselect remove it, otherwise add.
   set check_exists [lsearch $vselect $vmd_pick_atom]
   if {$check_exists == -1} {
     lappend vselect $vmd_pick_atom
@@ -119,9 +117,9 @@ proc ::VisualSelect::RotateStack {} {
     Toggle
   }
   set vselect [lindex $stack end]
-  Export
   set stack [linsert $stack 0 $vselect]
   set stack [lreplace $stack end end]
+  Export
 }
 
 proc ::VisualSelect::Trace {args} {
