@@ -95,7 +95,7 @@ set menu_scroll
 set narrow_tree
 set nosig_dashes
 set sig_on_top
-set signature = "echo Sencer |"
+set signature = 'echo "\nSencer\n" |'
 set ignore_linear_white_space
 set delete
 set quit = ask-yes
