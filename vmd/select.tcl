@@ -60,6 +60,10 @@ proc ::VisualSelect::Toggle {} {
     user add key M {VisualSelect::Translate "z" -$VisualSelect::tincr}
     if {[info exists vsel]} {
       Trace
+    } else {
+      global vsel
+      set vsel [atomselect top "none"]
+      $vsel global
     }
     mouse mode pick
   }
