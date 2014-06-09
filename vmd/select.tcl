@@ -87,11 +87,7 @@ proc ::VisualSelect::Modify {args} {
 
 proc ::VisualSelect::Apply {mol} {
   variable vselect
-  # an array of the repid of the representation used to display vselect in
-  # with molid as the array indices
   variable repid
-  # if representation is created, just update the vselect
-  # otherwise create the representation
   set sel [expr [llength $vselect]?"index [join $vselect]":"none"]
   if {[info exists repid]} {
     mol modselect $repid $mol $sel
