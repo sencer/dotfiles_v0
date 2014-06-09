@@ -183,6 +183,7 @@ proc ::VisualSelect::Export {} {
   variable vselect
   if {[$vsel list] != [lsort vselect]} {
     set vsel [atomselect [$vsel molid] "index $vselect"]
+    namespace inscope :: {$vsel delete}
     $vsel global
   }
 }
