@@ -138,7 +138,7 @@ proc ::VisualSelect::Trace {args} {
 proc ::VisualSelect::Rotate {{ axis "z" } { inc 2 }} {
   global vsel
   variable vselect
-  set gc [geom_center $vsel]
+  set gc [GetCenter $vsel]
   $vsel moveby [vecscale -1 $gc]
   $vsel move [transaxis $axis $inc]
   $vsel moveby $gc
