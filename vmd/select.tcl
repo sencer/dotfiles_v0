@@ -1,19 +1,15 @@
 package provide VisualSelect
 
 namespace eval ::VisualSelect {
-  variable active
-  variable stack
-  variable repids
-  variable vselect
+  variable active 0
+  variable stack {""}
+  variable repid
+  variable vselect {}
   variable rincr 15
   variable tincr 0.5
 }
 
 proc ::VisualSelect::Initialize {args} {
-  variable active 0
-  variable stack {""}
-  variable repids
-  variable vselect {}
   trace add variable ::vsel write VisualSelect::Trace
   user add key v { VisualSelect::Toggle }
   user add key V { VisualSelect::Export }
