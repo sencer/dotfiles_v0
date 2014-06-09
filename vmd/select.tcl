@@ -71,7 +71,6 @@ proc ::VisualSelect::Toggle {} {
 
 proc ::VisualSelect::Modify {args} {
   global vmd_pick_atom
-  global vmd_pick_mol
   variable vselect
 
   # if picked atom is already in the vselect
