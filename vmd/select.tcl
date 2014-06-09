@@ -84,9 +84,10 @@ proc ::VisualSelect::Modify {args} {
   Export
 }
 
-proc ::VisualSelect::Apply {mol} {
+proc ::VisualSelect::Apply {} {
   global vsel
   variable repid
+  set mol [$vsel molid]
   if {[info exists repid]} {
     mol modselect $repid $mol [$vsel text]
   } else {
@@ -131,7 +132,7 @@ proc ::VisualSelect::Trace {args} {
     Toggle
   }
   set vselect "[$vsel list]"
-  Apply [$vsel molid]
+  Apply
 }
 
 proc ::VisualSelect::Rotate {{ axis "z" } { inc 2 }} {
