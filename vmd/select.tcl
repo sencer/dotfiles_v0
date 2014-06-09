@@ -14,10 +14,10 @@ proc ::VisualSelect::Initialize {args} {
   user add key v { VisualSelect::Toggle }
   user add key V { VisualSelect::Export }
   user add key Control-v {VisualSelect::RotateStack}
-  user add key Control-m {VisualSelect::TIncr $VisualSelect::tincr - 0.5}
-  user add key Control-i {VisualSelect::TIncr $VisualSelect::tincr + 0.5}
-  user add key Alt-m  {VisualSelect::RIncr $VisualSelect::rincr - 2}
-  user add key Alt-i  {VisualSelect::RIncr $VisualSelect::rincr + 2}
+  user add key Control-m {puts [VisualSelect::TIncr [expr $VisualSelect::tincr- 0.5]]}
+  user add key Control-i {puts [VisualSelect::TIncr [expr $VisualSelect::tincr+ 0.5]]}
+  user add key Alt-m  {puts [VisualSelect::RIncr [expr $VisualSelect::rincr -2]]}
+  user add key Alt-i  {puts [VisualSelect::RIncr [expr $VisualSelect::rincr +2]]}
 }
 
 proc ::VisualSelect::Toggle {} {
