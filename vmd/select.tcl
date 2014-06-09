@@ -106,8 +106,6 @@ proc ::VisualSelect::Apply {mol} {
 
 proc ::VisualSelect::Destroy {} {
   variable repid
-  variable vselect
-  set vselect {}
   mol delrep $repid top
   unset repid
 }
