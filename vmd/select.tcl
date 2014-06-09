@@ -82,7 +82,7 @@ proc ::VisualSelect::Modify {args} {
   } else {
     set vselect [lreplace $vselect $check_exists $check_exists]
   }
-  Apply $vmd_pick_mol
+  Export
 }
 
 proc ::VisualSelect::Apply {mol} {
@@ -126,7 +126,7 @@ proc ::VisualSelect::RotateStack {} {
     Toggle
   }
   set vselect [lindex $stack end]
-  Apply 0
+  Export
   set stack [linsert $stack 0 $vselect]
   set stack [lreplace $stack end end]
 }
@@ -145,7 +145,6 @@ proc ::VisualSelect::Trace {args} {
 proc ::VisualSelect::Rotate {{ axis "z" } { inc 2 }} {
   global vsel
   variable vselect
-  Export
   set gc [geom_center $vsel]
   $vsel moveby [vecscale -1 $gc]
   $vsel move [transaxis $axis $inc]
@@ -155,7 +154,6 @@ proc ::VisualSelect::Rotate {{ axis "z" } { inc 2 }} {
 proc ::VisualSelect::Translate { {axis "z"} { inc 0.2 } } {
   global vsel
   variable vselect
-  Export
   if {$axis == "x"} {
     set vec "$inc 0 0"
   } elseif {$axis == "y"} {
