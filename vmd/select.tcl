@@ -86,15 +86,14 @@ proc ::VisualSelect::Modify {args} {
 }
 
 proc ::VisualSelect::Apply {mol} {
-  variable vselect
+  global vsel
   variable repid
-  set sel [expr [llength $vselect]?"index [join $vselect]":"none"]
   if {[info exists repid]} {
-    mol modselect $repid $mol $sel
+    mol modselect $repid $mol [$vsel text]
   } else {
     mol representation CPK 1.35 0.75
     mol color {ColorID 4}
-    mol selection $sel
+    mol selection [$vsel text]
     mol addrep $mol
     set repid [expr [molinfo $mol get numreps]-1]
   }
