@@ -58,6 +58,7 @@ proc initial_settings {molid} {
 }
 
 proc clean_tmp_files {args} {
+  # foreach i [glob -nocomplain /tmp/vmd_*] {}
   file delete -force /tmp/vmd_auto.xyz
   file delete -force /tmp/vmd_auto.pdb
   return ""
