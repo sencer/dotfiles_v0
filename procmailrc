@@ -3,7 +3,7 @@ SHELL=/bin/zsh
 * ^(From slurm)
 | /home/sselcuk/bin/parse-incoming-email slurm
 :0 b
-*
+* ! ^(From slurm)
 | /home/sselcuk/bin/parse-incoming-email
 
 # add a "c" to previous filter and comment out
