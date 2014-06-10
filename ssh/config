@@ -8,6 +8,10 @@ Host edison
   Hostname edison.nersc.gov
 Host hopper
   Hostname hopper.nersc.gov
+Host edique*
+  Hostname edison.nersc.gov
+Host hopque*
+  Hostname hopper.nersc.gov
 Host nano
   Hostname nano.bnl.gov
   # ProxyCommand ssh -CTqe none ssh.bnl.gov -W %h:%p | Bad packet length packet corrupt error
