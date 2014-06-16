@@ -16,6 +16,7 @@ proc ::VisualSelect::Initialize {args} {
   user add key Control-v {VisualSelect::RotateStack}
   user add key Control-m {puts [VisualSelect::TIncr [expr $VisualSelect::tincr- 0.5]]}
   user add key Control-i {puts [VisualSelect::TIncr [expr $VisualSelect::tincr+ 0.5]]}
+  user add key Control-c {VisualSelect::Yank}
   user add key Alt-m  {puts [VisualSelect::RIncr [expr $VisualSelect::rincr -2]]}
   user add key Alt-i  {puts [VisualSelect::RIncr [expr $VisualSelect::rincr +2]]}
 }
@@ -175,4 +176,21 @@ proc ::VisualSelect::Export {} {
     set vsel [atomselect $mol $sel]
     $vsel global
   }
+}
+
+proc ::VisualSelect::Yank {} {
+  global vsel
+  variable vselect
+  variable repid
+  if {![info exists vsel]} {
+    error "No selection found"
+  }
+  set sel [atomselect [$vsel molid] "all"]
+  set newmol [::TopoTools::selections2mol "$sel $vsel"]
+  state $newmol
+  mol off [$vsel molid]
+  unset repid
+  namespace inscope :: {$vsel delete}
+  set vsel [atomselect $newmol "index $vselect"]
+  $vsel global
 }
