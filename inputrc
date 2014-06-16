@@ -25,8 +25,8 @@ $endif
 "\e[3;5~": kill-word
 "\e[3;6~": kill-line
 "\e[4~": end-of-line
-"\e[5~": vi-search
-"\e[6~": vi-search-again
+"\e[5~": history-substring-search-backward
+"\e[6~": history-substring-search-forward
 "\e[A":history-search-backward
 "\eOA":history-search-backward
 "\e[B":history-search-forward
