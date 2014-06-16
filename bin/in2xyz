@@ -12,7 +12,7 @@ awk '$1 ~ /celldm/ {
      }
      $1 ~ /ATOMIC_POSITIONS/ {
        print j
-       printf "CRYST1 %15.10f %15.10f %15.10f\n", a, b, c
+       printf "celldm %11.6f %11.6f %11.6f 90.0 90.0 90.0\n", a, b, c
        if(tolower($0) ~ /angstrom/) { a = 1; b = 1; c = 1 }
        for(i = 1;i <= j;i++){
          getline
