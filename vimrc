@@ -192,6 +192,7 @@ nnoremap <Right> <nop>
 map <silent> <F10> :echom "hi<" . synIDattr(synID(line("."),col("."),1),"name")
       \. '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
       \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+map Q gq
 nnoremap <silent> <F3> :exec (&ft == 'vim' ? '' : &ft) . ' ' . getline('.')<CR>
 vnoremap <silent> <F3> :<C-U>exec (&ft == 'vim' ? '' : &ft) . ' ' . getreg('*')<CR>
 
