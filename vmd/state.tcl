@@ -2,7 +2,6 @@ proc state {mid} {
   global x
   global y
   global z
-  global celldm
   global viewvmd
   set viewvmddir [pwd]
   while { ! [info exists viewvmd] && ! [string equal / $viewvmddir] } {
@@ -99,18 +98,17 @@ user add key W {
         incr i
       }
     }
+    if { [molinfo $mol get a] > 0} {
     puts $fildes "  molinfo $mol set {center_matrix rotate_matrix scale_matrix global_matrix} [list $viewpoints($mol)]"
+      puts $fildes "  pbc set [pbc get -now] -molid $mol -all"
     puts $fildes "}"
     puts $fildes "\# done with molecule $mol"
   }
   save_colors $fildes
   # save_labels $fildes
-  if { [info exists celldm] } {
     puts $fildes "set x $x"
     puts $fildes "set y $y"
     puts $fildes "set z $z"
-    puts $fildes "set celldm \"$celldm\""
-    puts $fildes "pbc set \$celldm"
     puts $fildes "pbc box -shiftcenter \"\$x \$y \$z\""
     puts $fildes "pbc wrap -shiftcenter \"\$x \$y \$z\""
     puts $fildes "pbc box -off"

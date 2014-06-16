@@ -4,28 +4,20 @@ proc cell {molid} {
   global y
   global z
   global pbcmol
-  global celldm
   set pbcmol $molid
   if { ![info exists x] } {
     set x 0
     set y 0
     set z 0
   }
-  if { ![info exists celldm] && [info exists fname] } {
+  if { [molinfo $molid get a] == 0.0 && [info exists fname] } {
     set file [open $fname r]
     while { [gets $file line] != -1 } {
       if {[lindex $line 0] == "CRYST1"} {
-        set celldm [lrange $line 1 3]
         break
       }
     }
     close $file
-    if { ![info exists celldm] } {
-      puts "Enter Cell Dimensions (x y z):"
-      flush stdout
-      gets stdin celldm
-    }
-    pbc set $celldm -molid $pbcmol
   }
 }
 user add key u {
