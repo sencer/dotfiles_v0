@@ -14,7 +14,6 @@ $if Bash
   set mark-directories on
   set mark-symlinked-directories on
 $endif
-# set convert-meta on
 "\t": menu-complete
 "\C-?": backward-kill-word
 "\C-l": clear-screen
