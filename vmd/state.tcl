@@ -51,8 +51,6 @@ proc state {mid} {
 user add key W {
   puts_red "INFO) Saving the current view."
   global representations
-  global viewpoints
-  save_viewpoint
   save_reps
 
   set fildes [open $viewvmd w]
@@ -65,11 +63,6 @@ user add key W {
     puts $fildes "display cueend [display get cueend]"
     puts $fildes "display cuedensity [display get cuedensity]"
     puts $fildes "display cuemode [display get cuemode]"
-  }
-  foreach i [material list] {
-    foreach j [material settings $i] k {ambient specular diffuse shininess opacity outline outlinewidth transmode} {
-      puts $fildes "material change $k $i $j"
-    }
   }
 
   foreach mol [molinfo list] {
@@ -100,18 +93,27 @@ user add key W {
       puts $fildes "  set x($mol) $x($mol)"
       puts $fildes "  set y($mol) $y($mol)"
       puts $fildes "  set z($mol) $z($mol)"
-    puts $fildes "  molinfo $mol set {center_matrix rotate_matrix scale_matrix global_matrix} [list $viewpoints($mol)]"
       puts $fildes "  pbc set [pbc get -now] -molid $mol -all"
       puts $fildes "  pbc box -molid $mol -shiftcenter \"\$x($mol) \$y($mol) \$z($mol)\""
       puts $fildes "  pbc wrap -molid $mol -shiftcenter \"\$x($mol) \$y($mol) \$z($mol)\""
+      puts $fildes "  pbc box -off"
+    }
+    global viewpoints
+    save_viewpoint
+    puts $fildes "  molinfo $mol set {center_matrix rotate_matrix scale_matrix \
+      global_matrix} [list $viewpoints($mol)]"
     puts $fildes "}"
     puts $fildes "\# done with molecule $mol"
   }
-  save_colors $fildes
-  # save_labels $fildes
-    puts $fildes "pbc box -off"
-    # puts $fildes "cell"
+
+  foreach i [material list] {
+    foreach j [material settings $i] k {ambient specular diffuse
+      shininess opacity outline outlinewidth transmode} {
+      puts $fildes "material change $k $i $j"
+    }
   }
+  save_colors $fildes
+  save_labels $fildes
   close $fildes
   puts -nonewline ""
 }
