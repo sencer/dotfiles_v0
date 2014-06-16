@@ -26,3 +26,4 @@ set auto_index(::VisualSelect::Translate) [list source [file join $dir select.tc
 set auto_index(::VisualSelect::RIncr) [list source [file join $dir select.tcl]]
 set auto_index(::VisualSelect::TIncr) [list source [file join $dir select.tcl]]
 set auto_index(::VisualSelect::Export) [list source [file join $dir select.tcl]]
+set auto_index(::VisualSelect::Yank) [list source [file join $dir select.tcl]]
