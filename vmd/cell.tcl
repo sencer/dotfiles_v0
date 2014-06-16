@@ -13,7 +13,8 @@ proc cell {molid} {
   if { [molinfo $molid get a] == 0.0 && [info exists fname] } {
     set file [open $fname r]
     while { [gets $file line] != -1 } {
-      if {[lindex $line 0] == "CRYST1"} {
+      if {[lindex $line 0] == "celldm"} {
+        pbc set [lrange $line 1 end] -molid $molid -all
         break
       }
     }
