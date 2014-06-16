@@ -68,7 +68,7 @@ user add key W {
   foreach mol [molinfo list] {
     puts $fildes "if {[lsearch [molinfo list] $mol] >= 0} {"
     # delete all representations
-    puts $fildes "  set numrep [molinfo $mol get numreps]"
+    puts $fildes "  set numrep \[molinfo $mol get numreps]"
     puts $fildes "  for {set i 0} {\$i < \$numrep} {incr i} {"
     puts $fildes "    mol delrep \$i $mol"
     puts $fildes "  }"
@@ -114,6 +114,7 @@ user add key W {
   }
   save_colors $fildes
   save_labels $fildes
+
   close $fildes
   puts -nonewline ""
 }
