@@ -46,7 +46,7 @@ zmodload zsh/pcre                   # perl compatible shell regex
 # this is for pbs server management
 
 typeset -xT PBS_SERVER_LIST pbs_server_list
-export PBS_SERVER_LIST=nano:tiger:della:tigress:edison:hopper
+export PBS_SERVER_LIST=:nano:tiger:della:tigress:edison:hopper:
 
 # vi-mode inner, surround etc text objects
 
