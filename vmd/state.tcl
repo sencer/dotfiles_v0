@@ -99,18 +99,18 @@ user add key W {
       }
     }
     if { [molinfo $mol get a] > 0} {
+      puts $fildes "  set x($mol) $x($mol)"
+      puts $fildes "  set y($mol) $y($mol)"
+      puts $fildes "  set z($mol) $z($mol)"
     puts $fildes "  molinfo $mol set {center_matrix rotate_matrix scale_matrix global_matrix} [list $viewpoints($mol)]"
       puts $fildes "  pbc set [pbc get -now] -molid $mol -all"
+      puts $fildes "  pbc box -molid $mol -shiftcenter \"\$x($mol) \$y($mol) \$z($mol)\""
+      puts $fildes "  pbc wrap -molid $mol -shiftcenter \"\$x($mol) \$y($mol) \$z($mol)\""
     puts $fildes "}"
     puts $fildes "\# done with molecule $mol"
   }
   save_colors $fildes
   # save_labels $fildes
-    puts $fildes "set x $x"
-    puts $fildes "set y $y"
-    puts $fildes "set z $z"
-    puts $fildes "pbc box -shiftcenter \"\$x \$y \$z\""
-    puts $fildes "pbc wrap -shiftcenter \"\$x \$y \$z\""
     puts $fildes "pbc box -off"
     # puts $fildes "cell"
   }
