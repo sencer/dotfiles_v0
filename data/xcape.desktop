@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Exec=bash -c 'setxkbmap -option ctrl:nocaps; /home/sselcuk/software/xcape/xcape -e "Control_L=Escape"'
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name=KeyboardSettings
+Comment=Make Caps Lock Ctrl/Esc
