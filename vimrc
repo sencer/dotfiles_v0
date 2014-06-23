@@ -60,6 +60,7 @@ Plugin 'andersoncustodio/vim-tmux'
 Plugin 'ap/vim-css-color'
 Plugin 'tpope/vim-markdown'
 Plugin 'sencer/gnuplot.vim'
+Plugin 'vim-scripts/awk.vim'
 
 colorscheme mustang
 if has('gui_running')
@@ -203,6 +204,7 @@ nnoremap <silent> <F3> :exec (&ft == 'vim' ? '' : &ft) . ' ' . getline('.')<CR>
 vnoremap <silent> <F3> :<C-U>exec (&ft == 'vim' ? '' : &ft) . ' ' . getreg('*')<CR>
 
 au BufRead,BufNewFile input*txt set commentstring=\!\ %s
+au FileType awk set commentstring=#\ %s
 au InsertEnter * set norelativenumber
 au InsertLeave * set relativenumber
 autocmd BufReadPost *
