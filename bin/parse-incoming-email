@@ -10,7 +10,7 @@ if (( $# )); then
     fi
   done
   info=/home/sselcuk/$server$(ssh $server "squeue -t all -h -j ${id[3]} -o '%Z'"|sed -r 's/('$USER'|scratch|home)\///g')
-  printf "%-10s %-5s %-6s   %-8s %-20s %s\n" $(date +"%Y-%m-%d %H:%M") $server ${id[3]} ${id[5]} ${info} >> $HOME/.dotfiles/tmp/mails.log
+  printf "%-10s %-5s %-6s   %-8s %-30s %s\n" $(date +"%Y-%m-%d %H:%M") $server ${id[3]} ${id[5]} ${info} >> $HOME/.dotfiles/tmp/mails.log
 else
   {
     while read line; do
@@ -22,6 +22,6 @@ else
     done
     job_path=$(ssh -S none ${job[4]} "~/bin/qstat -f ${job[3]}"|\
       sed -rn '/Output_Path/,+1H;g;${s/\n\s*|(.*:|'$USER'|home|scratch[0-9]?|global|sd|u1\/s)\/|[^/]*$//g;p}')
-    printf "%-10s %-5s %-8s %-8s %-20s %s\n" $(date +"%Y-%m-%d %H:%M") ${job[4]} ${job[3]} ${name[2]} $HOME/${job[4]}/${job_path:-"g*/${name[2]//-/\/}"}
+    printf "%-10s %-5s %-8s %-8s %-30s %s\n" $(date +"%Y-%m-%d %H:%M") ${job[4]} ${job[3]} ${name[2]} $HOME/${job[4]}/${job_path:-"g*/${name[2]//-/\/}"}
   } >> $HOME/.dotfiles/tmp/mails.log
 fi
