@@ -74,8 +74,14 @@ filetype plugin indent on
 syntax on
 runtime! macros/matchit.vim
 
-let g:loaded_netrw = 1
-let g:loaded_netrwPlugin = 1
+let g:netrw_home = $HOME . '/.dotfiles/tmp'
+let g:netrw_browsex_viewer = "xdg-open"
+let g:netrw_list_hide='.*\.swp$,.*\.pyc$,.*~'
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 4 " 3 for new tab
+let g:netrw_preview = 1
+let g:netrw_altv = 0
+let g:netrw_winsize = 25
 
 let g:syntastic_enable_balloons = 1
 let g:syntastic_error_symbol='✗'
