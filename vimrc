@@ -131,7 +131,7 @@ let g:neocomplete#force_omni_input_patterns = {
       \   'ruby' : '\v([^. \t](\.|::)|(^|[^:]):)\k*$'
       \ }
 inoremap <expr> <CR>  <C-r>=pumvisible() ? neocomplete#close_popup() : "\<C-v><CR>"<CR>
-au FileType c,cpp,cuda,python :NeoCompleteDisable
+au FileType c,cpp,cuda,python :call neocomplete#init#disable()
 let g:ycm_filetype_whitelist = { 'c': 1, 'cpp': 1, 'cuda': 1, 'python': 1 }
 let g:ycm_key_list_select_completion = ["<C-n>", "<Down>"]
 let g:ycm_key_list_previous_completion = ["<C-p>", "<Up>"]
