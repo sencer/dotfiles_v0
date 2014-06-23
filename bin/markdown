@@ -5,6 +5,7 @@ require 'rouge'
 require 'redcarpet'
 
 class MarkdownRenderer < Redcarpet::Render::HTML
+  include Redcarpet::Render::SmartyPants
   def block_code(code, language)
     ln = language.split(':') rescue ''
     lexer = Rouge::Lexer.find_fancy(ln[0], code) || Rouge::Lexers::PlainText
@@ -34,7 +35,6 @@ def markdown(text)
     highlight: true,
     footnotes: true,
     tables: true,
-    quotes: true
   }
   markdown_to_html = Redcarpet::Markdown.new(rndr, options)
   markdown_to_html.render(text)
