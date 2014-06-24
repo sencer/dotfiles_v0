@@ -27,7 +27,7 @@ set from                  = "sselcuk@princeton.edu"
 set use_from              = yes
 set ssl_force_tls         = yes
 set ssl_min_dh_prime_bits = 128
-set editor                = "vim -S '~/.mutt/mutt.vim'"
+set editor                = "vim -S '~/.mutt/mutt.vim' -c 'startinsert'"
 set text_flowed
 set pipe_decode
 set pipe_sep = "\n#### NEXT MAIL ####\n"
