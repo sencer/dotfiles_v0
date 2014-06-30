@@ -109,6 +109,7 @@ let g:ctrlp_switch_buffer = 'Et'
 let g:HowMuch_auto_engines = ['py']
 let g:HowMuch_scale = 9
 
+let g:tex_flavor = "latex"
 let g:LatexBox_Folding = 1
 let g:LatexBox_viewer = "$HOME/bin/evince"
 let g:LatexBox_latexmk_async = 1
