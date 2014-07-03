@@ -11,5 +11,6 @@ $12 != "" && $13 == "" && $1 + 1 != 1 {
 }
 
 END {
+  TOTAL += (STEP - LAST_STEP) * dt
   printf "%.2f ps\n", TOTAL * 0.000024189
 }
