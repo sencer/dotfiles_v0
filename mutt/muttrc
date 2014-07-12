@@ -95,6 +95,8 @@ set signature = 'echo "\nSencer\n" |'
 set ignore_linear_white_space
 set delete
 set quit = ask-yes
+set mime_forward = ask-no
+set auto_tag
 set noconfirmappend
 set pager_context=2
 set pager_index_lines=10
