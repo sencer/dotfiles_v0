@@ -1,11 +1,19 @@
 #!/bin/bash
 
-awk '$1 ~ /celldm/ {
+awk '$1 ~/ibrav/ {
+       ibrav = $3
+     }
+     $1 ~ /celldm/ {
        a = $3 * 0.529177249
-       getline
-       b = a * $3
-       getline
-       c = a * $3
+       if(ibrav == 1) {
+         b = a
+         c = a
+       } else if (ibrav == 8) {
+        getline
+        b = a * $3
+        getline
+        c = a * $3
+       }
      }
      $1 ~ /nat/ {
        j = $3 + 0 # "+ 0" gets rid of "," at the end, if present

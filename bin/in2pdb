@@ -1,11 +1,19 @@
 #!/bin/bash
 
-awk '$1 ~ /celldm/ {
+awk '$1 ~/ibrav/ {
+       ibrav = $3
+     }
+     $1 ~ /celldm/ {
        a = $3 * 0.529177249
-       getline
-       b = a * $3
-       getline
-       c = a * $3
+       if(ibrav == 1) {
+         b = a
+         c = a
+       } else if (ibrav == 8) {
+        getline
+        b = a * $3
+        getline
+        c = a * $3
+       }
        printf "CRYST1   %6.3f    %6.3f    %6.3f   90.00  90.00  90.00 P1          1\n", a, b, c
      }
      $1 ~ /nat/ {
