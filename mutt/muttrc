@@ -34,12 +34,8 @@ set pipe_sep = "\n#### NEXT MAIL ####\n"
 
 bind index,pager <F5> imap-fetch-mail
 bind index G last-entry
-bind index,pager \CP sidebar-prev
-bind index,pager \CN sidebar-next
-bind index,pager \CO sidebar-open
 macro compose Y "<first-entry>F markdown\ny^T^Utext/html; charset=utf-8\n\n<send-message>" "send as html mail"
 macro compose a "<attach-file>?c~<Enter>"
-macro index,pager b '<enter-command>toggle sidebar_visible<enter><refresh>'
 macro index,pager s "<save-message>?<toggle-mailboxes>" "save message to a folder"
 macro index,pager C "<copy-message>?<toggle-mailboxes>" "copy message to a folder"
 macro index,pager A <save-message>=Archives/`date +%Y`\n
