@@ -1,0 +1,5 @@
+#!/bin/sh
+#: filename: lock-script
+
+export DISPLAY=:0.0
+gnome-screensaver-command -l
