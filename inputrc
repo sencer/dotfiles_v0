@@ -19,22 +19,35 @@ set visible-stats on
 $if Bash
   Space: magic-space
 $endif
-"\t": menu-complete
 "\C-?": backward-kill-word
-"\C-l": clear-screen
-"\e[1;5C": forward-word
 "\e[1;5D": backward-word
-"\e[1~": beginning-of-line
-"\e[2~": quoted-insert
+"\e[1;5C": forward-word
 "\e[3;5~": kill-word
 "\e[3;6~": kill-line
+"\e\C-?": backward-kill-line
+"\e[1~": beginning-of-line
 "\e[4~": end-of-line
-"\e[5~": history-substring-search-backward
-"\e[6~": history-substring-search-forward
+"\ew": "\C-k\C-ahistory | grep '^ *[0-9]*.*\C-e.\\?'\C-m\"
+
+"\t": menu-complete
+"\e[2~": quoted-insert
+"\e.": insert-last-argument
+"\C-l": clear-screen
+"\e[5~": reverse-search-history
+"\e[6~": non-incremental-forward-search-history
 "\e[A":history-search-backward
 "\eOA":history-search-backward
 "\e[B":history-search-forward
 "\eOB":history-search-forward
-"\e\C-?": backward-kill-line
+
+set keymap vi-command
+"\t": menu-complete
+"\e[2~": quoted-insert
 "\e.": insert-last-argument
-"\ew": "\C-k\C-ahistory | grep '^ *[0-9]*.*\C-e.\\?'\C-m\"
+"\C-l": clear-screen
+"\e[5~": reverse-search-history
+"\e[6~": non-incremental-forward-search-history
+"\e[A":history-search-backward
+"\eOA":history-search-backward
+"\e[B":history-search-forward
+"\eOB":history-search-forward
