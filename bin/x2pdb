@@ -1,11 +1,19 @@
 #!/bin/bash
 
-awk '$1 ~ /PRIMCOORD/ {
-     print "CRYST1   10.262   11.310   27.200  90.00  90.00  90.00 P1          1";
-     getline;
-     j = $1
-     for(i = 0;i < j;i++){
-       getline;
-       printf "ATOM   %4d %-2s   LIG  %4d    %8.3f%8.3f%8.3f  1.00  0.00          %2s\n", i+1, $1, i+1, $2, $3, $4, $1} 
-       print "END"
-     }' $1
+awk '$1 ~ /PRIMVEC/{
+  getline
+  a = $1
+  getline
+  b = $2
+  getline
+  c= $3
+  printf "CRYST1   %6.3f    %6.3f    %6.3f   90.00  90.00  90.00 P1          1\n", a, b, c
+} $1 ~ /PRIMCOORD/ {
+  getline
+  j = $1
+  for(i = 0; i < j; i++){
+    getline
+    printf "ATOM   %4d %-2s   LIG  %4d    %8.3f%8.3f%8.3f  1.00  0.00          %2s\n", i+1, $1, i+1, $2, $3, $4, $1
+  }
+  print "END"
+}' $1
