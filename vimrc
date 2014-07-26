@@ -63,6 +63,7 @@ Plugin 'tpope/vim-markdown'
 Plugin 'sencer/gnuplot.vim'
 Plugin 'vim-scripts/awk.vim'
 Plugin 'linktohack/vim-space'
+Plugin 'AndrewRadev/writable_search.vim'
 Plugin 'mileszs/ack.vim'
 
 colorscheme mustang
