@@ -23,7 +23,6 @@ Plugin 'sencer/vim-snippets'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'Shougo/neocomplete.vim'
 Plugin 'Shougo/vimproc.vim'
-Plugin 'thinca/vim-ref'
 Plugin 'tpope/vim-dispatch'
 Plugin 'jcfaria/Vim-R-plugin'
 Plugin 'sjl/gundo.vim'
@@ -68,7 +67,6 @@ colorscheme mustang
 if has('gui_running')
   set guifont=Monaco\ 11
   set guioptions=aeip
-  let g:ref_man_cmd = 'man -P cat'
 else
   set term=$TERM
 endif
