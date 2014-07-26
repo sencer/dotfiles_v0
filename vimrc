@@ -23,7 +23,6 @@ Plugin 'sencer/vim-snippets'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'Shougo/neocomplete.vim'
 Plugin 'Shougo/vimproc.vim'
-Plugin 'sencer/normal.vim'
 Plugin 'thinca/vim-ref'
 Plugin 'tpope/vim-dispatch'
 Plugin 'jcfaria/Vim-R-plugin'
@@ -207,6 +206,8 @@ nnoremap <Up> <nop>
 nnoremap <Down> <nop>
 nnoremap <Left> <nop>
 nnoremap <Right> <nop>
+nnoremap <BS> dh
+nnoremap <CR> i<CR><ESC>
 map <silent> <F10> :echom "hi<" . synIDattr(synID(line("."),col("."),1),"name")
       \. '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
       \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
