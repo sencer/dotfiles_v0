@@ -62,6 +62,7 @@ Plugin 'ap/vim-css-color'
 Plugin 'tpope/vim-markdown'
 Plugin 'sencer/gnuplot.vim'
 Plugin 'vim-scripts/awk.vim'
+Plugin 'linktohack/vim-space'
 
 colorscheme mustang
 if has('gui_running')
