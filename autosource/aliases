@@ -5,7 +5,7 @@ alias history-stat="history 0 | awk '{print \$2}' | sort | uniq -c | sort -n -r 
 alias show='cat ~/.dotfiles/tmp/dirs'
 alias -g mails="~/.dotfiles/tmp/mails.log"
 alias state='tail -10 mails'
-alias state-clean='cat /dev/null >! mails'
+alias state-clean='cat /dev/null > mails'
 alias state-rm='sed -i "\#${PWD//+/.}#d" mails'
 
 alias d='dirs -v'
