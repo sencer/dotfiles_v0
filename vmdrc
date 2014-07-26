@@ -18,7 +18,7 @@ user add key Control-w { savexyz [atomselect top all] vmd.xyz }
 
 # automate povray
 
-render options POV3 {povray +W%w +H%h -I%s -O%s.png +D +X +A +UA +FN}
+render options POV3 {povray +W%w +H%h -I%s -O%s.png -D -X +A +UA +FN}
 
 proc pov {fname} {
   set tmp [file rootname $fname]
