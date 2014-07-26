@@ -1,0 +1,4 @@
+--ignore-dir=dictionaries
+--ignore-dir=.zcompcache
+--ignore-file=match:vim-scripts.org.json
+
