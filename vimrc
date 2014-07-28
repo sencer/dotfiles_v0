@@ -155,6 +155,10 @@ let g:UltiSnipsJumpBackwardTrigger = "<S-TAB>"
 let g:UltiSnipsSnippetsDir = "~/.vim/bundle/vim-snippets/UltiSnips"
 let g:UltiSnipsEditSplit = "vertical"
 
+let g:ackprg = 'ag --nogroup --nocolor --column'
+let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+nnoremap <F8> :Ack "\b<C-R><C-W>\b"<CR>:cw<CR>
+
 set modeline ve=block,onemore ",insert
 set nu rnu nowrap list ls=2 "showmode pastetoggle=<F2>
 set nrformats-=octal showmatch autoread
