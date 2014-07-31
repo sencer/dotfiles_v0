@@ -65,6 +65,7 @@ Plugin 'vim-scripts/awk.vim'
 Plugin 'linktohack/vim-space'
 Plugin 'AndrewRadev/writable_search.vim'
 Plugin 'mileszs/ack.vim'
+Plugin 'christoomey/vim-tmux-navigator'
 
 colorscheme mustang
 if has('gui_running')
@@ -192,7 +193,6 @@ nnoremap <silent> coe :ColorToggle<CR>
 nnoremap <silent> <Leader>w :up!<CR>
 nnoremap <A-=> <C-W>>
 nnoremap <A--> <C-W><
-nnoremap <silent> <C-L> :nohlsearch<CR><C-L>
 nnoremap <silent> <C-Left> :tabprevious<CR>
 nnoremap <silent> <C-Right> :tabnext<CR>
 nnoremap <silent> <A-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
