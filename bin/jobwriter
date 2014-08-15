@@ -25,8 +25,14 @@ g=${3:-300}
 		#change in input file
 		sed -i "s/\\(max_seconds\\s*=\\s*\\)[0-9]*/\\1$maxseconds/" %in%
 
+		# run pre-job hooks if available
+		[[ -f pre.sh ]] && bash pre.sh
+
 		#now execute
 		%scheduler% %prepara% $exec_path/$exec %postpara% %in% >> %out%
+
+		# run post-job hooks if available
+		[[ -f post.sh ]] && bash post.sh
 	EOF
 } | templr $HOME/$PBS_SERVER/.jobconfig -if -kpools $k -images $i -gap $g
 # if [[ -f $HOME/.jobconfig ]]; then
