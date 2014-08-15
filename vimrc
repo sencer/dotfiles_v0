@@ -66,6 +66,7 @@ Plugin 'linktohack/vim-space'
 Plugin 'AndrewRadev/writable_search.vim'
 Plugin 'mileszs/ack.vim'
 Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'slim-template/vim-slim'
 
 colorscheme mustang
 if has('gui_running')
