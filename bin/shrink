@@ -1,0 +1,18 @@
+#!/usr/bin/awk -f
+# give argument -v s=NUMBER as scaling factor, and a file name
+BEGIN {
+  if(s == 0)
+    s = 0.833
+}
+NR < 3 {
+  print
+}
+NR > 2 && $1 == "OH2" {
+  xo = $2; yo = $3; zo = $4
+  xn = $2 * s ; yn = $3 * s ; zn = $4 * s
+  printf "%-4s %14.10f %14.10f %14.10f\n", "O", xn, yn, zn + sh
+  for(i=0; i<2; i++) {
+    getline
+    printf "%-4s %14.10f %14.10f %14.10f\n", "H", $2 + (xn - xo), $3 + (yn - yo), $4 + (zn - zo) + sh
+  }
+}
