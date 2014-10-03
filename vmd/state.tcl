@@ -2,7 +2,6 @@ proc state {mid} {
   global x
   global y
   global z
-  global celldm
   global viewvmd
   set viewvmddir [pwd]
   while { ! [info exists viewvmd] && ! [string equal / $viewvmddir] } {
@@ -27,13 +26,11 @@ proc state {mid} {
     catch {color Element Ni silver}
     catch {color Element Co silver}
     catch {color Element Al gray}
-    molinfo $mid set {
-      center_matrix rotate_matrix scale_matrix global_matrix
-      } {
-      {{1 0 0 -5} {0 1 0 -6} {0 0 1 -6} {0 0 0 1}}
+    molinfo $mid set {center_matrix rotate_matrix scale_matrix global_matrix} {
+      {{1 0 0 -7.8} {0 1 0 -4} {0 0 1 -6} {0 0 0 1}}
       {{1 0 0 0} {0 0 1 0} {0 -1 0 0} {0 0 0 1}}
-      {{0.19 0 0 0} {0 0.19 0 0} {0 0 0.19 0} {0 0 0 1}}
-      {{1 0 0 -0.04} {0 1 0 -0.16} {0 0 1 0} {0 0 0 1}}
+      {{0.16 0 0 0} {0 0.16 0 0} {0 0 0.16 0} {0 0 0 1}}
+      {{1 0 0 0} {0 1 0 0} {0 0 1 0} {0 0 0 1}}
     }
     mol delrep 0 $mid
     mol representation VDW 0.300000 18.000000
@@ -54,8 +51,6 @@ proc state {mid} {
 user add key W {
   puts_red "INFO) Saving the current view."
   global representations
-  global viewpoints
-  save_viewpoint
   save_reps
 
   set fildes [open $viewvmd w]
@@ -69,16 +64,11 @@ user add key W {
     puts $fildes "display cuedensity [display get cuedensity]"
     puts $fildes "display cuemode [display get cuemode]"
   }
-  foreach i [material list] {
-    foreach j [material settings $i] k {ambient specular diffuse shininess opacity outline outlinewidth transmode} {
-      puts $fildes "material change $k $i $j"
-    }
-  }
 
   foreach mol [molinfo list] {
     puts $fildes "if {[lsearch [molinfo list] $mol] >= 0} {"
     # delete all representations
-    puts $fildes "  set numrep [molinfo $mol get numreps]"
+    puts $fildes "  set numrep \[molinfo $mol get numreps]"
     puts $fildes "  for {set i 0} {\$i < \$numrep} {incr i} {"
     puts $fildes "    mol delrep \$i $mol"
     puts $fildes "  }"
@@ -99,23 +89,32 @@ user add key W {
         incr i
       }
     }
-    puts $fildes "  molinfo $mol set {center_matrix rotate_matrix scale_matrix global_matrix} [list $viewpoints($mol)]"
+    if { [molinfo $mol get a] > 0} {
+      puts $fildes "  set x($mol) $x($mol)"
+      puts $fildes "  set y($mol) $y($mol)"
+      puts $fildes "  set z($mol) $z($mol)"
+      puts $fildes "  pbc set [pbc get -now] -molid $mol -all"
+      puts $fildes "  pbc box -molid $mol -shiftcenter \"\$x($mol) \$y($mol) \$z($mol)\""
+      puts $fildes "  pbc wrap -molid $mol -shiftcenter \"\$x($mol) \$y($mol) \$z($mol)\""
+      puts $fildes "  pbc box -off"
+    }
+    global viewpoints
+    save_viewpoint
+    puts $fildes "  molinfo $mol set {center_matrix rotate_matrix scale_matrix \
+      global_matrix} [list $viewpoints($mol)]"
     puts $fildes "}"
     puts $fildes "\# done with molecule $mol"
   }
-  save_colors $fildes
-  # save_labels $fildes
-  if { [info exists celldm] } {
-    puts $fildes "set x $x"
-    puts $fildes "set y $y"
-    puts $fildes "set z $z"
-    puts $fildes "set celldm \"$celldm\""
-    puts $fildes "pbc set \$celldm"
-    puts $fildes "pbc box -shiftcenter \"\$x \$y \$z\""
-    puts $fildes "pbc wrap -shiftcenter \"\$x \$y \$z\""
-    puts $fildes "pbc box -off"
-    # puts $fildes "cell"
+
+  foreach i [material list] {
+    foreach j [material settings $i] k {ambient specular diffuse
+      shininess opacity outline outlinewidth transmode} {
+      puts $fildes "material change $k $i $j"
+    }
   }
+  save_colors $fildes
+  save_labels $fildes
+
   close $fildes
   puts -nonewline ""
 }

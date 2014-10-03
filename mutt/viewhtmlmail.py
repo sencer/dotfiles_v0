@@ -122,7 +122,7 @@ def view_html_message(mbox, tmpdir):
     os.system("google-chrome " + htmlfile)
 
     # Wait a while to make sure firefox has loads the imgaes, then clean up.
-    time.sleep(6)
+    time.sleep(0.5)
     shutil.rmtree(tmpdir)
     os.unlink(mbox)
 

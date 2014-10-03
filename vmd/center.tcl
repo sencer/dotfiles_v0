@@ -1,4 +1,4 @@
-proc geom_center {selection} {
+proc GetCenter {selection} {
   set gc [veczero]
   foreach coord [$selection get {x y z}] {
     set gc [vecadd $gc $coord]
@@ -6,9 +6,9 @@ proc geom_center {selection} {
   return [vecscale [expr 1.0 /[$selection num]] $gc]
 }
 
-proc mass_center {selection} {
+proc GetMassCenter {selection} {
   if {[$selection num] <= 0} {
-    error "center_of_mass: needs a selection with atoms"
+    set selection [atomselect top "all"]
   }
   set com [veczero]
   set mass 0

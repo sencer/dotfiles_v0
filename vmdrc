@@ -12,13 +12,13 @@ color Display Background white
 
 # assign keys
 
-user add key v { pov $fname }
+user add key P { pov $fname }
 user add key q { exit }
 user add key Control-w { savexyz [atomselect top all] vmd.xyz }
 
 # automate povray
 
-render options POV3 {povray +W%w +H%h -I%s -O%s.png +D +X +A +UA +FN}
+render options POV3 {povray +W%w +H%h -I%s -O%s.png -D -X +A +UA +FN}
 
 proc pov {fname} {
   set tmp [file rootname $fname]
@@ -58,6 +58,7 @@ proc initial_settings {molid} {
 }
 
 proc clean_tmp_files {args} {
+  # foreach i [glob -nocomplain /tmp/vmd_*] {}
   file delete -force /tmp/vmd_auto.xyz
   file delete -force /tmp/vmd_auto.pdb
   return ""

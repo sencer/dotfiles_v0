@@ -44,6 +44,7 @@ typeset -gU cdpath fpath mailpath path
 path=(
   /usr/local/{bin,sbin}
   $path
+  /usr/local/texlive/2014/bin/x86_64-linux
 )
 
 #

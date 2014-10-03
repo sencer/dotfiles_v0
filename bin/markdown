@@ -5,11 +5,14 @@ require 'rouge'
 require 'redcarpet'
 
 class MarkdownRenderer < Redcarpet::Render::HTML
+  include Redcarpet::Render::SmartyPants
   def block_code(code, language)
+    # ````ruby:4 marks ruby code with
+    # line numbers starting from 4
     ln = language.split(':') rescue ''
     lexer = Rouge::Lexer.find_fancy(ln[0], code) || Rouge::Lexers::PlainText
     if lexer.tag == 'make'
-      code.gsub! /^    /, "\t"
+      code.gsub!(/^    /, "\t")
     end
     formatter = Rouge::Formatters::HTML.new(
       css_class: "highlight #{lexer.tag}",
@@ -22,7 +25,7 @@ class MarkdownRenderer < Redcarpet::Render::HTML
 end
 
 def markdown(text)
-  rndr = MarkdownRenderer.new(:filter_html => true, :hard_wrap => false)
+  rndr = MarkdownRenderer.new(:filter_html => false, :hard_wrap => false)
   options = {
     fenced_code_blocks: true,
     no_intra_emphasis: true,
@@ -34,7 +37,6 @@ def markdown(text)
     highlight: true,
     footnotes: true,
     tables: true,
-    quotes: true
   }
   markdown_to_html = Redcarpet::Markdown.new(rndr, options)
   markdown_to_html.render(text)

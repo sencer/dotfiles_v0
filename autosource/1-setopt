@@ -40,8 +40,7 @@ setopt CHASE_DOTS        \
   HIST_BEEP              \
   RM_STAR_WAIT
 
-unsetopt CLOBBER         \
-  BG_NICE                \
+unsetopt BG_NICE         \
   HUP                    \
   CHECK_JOBS             \
   NO_MATCH               \

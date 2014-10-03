@@ -5,7 +5,8 @@ alias history-stat="history 0 | awk '{print \$2}' | sort | uniq -c | sort -n -r 
 alias show='cat ~/.dotfiles/tmp/dirs'
 alias -g mails="~/.dotfiles/tmp/mails.log"
 alias state='tail -10 mails'
-alias state-clean='cat /dev/null >! mails'
+alias state-clean='cat /dev/null > mails'
+alias state-rm='sed -i "\#${PWD//+/.}#d" mails'
 
 alias d='dirs -v'
 for index ({1..20}) alias "$index"="cd +${index}"; unset index
@@ -34,7 +35,7 @@ alias rsync="noglob rsync"
 alias ln="nocorrect ln -i"
 alias type='type -a'
 
-alias vi="vim -T $TERM"
+alias v="vim -T $TERM"
 alias vv="v input.txt"
 alias vj="v *.job"
 alias vo="v output.txt"
@@ -46,11 +47,11 @@ alias xgrep="xargs grep -P"
 alias xsed="xargs sed -r"
 
 alias f="less +F"
-alias fo="less +F output.txt"
+alias fo="ras -t less +F output.txt"
 
-alias in="ras 'find . -name input.txt'"
-alias job="ras 'find . -name *.job'"
-alias out="ras 'find . -name output.txt'"
+alias in="ras find -name input.txt -and -not -path '*/zpe/*'"
+alias job="ras find -name *.job -and -not -path '*/zpe/*'"
+alias out="ras find -name output.txt -and -not -path '*/zpe/*'"
 alias find="noglob ras -t find"
 alias watch="ras -t watch"
 alias rscp="ras -t scp -r"

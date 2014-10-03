@@ -15,6 +15,7 @@ set trash            = +Deleted\ Items
 set ssl_starttls     = yes
 set imap_keepalive   = 300
 set mail_check       = 120
+set timeout          = 1
 
 set header_cache     = ~/.cache/mutt
 set message_cachedir = ~/.cache/mutt
@@ -27,19 +28,15 @@ set from                  = "sselcuk@princeton.edu"
 set use_from              = yes
 set ssl_force_tls         = yes
 set ssl_min_dh_prime_bits = 128
-set editor                = "vim -S '~/.mutt/mutt.vim'"
+set editor                = "vim -S '~/.mutt/mutt.vim' -c 'startinsert'"
 set text_flowed
 set pipe_decode
 set pipe_sep = "\n#### NEXT MAIL ####\n"
 
 bind index,pager <F5> imap-fetch-mail
 bind index G last-entry
-bind index,pager \CP sidebar-prev
-bind index,pager \CN sidebar-next
-bind index,pager \CO sidebar-open
 macro compose Y "<first-entry>F markdown\ny^T^Utext/html; charset=utf-8\n\n<send-message>" "send as html mail"
 macro compose a "<attach-file>?c~<Enter>"
-macro index,pager b '<enter-command>toggle sidebar_visible<enter><refresh>'
 macro index,pager s "<save-message>?<toggle-mailboxes>" "save message to a folder"
 macro index,pager C "<copy-message>?<toggle-mailboxes>" "copy message to a folder"
 macro index,pager A <save-message>=Archives/`date +%Y`\n
@@ -73,8 +70,8 @@ color bold       color039 color187
 color underline  color141 color187
 
 set nomarkers
-set nosidebar_visible
-set sidebar_delim = " "
+# set nosidebar_visible
+# set sidebar_delim = " "
 set index_format = "%4C %Z %-20.20L %s" # "%?X?[%X]& ?" for attachments.
 set status_format = "%r--[%f]--[Msgs:%?M?%M/?%m%?n? New:%n?%?o? Old:%o?%?d? Del\
 :%d?%?F? Flag:%F?%?t? Tag:%t?%?p? Post:%p?%?b? Inc:%b?%?l? %l?]---(%s/%S)-%>-(%\
@@ -95,10 +92,12 @@ set menu_scroll
 set narrow_tree
 set nosig_dashes
 set sig_on_top
-set signature = "echo Sencer |"
+set signature = 'echo "\nSencer\n" |'
 set ignore_linear_white_space
 set delete
 set quit = ask-yes
+set mime_forward = ask-no
+set auto_tag
 set noconfirmappend
 set pager_context=2
 set pager_index_lines=10

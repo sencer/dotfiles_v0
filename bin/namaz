@@ -1,0 +1,18 @@
+#!/bin/bash
+
+DATAFILE="$HOME/.dotfiles/tmp/namaz"
+tomorrow=$(date --date="0:00 tomorrow" +%s)
+echo    "   Tarih    | Sabah | Imsak | Ogle  | Ikindi| Aksam | Yatsi"
+echo -n "------------+-------+-------+-------+-------+-------+-------"
+i=0
+while read line; do
+  if [[ $line -gt $tomorrow ]]; then
+    if [[ $((i%6)) == 0 ]]; then
+      echo -ne "\n $(date --date=@$line '+%d-%m-%Y | %H:%M')"
+    else
+      echo -n " | $(date --date=@$line '+%H:%M')"
+    fi
+    let i++
+  fi
+done < $DATAFILE
+echo

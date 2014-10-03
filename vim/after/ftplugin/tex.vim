@@ -4,9 +4,6 @@ set concealcursor=c
 set formatoptions+=n
 hi Conceal guibg=NONE
 
-let g:tex_flavor = "latex"
-" let g:tex_fold_enabled = 1
-
 set spell
 syntax spell toplevel
 

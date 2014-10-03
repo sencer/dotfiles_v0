@@ -1,0 +1,12 @@
+#!/bin/bash
+
+awk '$1 ~ /PRIMCOORD/ {
+  getline
+  j = $1
+  print j
+  print "generated from axsf file"
+  for(i = 0; i < j; i++){
+    getline
+    printf "%-5s  %15.10f %15.10f %15.10f\n", $1, $2, $3, $4
+  }
+}' $1

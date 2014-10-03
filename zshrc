@@ -46,7 +46,7 @@ zmodload zsh/pcre                   # perl compatible shell regex
 # this is for pbs server management
 
 typeset -xT PBS_SERVER_LIST pbs_server_list
-export PBS_SERVER_LIST=nano:tiger:della:tigress:edison:hopper
+export PBS_SERVER_LIST=:nano:tiger:della:tigress:edison:hopper:
 
 # vi-mode inner, surround etc text objects
 
@@ -85,3 +85,6 @@ ZSH_HIGHLIGHT_STYLES[globbing]='fg=15,standout'
 ZSH_HIGHLIGHT_STYLES[history-expansion]='fg=81,standout'
 
 unset D i
+source ~/.fzf.zsh
+export FZF_DEFAULT_OPTS='-x'
+export FZF_TMUX=0

@@ -1,0 +1,16 @@
+#!/usr/bin/awk -f
+
+$0 ~ /MD Simulation time step/  || (STEP != LAST_STEP && $0 ~ /Rule event: dt/){
+  TOTAL += (STEP - LAST_STEP) * dt
+  LAST_STEP = STEP
+  dt = $NF
+}
+
+$12 != "" && $13 == "" && $1 + 1 != 1 {
+  STEP = $1
+}
+
+END {
+  TOTAL += (STEP - LAST_STEP) * dt
+  printf "%.2f ps\n", TOTAL * 0.000024189
+}

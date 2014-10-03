@@ -9,7 +9,7 @@ A4L = "set terminal pdfcairo enhanced dashed transparent lw 3 font 'Arial, 14' s
        set output"
 A4P = "set terminal pdfcairo enhanced dashed transparent lw 3 font 'Arial, 14' size 11, 8.5;\
        set output"
-PNG = "set terminal pngcairo enhanced dashed transparent lw 2 font 'Arial, 10';\
+PNG = "set terminal pngcairo enhanced dashed transparent lw 2 font 'Arial, 18';\
        set output"
 
 MP = "set tics mirror in; \

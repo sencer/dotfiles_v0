@@ -29,7 +29,7 @@ OptionParser.new do |opts|
   end
 
   opts.on("-k", "--keys [KEYS]", Array,
-          "Ordered sort keys 1r means first col, reverse [1]") do |v|
+          "Ordered sort keys, comma separated. '1r' means first col, reverse order [1]") do |v|
     options[:keys] = v
   end
 

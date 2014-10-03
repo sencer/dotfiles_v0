@@ -15,16 +15,17 @@ Plugin 'chrisbra/color_highlight'
 Plugin 'salsifis/vim-transpose'
 Plugin 'sk1418/HowMuch'
 Plugin 'junegunn/vim-easy-align'
-Plugin 'kien/ctrlp.vim'
+Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'kshenoy/vim-signature'
 Plugin 'bling/vim-airline'
 Plugin 'SirVer/UltiSnips'
 Plugin 'sencer/vim-snippets'
+Plugin 'Valloric/YouCompleteMe'
 Plugin 'Shougo/neocomplete.vim'
 Plugin 'Shougo/vimproc.vim'
-Plugin 'sencer/normal.vim'
+Plugin 'tpope/vim-dispatch'
+Plugin 'jcfaria/Vim-R-plugin'
 Plugin 'sjl/gundo.vim'
-Plugin 'jaxbot/selective-undo.vim'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-eunuch'
 Plugin 'kana/vim-repeat'
@@ -60,6 +61,12 @@ Plugin 'andersoncustodio/vim-tmux'
 Plugin 'ap/vim-css-color'
 Plugin 'tpope/vim-markdown'
 Plugin 'sencer/gnuplot.vim'
+Plugin 'vim-scripts/awk.vim'
+Plugin 'linktohack/vim-space'
+Plugin 'AndrewRadev/writable_search.vim'
+Plugin 'mileszs/ack.vim'
+Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'slim-template/vim-slim'
 
 colorscheme mustang
 if has('gui_running')
@@ -73,15 +80,20 @@ filetype plugin indent on
 syntax on
 runtime! macros/matchit.vim
 
-let g:loaded_netrw = 1
-let g:loaded_netrwPlugin = 1
+let g:netrw_home = $HOME . '/.dotfiles/tmp'
+let g:netrw_browsex_viewer = "xdg-open"
+let g:netrw_list_hide='.*\.swp$,.*\.pyc$,.*~'
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 4 " 3 for new tab
+let g:netrw_preview = 1
+let g:netrw_altv = 0
+let g:netrw_winsize = 25
 
 let g:syntastic_enable_balloons = 1
 let g:syntastic_error_symbol='✗'
 let g:syntastic_warning_symbol='⚠'
 let g:syntastic_check_on_wq = 0
 let g:syntastic_always_populate_loc_list = 1
-
 
 let g:airline_theme='bubblegum'
 let g:airline_left_sep = '▶'
@@ -103,7 +115,9 @@ let g:ctrlp_switch_buffer = 'Et'
 let g:HowMuch_auto_engines = ['py']
 let g:HowMuch_scale = 9
 
+let g:tex_flavor = "latex"
 let g:LatexBox_Folding = 1
+let g:LatexBox_fold_automatic = 0
 let g:LatexBox_viewer = "$HOME/bin/evince"
 let g:LatexBox_latexmk_async = 1
 let g:LatexBox_latexmk_preview_continuously = 1
@@ -131,11 +145,21 @@ let g:neocomplete#force_omni_input_patterns = {
       \   'ruby' : '\v([^. \t](\.|::)|(^|[^:]):)\k*$'
       \ }
 inoremap <expr> <CR>  <C-r>=pumvisible() ? neocomplete#close_popup() : "\<C-v><CR>"<CR>
+au FileType c,cpp,cuda,python :call neocomplete#init#disable()
+let g:ycm_filetype_whitelist = { 'c': 1, 'cpp': 1, 'cuda': 1, 'python': 1 }
+let g:ycm_key_list_select_completion = ["<C-n>", "<Down>"]
+let g:ycm_key_list_previous_completion = ["<C-p>", "<Up>"]
+let g:ycm_key_detailed_diagnostics = ''
+let g:ycm_confirm_extra_conf = 0
 
 let g:UltiSnipsJumpForwardTrigger = "<TAB>"
 let g:UltiSnipsJumpBackwardTrigger = "<S-TAB>"
 let g:UltiSnipsSnippetsDir = "~/.vim/bundle/vim-snippets/UltiSnips"
 let g:UltiSnipsEditSplit = "vertical"
+
+let g:ackprg = 'ag --nogroup --nocolor --column'
+let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+nnoremap <F8> :Ack "\b<C-R><C-W>\b"<CR>:cw<CR>
 
 set modeline ve=block,onemore ",insert
 set nu rnu nowrap list ls=2 "showmode pastetoggle=<F2>
@@ -144,7 +168,7 @@ set backspace=indent,eol,start ww+=<,>,[,],~,h,l
 set smartindent autoindent copyindent
 set smarttab tabstop=2 shiftwidth=2 shiftround expandtab
 set incsearch hlsearch ignorecase smartcase gdefault infercase
-set showbreak=… listchars=trail:·,eol:¬,tab:»-,extends:❯,precedes:❮
+set showbreak=… listchars=trail:·,eol:¬,tab:»-,extends:❯,precedes:❮,nbsp:∴
 set wildmenu wildmode=full " set wildmode=longest:full,list #Tab won't work
 set wildignore=*.o,*~,*.swp
 set swb=useopen,usetab,newtab showtabline=1 history=1000
@@ -170,7 +194,6 @@ nnoremap <silent> coe :ColorToggle<CR>
 nnoremap <silent> <Leader>w :up!<CR>
 nnoremap <A-=> <C-W>>
 nnoremap <A--> <C-W><
-nnoremap <silent> <C-L> :nohlsearch<CR><C-L>
 nnoremap <silent> <C-Left> :tabprevious<CR>
 nnoremap <silent> <C-Right> :tabnext<CR>
 nnoremap <silent> <A-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
@@ -190,12 +213,25 @@ nnoremap <Up> <nop>
 nnoremap <Down> <nop>
 nnoremap <Left> <nop>
 nnoremap <Right> <nop>
+nnoremap <BS> dh
+nnoremap <CR> i<CR><ESC>
 map <silent> <F10> :echom "hi<" . synIDattr(synID(line("."),col("."),1),"name")
       \. '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
       \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+map Q gq
 nnoremap <silent> <F3> :exec (&ft == 'vim' ? '' : &ft) . ' ' . getline('.')<CR>
 vnoremap <silent> <F3> :<C-U>exec (&ft == 'vim' ? '' : &ft) . ' ' . getreg('*')<CR>
+onoremap <silent>m //e<CR>
 
 au BufRead,BufNewFile input*txt set commentstring=\!\ %s
+au FileType awk set commentstring=#\ %s
 au InsertEnter * set norelativenumber
 au InsertLeave * set relativenumber
+autocmd BufReadPost *
+      \ if line("'\"") > 1 && line("'\"") <= line("$") |
+      \   exe "normal! g`\"" |
+      \ endif
+if !exists(":DiffOrig")
+  command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
+        \ | wincmd p | diffthis
+endif
