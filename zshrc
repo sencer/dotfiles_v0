@@ -88,3 +88,4 @@ unset D i
 source ~/.fzf.zsh
 export FZF_DEFAULT_OPTS='-x'
 export FZF_TMUX=0
+cat ~/.dotfiles/tmp/work

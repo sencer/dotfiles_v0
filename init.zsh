@@ -36,6 +36,7 @@ normal=(
 
 cd $HOME
 
+mkdir .undodir
 for i in ${dot[@]};do
   ln -s .dotfiles/$i ".${i}"
 done

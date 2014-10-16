@@ -1,4 +1,7 @@
 #!/bin/bash
+# cn universityid seealso telephonenumber studenttelephonenumber
+# facsimiletelephonenumber street studentstreet ou mail emailbox uid
+# voicemailbox labeleduri pudisplayname
 echo "Results:"
 ldapsearch -l 30 \
            -LLL  \
