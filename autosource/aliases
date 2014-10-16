@@ -7,6 +7,7 @@ alias -g mails="~/.dotfiles/tmp/mails.log"
 alias state='tail -10 mails'
 alias state-clean='cat /dev/null > mails'
 alias state-rm='sed -i "\#${PWD//+/.}#d" mails'
+alias work='v ~/.dotfiles/tmp/work'
 
 alias d='dirs -v'
 for index ({1..20}) alias "$index"="cd +${index}"; unset index
