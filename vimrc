@@ -19,7 +19,7 @@ Plug 'kshenoy/vim-signature'
 Plug 'bling/vim-airline'
 Plug 'SirVer/UltiSnips'
 Plug 'sencer/vim-snippets'
-Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer'}
+Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer', 'for': ['c', 'cpp', 'cuda', 'python']}
 Plug 'Shougo/neocomplete.vim'
 Plug 'Shougo/vimproc.vim', { 'do': './make -f make_unix.mak' }
 Plug 'tpope/vim-dispatch'
@@ -147,7 +147,6 @@ let g:neocomplete#force_omni_input_patterns = {
       \ }
 inoremap <expr> <CR>  <C-r>=pumvisible() ? neocomplete#close_popup() : "\<C-v><CR>"<CR>
 au FileType c,cpp,cuda,python :call neocomplete#init#disable()
-let g:ycm_filetype_whitelist = { 'c': 1, 'cpp': 1, 'cuda': 1, 'python': 1 }
 let g:ycm_key_list_select_completion = ["<C-n>", "<Down>"]
 let g:ycm_key_list_previous_completion = ["<C-p>", "<Up>"]
 let g:ycm_key_detailed_diagnostics = ''
