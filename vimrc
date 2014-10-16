@@ -23,7 +23,7 @@ Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer', 'for': 
 Plug 'Shougo/neocomplete.vim'
 Plug 'Shougo/vimproc.vim', { 'do': './make -f make_unix.mak' }
 Plug 'tpope/vim-dispatch'
-Plug 'jcfaria/Vim-R-plugin'
+Plug 'jcfaria/Vim-R-plugin', { 'for': 'r' }
 Plug 'sjl/gundo.vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-eunuch'
@@ -46,26 +46,26 @@ Plug 'nelstrom/vim-textobj-rubyblock'
 Plug 'majutsushi/tagbar'
 Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-endwise'
-Plug 'tpope/vim-rails'
+Plug 'tpope/vim-rails', { 'for': ['ruby', 'eruby'] }
 Plug 'fncll/wordnet.vim'
-Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'vim-jp/cpp-vim'
+Plug 'octol/vim-cpp-enhanced-highlight', { 'for': 'cpp' }
+Plug 'vim-jp/cpp-vim', { 'for': 'cpp' }
 Plug 'tpope/vim-git'
-Plug 'othree/html5.vim'
-Plug 'pangloss/vim-javascript'
-Plug 'leshill/vim-json'
-Plug 'LaTeX-Box-Team/LaTeX-Box'
-Plug 'vim-ruby/vim-ruby'
+Plug 'othree/html5.vim', { 'for': 'html' }
+Plug 'pangloss/vim-javascript', { 'for': 'javascript' }  "not
+Plug 'leshill/vim-json', { 'for': 'json' }
+Plug 'LaTeX-Box-Team/LaTeX-Box', { 'for': ['tex', 'latex'] } 
+Plug 'vim-ruby/vim-ruby', { 'for': ['ruby', 'eruby'] }
 Plug 'andersoncustodio/vim-tmux'
 Plug 'ap/vim-css-color'
-Plug 'tpope/vim-markdown', { 'for': 'markdown' }
-Plug 'sencer/gnuplot.vim', { 'for': 'gnuplot' }
-Plug 'vim-scripts/awk.vim', { 'for': 'awk' }
+Plug 'tpope/vim-markdown', { 'for': 'markdown' } "not
+Plug 'sencer/gnuplot.vim', { 'for': 'gnuplot' } "not
+Plug 'vim-scripts/awk.vim', { 'for': 'awk' } "not
 Plug 'linktohack/vim-space'
 Plug 'AndrewRadev/writable_search.vim'
 Plug 'mileszs/ack.vim'
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'slim-template/vim-slim', { 'for': 'slim' }
+Plug 'slim-template/vim-slim', { 'for': 'slim' } "not
 
 call plug#end()
 
