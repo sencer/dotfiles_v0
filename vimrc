@@ -2,71 +2,72 @@ set nocompatible
 
 filetype off
 
-set rtp+=~/.vim/bundle/vundle
-call vundle#rc()
+call plug#begin('~/.vim/bundle')
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                              Load Bundles                               "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-Plugin 'gmarik/vundle'
-Plugin 'sencer/mustang-vim'
-Plugin 'mhinz/vim-signify'
-Plugin 'chrisbra/color_highlight'
-Plugin 'salsifis/vim-transpose'
-Plugin 'sk1418/HowMuch'
-Plugin 'junegunn/vim-easy-align'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'kshenoy/vim-signature'
-Plugin 'bling/vim-airline'
-Plugin 'SirVer/UltiSnips'
-Plugin 'sencer/vim-snippets'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'Shougo/neocomplete.vim'
-Plugin 'Shougo/vimproc.vim'
-Plugin 'tpope/vim-dispatch'
-Plugin 'jcfaria/Vim-R-plugin'
-Plugin 'sjl/gundo.vim'
-Plugin 'tpope/vim-commentary'
-Plugin 'tpope/vim-eunuch'
-Plugin 'kana/vim-repeat'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-unimpaired'
-Plugin 'tpope/vim-fugitive'
-Plugin 'sencer/vis'
-Plugin 'tommcdo/vim-exchange'
-Plugin 'AndrewRadev/splitjoin.vim'
-Plugin 'vim-scripts/ReplaceWithRegister'
-Plugin 'kana/vim-niceblock'
-Plugin 'jiangmiao/auto-pairs'
-Plugin 'kana/vim-textobj-user'
-Plugin 'kana/vim-textobj-underscore'
-Plugin 'kana/vim-textobj-indent'
-Plugin 'kana/vim-textobj-syntax'
-Plugin 'b4winckler/vim-angry'
-Plugin 'nelstrom/vim-textobj-rubyblock'
-Plugin 'majutsushi/tagbar'
-Plugin 'scrooloose/syntastic'
-Plugin 'tpope/vim-endwise'
-Plugin 'tpope/vim-rails'
-Plugin 'fncll/wordnet.vim'
-Plugin 'octol/vim-cpp-enhanced-highlight'
-Plugin 'vim-jp/cpp-vim'
-Plugin 'tpope/vim-git'
-Plugin 'othree/html5.vim'
-Plugin 'pangloss/vim-javascript'
-Plugin 'leshill/vim-json'
-Plugin 'LaTeX-Box-Team/LaTeX-Box'
-Plugin 'vim-ruby/vim-ruby'
-Plugin 'andersoncustodio/vim-tmux'
-Plugin 'ap/vim-css-color'
-Plugin 'tpope/vim-markdown'
-Plugin 'sencer/gnuplot.vim'
-Plugin 'vim-scripts/awk.vim'
-Plugin 'linktohack/vim-space'
-Plugin 'AndrewRadev/writable_search.vim'
-Plugin 'mileszs/ack.vim'
-Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'slim-template/vim-slim'
+" Plug 'gmarik/vundle'
+Plug 'sencer/mustang-vim'
+Plug 'mhinz/vim-signify'
+Plug 'chrisbra/color_highlight'
+Plug 'salsifis/vim-transpose'
+Plug 'sk1418/HowMuch'
+Plug 'junegunn/vim-easy-align'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'kshenoy/vim-signature'
+Plug 'bling/vim-airline'
+Plug 'SirVer/UltiSnips'
+Plug 'sencer/vim-snippets'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer', 'for': ['c', 'cpp', 'cuda', 'python']}
+Plug 'Shougo/neocomplete.vim'
+Plug 'Shougo/vimproc.vim', { 'do': './make -f make_unix.mak' }
+Plug 'tpope/vim-dispatch'
+Plug 'jcfaria/Vim-R-plugin', { 'for': 'r' }
+Plug 'sjl/gundo.vim'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-eunuch'
+Plug 'kana/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-fugitive'
+Plug 'sencer/vis'
+Plug 'tommcdo/vim-exchange'
+Plug 'AndrewRadev/splitjoin.vim'
+Plug 'vim-scripts/ReplaceWithRegister'
+Plug 'kana/vim-niceblock'
+Plug 'jiangmiao/auto-pairs'
+Plug 'kana/vim-textobj-user'
+Plug 'kana/vim-textobj-underscore'
+Plug 'kana/vim-textobj-indent'
+Plug 'kana/vim-textobj-syntax'
+Plug 'b4winckler/vim-angry'
+Plug 'nelstrom/vim-textobj-rubyblock'
+Plug 'majutsushi/tagbar'
+Plug 'scrooloose/syntastic'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-rails', { 'for': ['ruby', 'eruby'] }
+Plug 'fncll/wordnet.vim'
+Plug 'octol/vim-cpp-enhanced-highlight', { 'for': 'cpp' }
+Plug 'vim-jp/cpp-vim', { 'for': 'cpp' }
+Plug 'tpope/vim-git'
+Plug 'othree/html5.vim', { 'for': 'html' }
+Plug 'pangloss/vim-javascript', { 'for': 'javascript' }  "not
+Plug 'leshill/vim-json', { 'for': 'json' }
+Plug 'LaTeX-Box-Team/LaTeX-Box', { 'for': ['tex', 'latex'] } 
+Plug 'vim-ruby/vim-ruby', { 'for': ['ruby', 'eruby'] }
+Plug 'andersoncustodio/vim-tmux'
+Plug 'ap/vim-css-color'
+Plug 'tpope/vim-markdown', { 'for': 'markdown' } "not
+Plug 'sencer/gnuplot.vim', { 'for': 'gnuplot' } "not
+Plug 'vim-scripts/awk.vim', { 'for': 'awk' } "not
+Plug 'linktohack/vim-space'
+Plug 'AndrewRadev/writable_search.vim'
+Plug 'mileszs/ack.vim'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'slim-template/vim-slim', { 'for': 'slim' } "not
+
+call plug#end()
 
 colorscheme mustang
 if has('gui_running')
@@ -146,7 +147,6 @@ let g:neocomplete#force_omni_input_patterns = {
       \ }
 inoremap <expr> <CR>  <C-r>=pumvisible() ? neocomplete#close_popup() : "\<C-v><CR>"<CR>
 au FileType c,cpp,cuda,python :call neocomplete#init#disable()
-let g:ycm_filetype_whitelist = { 'c': 1, 'cpp': 1, 'cuda': 1, 'python': 1 }
 let g:ycm_key_list_select_completion = ["<C-n>", "<Down>"]
 let g:ycm_key_list_previous_completion = ["<C-p>", "<Up>"]
 let g:ycm_key_detailed_diagnostics = ''
