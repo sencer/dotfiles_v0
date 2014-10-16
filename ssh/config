@@ -43,7 +43,6 @@ Host kali
   ForwardX11 yes
   ForwardX11Trusted yes
   Hostname s.princeton.edu
-  User root
   ForwardAgent yes
   RemoteForward 2319 localhost:22
 Host github.com
