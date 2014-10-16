@@ -11,7 +11,6 @@ dot=(
   jshintrc
   latexmkrc
   mailcap
-  Makefile
   mutt
   procmailrc
   pymolrc
