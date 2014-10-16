@@ -227,6 +227,7 @@ au BufRead,BufNewFile input*txt set commentstring=\!\ %s
 au FileType awk set commentstring=#\ %s
 au InsertEnter * set norelativenumber
 au InsertLeave * set relativenumber
+au VimLeave * call system("xsel -ib", getreg('+'))
 autocmd BufReadPost *
       \ if line("'\"") > 1 && line("'\"") <= line("$") |
       \   exe "normal! g`\"" |
