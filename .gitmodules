@@ -25,3 +25,6 @@
 [submodule "tmux/plugins/tpm"]
 	path = tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm
+[submodule "gplt/palettes"]
+	path = gplt/palettes
+	url = https://github.com/Gnuplotting/gnuplot-palettes
