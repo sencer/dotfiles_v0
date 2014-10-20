@@ -114,7 +114,7 @@ fi
   cat $HOME/$PBS_SERVER/.jobtemplate | sed 's/%queue%/%short%/'
   cat <<-EOF
 		path=%path%
-		\$path/pp.x < $filename.in > $filename.out
+		%scheduler% \$path/pp.x < $filename.in > $filename.out
 	EOF
 } | templr $HOME/$PBS_SERVER/.jobconfig -if -nodes 1 -ppn 1 -walltime 00:10:00 > $filename.job
 

@@ -31,7 +31,7 @@ EOF
 
 {
   cat $HOME/$PBS_SERVER/.jobtemplate | sed 's/%queue%/%short%/'
-  echo "\${path}/projwfc.x < $filename.in > $filename.out"
-} | templr $HOME/$PBS_SERVER/.jobconfig -if > $filename.job
+  echo "%scheduler% -n 1 %path%/projwfc.x < $filename.in > $filename.out"
+} | templr $HOME/$PBS_SERVER/.jobconfig -if -nodes 1 -ppn 1 -walltime 00:10:00 > $filename.job
 
 qsub $filename.job
