@@ -1,0 +1,11 @@
+KERNEL=="iio:device[0-9]*", SUBSYSTEM=="iio", SUBSYSTEMS=="hid", DRIVERS=="hid-sensor-hub", GROUP="sselcuk", MODE="0660", \
+                             RUN+="/bin/chgrp sselcuk /sys/bus/iio/devices/%k/scan_elements/in_accel_x_en", \
+                             RUN+="/bin/chgrp sselcuk /sys/bus/iio/devices/%k/scan_elements/in_accel_y_en", \
+                             RUN+="/bin/chgrp sselcuk /sys/bus/iio/devices/%k/scan_elements/in_accel_z_en", \
+                             RUN+="/bin/chmod g+rw /sys/bus/iio/devices/%k/scan_elements/in_accel_x_en", \
+                             RUN+="/bin/chmod g+rw /sys/bus/iio/devices/%k/scan_elements/in_accel_y_en", \
+                             RUN+="/bin/chmod g+rw /sys/bus/iio/devices/%k/scan_elements/in_accel_z_en", \
+                             RUN+="/bin/chgrp -R sselcuk /sys/bus/iio/devices/%k/buffer/", \
+                             RUN+="/bin/chmod -R g+rw /sys/bus/iio/devices/%k/buffer/", \
+                             RUN+="/bin/chgrp sselcuk /sys/bus/iio/devices/%k/trigger/current_trigger", \
+                             RUN+="/bin/chmod g+rw /sys/bus/iio/devices/%k/trigger/current_trigger"
