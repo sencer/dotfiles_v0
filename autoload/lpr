@@ -1,0 +1,13 @@
+lpr(){ cat $1 | ssh ofis "lpr -o sides=two-sided-long-edge" }
+local o
+if [[ $1 == '-1' ]]; then
+  o=""
+  shift
+elif  [[ $1 == '-2' ]]; then
+ o="-o sides=two-sided-long-edge"
+ shift
+fi
+
+cat $@ | ssh ofis "lpr $o"
+
+# vim: ft=zsh
