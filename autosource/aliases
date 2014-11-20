@@ -79,6 +79,7 @@ alias arm='\rm -rf input_tmp.in *.job.* cp_* cp.* output.txt CRASH *.pdb *.cube 
 alias irb="rlwrap -a -c -i irb"
 # alias gdb="rlwrap -a -c -i gdb"
 alias pry="rlwrap -a -c -i pry"
+alias R="R --no-save"
 # alias rm='trash-put'
 alias plot="gnuplot -p"
 # alias xi="xcrysden --pwi input.txt"

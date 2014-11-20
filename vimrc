@@ -7,7 +7,6 @@ call plug#begin('~/.vim/bundle')
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                              Load Bundles                               "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Plug 'gmarik/vundle'
 Plug 'sencer/mustang-vim'
 Plug 'mhinz/vim-signify'
 Plug 'chrisbra/color_highlight'
