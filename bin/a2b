@@ -1,0 +1,5 @@
+#!/bin/bash
+while (( $# )); do
+  echo "$1*1.889725989"|bc -lq
+  shift
+done

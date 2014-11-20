@@ -7,7 +7,6 @@ call plug#begin('~/.vim/bundle')
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                              Load Bundles                               "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Plug 'gmarik/vundle'
 Plug 'sencer/mustang-vim'
 Plug 'mhinz/vim-signify'
 Plug 'chrisbra/color_highlight'
@@ -66,6 +65,10 @@ Plug 'AndrewRadev/writable_search.vim'
 Plug 'mileszs/ack.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'slim-template/vim-slim', { 'for': 'slim' } "not
+Plug 'xolox/vim-notes'
+Plug 'xolox/vim-misc'
+let g:notes_directories = ['~/gdrive/notes']
+let g:notes_suffix = '.md'
 
 call plug#end()
 
