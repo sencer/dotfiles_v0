@@ -20,7 +20,7 @@ function precmd_updater {
   if [[ $[$CURTIME-$WEATHER_TIMESTAMP] -gt 3600 ]]; then
     local DATAFILE=$HOME/.dotfiles/tmp/weather
     local weather
-    local condition='☈☈☈☈☈☔☔❄❄❄❄☂☂☃☃☃☃☃☃☃〰〰〰⚑⚑☼☁☁☁☁☁☆☼☾☀☔♨☈☈☈☔☃☃☃☁☇❄☇⚠'
+    local condition='☈☈☈☈☈☔☔❄❄❄❄☂☂☃☃☃☃☃☃☃♒♒♒⚑⚑☼☁☁☁☁☁☆☼☾☀☔♨☈☈☈☔☃☃☃☁☇❄☇⚠⛆⛅⛄⛇⛈'
     local url="http://xml.weather.yahoo.com/forecastrss?p=USNJ0427&u=c" 
     weather=( $(curl --silent "$url" |\
               grep condition | command sed -r 's/[^0-9-]+/ /g') )
