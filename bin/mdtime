@@ -8,6 +8,8 @@ $0 ~ /MD Simulation time step/  || (STEP != LAST_STEP && $0 ~ /Rule event: dt/){
 
 $12 != "" && $13 == "" && $1 + 1 != 1 {
   STEP = $1
+  if(LAST_STEP == "")
+    LAST_STEP = STEP
 }
 
 END {
