@@ -11,6 +11,7 @@ fi
 export PATH=$HOME/bin:/opt/ruby/bin:$PATH
 export FPATH=$D/autoload:$D/external/completion/src:$FPATH
 export TEXMFHOME=$HOME/.texmf
+export R_LIBS="$HOME/.rlibs/"
 
 # variables for the shell itself only
 
