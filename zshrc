@@ -7,6 +7,7 @@ if [[ -n $TMUX  || $TERM == *screen* ]]; then
   export TERM=xterm-screen-256color
 else
   export TERM=xterm-256color
+  exec tmux
 fi
 export PATH=$HOME/bin:/opt/ruby/bin:$PATH
 export FPATH=$D/autoload:$D/external/completion/src:$FPATH
