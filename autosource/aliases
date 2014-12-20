@@ -45,6 +45,7 @@ alias open="xdg-open"
 
 alias xgrep="xargs grep -P"
 alias xsed="xargs sed -r"
+alias hgrep="history 0|grep"
 
 alias f="less +F"
 alias fo="ras -t less +F output.txt"
