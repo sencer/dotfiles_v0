@@ -17,3 +17,4 @@ bin/cube_beautifier
 bin/gcalcli
 mutt/passwords.gpg
 mutt/aliases
+vim/view
