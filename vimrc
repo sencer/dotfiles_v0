@@ -217,6 +217,7 @@ nnoremap <Down> <nop>
 nnoremap <Left> <nop>
 nnoremap <Right> <nop>
 nnoremap <BS> dh
+nnoremap cof :Vexplore!<CR>
 nnoremap <CR> i<CR><ESC>
 map <silent> <F10> :echom "hi<" . synIDattr(synID(line("."),col("."),1),"name")
       \. '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
