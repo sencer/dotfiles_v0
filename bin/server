@@ -8,7 +8,7 @@ function switch(){
   fi
   if [ -d $HOME/$arg ]; then
     fusermount -z -u $HOME/$arg 2>/dev/null || echo "$arg is not mounted"
-    rmdir $HOME/$arg || echo "$HOME/$arg cannot be deleted"
+    rmdir $HOME/$arg
   else
     mkdir -p $HOME/$arg
     sshfs $1:. $HOME/$arg -C -o reconnect,transform_symlinks,follow_symlinks,workaround=rename,idmap=user,ssh_command="ssh -S none"||server $arg
