@@ -11,7 +11,7 @@ function switch(){
     rmdir $HOME/$arg || echo "$HOME/$arg cannot be deleted"
   else
     mkdir -p $HOME/$arg
-    sshfs $1:. $HOME/$arg -o transform_symlinks,follow_symlinks,workaround=rename,idmap=user,ssh_command="ssh -S none"||server $arg
+    sshfs $1:. $HOME/$arg -C -o reconnect,transform_symlinks,follow_symlinks,workaround=rename,idmap=user,ssh_command="ssh -S none"||server $arg
     # ,ssh_command="ssh -S none",no_readahead,cache=no
   fi
 }
