@@ -65,6 +65,7 @@ Plug 'AndrewRadev/writable_search.vim'
 Plug 'mileszs/ack.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'slim-template/vim-slim', { 'for': 'slim' } "not
+Plug 'wellle/tmux-complete.vim'
 Plug 'xolox/vim-notes'
 Plug 'xolox/vim-misc'
 let g:notes_directories = ['~/gdrive/notes']
