@@ -87,6 +87,7 @@ runtime! macros/matchit.vim
 
 let g:netrw_home = $HOME . '/.dotfiles/tmp'
 let g:netrw_browsex_viewer = "xdg-open"
+let g:netrw_list_hide=netrw_gitignore#Hide().'.*\.swp$,.*\.pyc$,.*~'
 let g:netrw_list_hide='.*\.swp$,.*\.pyc$,.*~'
 let g:netrw_liststyle = 3
 let g:netrw_browse_split = 4 " 3 for new tab
