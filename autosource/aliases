@@ -49,7 +49,7 @@ alias xgrep="xargs grep -P"
 alias xsed="xargs sed -r"
 alias hgrep="history 0|grep"
 
-alias f="less +F"
+alias f="ras -t less +F"
 alias fo="ras -t less +F output.txt"
 
 alias in="ras find -name input.txt -and -not -path '*/zpe/*'"
