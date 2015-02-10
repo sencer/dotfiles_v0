@@ -39,6 +39,7 @@ proc puts_red {string} {
 }
 
 # putting these things in a proc gets rid of unnecessary output!
+# TODO make fname an array
 proc initial_settings {molid} {
   global fname
   if { [lsearch [molinfo list] $molid] > -1 } {
