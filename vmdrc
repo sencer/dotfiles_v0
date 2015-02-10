@@ -42,7 +42,7 @@ proc puts_red {string} {
 proc initial_settings {molid} {
   global fname
   if { [lsearch [molinfo list] $molid] > -1 } {
-    set fname [molinfo top get filename]
+    set fname [molinfo $molid get filename]
     if {[file pathtype $fname] == "relative"} {
       set fname [pwd]/$fname
     }
