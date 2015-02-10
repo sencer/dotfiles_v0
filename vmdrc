@@ -73,7 +73,9 @@ after idle {
   package require pbctools
   set auto_path [concat $env(HOME)/.vmd $auto_path]
   if {$argc > 0} { eval $argv }
-  initial_settings 0
+  foreach molid [molinfo list] {
+    initial_settings $molid
+  }
   trace variable vmd_trajectory_read w initialize_settings_proxy
   trace variable vmd_quit w clean_tmp_files
   VisualSelect::Initialize
