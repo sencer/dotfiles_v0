@@ -1,0 +1,4 @@
+#!/bin/sh
+
+id=$(xinput list|sed -nr '/ELAN/s/.*=|\s*\[.*//gp')
+LIBGL_ALWAYS_SOFTWARE=1 google-chrome-stable --touch-devices=$id ${@:- }
