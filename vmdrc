@@ -74,6 +74,15 @@ after idle {
   package require pbctools
   set auto_path [concat $env(HOME)/.vmd $auto_path]
   if {$argc > 0} { eval $argv }
+
+  if {![info exists viewvmd]} {
+    set viewvmd [hier_search view.vmd]
+  }
+
+  if { [file exists $viewvmd] } {
+    catch { source $viewvmd }
+  }
+
   foreach molid [molinfo list] {
     initial_settings $molid
   }
