@@ -1,0 +1,5 @@
+#!/bin/bash
+
+
+coproc /usr/bin/synergy
+ssh -R 24800:localhost:24800 ofis "echo"

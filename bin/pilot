@@ -60,7 +60,7 @@ function pilot () {
     elif [[ $1 = . ]]; then
       echo -e "\b\r\033[KAppyling the rules"
       mv /tmp/pilot.mb . 2>/dev/null 1>/dev/null 
-      eval "$change_input"
+      #eval "$change_input"
       break
     fi
   }
