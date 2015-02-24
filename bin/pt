@@ -36,14 +36,14 @@ function p {
   }
 
   BEGIN {
-    au=0.529177
+    b2a = 0.529177249
     cell=-1
-    cell_a=-1
-    cell_b=-1
-    cell_c=-1
-    cell_alpha=-1
-    cell_beta=-1
-    cell_gamma=-1
+    a=-1
+    b=-1
+    c=-1
+    alpha=-1
+    beta=-1
+    gamma=-1
     natom=0
   }
   {
@@ -51,7 +51,7 @@ function p {
     if ($0 ~ /bravais-lattice/ && cell == -1)
     {
       cell = $4
-      if (cell != 1 && cell != 5 && cell != 8 && cell != 14)
+      if (cell != 1 && cell != 5 && cell != 8 && cell != 12 && cell != 14)
       {
         printf "Is only available for ibrav=1,5,8,14\n"
         exit
@@ -60,69 +60,47 @@ function p {
     }
 
     #get the cell lengths
-    if ($0 ~ /celldm\(1\)/ && cell_a == -1)
+    if ($0 ~ /celldm\(1\)/ && a == -1)
     {
-      if (cell == 1)
+
+      if (cell == 1 || cell == 5)
       {
-        cell_a = $2 * au
-        cell_b = cell_a
-        cell_c = cell_a
+        a = $2 * b2a
+        b = a
+        c = a
       }
-      if (cell == 5)
+      else
       {
-        cell_a = $2 * au
-        cell_b = cell_a
-        cell_c = cell_a
+        a = $2 * b2a
+        b = $4 * a
+        c = $6 * a
       }
 
-      if (cell == 8)
-      {
-        cell_a = $2 * au
-        cell_b = $4 * cell_a
-        cell_c = $6 * cell_a
-      }
-
-      if (cell == 14)
-      {
-        cell_a = $2 * au
-        cell_b = $4 * cell_a
-        cell_c = $6 * cell_a
-      }
-
-      printf "REMARK Cell lengths %f %f %f\n", cell_a, cell_b, cell_c
+      printf "REMARK Cell lengths %f %f %f\n", a, b, c
     }
 
     #get the cell angles
-    if ($0 ~ /celldm\(4\)/ && cell_alpha == -1)
+    if ($0 ~ /celldm\(4\)/ && alpha == -1)
     {
-      if (cell == 1)
-      {
-        cell_alpha = 90.0
-        cell_beta  = 90.0
-        cell_gamma = 90.0
-      }
+      alpha = 90.0
+      beta  = 90.0
+      gamma = 90.0
       if (cell == 5)
       {
-        cell_alpha = rad2deg(acos($2))
-        cell_beta = cell_alpha
-        cell_gamma = cell_beta
+        alpha = rad2deg(acos($2))
+        beta = alpha
+        gamma = beta
       }
-
-      if (cell == 8)
+      else if (cell == 12)
+        gamma = rad2deg(acos($2))
+      else if (cell == 14)
       {
-        cell_alpha = 90.0
-        cell_beta = 90.0
-        cell_gamma = 90.0
+        alpha = rad2deg(acos($2))
+        beta = rad2deg(acos($4))
+        gamma = rad2deg(acos($6))
       }
 
-      if (cell == 14)
-      {
-        cell_alpha = rad2deg(acos($2))
-        cell_beta = rad2deg(acos($4))
-        cell_gamma = rad2deg(acos($6))
-      }
-
-      printf "REMARK Cell angles %f %f %f\n", cell_alpha, cell_beta, cell_gamma
+      printf "REMARK Cell angles %f %f %f\n", alpha, beta, gamma
     }
 
     #get the cell (used for crystal coordinates)
@@ -131,21 +109,21 @@ function p {
       getline a1
       split(a1,tmp)
 
-      ax = tmp[4] * cell_a
-      ay = tmp[5] * cell_a
-      az = tmp[6] * cell_a
+      ax = tmp[4] * a
+      ay = tmp[5] * a
+      az = tmp[6] * a
 
       getline a1
       split(a1,tmp)
-      bx = tmp[4] * cell_a
-      by = tmp[5] * cell_a
-      bz = tmp[6] * cell_a
+      bx = tmp[4] * a
+      by = tmp[5] * a
+      bz = tmp[6] * a
 
       getline a1
       split(a1,tmp)
-      cx = tmp[4] * cell_a
-      cy = tmp[5] * cell_a
-      cz = tmp[6] * cell_a
+      cx = tmp[4] * a
+      cy = tmp[5] * a
+      cz = tmp[6] * a
 
       printf "REMARK Cell %8.4f %8.4f %8.4f\n", ax, ay, az
       printf "REMARK      %8.4f %8.4f %8.4f\n", bx, by, bz
@@ -165,7 +143,7 @@ function p {
     {
       if ($2 ~ /(bohr)/)
       {
-        printf "CRYST1%9.3f%9.3f%9.3f%7.2f%7.2f%7.2f P 1           1\n", cell_a, cell_b, cell_c, cell_alpha, cell_beta, cell_gamma
+        printf "CRYST1%9.3f%9.3f%9.3f%7.2f%7.2f%7.2f P 1           1\n", a, b, c, alpha, beta, gamma
 
         for (i=1; i<=natom; i++)
         {
@@ -173,14 +151,14 @@ function p {
           split(a1,tmp)
           #shorten element names to two chars
           tmp[1]=substr(tmp[1], 1, 2)
-          printf "ATOM  %5d %3s      X   1    %8.3f%8.3f%8.3f  1.00  0.00          %2s\n", i, tmp[1], tmp[2]*au, tmp[3]*au, tmp[4]*au, tmp[1]
+          printf "ATOM  %5d %3s      X   1    %8.3f%8.3f%8.3f  1.00  0.00          %2s\n", i, tmp[1], tmp[2]*b2a, tmp[3]*b2a, tmp[4]*b2a, tmp[1]
         }
 
         printf "END\n"
       }
       else if ($2 ~ /(crystal)/)
       {
-        printf "CRYST1%9.3f%9.3f%9.3f%7.2f%7.2f%7.2f P 1           1\n", cell_a, cell_b, cell_c, cell_alpha, cell_beta, cell_gamma
+        printf "CRYST1%9.3f%9.3f%9.3f%7.2f%7.2f%7.2f P 1           1\n", a, b, c, alpha, beta, gamma
         # system("echo -n \b\r$(("NR"/$lns)) >&4")
         for (i=1; i<=natom; i++)
         {
@@ -200,7 +178,7 @@ function p {
       }
       else if ($2 ~ /(angstrom)/)
       {
-        printf "CRYST1%9.3f%9.3f%9.3f%7.2f%7.2f%7.2f P 1           1\n", cell_a, cell_b, cell_c, cell_alpha, cell_beta, cell_gamma
+        printf "CRYST1%9.3f%9.3f%9.3f%7.2f%7.2f%7.2f P 1           1\n", a, b, c, alpha, beta, gamma
 
         for (i=1; i<=natom; i++)
         {
