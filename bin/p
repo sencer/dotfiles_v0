@@ -115,7 +115,9 @@ NR > n {
       gamma = beta
     }
     else if (cell == 12)
+    {
       gamma = rad2deg(acos($2))
+    }
     else if (cell == 14)
     {
       alpha = rad2deg(acos($2))
