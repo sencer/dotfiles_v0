@@ -1,5 +1,6 @@
 #!/bin/bash
+
 while (( $# )); do
-  echo "$1*1.889725989"|bc -lq
+  echo "$1*1.889725989"|perl -pe 's/([-\d.]+)e\+?(\d+)/($1*10^$2)/gi'|bc -lq
   shift
 done
