@@ -7,8 +7,9 @@ alias -g mails="~/.dotfiles/tmp/mails.log"
 alias state='ssh ofis "tail -10 ~/.dotfiles/tmp/mails.log"'
 alias state-clean='ssh ofis "cat /dev/null > ~/.dotfiles/tmp/mails.log"'
 alias shutdown="shutdown -h 0"
-alias ekran="ssh ofis 'vbetool dpms off'"
-alias ofis="TMUX= gnome-terminal -x ssh ofis"
+alias ofis='gnome-terminal -x ssh -t ofis tmux'
+alias ekran='ssh ofis vbetool dpms off'
+
 
 alias d='dirs -v'
 for index ({1..20}) alias "$index"="cd +${index}"; unset index
