@@ -1,0 +1,5 @@
+#!/bin/bash
+
+while read line; do
+  printf "$1" $line
+done <&0
