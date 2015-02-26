@@ -20,11 +20,11 @@ BEGIN {
   print ""
   printf "%-4d %12.6f %12.6f %12.6f\n", nat, 0.0, 0.0, 0.0
   getline
-  printf "%-4d %12.6f %12.6f %12.6f\n", nx, $1/nx*a2b, 0.0, 0.0
+  printf "%-4d %12.6f %12.6f %12.6f\n", nx, $1/nx*a2b, $2/nx*a2b, $3/nx*a2b
   getline
-  printf "%-4d %12.6f %12.6f %12.6f\n", ny, 0.0, $2/ny*a2b, 0.0
+  printf "%-4d %12.6f %12.6f %12.6f\n", ny, $1/ny*a2b, $2/ny*a2b, $3/ny*a2b
   getline
-  printf "%-4d %12.6f %12.6f %12.6f\n", nz, 0.0, 0.0, $3/nz*a2b
+  printf "%-4d %12.6f %12.6f %12.6f\n", nz, $1/nz*a2b, $2/nz*a2b, $3/nz*a2b
   for(i in atom)
     printf "%-3d %8.4f %14.10f %14.10f %14.10f\n", atom[i][1], atom[i][1], atom[i][2]*a2b, atom[i][3]*a2b, atom[i][4]*a2b
   arrlen = 0
