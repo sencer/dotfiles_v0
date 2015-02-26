@@ -13,18 +13,17 @@ BEGIN {
   getline
   getline
   getline
-  getline
-  nx = $1; ny = $2; nz = $3
+  getline tmp
+  split(tmp, n)
   getline
   print "generated from xsf file"
   print ""
   printf "%-4d %12.6f %12.6f %12.6f\n", nat, 0.0, 0.0, 0.0
-  getline
-  printf "%-4d %12.6f %12.6f %12.6f\n", nx, $1/nx*a2b, $2/nx*a2b, $3/nx*a2b
-  getline
-  printf "%-4d %12.6f %12.6f %12.6f\n", ny, $1/ny*a2b, $2/ny*a2b, $3/ny*a2b
-  getline
-  printf "%-4d %12.6f %12.6f %12.6f\n", nz, $1/nz*a2b, $2/nz*a2b, $3/nz*a2b
+  for(i=1;i<4;i++){
+    getline
+    tmp = a2b / n[i]
+    printf "%-4d %12.6f %12.6f %12.6f\n", n[i], $1*tmp, $2*tmp, $3*tmp
+  }
   for(i in atom)
     printf "%-3d %8.4f %14.10f %14.10f %14.10f\n", atom[i][1], atom[i][1], atom[i][2]*a2b, atom[i][3]*a2b, atom[i][4]*a2b
   arrlen = 0
@@ -34,14 +33,14 @@ BEGIN {
       arrlen++
     }
   }
-  n = 1
-  for( i = 0; i < nx; i++ ) {
-    for( j = 0; j < ny; j++ ) {
-      for( k = 0; k < nz; k++ ) {
-        printf "%14.6E ", data[ k * nx * ny + j * nx + i ]
-        if(n % 6 == 0)
+  num = 1
+  for( i = 0; i < n[1]; i++ ) {
+    for( j = 0; j < n[2]; j++ ) {
+      for( k = 0; k < n[3]; k++ ) {
+        printf "%14.6E ", data[ k * n[1] * n[2] + j * n[1] + i ]
+        if(num % 6 == 0)
           printf "\n"
-        n++
+        num++
       }
     }
   }
