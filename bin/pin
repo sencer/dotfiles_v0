@@ -45,11 +45,23 @@ if [[ -z $PBS_SERVER ]]; then
           ibrav = $4
         } else if($1 == "celldm(1)="){
           a = $2 * b2a
-          b = $4 * a
-          c = $6 * a
-          if(ibrav == 1){
+          switch(ibrav){
+          case 1:
             b = a
             c = a
+            break
+
+          case 6:
+            b = a
+            break
+
+          case 8:
+            b = $4 * a
+            c = $6 * a
+            break
+
+          default:
+            print "Only ibrav 1, 6, and 8 are implemented"
           }
         } else if ($0 ~ /number of atoms/){
           nat = $5
