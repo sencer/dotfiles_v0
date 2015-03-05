@@ -7,6 +7,9 @@ if [[ -z $PBS_SERVER ]]; then
   elif [[ -f PW.out ]]; then
     filout="PW.out"
     filin="../input.txt"
+  elif [[ $# == 2 ]]; then
+    filin=$1
+    filout=$2
   else
     echo "No output file was found. Exiting."
     exit -1
