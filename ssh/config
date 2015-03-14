@@ -7,6 +7,10 @@ Host ofis
   IdentityFile ~/.ssh/id_ofis
 Host arizona
   Hostname arizona.princeton.edu
+Host butler
+  User butlerap
+  Hostname arizona.princeton.edu
+  IdentityFile ~/.ssh/id_butler
 Host della
   ForwardX11 yes
   ForwardX11Trusted yes
