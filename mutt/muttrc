@@ -7,7 +7,7 @@ source "gpg --no-tty -d ~/.mutt/passwords.gpg 2>/dev/null |" # password from an 
 # Princeton IMAP Settings
 #
 set folder           = imaps://exchangeimap.princeton.edu:993/
-mailboxes            = +INBOX +Archives/2014 +Archives/Research +Drafts
+mailboxes            = +INBOX +Archives/2015 +Archives/2014 +Archives/Research +Drafts
 set spoolfile        = +INBOX
 set postponed        = +Drafts
 set record           = +Sent\ Items
