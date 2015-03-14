@@ -1,15 +1,17 @@
 set macros
 set tmargin 0; set bmargin 0; set lmargin 0; set rmargin 0
 
-WXT = "set terminal wxt enhanced dashed persist lw 2 font 'Arial, 10'"
+WXT = "set terminal wxt enhanced dashed lw 2 persist font 'Arial, 10'"
 QT = "set terminal qt enhanced dashed persist font 'Arial, 10'"
-PDF = "set terminal pdfcairo enhanced dashed transparent lw 3 font 'Arial, 18';\
+PDF = "set terminal pdfcairo enhanced dashed transparent lw 2 font 'Arial, 10';\
        set output"
 A4L = "set terminal pdfcairo enhanced dashed transparent lw 3 font 'Arial, 14' size 8.5, 11;\
        set output"
 A4P = "set terminal pdfcairo enhanced dashed transparent lw 3 font 'Arial, 14' size 11, 8.5;\
        set output"
-PNG = "set terminal pngcairo enhanced dashed transparent lw 2 font 'Arial, 18';\
+PNG = "set terminal pngcairo enhanced dashed transparent size 1280,960 lw 1.5 font 'Arial, 18';\
+       set output"
+PNGT= "set terminal pngcairo enhanced dashed size 1280,960 lw 1.5 font 'Arial, 18';\
        set output"
 
 MP = "set tics mirror in; \
@@ -118,82 +120,29 @@ LTEX = "@TEX left"
 RTEX = "@TEX right"
 
 # set style increment user
-set linetype 51 lc rgb '#800000' lt 0 pt 1
-set linetype 52 lc rgb '#006400' lt 0 pt 1
-set linetype 53 lc rgb '#000080' lt 0 pt 1
-set linetype 55 lc rgb '#9400d3' lt 0 pt 1
-set linetype 54 lc rgb '#ff4500' lt 0 pt 1
-set linetype 56 lc rgb '#ffa500' lt 0 pt 1
-set linetype 57 lc rgb '#ff0000' lt 0 pt 1
-set linetype 58 lc rgb '#00ff00' lt 0 pt 1
-set linetype 59 lc rgb  ctex     lt 0 pt 1
-set linetype 60 lc rgb  cgri     lt 0 pt 1
 
-set linetype 41 lc rgb '#800000' lt 5 pt 4
-set linetype 42 lc rgb '#006400' lt 5 pt 4
-set linetype 43 lc rgb '#000080' lt 5 pt 4
-set linetype 45 lc rgb '#9400d3' lt 5 pt 4
-set linetype 44 lc rgb '#ff4500' lt 5 pt 4
-set linetype 46 lc rgb '#ffa500' lt 5 pt 4
-set linetype 47 lc rgb '#ff0000' lt 5 pt 4
-set linetype 48 lc rgb '#00ff00' lt 5 pt 4
-set linetype 49 lc rgb  ctex     lt 5 pt 4
-set linetype 50 lc rgb  cgri     lt 5 pt 4
-
-set linetype 31 lc rgb '#800000' lt 4 pt 4
-set linetype 32 lc rgb '#006400' lt 4 pt 4
-set linetype 33 lc rgb '#000080' lt 4 pt 4
-set linetype 35 lc rgb '#9400d3' lt 4 pt 4
-set linetype 34 lc rgb '#ff4500' lt 4 pt 4
-set linetype 36 lc rgb '#ffa500' lt 4 pt 4
-set linetype 37 lc rgb '#ff0000' lt 4 pt 4
-set linetype 38 lc rgb '#00ff00' lt 4 pt 4
-set linetype 39 lc rgb  ctex     lt 4 pt 4
-set linetype 40 lc rgb  cgri     lt 4 pt 4
-
-set linetype 21 lc rgb '#800000' lt 3 pt 4
-set linetype 22 lc rgb '#006400' lt 3 pt 4
-set linetype 23 lc rgb '#000080' lt 3 pt 4
-set linetype 25 lc rgb '#9400d3' lt 3 pt 4
-set linetype 24 lc rgb '#ff4500' lt 3 pt 4
-set linetype 26 lc rgb '#ffa500' lt 3 pt 4
-set linetype 27 lc rgb '#ff0000' lt 3 pt 4
-set linetype 28 lc rgb '#00ff00' lt 3 pt 4
-set linetype 29 lc rgb  ctex     lt 3 pt 4
-set linetype 30 lc rgb  cgri     lt 3 pt 4
-
-set linetype 11 lc rgb '#800000' lt 2 pt 12
-set linetype 12 lc rgb '#006400' lt 2 pt 12
-set linetype 13 lc rgb '#000080' lt 2 pt 12
-set linetype 15 lc rgb '#9400d3' lt 2 pt 12
-set linetype 14 lc rgb '#ff4500' lt 2 pt 12
-set linetype 16 lc rgb '#ffa500' lt 2 pt 12
-set linetype 17 lc rgb '#ff0000' lt 2 pt 12
-set linetype 18 lc rgb '#00ff00' lt 2 pt 12
-set linetype 19 lc rgb  ctex     lt 2 pt 12
-set linetype 20 lc rgb  cgri     lt 2 pt 12
-
-set linetype 1 lc rgb '#800000' lt 1 pt 6
-set linetype 2 lc rgb '#006400' lt 1 pt 6
-set linetype 3 lc rgb '#000080' lt 1 pt 6
-set linetype 5 lc rgb '#9400d3' lt 1 pt 6
-set linetype 4 lc rgb '#ff4500' lt 1 pt 6
-set linetype 6 lc rgb '#ffa500' lt 1 pt 6
-set linetype 7 lc rgb '#ff0000' lt 1 pt 6
-set linetype 8 lc rgb '#00ff00' lt 1 pt 6
-set linetype 9 lc rgb  ctex     lt 1 pt 6
-set linetype 10 lc rgb cgri     lt 1 pt 6
+set linetype 1 lc rgb '#800000' pt 6
+set linetype 2 lc rgb '#006400' pt 6
+set linetype 3 lc rgb '#000080' pt 6
+set linetype 5 lc rgb '#9400d3' pt 6
+set linetype 4 lc rgb '#ff4500' pt 6
+set linetype 6 lc rgb '#ffa500' pt 6
+set linetype 7 lc rgb '#ff0000' pt 6
+set linetype 8 lc rgb '#00ff00' pt 6
+set linetype 9 lc rgb  ctex     pt 6
+set linetype 10 lc rgb cgri     pt 6
+set linetype cycle 11
 
 set border 3 back lc rgb cgri lw 0.5
 set grid back lc rgb cgri lw 0.5 lt 0
-set tics nomirror scale 0.5 tc rgb cgri out font ", 16"
+set tics nomirror scale 0.5 tc rgb cgri out
 
 unset x2tics
 unset y2tics
 unset key
 
-set xlabel "X Label" @CTEX
-set ylabel "Y Label" @CTEX
+set xlabel "X Label" @CTEX font ", 12"
+set ylabel "Y Label" @CTEX font ", 12"
 set label @CTEX
 
 set style arrow 1 nohead ls 9 lw 0.5 front
