@@ -175,3 +175,29 @@ color_sel.destroy()
 
 EOF
 endfunction
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                fold method                                 "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+function! FoldText()
+  let reg='{{'.'{\d\='
+  for c in split(&commentstring, '%s')
+    let reg = reg.'\|'.escape(c, '*')
+  endfor
+  let foldchar = matchstr(&fillchars, 'fold:\zs.')
+  let wlength = min([winwidth(0), 80])
+  let indent = max([indent(v:foldstart), v:foldlevel-1])
+  let nlines = (v:foldend-v:foldstart+1).' lines '
+  let ftext = substitute(getline(v:foldstart), reg,'','g')
+  return repeat(' ', indent) . substitute(ftext, '^\s*\(.\{-}\)\s*$', '\1', '')
+        \ . repeat(foldchar, wlength - strlen(nlines.ftext) - 2 - indent)
+        \ . nlines  . ' ≡'
+endfunction
+
+set foldtext=FoldText()
+if &foldmethod == 'manual'
+  set foldmethod=marker
+endif
+let &fcs = substitute(&fcs, 'fold:.', 'fold: ', '')
+
