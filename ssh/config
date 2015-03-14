@@ -26,6 +26,14 @@ Host tigress
   ForwardX11Trusted yes
   Hostname tigressdata.princeton.edu
   ProxyCommand ssh -CTqe none arizona -W %h:%p
+Host edison2
+  ForwardX11 yes
+  ForwardX11Trusted yes
+  Hostname edison.nersc.gov
+Host hopper2
+  ForwardX11 yes
+  ForwardX11Trusted yes
+  Hostname hopper.nersc.gov
 Host edison
   ForwardX11 yes
   ForwardX11Trusted yes
