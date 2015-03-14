@@ -30,10 +30,12 @@ Host edison
   ForwardX11 yes
   ForwardX11Trusted yes
   Hostname edison.nersc.gov
+  ProxyCommand ssh -CTqe none ofis -W %h:%p
 Host hopper
   ForwardX11 yes
   ForwardX11Trusted yes
   Hostname hopper.nersc.gov
+  ProxyCommand ssh -CTqe none ofis -W %h:%p
 Host edique*
   ForwardX11 yes
   ForwardX11Trusted yes
