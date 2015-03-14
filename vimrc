@@ -8,6 +8,7 @@ call plug#begin('~/.vim/bundle')
 "                              Load Bundles                               "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 Plug 'sencer/mustang-vim'
+Plug 'itchyny/thumbnail.vim'
 Plug 'mhinz/vim-signify'
 Plug 'chrisbra/color_highlight'
 Plug 'salsifis/vim-transpose'
