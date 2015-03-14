@@ -18,7 +18,8 @@ Plug 'kshenoy/vim-signature'
 Plug 'bling/vim-airline'
 Plug 'SirVer/UltiSnips'
 Plug 'sencer/vim-snippets'
-Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer', 'for': ['c', 'cpp', 'cuda', 'python']}
+Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer', 'for': ['c', 'cpp', 'cuda']}
+Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 Plug 'Shougo/neocomplete.vim'
 Plug 'Shougo/vimproc.vim', { 'do': './make -f make_unix.mak' }
 Plug 'tpope/vim-dispatch'
