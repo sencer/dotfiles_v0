@@ -9,6 +9,7 @@ alias state-clean='ssh ofis "cat /dev/null > ~/.dotfiles/tmp/mails.log"'
 alias shutdown="shutdown -h 0"
 alias ofis='gnome-terminal -x ssh -t ofis tmux'
 alias ekran='ssh ofis vbetool dpms off'
+alias clearf="clear && printf '\e[3J'"
 
 
 alias d='dirs -v'
