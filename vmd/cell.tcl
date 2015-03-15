@@ -31,7 +31,10 @@ user add key u {
   pbc box -shiftcenter "$shift($t,0) $shift($t,1) $shift($t,2)"
 }
 
-user add key o { pbc box -toggle -shiftcenter "$shift($t,0) $shift($t,1) $shift($t,2)" }
+user add key o {
+  set t [molinfo top]
+  pbc box -toggle -shiftcenter "$shift($t,0) $shift($t,1) $shift($t,2)"
+}
 user add key w { pbc wrap -all }
 
 user add key Right { shift_cell 0  1 }
