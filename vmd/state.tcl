@@ -11,12 +11,6 @@ proc hier_search {f} {
 }
 
 proc state {mid} {
-  catch {color Name O pink}
-  catch {color Name Ti white}
-  catch {color Element Ti silver}
-  catch {color Element Ni silver}
-  catch {color Element Co silver}
-  catch {color Element Al gray}
   load_defaults $mid
 }
 

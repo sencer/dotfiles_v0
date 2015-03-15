@@ -75,6 +75,9 @@ after idle {
   package require topotools
 
   set auto_path [concat $env(HOME)/.vmd $auto_path]
+
+  load_color_definitions
+
   if {$argc > 0} { eval $argv }
 
   if {![info exists viewvmd]} {
