@@ -65,7 +65,7 @@ Plug 'sencer/gnuplot.vim', { 'for': 'gnuplot' }
 Plug 'vim-scripts/awk.vim', { 'for': ['awk', 'sh', 'bash', 'zsh'] }
 Plug 'linktohack/vim-space'
 Plug 'AndrewRadev/writable_search.vim'
-Plug 'mileszs/ack.vim'
+Plug 'rking/ag.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'slim-template/vim-slim', { 'for': 'slim' }
 Plug 'wellle/tmux-complete.vim'
@@ -177,9 +177,9 @@ let g:UltiSnipsJumpBackwardTrigger = "<S-TAB>"
 let g:UltiSnipsSnippetsDir = "~/.vim/bundle/vim-snippets/UltiSnips"
 let g:UltiSnipsEditSplit = "vertical"
 
-let g:ackprg = 'ag --nogroup --nocolor --column'
+let g:agprg = 'ag --nogroup --nocolor --column'
 let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-nnoremap <F8> :Ack "\b<C-R><C-W>\b"<CR>:cw<CR>
+nnoremap <F8> :Ag "\b<C-R><C-W>\b"<CR>:cw<CR>
 
 set modeline ve=block,onemore ",insert
 set nu rnu nowrap list ls=2 "showmode pastetoggle=<F2>
