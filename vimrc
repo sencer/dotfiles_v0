@@ -79,7 +79,11 @@ if has('gui_running')
   set guifont=Monaco\ 11
   set guioptions=aeip
 else
-  set term=$TERM
+  if has('nvim')
+    runtime! python_setup.vim
+  else
+    set term=$TERM
+  endif
 endif
 
 filetype plugin indent on
