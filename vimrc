@@ -88,6 +88,10 @@ runtime! macros/matchit.vim
 
 let g:notes_directories = ['~/gdrive/notes']
 let g:notes_suffix = '.md'
+
+let g:jedi#auto_vim_configuration = 0
+let g:jedi#popup_on_dot = 0
+
 let g:netrw_home = $HOME . '/.dotfiles/tmp'
 let g:netrw_browsex_viewer = "xdg-open"
 let g:netrw_list_hide=netrw_gitignore#Hide().'.*\.swp$,.*\.pyc$,.*~'
