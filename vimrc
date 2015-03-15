@@ -71,9 +71,6 @@ Plug 'slim-template/vim-slim', { 'for': 'slim' } "not
 Plug 'wellle/tmux-complete.vim'
 Plug 'xolox/vim-notes'
 Plug 'xolox/vim-misc'
-let g:notes_directories = ['~/gdrive/notes']
-let g:notes_suffix = '.md'
-
 call plug#end()
 
 colorscheme mustang
@@ -88,6 +85,9 @@ filetype plugin indent on
 syntax on
 runtime! macros/matchit.vim
 
+
+let g:notes_directories = ['~/gdrive/notes']
+let g:notes_suffix = '.md'
 let g:netrw_home = $HOME . '/.dotfiles/tmp'
 let g:netrw_browsex_viewer = "xdg-open"
 let g:netrw_list_hide=netrw_gitignore#Hide().'.*\.swp$,.*\.pyc$,.*~'
