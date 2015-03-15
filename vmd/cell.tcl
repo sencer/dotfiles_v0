@@ -1,14 +1,8 @@
 proc cell {molid} {
   global fname
-  global x
-  global y
-  global z
-  global pbcmol
-  set pbcmol $molid
-  if { ![info exists x] } {
-    set x($molid) 0
-    set y($molid) 0
-    set z($molid) 0
+  global shift
+  if { ![info exists shift($molid,0)] } {
+    array set shift "[array get shift] [list $molid,0 0 $molid,1 0 $molid,2 0]"
   }
   if { [molinfo $molid get a] == 0.0 && [info exists fname] } {
     set file [open $fname r]
@@ -22,42 +16,30 @@ proc cell {molid} {
   }
 }
 
+proc shift_cell {dir p} {
+  global shift
+  set t [molinfo top]
+  set shift($t,$dir) [expr $shift($t,$dir)+$p*0.1]
+  pbc wrap -all -shiftcenter "$shift($t,0) $shift($t,1) $shift($t,2)"
+  pbc box -shiftcenter "$shift($t,0) $shift($t,1) $shift($t,2)"
+}
+
 user add key u {
-  pbc unwrap -molid $pbcmol -all
-  set x($pbcmol) 0
-  set y($pbcmol) 0
-  set z($pbcmol) 0
-  pbc box -molid $pbcmol -shiftcenter "$x($pbcmol) $y($pbcmol) $z($pbcmol)"
+  set t [molinfo top]
+  pbc unwrap -all
+  array set shift [list $t,0 0 $t,1 0 $t,2 0]
+  pbc box -shiftcenter "$shift($t,0) $shift($t,1) $shift($t,2)"
 }
-user add key o {pbc box -molid $pbcmol -toggle -shiftcenter "$x($pbcmol) $y($pbcmol) $z($pbcmol)"}
-user add key w { pbc wrap -molid $pbcmol -all }
-user add key Right {
-  set x($pbcmol) [expr $x($pbcmol)+0.1]
-  pbc wrap -molid $pbcmol -all -shiftcenter "$x($pbcmol) $y($pbcmol) $z($pbcmol)"
-  pbc box -molid $pbcmol -shiftcenter "$x($pbcmol) $y($pbcmol) $z($pbcmol)"
+
+user add key o {
+  set t [molinfo top]
+  pbc box -toggle -shiftcenter "$shift($t,0) $shift($t,1) $shift($t,2)"
 }
-user add key Left {
-  set x($pbcmol) [expr $x($pbcmol)-0.1]
-  pbc wrap -molid $pbcmol -all -shiftcenter "$x($pbcmol) $y($pbcmol) $z($pbcmol)"
-  pbc box -molid $pbcmol -shiftcenter "$x($pbcmol) $y($pbcmol) $z($pbcmol)"
-}
-user add key Home {
-  set y($pbcmol) [expr $y($pbcmol)-0.1]
-  pbc wrap -molid $pbcmol -all -shiftcenter "$x($pbcmol) $y($pbcmol) $z($pbcmol)"
-  pbc box -molid $pbcmol -shiftcenter "$x($pbcmol) $y($pbcmol) $z($pbcmol)"
-}
-user add key End {
-  set y($pbcmol) [expr $y($pbcmol)+0.1]
-  pbc wrap -molid $pbcmol -all -shiftcenter "$x($pbcmol) $y($pbcmol) $z($pbcmol)"
-  pbc box -molid $pbcmol -shiftcenter "$x($pbcmol) $y($pbcmol) $z($pbcmol)"
-}
-user add key Up {
-  set z($pbcmol) [expr $z($pbcmol)+0.1]
-  pbc wrap -molid $pbcmol -all -shiftcenter "$x($pbcmol) $y($pbcmol) $z($pbcmol)"
-  pbc box -molid $pbcmol -shiftcenter "$x($pbcmol) $y($pbcmol) $z($pbcmol)"
-}
-user add key Down {
-  set z($pbcmol) [expr $z($pbcmol)-0.1]
-  pbc wrap -molid $pbcmol -all -shiftcenter "$x($pbcmol) $y($pbcmol) $z($pbcmol)"
-  pbc box -molid $pbcmol -shiftcenter "$x($pbcmol) $y($pbcmol) $z($pbcmol)"
-}
+user add key w { pbc wrap -all }
+
+user add key Right { shift_cell 0  1 }
+user add key Left  { shift_cell 0 -1 }
+user add key Home  { shift_cell 1 -1 }
+user add key End   { shift_cell 1  1 }
+user add key Up    { shift_cell 2  1 }
+user add key Down  { shift_cell 2 -1 }
