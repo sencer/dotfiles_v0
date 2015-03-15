@@ -71,6 +71,7 @@ Plug 'slim-template/vim-slim', { 'for': 'slim' } "not
 Plug 'wellle/tmux-complete.vim'
 Plug 'xolox/vim-notes'
 Plug 'xolox/vim-misc'
+Plug 'JuliaLang/julia-vim'
 Plug 'MatlabFilesEdition'
 call plug#end()
 
