@@ -75,6 +75,7 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'JuliaLang/julia-vim'
 Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'MatlabFilesEdition'
+Plug 'christoomey/vim-tmux-runner'
 call plug#end()
 
 colorscheme mustang
