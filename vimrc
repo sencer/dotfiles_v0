@@ -72,6 +72,7 @@ Plug 'wellle/tmux-complete.vim'
 Plug 'xolox/vim-notes'
 Plug 'xolox/vim-misc'
 Plug 'JuliaLang/julia-vim'
+Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'MatlabFilesEdition'
 call plug#end()
 
