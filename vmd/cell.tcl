@@ -2,7 +2,7 @@ proc cell {molid} {
   global fname
   global shift
   if { ![info exists shift($molid,0)] } {
-    array set shift [list $molid,0 0 $molid,1 0 $molid,2 0]
+    array set shift "[array get shift] [list $molid,0 0 $molid,1 0 $molid,2 0]"
   }
   if { [molinfo $molid get a] == 0.0 && [info exists fname] } {
     set file [open $fname r]
