@@ -96,12 +96,6 @@ runtime! macros/matchit.vim
 
 let g:tmuxcomplete#trigger = ''
 
-let g:notes_directories = ['~/gdrive/notes']
-let g:notes_suffix = '.md'
-
-let g:jedi#auto_vim_configuration = 0
-let g:jedi#popup_on_dot = 0
-
 let g:netrw_home = $HOME . '/.dotfiles/tmp'
 let g:netrw_browsex_viewer = "xdg-open"
 let g:netrw_list_hide=netrw_gitignore#Hide().'.*\.swp$,.*\.pyc$,.*~'
@@ -138,21 +132,7 @@ let g:ctrlp_switch_buffer = 'Et'
 let g:HowMuch_auto_engines = ['py']
 let g:HowMuch_scale = 9
 
-let g:tex_flavor = "latex"
 let g:LatexBox_Folding = 1
-let g:LatexBox_fold_automatic = 0
-let g:LatexBox_viewer = "$HOME/bin/evince"
-let g:LatexBox_latexmk_async = 1
-let g:LatexBox_latexmk_preview_continuously = 1
-let g:LatexBox_quickfix = 0
-let g:LatexBox_ignore_warnings = [
-      \'Underfull',
-      \'Overfull',
-      \'specifier changed to',
-      \'Class revtex4',
-      \'PDF inclusion: multiple',
-      \'Unused global option'
-      \]
 
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_auto_select = 0
