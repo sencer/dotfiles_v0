@@ -72,6 +72,8 @@ proc initialize_settings_proxy {args} {
 
 after idle {
   package require pbctools
+  package require topotools
+
   set auto_path [concat $env(HOME)/.vmd $auto_path]
   if {$argc > 0} { eval $argv }
 
