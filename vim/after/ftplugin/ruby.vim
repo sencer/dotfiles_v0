@@ -18,5 +18,5 @@ let g:tagbar_type_ruby = {
 
 compiler ruby
 let g:VtrInitialCommand = "irb"
-nnoremap <Leader>r :VtrSendLinesToRunner<CR>
-vnoremap <Leader>r :VtrSendLinesToRunner<CR>
+nnoremap <Leader>r :VtrSendLinesToRunner!<CR>
+vnoremap <Leader>r :VtrSendLinesToRunner!<CR>
