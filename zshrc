@@ -9,7 +9,7 @@ else
   export TERM=xterm-256color
   exec tmux
 fi
-export PATH=$HOME/bin:/opt/ruby/bin:$PATH
+export PATH=$HOME/bin:$PATH
 export FPATH=$D/autoload:$D/external/completion/src:$FPATH
 export TEXMFHOME=$HOME/.texmf
 export R_LIBS="$HOME/.rlibs/"
