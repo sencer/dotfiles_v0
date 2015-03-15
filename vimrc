@@ -236,17 +236,20 @@ map Q gq
 nnoremap <silent> <F3> :exec (&ft == 'vim' ? '' : &ft) . ' ' . getline('.')<CR>
 vnoremap <silent> <F3> :<C-U>exec (&ft == 'vim' ? '' : &ft) . ' ' . getreg('*')<CR>
 onoremap <silent>m //e<CR>
+augroup vimrc
+  autocmd!
+  au vimrc FileType c,cpp,cuda,python,notes :call neocomplete#init#disable()
+  au vimrc BufRead,BufNewFile input*txt set commentstring=\!\ %s
+  au vimrc FileType awk set commentstring=#\ %s
+  au vimrc InsertEnter * set norelativenumber
+  au vimrc InsertLeave * set relativenumber
+  au vimrc VimLeave * call system("xsel -ib", getreg('+'))
+  au vimrc BufReadPost *
+        \ if line("'\"") > 1 && line("'\"") <= line("$") |
+        \   exe "normal! g`\"" |
+        \ endif
+augroup END
 
-au BufRead,BufNewFile input*txt set commentstring=\!\ %s
-au FileType awk set commentstring=#\ %s
-au InsertEnter * set norelativenumber
-au InsertLeave * set relativenumber
-au VimLeave * call system("xsel -ib", getreg('+'))
-autocmd BufReadPost *
-au vimrc FileType c,cpp,cuda,python,notes :call neocomplete#init#disable()
-      \ if line("'\"") > 1 && line("'\"") <= line("$") |
-      \   exe "normal! g`\"" |
-      \ endif
 if !exists(":DiffOrig")
   command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
         \ | wincmd p | diffthis
