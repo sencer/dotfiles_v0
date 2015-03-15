@@ -150,7 +150,6 @@ let g:neocomplete#use_vimproc = 1
 let g:neocomplete#enable_auto_delimiter = 1
 let g:neocomplete#force_omni_input_patterns = {
       \    'tex' : '\v(\\\k+|\{[^}]*|\$[^$ ~]*)$',
-      \ 'python' : '\k\.\k\{1,}$',
       \   'html' : '\(<\|<\/\|<[^>]\+ \|<[^>]\+=\"\)\k\{1,}$',
       \    'css' : '\(^\s\|[;{]\)\s*\k\{1,}$',
       \     'js' : '\k\.\k\{1,}$',
@@ -158,7 +157,6 @@ let g:neocomplete#force_omni_input_patterns = {
       \   'ruby' : '\v([^. \t](\.|::)|(^|[^:]):)\k*$'
       \ }
 inoremap <expr> <CR>  <C-r>=pumvisible() ? neocomplete#close_popup() : "\<C-v><CR>"<CR>
-au FileType c,cpp,cuda,python :call neocomplete#init#disable()
 let g:ycm_key_list_select_completion = ["<C-n>", "<Down>"]
 let g:ycm_key_list_previous_completion = ["<C-p>", "<Up>"]
 let g:ycm_key_detailed_diagnostics = ''
@@ -242,6 +240,7 @@ au InsertEnter * set norelativenumber
 au InsertLeave * set relativenumber
 au VimLeave * call system("xsel -ib", getreg('+'))
 autocmd BufReadPost *
+au vimrc FileType c,cpp,cuda,python,notes :call neocomplete#init#disable()
       \ if line("'\"") > 1 && line("'\"") <= line("$") |
       \   exe "normal! g`\"" |
       \ endif
