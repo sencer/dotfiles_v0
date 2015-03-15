@@ -187,7 +187,7 @@ set lazyredraw noerrorbells visualbell ttyfast
 set autochdir scrolloff=3 siso=8 showcmd hidden formatoptions+=j nojoinspaces
 set clipboard^=unnamedplus
 set t_ut=  mouse=a " tmux fixes
-set mousemodel=popup_setpos shell=/bin/zsh ffs+=mac tpm=50 viminfo^=!,%
+set mousemodel=popup_setpos shell=/bin/zsh ffs+=mac tpm=50 viminfo^=!
 set undofile undodir=~/.undodir undolevels=1000 undoreload=1000
 let &colorcolumn="".join(range(81,999),",")
 
