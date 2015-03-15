@@ -54,20 +54,20 @@ Plug 'octol/vim-cpp-enhanced-highlight', { 'for': 'cpp' }
 Plug 'vim-jp/cpp-vim', { 'for': 'cpp' }
 Plug 'tpope/vim-git'
 Plug 'othree/html5.vim', { 'for': 'html' }
-Plug 'pangloss/vim-javascript', { 'for': 'javascript' }  "not
+Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'leshill/vim-json', { 'for': 'json' }
-Plug 'LaTeX-Box-Team/LaTeX-Box', { 'for': ['tex', 'latex'] } 
+Plug 'LaTeX-Box-Team/LaTeX-Box', { 'for': ['tex', 'latex'] }
 Plug 'vim-ruby/vim-ruby', { 'for': ['ruby', 'eruby'] }
 Plug 'andersoncustodio/vim-tmux'
 Plug 'ap/vim-css-color'
-Plug 'tpope/vim-markdown', { 'for': 'markdown' } "not
-Plug 'sencer/gnuplot.vim', { 'for': 'gnuplot' } "not
-Plug 'vim-scripts/awk.vim', { 'for': 'awk' } "not
+Plug 'tpope/vim-markdown', { 'for': 'markdown' }
+Plug 'sencer/gnuplot.vim', { 'for': 'gnuplot' }
+Plug 'vim-scripts/awk.vim', { 'for': ['awk', 'sh', 'bash', 'zsh'] }
 Plug 'linktohack/vim-space'
 Plug 'AndrewRadev/writable_search.vim'
 Plug 'mileszs/ack.vim'
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'slim-template/vim-slim', { 'for': 'slim' } "not
+Plug 'slim-template/vim-slim', { 'for': 'slim' }
 Plug 'wellle/tmux-complete.vim'
 Plug 'xolox/vim-notes'
 Plug 'xolox/vim-misc'
