@@ -4,13 +4,10 @@ alias -g aliases="~/.dotfiles/autosource/aliases"
 alias history-stat="history 0 | awk '{print \$2}' | sort | uniq -c | sort -n -r | head"
 alias show='cat ~/.dotfiles/tmp/dirs'
 alias -g mails="~/.dotfiles/tmp/mails.log"
-alias state='ssh ofis "tail -10 ~/.dotfiles/tmp/mails.log"'
-alias state-clean='ssh ofis "cat /dev/null > ~/.dotfiles/tmp/mails.log"'
+alias state='tail -10 mails'
+alias state-clean='cat /dev/null > mails'
 alias shutdown="shutdown -h 0"
-alias ofis='gnome-terminal -x ssh -t ofis tmux'
-alias ekran='ssh ofis vbetool dpms off'
 alias clearf="clear && printf '\e[3J'"
-
 
 alias d='dirs -v'
 for index ({1..20}) alias "$index"="cd +${index}"; unset index

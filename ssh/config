@@ -7,10 +7,6 @@ Host ofis
   IdentityFile ~/.ssh/id_ofis
 Host arizona
   Hostname arizona.princeton.edu
-Host butler
-  User butlerap
-  Hostname arizona.princeton.edu
-  IdentityFile ~/.ssh/id_butler
 Host della
   ForwardX11 yes
   ForwardX11Trusted yes
@@ -26,24 +22,14 @@ Host tigress
   ForwardX11Trusted yes
   Hostname tigressdata.princeton.edu
   ProxyCommand ssh -CTqe none arizona -W %h:%p
-Host edison2
-  ForwardX11 yes
-  ForwardX11Trusted yes
-  Hostname edison.nersc.gov
-Host hopper2
-  ForwardX11 yes
-  ForwardX11Trusted yes
-  Hostname hopper.nersc.gov
 Host edison
   ForwardX11 yes
   ForwardX11Trusted yes
   Hostname edison.nersc.gov
-  ProxyCommand ssh -CTqe none ofis -W %h:%p
 Host hopper
   ForwardX11 yes
   ForwardX11Trusted yes
   Hostname hopper.nersc.gov
-  ProxyCommand ssh -CTqe none ofis -W %h:%p
 Host edique*
   ForwardX11 yes
   ForwardX11Trusted yes
