@@ -83,6 +83,7 @@ proc save_view {} {
   puts $fildes "    load_defaults \$molid"
   puts $fildes "  }"
   puts $fildes "  catch {mol top [molinfo top]}"
+  puts $fildes "  global shift"
   puts $fildes "  array set shift {[array get shift]}"
   puts $fildes "  pbc box  -molid \$molid -shiftcenter \"\$shift(\$molid,0) \$shift(\$molid,1) \$shift(\$molid,2)\""
   puts $fildes "  pbc wrap  -molid \$molid -shiftcenter \"\$shift(\$molid,0) \$shift(\$molid,1) \$shift(\$molid,2)\""
