@@ -85,6 +85,7 @@ filetype plugin indent on
 syntax on
 runtime! macros/matchit.vim
 
+let g:tmuxcomplete#trigger = ''
 
 let g:notes_directories = ['~/gdrive/notes']
 let g:notes_suffix = '.md'
