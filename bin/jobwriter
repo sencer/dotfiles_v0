@@ -10,7 +10,6 @@ g=${3:-300}
 
 		kpools=%kpools%
 		images=%images%
-		gap=%gap%
 		exec=%exec%
 		exec_path="%path%"
 
@@ -18,9 +17,6 @@ g=${3:-300}
 
 		#determine the number of cpus
 		numprocs=%numprocs%
-
-		#calculate the max_seconds including the security gap
-		maxseconds=$(grep -P -o "\\d+:\\d+:\\d+" %jobname% | sed "s/:/*3600+/;s/:/*60-$gap+/"|bc)
 
 		#change in input file
 		sed -i "s/\\(max_seconds\\s*=\\s*\\)[0-9]*/\\1$maxseconds/" %in%
