@@ -9,6 +9,7 @@
 set auto_index(savexyz) [list source [file join $dir write.tcl]]
 set auto_index(qe_input) [list source [file join $dir qe.tcl]]
 set auto_index(qe_output) [list source [file join $dir qe.tcl]]
+set auto_index(addwater) [list source [file join $dir solvate.tcl]]
 set auto_index(vmd_draw_delete) [list source [file join $dir vmd_draw_lib.tcl]]
 set auto_index(vmd_draw_arrow) [list source [file join $dir vmd_draw_lib.tcl]]
 set auto_index(vmd_draw_vector) [list source [file join $dir vmd_draw_lib.tcl]]
