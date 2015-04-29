@@ -14,6 +14,7 @@ Plug 'chrisbra/color_highlight'
 Plug 'salsifis/vim-transpose'
 Plug 'sk1418/HowMuch'
 Plug 'junegunn/vim-easy-align'
+Plug 'tommcdo/vim-lion'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'kshenoy/vim-signature'
 Plug 'bling/vim-airline'
@@ -156,6 +157,9 @@ let g:UltiSnipsJumpForwardTrigger = "<TAB>"
 let g:UltiSnipsJumpBackwardTrigger = "<S-TAB>"
 let g:UltiSnipsSnippetsDir = "~/.vim/bundle/vim-snippets/UltiSnips"
 let g:UltiSnipsEditSplit = "vertical"
+
+let g:lion_map_right = 'ga'
+let g:lion_map_left  = 'gA'
 
 let g:agprg = 'ag --nogroup --nocolor --column'
 let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
