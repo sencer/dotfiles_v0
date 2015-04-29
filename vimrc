@@ -171,7 +171,7 @@ set incsearch hlsearch ignorecase smartcase gdefault infercase
 set showbreak=… listchars=trail:·,eol:¬,tab:»-,extends:❯,precedes:❮,nbsp:∴
 set wildmenu wildmode=full " set wildmode=longest:full,list #Tab won't work
 set wildignore=*.o,*~,*.swp
-set swb=useopen,usetab,newtab showtabline=1 history=1000
+set showtabline=1 history=1000 swb=useopen,usetab ",newtab 
 set lazyredraw noerrorbells visualbell ttyfast
 set autochdir scrolloff=3 siso=8 showcmd hidden formatoptions+=j nojoinspaces
 set clipboard^=unnamedplus
@@ -190,10 +190,10 @@ nnoremap <silent> coe :ColorToggle<CR>
 nnoremap <silent> <Leader>w :up!<CR>
 nnoremap <A-=> <C-W>>
 nnoremap <A--> <C-W><
-nnoremap <silent> <C-Left> :tabprevious<CR>
-nnoremap <silent> <C-Right> :tabnext<CR>
-nnoremap <silent> <A-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
-nnoremap <silent> <A-Right> :execute 'silent! tabmove ' . tabpagenr()<CR>
+" nnoremap <silent> <C-Left> :tabprevious<CR>
+" nnoremap <silent> <C-Right> :tabnext<CR>
+" nnoremap <silent> <A-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
+" nnoremap <silent> <A-Right> :execute 'silent! tabmove ' . tabpagenr()<CR>
 nmap Y y$
 vnoremap > >gv
 vnoremap < <gv
