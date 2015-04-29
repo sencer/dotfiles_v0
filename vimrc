@@ -204,6 +204,9 @@ imap <A-=> <C-c>hdiWa<C-R>=<C-R>"<CR> <C-c>i
 inoremap jk <ESC>
 xnoremap jk <ESC>
 cnoremap jk <C-C>
+inoremap ;; <ESC>g_a;
+inoremap ;: <ESC>g_a:
+inoremap ;{ <ESC>o{<CR>}<ESC>O
 inoremap <C-U> <C-G>u<C-U>
 nmap cx <Plug>(Exchange)
 nmap gl <Plug>(Exchange)iww.ebb
