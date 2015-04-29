@@ -201,6 +201,9 @@ vnoremap <C-c> "+y
 vmap <Leader><Enter> <Plug>(LiveEasyAlign)
 vmap <expr> <A-=> ":normal " . (col("'<")+1) . "li<A-=><CR>"
 imap <A-=> <C-c>hdiWa<C-R>=<C-R>"<CR> <C-c>i
+inoremap jk <ESC>
+xnoremap jk <ESC>
+cnoremap jk <C-C>
 inoremap <C-U> <C-G>u<C-U>
 nmap cx <Plug>(Exchange)
 nmap gl <Plug>(Exchange)iww.ebb
