@@ -230,6 +230,10 @@ augroup vimrc
         \ if line("'\"") > 1 && line("'\"") <= line("$") |
         \   exe "normal! g`\"" |
         \ endif
+  au Filetype *
+        \	if &omnifunc == "" |
+        \		setlocal omnifunc=syntaxcomplete#Complete |
+        \	endif
 augroup END
 
 if !exists(":DiffOrig")
