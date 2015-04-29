@@ -202,8 +202,11 @@ vmap <Leader><Enter> <Plug>(LiveEasyAlign)
 vmap <expr> <A-=> ":normal " . (col("'<")+1) . "li<A-=><CR>"
 imap <A-=> <C-c>hdiWa<C-R>=<C-R>"<CR> <C-c>i
 inoremap <C-U> <C-G>u<C-U>
-nnoremap <silent> gl ?\W<CR>l:s/\v(%#\w+)(\_W+)(\w+)/\3\2\1/<CR><C-o>/\w\+\_W\+<CR>:noh<CR>
-nnoremap <silent> gh ?\W\+<CR>Bl:s/\v(%#\w+)(\_W+)(\w+)/\3\2\1/<CR><C-o>:noh<CR>
+nmap cx <Plug>(Exchange)
+nmap gl <Plug>(Exchange)iww.ebb
+nmap gh <Plug>(Exchange)iwb.w
+nmap >. <Plug>(Exchange)iaf,l.eb
+nmap <, <Plug>(Exchange)iaF,h.
 nnoremap <BS> dh
 nnoremap cof :Vexplore!<CR>
 nnoremap <CR> i<CR><ESC>
