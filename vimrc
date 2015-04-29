@@ -98,6 +98,8 @@ runtime! macros/matchit.vim
 
 let g:tmuxcomplete#trigger = ''
 
+let g:notes_directories = ['~/gdrive/notes']
+
 let g:netrw_home = $HOME . '/.dotfiles/tmp'
 let g:netrw_browsex_viewer = "xdg-open"
 let g:netrw_list_hide=netrw_gitignore#Hide().'.*\.swp$,.*\.pyc$,.*~'
