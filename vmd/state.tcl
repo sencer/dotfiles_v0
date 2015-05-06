@@ -111,6 +111,10 @@ proc load_defaults {mid} {
     mol color Element
     mol selection all
     mol addrep $mid
+
+    set shift($mid,0) 0
+    set shift($mid,1) 0
+    set shift($mid,2) 0
 }
 
 
