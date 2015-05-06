@@ -189,15 +189,20 @@ proc ::VisualSelect::Yank {} {
   global vsel
   variable vselect
   variable repid
+  variable molid
   if {![info exists vsel]} {
     error "No selection found"
   }
-  set sel [atomselect [$vsel molid] "all"]
+  mol off $molid
+  set sel [atomselect $molid "all"]
   set newmol [::TopoTools::selections2mol "$sel $vsel"]
-  state $newmol
-  mol off [$vsel molid]
-  unset repid
-  namespace inscope :: {$vsel delete}
-  set vsel [atomselect $newmol "index $vselect"]
-  $vsel global
+  pbc set "[pbc get -molid [$vsel molid]]" -molid $newmol
+  $sel delete
+  set tmpselect [$vsel list]
+  Destroy
+  set molid $newmol
+  set vselect $tmpselect
+  after idle {
+    VisualSelect::Export
+  }
 }
