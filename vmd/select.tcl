@@ -112,7 +112,7 @@ proc ::VisualSelect::Destroy {} {
 proc ::VisualSelect::Push {} {
   variable stack
   variable vselect
-  lappend stack $vselect
+  if { $vselect ni $stack } { lappend stack $vselect }
 }
 
 proc ::VisualSelect::RotateStack {} {
