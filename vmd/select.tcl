@@ -4,6 +4,7 @@ namespace eval ::VisualSelect {
   variable active 0
   variable stack {""}
   variable repid
+  variable molid
   variable vselect {}
   variable rincr 15
   variable tincr 0.5
@@ -71,12 +72,15 @@ proc ::VisualSelect::Toggle {} {
 
 proc ::VisualSelect::Modify {args} {
   global vmd_pick_atom
+  global vmd_pick_mol
   variable vselect
+  variable molid
   # if picked atom is already in the vselect remove it, otherwise add.
   set check_exists [lsearch $vselect $vmd_pick_atom]
   if {$check_exists == -1} {
     lappend vselect $vmd_pick_atom
   } else {
+    set molid $vmd_pick_mol
     set vselect [lreplace $vselect $check_exists $check_exists]
   }
   Export
@@ -85,22 +89,24 @@ proc ::VisualSelect::Modify {args} {
 proc ::VisualSelect::Apply {} {
   global vsel
   variable repid
-  set mol [$vsel molid]
+  variable molid
   if {[info exists repid]} {
-    mol modselect $repid $mol [$vsel text]
+    mol modselect $repid $molid [$vsel text]
   } else {
     mol representation CPK 1.35 0.75
     mol color {ColorID 4}
     mol selection [$vsel text]
-    mol addrep $mol
-    set repid [expr [molinfo $mol get numreps]-1]
+    mol addrep $molid
+    set repid [expr [molinfo $molid get numreps]-1]
   }
 }
 
 proc ::VisualSelect::Destroy {} {
   variable repid
-  mol delrep $repid top
+  variable molid
+  mol delrep $repid $molid
   unset repid
+  unset molid
 }
 
 proc ::VisualSelect::Push {} {
@@ -126,10 +132,12 @@ proc ::VisualSelect::Trace {args} {
   global vsel
   variable vselect
   variable active
+  variable molid
   if {!$active} {
     Toggle
   }
   set vselect "[$vsel list]"
+  set molid [$vsel molid]
   Apply
 }
 
@@ -167,12 +175,12 @@ proc ::VisualSelect::TIncr {num} {
 
 proc ::VisualSelect::Export {} {
   global vsel
+  variable molid
   variable vselect
   if {[$vsel list] != [lsort vselect]} {
-    set mol [$vsel molid]
     namespace inscope :: {$vsel delete}
     set sel [expr [llength $vselect]?"index [join $vselect]":"none"]
-    set vsel [atomselect $mol $sel]
+    set vsel [atomselect $molid $sel]
     $vsel global
   }
 }
