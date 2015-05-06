@@ -62,7 +62,6 @@ proc ::VisualSelect::Toggle {} {
     if {[info exists vsel]} {
       Trace
     } else {
-      global vsel
       set vsel [atomselect top "none"]
       $vsel global
     }
