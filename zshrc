@@ -87,6 +87,7 @@ ZSH_HIGHLIGHT_STYLES[globbing]='fg=15,standout'
 ZSH_HIGHLIGHT_STYLES[history-expansion]='fg=81,standout'
 
 unset D i
+disable r
 source ~/.fzf.zsh
 export FZF_DEFAULT_OPTS='-x'
 cat ~/.dotfiles/tmp/work
