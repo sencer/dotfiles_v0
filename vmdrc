@@ -91,7 +91,7 @@ after idle {
   foreach molid [molinfo list] {
     initial_settings $molid
   }
-  trace variable vmd_trajectory_read w initialize_settings_proxy
+  trace variable vmd_initialize_structure w initialize_settings_proxy
   trace variable vmd_quit w clean_tmp_files
   VisualSelect::Initialize
 }
