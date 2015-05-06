@@ -12,8 +12,7 @@ namespace eval ::VisualSelect {
 proc ::VisualSelect::Initialize {args} {
   trace add variable ::vsel write VisualSelect::Trace
   user add key v { VisualSelect::Toggle }
-  user add key V { VisualSelect::Export }
-  user add key Control-v {VisualSelect::RotateStack}
+  user add key V {VisualSelect::RotateStack}
   user add key Control-m {puts [VisualSelect::TIncr [expr $VisualSelect::tincr- 0.5]]}
   user add key Control-i {puts [VisualSelect::TIncr [expr $VisualSelect::tincr+ 0.5]]}
   user add key Control-c {VisualSelect::Yank}
@@ -28,7 +27,7 @@ proc ::VisualSelect::Toggle {} {
     set active 0
     puts_red "Visual Selection mode disabled"
     trace remove variable ::vmd_pick_event write VisualSelect::Modify
-    user add key Alt-v {puts "You need to be in VisualSelect mode"}
+    user add key Control-v {puts "You need to be in VisualSelect mode"}
     user add key H {puts "You need to be in VisualSelect mode"}
     user add key J {puts "You need to be in VisualSelect mode"}
     user add key K {puts "You need to be in VisualSelect mode"}
@@ -46,7 +45,7 @@ proc ::VisualSelect::Toggle {} {
     set active 1
     puts_red "Visual Selection mode enabled"
     trace add variable ::vmd_pick_event write VisualSelect::Modify
-    user add key Alt-v {VisualSelect::Push}
+    user add key Control-v {VisualSelect::Push}
     user add key h {VisualSelect::Rotate "y" -$VisualSelect::rincr}
     user add key j {VisualSelect::Rotate "x"  $VisualSelect::rincr}
     user add key k {VisualSelect::Rotate "x" -$VisualSelect::rincr}
