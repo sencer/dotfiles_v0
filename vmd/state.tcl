@@ -95,7 +95,10 @@ proc load_defaults {mid} {
     molinfo $mid set rotate_matrix {{{1 0 0 0} {0 0 1 0} {0 1 0 0} {0 0 0 1}}}
     molinfo $mid set scale_matrix  {{{0.2 0 0 0} {0 0.2 0 0} {0 0 0.2 0} {0 0 0 1}}}
     molinfo $mid set global_matrix {{{1 0 0 0} {0 1 0 0} {0 0 1 0} {0 0 0 1}}}
-    mol delrep 0 $mid
+    set nrep [molinfo $mid get numreps]
+    for {set i [expr $nrep-1]} {$i > -1} {incr i -1} {
+      mol delrep $i $mid
+    }
     mol representation VDW 0.300000 18.000000
     mol color Element
     mol selection all
