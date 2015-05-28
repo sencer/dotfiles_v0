@@ -10,8 +10,7 @@ alias shutdown="systemctl poweroff -i"
 alias reboot="systemctl reboot -i"
 alias ofis='gnome-terminal -x ssh -t ofis tmux'
 alias ekran='ssh ofis vbetool dpms off'
-alias clearf="clear && printf '\e[3J'"
-
+alias clear!="clear && printf '\e[3J'"
 
 alias d='dirs -v'
 for index ({1..20}) alias "$index"="cd +${index}"; unset index
