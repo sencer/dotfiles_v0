@@ -2,7 +2,7 @@
 # give argument -v s=NUMBER as scaling factor, and a file name
 BEGIN {
   if(s == 0)
-    s = 0.833
+    s = 0.93533811802
 }
 NR < 3 {
   print
