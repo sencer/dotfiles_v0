@@ -1,2 +1,2 @@
 #!/bin/bash
-ras -t -pbs '~/bin/pbstop' $@
+ras -t '~/bin/pbstop'
