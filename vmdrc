@@ -34,10 +34,6 @@ proc pov {fname} {
   puts_red "INFO) Image file saved to $tmp.png"
 }
 
-proc puts_red {string} {
-  puts stdout "\033\[31m$string\033\[0m"
-}
-
 # putting these things in a proc gets rid of unnecessary output!
 # TODO make fname an array
 proc initial_settings {molid} {
