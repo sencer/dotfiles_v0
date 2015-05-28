@@ -113,18 +113,3 @@ proc load_defaults {mid} {
     set shift($mid,2) 0
     display resetview
 }
-
-
-
-
-  # foreach i [material list] {
-  #   foreach j [material settings $i] k {ambient specular diffuse
-  #     shininess opacity outline outlinewidth transmode} {
-  #     puts $fildes "material change $k $i $j"
-  #   }
-  # }
-  # save_colors $fildes
-  # save_labels $fildes
-
-  # close $fildes
-# }
