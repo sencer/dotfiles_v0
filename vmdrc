@@ -94,6 +94,7 @@ after idle {
   trace variable vmd_initialize_structure w initialize_settings_proxy
   trace variable vmd_quit w clean_tmp_files
   VisualSelect::Initialize
+  animate style Rock
 }
 
 # vim: ft=tcl
