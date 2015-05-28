@@ -8,12 +8,16 @@ proc inverse3 {matrix} {
   return "{[lrange [lindex $inv 0] 0 2]} {[lrange [lindex $inv 1] 0 2]} {[lrange [lindex $inv 2] 0 2]}"
 }
 
-proc framedo {pr {molid top} args} {
-  if {$molid == "top"} { set molid [molinfo top] }
-  set nf [molinfo $molid get numframes]
+proc framedo {pr args} {
+  set nf [molinfo top get numframes]
   for {set i 0} {$i < $nf} {incr i} {
     animate goto $i
-    $pr {*}$args
+    catch {
+      apply $pr {*}$args
+    }
+    catch {
+      $pr {*}$args
+    }
   }
 }
 

@@ -46,7 +46,7 @@ proc hunwrap {{molid top} {rad 1}} {
   set H [atomselect top "name H"]
   $H set radius $rad
   if { $molid=="top" } then { set molid [ molinfo top ] }
-  set cell [lindex [pbc get -namd] 0]
+  set cell {*}[pbc get -namd]
   set inv [inverse3 [transtranspose $cell]]
   foreach dir {0 1 0 2 0 1 0 2} {
     topo clearbonds
