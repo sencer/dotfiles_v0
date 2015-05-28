@@ -24,6 +24,7 @@ cat > $filename.in <<-EOF
 	&PROJWFC
 	  outdir  = '$outdir'
 	  DeltaE  = 0.01
+	  degauss = 0.008
 	  filpdos = "pdos"
 	  filproj = "proj"
 	/
