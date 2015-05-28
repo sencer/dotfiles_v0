@@ -36,8 +36,5 @@ proc CenterAtom {at {center "none"} {molid top}} {
     animate goto $i
     set r [lindex [$atom get {x y z}] 0]
     $all moveby [vecsub $center $r]
-    pbc wrap  -shiftcenter "$shift(0,0) $shift(0,1) $shift(0,2)"
-    hunwrap
   }
-  pbc box -shiftcenter "$shift(0,0) $shift(0,1) $shift(0,2)"
 }
