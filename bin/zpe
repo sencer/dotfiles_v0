@@ -7,15 +7,14 @@ if [[ -z $PBS_SERVER ]]; then
     echo "must be listed in Angstroms."
     exit
   fi
-  n=$#
-  all=( $@ )
-  inp=`basename $PWD`.txt
+  all=( "$@" )
+  inp=$(basename "$PWD").txt
   if [[ ! -f $inp ]]; then
     echo 'First you should generate a pwscf input file using `pin`'
     exit -1
   fi
   mkdir -p zpe
-  cp $inp zpe/input.txt
+  cp "$inp" zpe/input.txt
   cd zpe
   header="&control
   restart_mode  = 'from_scratch'
@@ -25,7 +24,7 @@ if [[ -z $PBS_SERVER ]]; then
 $(sed -n "/&system/,/_POS/p;/&electrons/a\  startingwfc = 'file'\n\
   startingpot = 'file'" input.txt)"
 
-  for i in ${all[@]}; do
+  for i in "${all[@]}"; do
     if [[ -d $i ]]; then
       echo "There is already a folder for atom $i. Backing up the input file"
       echo "and creating a new one. You may want to omit recalculating by"
@@ -35,14 +34,14 @@ $(sed -n "/&system/,/_POS/p;/&electrons/a\  startingwfc = 'file'\n\
       mkdir -p $i/$j
       [[ -f $i/$j/input.txt ]] && mv $i/$j/input.txt $i/$j/old.input.txt
       echo "${header}" > $i/$j/input.txt
-      awk -va=$1 -vj=$j 'BEGIN{
+      awk -va="$1" -vj="$j" 'BEGIN{
         x = y = z = 0
         (j < 3) ? x = 1 : ((j < 5) ? y = 1 : z = 1)
         if(j % 2 == 1) { x = -x; y = -y; z = -z}
       } l > 0 {
         if (NR == l + a){
-          printf "  %-4s  %14.10f %14.10f %14.10f\n", $1, $2 + 0.01 * x,\
-                                                          $3 + 0.01 * y,\
+          printf "  %-4s  %14.10f %14.10f %14.10f\n", $1, $2 + 0.01 * x,
+                                                          $3 + 0.01 * y,
                                                           $4 + 0.01 * z
           i++
         } else {
@@ -56,7 +55,7 @@ $(sed -n "/&system/,/_POS/p;/&electrons/a\  startingwfc = 'file'\n\
   done
 
   {
-    cat $HOME/$PBS_SERVER/.jobtemplate
+    cat "$HOME/$PBS_SERVER/.jobtemplate"
     cat <<-'EOF'
 		path=%path%
 		kpools=1
@@ -79,7 +78,7 @@ $(sed -n "/&system/,/_POS/p;/&electrons/a\  startingwfc = 'file'\n\
 		  done
 		done
 		EOF
-	} | templr $HOME/$PBS_SERVER/.jobconfig -if -all "${all[*]}" > $(basename ${PWD%/*})-zpe.job
+	} | templr "$HOME/$PBS_SERVER/.jobconfig" -if -all "${all[*]}" > "$(basename "${PWD%/*}")"-zpe.job
 else
-  ras "~/bin/zpe $@"
+  ras "~/bin/zpe $*"
 fi
