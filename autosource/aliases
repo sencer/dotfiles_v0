@@ -59,7 +59,7 @@ alias job="ras find -name *.job -and -not -path '*/zpe/*'"
 alias out="ras find -name output.txt -and -not -path '*/zpe/*'"
 alias find="noglob ras -t find"
 alias watch="ras -t watch"
-alias rscp="ras -t scp -r"
+alias rscp='ras -t rsync -azPe "ssh -q"'
 alias rejob="zmv -Q '(**/)*.job' '\$1\${\${1%/}//\//-}.job'"
 
 alias pwgui="/home/sselcuk/software/espresso-5.1.1/PWgui-5.1/pwgui"
