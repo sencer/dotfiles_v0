@@ -1,0 +1,27 @@
+#!/bin/bash
+get_stats() {
+  awk  -vn=$n '
+        function p(){
+          if(tot%20==1) print "Run SCF ION    t     T      FORCE    CORR      ENERGY" > "/dev/stderr"
+            printf "%-3d %3d %3d %5.2f %6.1f %9.6f (%5.2f) %14.6f\n", run, scf, ionic, t, T, force, corr, e
+        }
+        {
+          switch($0) {
+            case /starts/: run++; break
+            case /!/: e = $5; break
+            case /temperature/: T = $3; break
+            case /convergence has been/: scf = $6; break
+            case /Total force/: force = $4; corr = $9/$4*100; break
+            case /pico-seconds/: t = $3; break
+            case /number of bfgs/: ionic = $6; tot++; p(); break
+            case /Entering Dynamics/:  ionic = $5; tot++; p();break
+            default: break
+          }
+        }'
+}
+
+if [[ -t 0 ]]; then
+  cat ${1-output.txt} | get_stats
+else
+  cat /dev/stdin | get_stats
+fi
