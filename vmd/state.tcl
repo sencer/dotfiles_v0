@@ -91,10 +91,6 @@ proc save_view {} {
 user add key W save_view
 
 proc load_defaults {mid} {
-    molinfo $mid set center_matrix {{{1 0 0 0} {0 1 0 0} {0 0 1 0} {0 0 0 1}}}
-    molinfo $mid set rotate_matrix {{{1 0 0 0} {0 0 1 0} {0 1 0 0} {0 0 0 1}}}
-    molinfo $mid set scale_matrix  {{{0.2 0 0 0} {0 0.2 0 0} {0 0 0.2 0} {0 0 0 1}}}
-    molinfo $mid set global_matrix {{{1 0 0 0} {0 1 0 0} {0 0 1 0} {0 0 0 1}}}
     set nrep [molinfo $mid get numreps]
     for {set i [expr $nrep-1]} {$i > -1} {incr i -1} {
       mol delrep $i $mid
@@ -115,6 +111,7 @@ proc load_defaults {mid} {
     set shift($mid,0) 0
     set shift($mid,1) 0
     set shift($mid,2) 0
+    display resetview
 }
 
 
