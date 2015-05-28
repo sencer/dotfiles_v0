@@ -7,7 +7,6 @@ hi Conceal guibg=NONE
 set spell
 set foldmethod=expr
 syntax spell toplevel
-let g:tex_flavor = "latex"
 
 let g:LatexBox_complete_inlineMath = 1
 let g:LatexBox_fold_automatic = 0
