@@ -8,6 +8,7 @@
 
 set auto_index(puts_red) [list source [file join $dir utility.tcl]]
 set auto_index(inverse3) [list source [file join $dir utility.tcl]]
+set auto_index(framedo) [list source [file join $dir utility.tcl]]
 set auto_index(savexyz) [list source [file join $dir write.tcl]]
 set auto_index(qe_input) [list source [file join $dir qe.tcl]]
 set auto_index(qe_output) [list source [file join $dir qe.tcl]]

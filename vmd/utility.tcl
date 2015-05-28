@@ -7,3 +7,12 @@ proc inverse3 {matrix} {
   set m [measure inverse "{$row1 0} {$row2 0} {$row3 0} {0 0 0 1}"]
   return "{[lrange [lindex $m 0] 0 2]} {[lrange [lindex $m 1] 0 2]} {[lrange [lindex $m 2] 0 2]}"
 }
+
+proc framedo {pr {molid top} args} {
+  if {$molid == "top"} { set molid [molinfo top] }
+  set nf [molinfo $molid get numframes]
+  for {set i 0} {$i < $nf} {incr i} {
+    animate goto $i
+    $pr {*}$args
+  }
+}
