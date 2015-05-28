@@ -67,7 +67,7 @@ Host *
   Protocol 2
   XAuthLocation /usr/bin/xauth
   ControlMaster auto
-  ControlPath /tmp/%r@%h:%p
+  ControlPath /tmp/%u/%r@%h:%p
   ControlPersist 60
   IdentityFile ~/.ssh/id_rsa
 # PermitLocalCommand yes
