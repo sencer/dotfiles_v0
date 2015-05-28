@@ -5,4 +5,5 @@ proc load_color_definitions {} {
   catch {color Element Ni silver}
   catch {color Element Co silver}
   catch {color Element Al gray}
+  catch {color Element Nb green}
 }
