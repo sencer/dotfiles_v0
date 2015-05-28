@@ -107,7 +107,22 @@ proc load_defaults {mid} {
     mol color Element
     mol selection all
     mol addrep $mid
-
+    set tmp [atomselect $mid "index 0"]
+    catch {
+      if {[$tmp get vol0]} {
+        mol representation Isosurface 0.01000 0 0 0 1 1
+        mol color ColorID 0
+        mol selection all
+        mol material Opaque
+        mol addrep 0
+        mol representation Isosurface -0.01000 0 0 0 1 1
+        mol color ColorID 4
+        mol selection all
+        mol material Opaque
+        mol addrep 0
+      }
+    }
+    $tmp delete
     set shift($mid,0) 0
     set shift($mid,1) 0
     set shift($mid,2) 0
