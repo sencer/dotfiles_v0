@@ -80,7 +80,7 @@ NR > n {
     cell = $4
     if (cell != 1 && cell != 5 && cell != 8 && cell != 12 && cell != 14)
     {
-      printf "Is only available for ibrav=1,5,8,14\n"
+      printf "Is only available for ibrav=1,5,8,12,14\n"
       exit
     }
     printf "REMARK lattice type=%d\n", cell
