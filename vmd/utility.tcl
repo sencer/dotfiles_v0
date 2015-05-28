@@ -3,9 +3,9 @@ proc puts_red {string} {
 }
 
 proc inverse3 {matrix} {
-  lassign $matrix row1 row2 row3
-  set m [measure inverse "{$row1 0} {$row2 0} {$row3 0} {0 0 0 1}"]
-  return "{[lrange [lindex $m 0] 0 2]} {[lrange [lindex $m 1] 0 2]} {[lrange [lindex $m 2] 0 2]}"
+  set matrix "[map {x {return "$x 0.0"}} [lrange $matrix 0 2]] {0 0 0 1}"
+  set inv [measure inverse "$matrix"]
+  return "{[lrange [lindex $inv 0] 0 2]} {[lrange [lindex $inv 1] 0 2]} {[lrange [lindex $inv 2] 0 2]}"
 }
 
 proc framedo {pr {molid top} args} {
@@ -15,4 +15,16 @@ proc framedo {pr {molid top} args} {
     animate goto $i
     $pr {*}$args
   }
+}
+
+proc map {lambda list} {
+  set result {}
+  foreach item $list {
+    lappend result [apply $lambda $item]
+  }
+  return $result
+}
+
+proc lambda {arglist body {ns {}}} {
+  list ::apply [list $arglist $body $ns]
 }
