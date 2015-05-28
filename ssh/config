@@ -20,7 +20,7 @@ Host tiger
   ForwardX11 yes
   ForwardX11Trusted yes
   Hostname tiger2.princeton.edu
-  ProxyCommand ssh -CTqe none ofis -W %h:%p
+  ProxyCommand ssh -CTqe none arizona -W %h:%p
 Host tigress
   ForwardX11 yes
   ForwardX11Trusted yes
