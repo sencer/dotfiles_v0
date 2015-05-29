@@ -67,10 +67,11 @@ proc initialize_settings_proxy {args} {
 }
 
 after idle {
+  set auto_path [concat $env(HOME)/.vmd $auto_path]
+
   package require pbctools
   package require topotools
-
-  set auto_path [concat $env(HOME)/.vmd $auto_path]
+  package require density_profile
 
   load_color_definitions
 
