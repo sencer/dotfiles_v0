@@ -104,7 +104,7 @@ proc load_defaults {mid} {
     mol color Element
     mol selection not name H
     mol addrep $mid
-    mol representation DynamicBonds 1.100000 0.100000 16.000000
+    mol representation DynamicBonds 1.200000 0.100000 16.000000
     mol color Element
     mol selection all
     mol addrep $mid
