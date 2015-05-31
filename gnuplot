@@ -152,3 +152,5 @@ set style arrow 4 heads size scr 0.01, 15, 45 filled ls 10 lw 0.5 front
 set style textbox opaque noborder
 set pointintervalbox 2
 set pointsize 0.4
+
+# vim: filetype=gnuplot
