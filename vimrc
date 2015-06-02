@@ -421,6 +421,12 @@ map g/ <Plug>(incsearch-stay)
 " gitgutter maps {{{2
 nmap [h <Plug>GitGutterPrevHunk
 nmap ]h <Plug>GitGutterNextHunk
+" fugitive maps {{{2
+nnoremap <Leader>gc :Gcommit<CR>
+nnoremap <Leader>ga :Gcommit --amend<CR>
+nnoremap <Leader>gw :Gwrite<CR>
+nnoremap <Leader>gs :Gstatus<CR>
+nnoremap <Leader>gd :Gdiff<CR>
 " }}}1
 
 " Auto commands {{{1
