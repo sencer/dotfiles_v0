@@ -1,0 +1,25 @@
+#!/usr/bin/awk -f
+
+BEGIN {
+  shift = 1
+}
+/^\s*\#/ {
+  shift++
+  print
+  next
+}
+NR-shift < N {
+  for(i=1; i<NF+1;i++) {
+    sum[i] += $i
+    a[i][NR-shift] = $i
+  }
+}
+NR-shift >= N{
+  for(i=1; i<NF+1;i++) {
+    printf "%13.10f ", sum[i]/N
+    sum[i] -= a[i][(NR-shift)%N]
+    a[i][(NR-shift)%N] = $i
+    sum[i] += $i
+  }
+  printf "\n"
+}
