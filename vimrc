@@ -103,7 +103,7 @@ Plug 'chrisbra/vim-diff-enhanced'
 Plug 'gelguy/snapshot.vim'
 Plug 'chrisbra/Recover.vim'
 
-"...and load! {{{2
+" and load {{{2
 call plug#end()
 
 filetype plugin indent on
@@ -394,11 +394,11 @@ inoremap ;{ <ESC>o{<CR>}<ESC>O
 vmap <Leader><Space> gc
 nmap <Leader><Space> gcc
 
-"<Leader>w and x to exit to save file if there are changes {{{2
+" <Leader>w and x to exit to save file if there are changes {{{2
 nnoremap <silent> <Leader>w :up!<CR>
 nnoremap <silent> <Leader>x :x!<CR>
 
-"<Alt>= for a simple calculator {{{2
+" <Alt>= for a simple calculator {{{2
 vmap <expr> <A-=> ":normal " . (col("'<")+1) . "li<A-=><CR>"
 imap <A-=> <C-c>hdiWa<C-R>=<C-R>"<CR> <C-c>i
 
@@ -423,7 +423,8 @@ nmap [h <Plug>GitGutterPrevHunk
 nmap ]h <Plug>GitGutterNextHunk
 " }}}1
 
-augroup vimrc "{{{1
+" Auto commands {{{1
+augroup vimrc
 
   autocmd!
 
