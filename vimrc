@@ -49,7 +49,7 @@ Plug 'tpope/vim-rails'
 Plug 'vim-scripts/tcl.vim--smithfield'
 Plug 'vim-scripts/tcl.vim--smithfield-indent'
 Plug 'MatlabFilesEdition'
-" Plug 'JuliaLang/julia-vim'
+Plug 'JuliaLang/julia-vim'
 Plug 'sencer/gnuplot.vim'
 Plug 'vim-scripts/awk.vim'
 Plug 'tpope/vim-markdown'
@@ -72,8 +72,8 @@ Plug 'wellle/tmux-complete.vim'
 " Writing {{{2
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
-Plug 'fncll/wordnet.vim'
-Plug 'reedes/vim-textobj-sentence'
+Plug 'sencer/wordnet.vim'
+Plug 'reede/vim-textobj-sentence'
 Plug 'reedes/vim-wordy'
 Plug 'tpope/vim-abolish'
 Plug 'jdelkins/vim-correction'
@@ -418,9 +418,6 @@ map <silent> <F10> :echom "hi<" . synIDattr(synID(line("."),col("."),1),"name")
 nnoremap <Leader>t :Thumbnail<CR>
 " incsearch mappings {{{2
 map g/ <Plug>(incsearch-stay)
-" gitgutter maps {{{2
-nmap [h <Plug>GitGutterPrevHunk
-nmap ]h <Plug>GitGutterNextHunk
 " }}}1
 
 augroup vimrc "{{{1
