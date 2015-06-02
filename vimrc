@@ -418,6 +418,9 @@ map <silent> <F10> :echom "hi<" . synIDattr(synID(line("."),col("."),1),"name")
 nnoremap <Leader>t :Thumbnail<CR>
 " incsearch mappings {{{2
 map g/ <Plug>(incsearch-stay)
+" gitgutter maps {{{2
+nmap [h <Plug>GitGutterPrevHunk
+nmap ]h <Plug>GitGutterNextHunk
 " }}}1
 
 augroup vimrc "{{{1
