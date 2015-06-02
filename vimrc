@@ -49,7 +49,7 @@ Plug 'tpope/vim-rails'
 Plug 'vim-scripts/tcl.vim--smithfield'
 Plug 'vim-scripts/tcl.vim--smithfield-indent'
 Plug 'MatlabFilesEdition'
-Plug 'JuliaLang/julia-vim'
+" Plug 'JuliaLang/julia-vim'
 Plug 'sencer/gnuplot.vim'
 Plug 'vim-scripts/awk.vim'
 Plug 'tpope/vim-markdown'
@@ -73,6 +73,10 @@ Plug 'wellle/tmux-complete.vim'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 Plug 'fncll/wordnet.vim'
+Plug 'reedes/vim-textobj-sentence'
+Plug 'reedes/vim-wordy'
+Plug 'tpope/vim-abolish'
+Plug 'jdelkins/vim-correction'
 
 " Various {{{2
 Plug 'airblade/vim-gitgutter'
@@ -97,6 +101,7 @@ Plug 'christoomey/vim-tmux-runner'
 Plug 'itchyny/thumbnail.vim'
 Plug 'chrisbra/vim-diff-enhanced'
 Plug 'gelguy/snapshot.vim'
+Plug 'chrisbra/Recover.vim'
 
 "...and load! {{{2
 call plug#end()
@@ -334,6 +339,9 @@ set cinoptions+=l1
 set smartindent
 set autoindent
 set copyindent
+
+" fold {{{2
+set foldlevel=1
 "}}}1
 
 " Mappings {{{1
@@ -386,8 +394,9 @@ inoremap ;{ <ESC>o{<CR>}<ESC>O
 vmap <Leader><Space> gc
 nmap <Leader><Space> gcc
 
-"<Leader>w to save file if there are changes {{{2
+"<Leader>w and x to exit to save file if there are changes {{{2
 nnoremap <silent> <Leader>w :up!<CR>
+nnoremap <silent> <Leader>x :x!<CR>
 
 "<Alt>= for a simple calculator {{{2
 vmap <expr> <A-=> ":normal " . (col("'<")+1) . "li<A-=><CR>"
@@ -409,6 +418,9 @@ map <silent> <F10> :echom "hi<" . synIDattr(synID(line("."),col("."),1),"name")
 nnoremap <Leader>t :Thumbnail<CR>
 " incsearch mappings {{{2
 map g/ <Plug>(incsearch-stay)
+" gitgutter maps {{{2
+nmap [h <Plug>GitGutterPrevHunk
+nmap ]h <Plug>GitGutterNextHunk
 " }}}1
 
 augroup vimrc "{{{1
