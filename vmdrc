@@ -71,7 +71,6 @@ after idle {
 
   package require pbctools
   package require topotools
-  package require density_profile
 
   load_color_definitions
 
