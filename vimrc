@@ -1,8 +1,6 @@
-set nocompatible
-
-filetype off
-
 " Load Plugins {{{1
+set nocompatible
+filetype off
 call plug#begin('~/.vim/bundle')
 " Appearance {{{2
 Plug 'sencer/mustang-vim'
@@ -49,7 +47,7 @@ Plug 'tpope/vim-rails'
 Plug 'vim-scripts/tcl.vim--smithfield'
 Plug 'vim-scripts/tcl.vim--smithfield-indent'
 Plug 'MatlabFilesEdition'
-Plug 'JuliaLang/julia-vim'
+" Plug 'JuliaLang/julia-vim'
 Plug 'sencer/gnuplot.vim'
 Plug 'vim-scripts/awk.vim'
 Plug 'tpope/vim-markdown'
@@ -61,9 +59,8 @@ Plug 'chrisbra/vim-zsh'
 Plug 'jiangmiao/auto-pairs'
 Plug 'SirVer/UltiSnips'
 Plug 'sencer/vim-snippets'
-Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer', 'for': ['c', 'cpp', 'cuda']}
-Plug 'davidhalter/jedi-vim', { 'for': 'python' }
-Plug 'Shougo/neocomplete.vim'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer'}
+Plug 'ervandew/supertab'
 Plug 'majutsushi/tagbar'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'tpope/vim-endwise'
@@ -123,7 +120,7 @@ let g:netrw_browsex_viewer = "xdg-open"
 let g:netrw_list_hide=netrw_gitignore#Hide().'.*\.swp$,.*\.pyc$,.*~'
 let g:netrw_list_hide='.*\.swp$,.*\.pyc$,.*~'
 let g:netrw_liststyle = 3
-let g:netrw_browse_split = 4 " 3 for new tab
+let g:netrw_browse_split = 0
 let g:netrw_preview = 1
 let g:netrw_altv = 0
 let g:netrw_winsize = 25
@@ -165,32 +162,24 @@ nmap <Leader>7 <Plug>AirlineSelectTab7
 nmap <Leader>8 <Plug>AirlineSelectTab8
 nmap <Leader>9 <Plug>AirlineSelectTab9
 
-" neocomplete settings {{{2
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#enable_auto_select = 0
-let g:neocomplete#use_vimproc = 1
-let g:neocomplete#enable_auto_delimiter = 1
-let g:neocomplete#force_omni_input_patterns = {
-      \    'tex' : '\v(\\\k+|\{[^}]*|\$[^$ ~]*)$',
-      \   'html' : '\(<\|<\/\|<[^>]\+ \|<[^>]\+=\"\)\k\{1,}$',
-      \    'css' : '\(^\s\|[;{]\)\s*\k\{1,}$',
-      \     'js' : '\k\.\k\{1,}$',
-      \    'xml' : '\(<\|<\/\|<[^>]\+ \|<[^>]\+=\"\)\k\{1,}$',
-      \   'ruby' : '\v([^. \t](\.|::)|(^|[^:]):)\k*$'
-      \ }
-inoremap <expr> <CR>  <C-r>=pumvisible() ? neocomplete#close_popup() : "\<C-v><CR>"<CR>
 
 " youcompleteme settings {{{2
 let g:ycm_key_list_select_completion = ["<C-n>", "<Down>"]
 let g:ycm_key_list_previous_completion = ["<C-p>", "<Up>"]
 let g:ycm_key_detailed_diagnostics = ''
+let g:ycm_key_invoke_completion= ''
 let g:ycm_confirm_extra_conf = 0
+let g:ycm_autoclose_preview_window_after_completion = 1
 
 " ultisnips settings {{{2
 let g:UltiSnipsJumpForwardTrigger = "<TAB>"
 let g:UltiSnipsJumpBackwardTrigger = "<S-TAB>"
 let g:UltiSnipsSnippetsDir = "~/.vim/bundle/vim-snippets/UltiSnips"
 let g:UltiSnipsEditSplit = "vertical"
+
+" supertab {{{2
+let g:SuperTabDefaultCompletionType = 'context'
+let g:SuperTabContextDefaultCompletionType = '<C-x><C-u>'
 
 " autopairs {{{2
 let g:AutoPairsShortcutToggle = ''
@@ -224,7 +213,6 @@ let g:LatexBox_ignore_warnings = [
       \]
 
 " various settings {{{2
-let g:tmuxcomplete#trigger = ''
 let g:notes_directories = ['~/gdrive/notes']
 let g:agprg = 'ag --nogroup --nocolor --column'
 
@@ -258,6 +246,7 @@ set clipboard^=unnamedplus
 set shell=/bin/zsh
 set fileformats+=mac
 set viminfo^=!
+set complete-=t
 
 " do not use tab char unlessed forced to do so {{{2
 set expandtab
@@ -326,6 +315,8 @@ set mousemodel=popup_setpos
 " completion {{{2
 set infercase
 set wildignore=*.o,*~,*.swp
+set thesaurus+=$HOME/.vim/dictionaries/moby
+set dictionary+=/usr/share/dict/words
 
 " buffers {{{2
 set autoread
@@ -345,12 +336,13 @@ set foldlevel=1
 "}}}1
 
 " Mappings {{{1
-" some sane defaults "{{{2
+" some sane defaults and tweaks "{{{2
 nmap Y y$
 noremap Q gq
 vnoremap > >gv
 vnoremap < <gv
 nnoremap <CR> i<CR><ESC>
+inoremap <C-l> <C-O>:redraw!<CR>
 " nnoremap <BS> dh
 
 " use space as leader {{{2
@@ -427,15 +419,14 @@ nnoremap <Leader>ga :Gcommit --amend<CR>
 nnoremap <Leader>gw :Gwrite<CR>
 nnoremap <Leader>gs :Gstatus<CR>
 nnoremap <Leader>gd :Gdiff<CR>
+" youcompleteme maps
+nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
 " }}}1
 
 " Auto commands {{{1
 augroup vimrc
 
   autocmd!
-
-  " disable neocomplete for c family and python
-  au vimrc FileType c,cpp,cuda,python,notes :call neocomplete#init#disable()
 
   "set QE input file comment string
   au vimrc BufRead,BufNewFile input*txt set commentstring=\!\ %s
