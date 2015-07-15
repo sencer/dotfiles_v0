@@ -11,7 +11,8 @@ proc density {{fname density.dat} {res 0.1} {st all} {molid top}} {
   set r [expr 1/$res]
   set n [expr int(ceil($z*$r))]
   set bins [lrepeat $n 0.0]
-  set A [expr [join [molinfo top get {a b}] "*"]]
+  lassign [lindex [pbc get -namd] 0] t1 t2 t3
+  set A [expr [lindex $t1 0]*[lindex $t2 1]]
   set nf [molinfo top get numframes]
 
   for {set i 0} {$i < $nf} {incr i} {
