@@ -23,6 +23,7 @@ Plug 'sk1418/HowMuch'
 Plug 'PeterRincker/vim-narrow'
 Plug 'haya14busa/incsearch.vim'
 Plug 'sencer/vis'
+Plug 'lutostag/vim-autoswap'
 
 " Text Objects {{{2
 Plug 'kana/vim-textobj-user'
@@ -99,7 +100,6 @@ Plug 'christoomey/vim-tmux-runner'
 Plug 'itchyny/thumbnail.vim'
 Plug 'chrisbra/vim-diff-enhanced'
 Plug 'gelguy/snapshot.vim'
-Plug 'chrisbra/Recover.vim'
 
 " and load {{{2
 call plug#end()
