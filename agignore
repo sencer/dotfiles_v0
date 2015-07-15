@@ -1,4 +1,13 @@
 dictionaries
 .zcompcache
 *vim-scripts.org.json
-
+pwscf.hub*
+pwscf.occup
+pwscf.igk*
+pwscf.wfc*
+charge-density*.dat
+g*vectors.dat
+spin-polarization.dat
+eigenval*.xml
+evc*.dat
+*.cube
