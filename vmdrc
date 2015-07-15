@@ -67,10 +67,6 @@ proc initialize_settings_proxy {args} {
 }
 
 after idle {
-  set auto_path [concat $env(HOME)/.vmd $auto_path]
-
-  package require pbctools
-  package require topotools
 
   load_color_definitions
 
@@ -92,5 +88,13 @@ after idle {
   VisualSelect::Initialize
   animate style Rock
 }
+
+proc packages {} {
+  global env auto_path
+  set auto_path [concat $env(HOME)/.vmd $auto_path]
+  package require pbctools
+  package require topotools
+}
+packages
 
 # vim: ft=tcl
