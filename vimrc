@@ -208,6 +208,7 @@ let g:vcoolor_disable_mappings = 1
 let g:vcoolor_map = '<F5>'
 
 " various settings {{{2
+let g:notes_suffix = '.md'
 let g:notes_directories = ['~/gdrive/notes']
 let g:agprg = 'ag --nogroup --nocolor --column'
 
