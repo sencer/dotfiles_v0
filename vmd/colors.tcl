@@ -6,6 +6,7 @@ proc load_color_definitions {} {
   catch {color Element Co silver}
   catch {color Element Al gray}
   catch {color Element Nb green}
+  catch {color Element Na green}
   color Labels Bonds black
   color Labels Angles blue
 }
