@@ -76,6 +76,7 @@ Plug 'tpope/vim-abolish'
 Plug 'jdelkins/vim-correction'
 
 " Various {{{2
+Plug 'KabbAmine/vCoolor.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'kshenoy/vim-signature'
 Plug 'chrisbra/color_highlight'
@@ -211,6 +212,10 @@ let g:LatexBox_ignore_warnings = [
       \'PDF inclusion: multiple',
       \'Unused global option'
       \]
+
+" vcoolor {{{2
+let g:vcoolor_disable_mappings = 1
+let g:vcoolor_map = '<F5>'
 
 " various settings {{{2
 let g:notes_directories = ['~/gdrive/notes']
