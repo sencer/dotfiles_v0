@@ -150,8 +150,6 @@ let g:airline_mode_map = { '__' : '-', 'n' : 'N', 'i' : 'I',  'R'  : 'R',
 let g:airline#extensions#tagbar#flags = 'f'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_tabs=0
-let g:airline#extensions#tabline#show_close_button=1
-let g:airline#extensions#tabline#close_symbol = 'X'
 let g:airline#extensions#tabline#buffer_idx_mode = 1
 for s:i in [1,2,3,4,5,6,7,8,9]
   exec 'nmap <Leader>'.s:i.' <Plug>AirlineSelectTab'.s:i
