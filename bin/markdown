@@ -63,9 +63,9 @@ end
 puts <<EOF
 <html>
   <head>
-    <link href="https://gist.githubusercontent.com/andyferra/2554919/raw/2e66cabdafe1c9a7f354aa2ebf5bc38265e638e5/github.css" rel="stylesheet"></link>
+    <link href="https://gist.githubusercontent.com/sencer/e1dff4a2b381c71abb2b/raw/2d59e303524a7515b98cf973e0c73ae500830dd3/github.css" rel="stylesheet"></link>
   </head>
-  <body style="width: 40%; margin: auto; text-align: justify; line-height: 2em; font-size: 1.2em;">
+  <body>
 EOF
 puts subscript(markdown(STDIN.read)).gsub(
   /<\/sub>\s*<sup/, "\\0 style='position: relative; left:-0.5em; top:-0.2em'")
