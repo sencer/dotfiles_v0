@@ -9,4 +9,4 @@ length=`stat -c '%s' $1`
   echo "Content-Length: $length"
   echo -e "Content-Type: $type\n"
   cat $1
-} | sudo nc -l 80
+} | nc -l 8080
