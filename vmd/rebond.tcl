@@ -6,20 +6,22 @@ namespace eval ::Rebond {
 
   # this is actually half-width of the grid
   # like radius - but defining a cube
-  variable width 1.2
+  # currently it checks for bond lengths 
+  # shorter than 1.8 Å
+  variable width 1
 
   namespace eval len {
-    variable OO 2.2 CC 2.2 NN 2.2 HH 1.0 CO 2.2 OC 2.2 CN 2.1 NC 2.1 \
-             CH 1.3 HC 1.3 ON 1.9 NO 1.9 OH 1.3 HO 1.3 NH 1.3 HN 1.3
+    variable OO 1.8 CC 1.8 NN 1.8 HH 1.0 CO 1.8 OC 1.8 CN 1.8 NC 1.8 \
+             CH 1.3 HC 1.3 ON 1.8 NO 1.8 OH 1.3 HO 1.3 NH 1.3 HN 1.3
   }
+
+  namespace eval N {}
+  namespace eval W {}
 
 }
 
 proc ::Rebond::Index {x y z} {
-  variable nx
-  variable ny
-  variable nz
-  return [expr (($x)%$nx)*$ny*$nz+(($y)%$ny)*$nz+(($z)%$nz)]
+  return [expr (($x)%$N::0)*$N::1*$N::2+(($y)%$N::1)*$N::2+(($z)%$N::2)]
 }
 
 proc ::Rebond::Initialize {sel} {
@@ -29,10 +31,16 @@ proc ::Rebond::Initialize {sel} {
 proc ::Rebond::InitGrid {} {
   variable width
   variable mid
-  variable nx "[expr 1+int([lindex $mid 0]/$width)]"
-  variable ny "[expr 1+int([lindex $mid 1]/$width)]" 
-  variable nz "[expr 1+int([lindex $mid 2]/$width)]"
-  variable nbins [expr [Index $nx-1 $ny-1 $nz-1]+1]
+  set a [lindex $mid 0]
+  set b [lindex $mid 1]
+  set c [lindex $mid 2]
+  variable N::0 [expr round($a/$width)]
+  variable N::1 [expr round($b/$width)]
+  variable N::2 [expr round($c/$width)]
+  variable W::0 [expr $a/$N::0]
+  variable W::1 [expr $b/$N::1]
+  variable W::2 [expr $c/$N::2]
+  variable nbins [expr [Index $N::0-1 $N::1-1 $N::2-1]+1]
 }
 
 proc ::Rebond::CurrentFrame {sel {frame now}} {
@@ -61,15 +69,15 @@ proc ::Rebond::CurrentFrame {sel {frame now}} {
 
 proc ::Rebond::Rebond {bins} {
   variable nbins
-  variable ny
-  variable nz
+  variable N::1
+  variable N::2
 
   for {set i 0} {$i < $nbins} {incr i} {
     set b1 [lindex $bins $i]
     if { [llength $b1] } {
-      set x [expr $i/($ny*$nz)]
-      set y [expr $i%($ny*$nz)/$nz]
-      set z [expr $i%($ny*$nz)%$nz]
+      set x [expr $i/($N::1*$N::2)]
+      set y [expr $i%($N::1*$N::2)/$N::2]
+      set z [expr $i%($N::1*$N::2)%$N::2]
       DoBox $b1
       DoBoxes $b1 [lindex $bins [Index $x $y $z+1]]
       for {set j -1} {$j < 2} {incr j} {
@@ -113,7 +121,6 @@ proc ::Rebond::DoAtoms {atom1 atom2} {
 
 proc ::Rebond::Bin {} {
   variable coor
-  variable width
   variable nbins
   variable mid
   set bins [lrepeat $nbins {}]
@@ -124,7 +131,7 @@ proc ::Rebond::Bin {} {
   foreach xyz $coor {
     for {set i 0} {$i < 3} {incr i} {
       set c($i) [lindex $xyz $i]
-      set c($i) [expr int((0.5*$c($i) - floor($c($i)/(2*$m($i)))*$m($i))/$width)]
+      set c($i) [expr int((0.5*$c($i) - floor($c($i)/(2*$m($i)))*$m($i))/[set W::$i])]
     }
     set ind [Index $c(0) $c(1) $c(2)]
 
