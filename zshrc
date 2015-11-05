@@ -30,7 +30,6 @@ mailpath=( "$D/tmp/mails.log?COMPLETED: \$(tail -1 \$_)" )
 autoload -Uz promptinit && promptinit && prompt sencer
 export GREP_COLORS="ms=00;38;5;157:mc=00;38;5;157:sl=:cx=:fn=00;38;5;74\
 :ln=00;38;5;174:bn=00;38;5;174:se=00;38;5;174"
-export GREP_OPTIONS='--color=auto'
 eval "$(dircolors "$D/data/dircolors")"
 tabs -2; tput cuu1
 
