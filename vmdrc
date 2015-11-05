@@ -2,7 +2,7 @@
 menu main on
 menu main move 450 641
 menu graphics move 929 115
-display resize 470 500
+display resize 940 1000
 display reposition 450 930
 display projection orthographic
 display nearclip set 0
