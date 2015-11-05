@@ -2,7 +2,7 @@
 set realname = "Sencer Selcuk"
 set imap_user     = "sselcuk"
 alternates 'sselcuk@.*princeton.edu'
-source "gpg --no-tty -d ~/.mutt/passwords.gpg 2>/dev/null |" # password from an encrypted file
+source "gpg2 --no-tty -d ~/.mutt/passwords.gpg 2>/dev/null |" # password from an encrypted file
 
 # Princeton IMAP Settings
 #
