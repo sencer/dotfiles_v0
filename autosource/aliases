@@ -66,6 +66,7 @@ alias pwgui="/home/sselcuk/software/espresso-5.1.1/PWgui-5.1/pwgui"
 
 alias e="out|xargs awk 'BEGIN{l=1}/Final energy/{if(l%2){printf \"\\033[38;5;111m\"} l=l+1; printf \"%-50s %18f\\033[0m\\n\", gensub(\"./\",\"\",\"\",gensub(\"/output.txt\",\"\",\"\",FILENAME)), \$4*13.6056923}'"
 alias arm='\rm -rf qe_input.xml input_tmp.in *.job.* cp_* cp.* output.txt CRASH *.pdb *.cube pw* slurm* 2>/dev/null;ls'
+alias listen='coproc notification_listener.py'
 # alias b="find . -name output.txt -exec sh -c \"printf '%-50s' {};tac {}|grep -i -m1 -e 'number of bfgs' -e 'bfgs converged';printf '\n' \" \\;|sed 's/\/output.txt//;s/.\///;/^\$/d'"
 # alias c="grep -i 'Begin final coordinates' -A \$(grep nat input.txt | awk '{printf \$3+2}' | sed 's/,//') output.txt"
 # alias cln='find . -name \*.pdb -or -name input_tmp.in -or -name \*.job.\* -or -name trajs -or -name pdbs -or -name stats.txt|xargs rm -r;ls'
