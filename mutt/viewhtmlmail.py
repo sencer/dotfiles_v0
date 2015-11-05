@@ -118,8 +118,8 @@ def view_html_message(mbox, tmpdir):
     fp.close()
 
     # Now we have the file. Call firefox on it.
-    print "Calling google-chrome " + htmlfile
-    os.system("google-chrome " + htmlfile)
+    print "Calling browser " + htmlfile
+    os.system("chromium-browser " + htmlfile)
 
     # Wait a while to make sure firefox has loads the imgaes, then clean up.
     time.sleep(0.5)
