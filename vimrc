@@ -19,7 +19,8 @@ Plug 'tpope/vim-rsi'
 Plug 'kana/vim-repeat'
 Plug 'kana/vim-niceblock'
 Plug 'salsifis/vim-transpose'
-Plug 'sk1418/HowMuch'
+Plug 'arecarn/selection.vim'
+Plug 'arecarn/crunch.vim'
 Plug 'PeterRincker/vim-narrow'
 Plug 'haya14busa/incsearch.vim'
 Plug 'sencer/vis'
@@ -181,9 +182,14 @@ let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_switch_buffer = 'Et'
 let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 
-" howmuch settings {{{2
-let g:HowMuch_auto_engines = ['py']
-let g:HowMuch_scale = 9
+" crunch settings {{{2
+let g:crunch_result_type_append = 0
+let g:crunch_user_variables = {
+      \ 'e'  :  2.71828182846,
+      \ 'pi' :  3.14159265359,
+      \ 'b2a':  0.529177249,
+      \ 'ev' : 13.6056923,
+      \ }
 
 " latexbox settings {{{2
 let g:tex_flavor = "latex"
