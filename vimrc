@@ -313,6 +313,7 @@ set infercase
 set wildignore=*.o,*~,*.swp
 set thesaurus+=$HOME/.vim/dictionaries/moby
 set dictionary+=/usr/share/dict/words
+set wildignorecase
 
 " buffers {{{2
 set autoread
