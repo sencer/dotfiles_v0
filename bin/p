@@ -78,9 +78,9 @@ NR > n {
   if ($0 ~ /bravais-lattice/ && cell == -1)
   {
     cell = $4
-    if (cell != 1 && cell != 5 && cell != 8 && cell != 12 && cell != 14)
+    if (cell != 1 && cell != 5 && cell != 6 && cell != 8 && cell != 12 && cell != 14)
     {
-      printf "Is only available for ibrav=1,5,8,14\n"
+      printf "Is only available for ibrav=1,5,8,12,14\n"
       exit
     }
     printf "REMARK lattice type=%d\n", cell
@@ -93,6 +93,12 @@ NR > n {
       a = $2 * b2a
       b = a
       c = a
+    }
+    else if (cell == 6)
+    {
+      a = $2 * b2a
+      b = a
+      c = $6 * a
     }
     else
     {

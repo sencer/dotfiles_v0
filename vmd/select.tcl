@@ -4,6 +4,7 @@ namespace eval ::VisualSelect {
   variable active 0
   variable stack {""}
   variable repid
+  variable molid
   variable vselect {}
   variable rincr 15
   variable tincr 0.5
@@ -12,8 +13,7 @@ namespace eval ::VisualSelect {
 proc ::VisualSelect::Initialize {args} {
   trace add variable ::vsel write VisualSelect::Trace
   user add key v { VisualSelect::Toggle }
-  user add key V { VisualSelect::Export }
-  user add key Control-v {VisualSelect::RotateStack}
+  user add key V {VisualSelect::RotateStack}
   user add key Control-m {puts [VisualSelect::TIncr [expr $VisualSelect::tincr- 0.5]]}
   user add key Control-i {puts [VisualSelect::TIncr [expr $VisualSelect::tincr+ 0.5]]}
   user add key Control-c {VisualSelect::Yank}
@@ -28,7 +28,7 @@ proc ::VisualSelect::Toggle {} {
     set active 0
     puts_red "Visual Selection mode disabled"
     trace remove variable ::vmd_pick_event write VisualSelect::Modify
-    user add key Alt-v {puts "You need to be in VisualSelect mode"}
+    user add key Control-v {puts "You need to be in VisualSelect mode"}
     user add key H {puts "You need to be in VisualSelect mode"}
     user add key J {puts "You need to be in VisualSelect mode"}
     user add key K {puts "You need to be in VisualSelect mode"}
@@ -46,7 +46,7 @@ proc ::VisualSelect::Toggle {} {
     set active 1
     puts_red "Visual Selection mode enabled"
     trace add variable ::vmd_pick_event write VisualSelect::Modify
-    user add key Alt-v {VisualSelect::Push}
+    user add key Control-v {VisualSelect::Push}
     user add key h {VisualSelect::Rotate "y" -$VisualSelect::rincr}
     user add key j {VisualSelect::Rotate "x"  $VisualSelect::rincr}
     user add key k {VisualSelect::Rotate "x" -$VisualSelect::rincr}
@@ -62,7 +62,6 @@ proc ::VisualSelect::Toggle {} {
     if {[info exists vsel]} {
       Trace
     } else {
-      global vsel
       set vsel [atomselect top "none"]
       $vsel global
     }
@@ -72,12 +71,15 @@ proc ::VisualSelect::Toggle {} {
 
 proc ::VisualSelect::Modify {args} {
   global vmd_pick_atom
+  global vmd_pick_mol
   variable vselect
+  variable molid
   # if picked atom is already in the vselect remove it, otherwise add.
   set check_exists [lsearch $vselect $vmd_pick_atom]
   if {$check_exists == -1} {
     lappend vselect $vmd_pick_atom
   } else {
+    set molid $vmd_pick_mol
     set vselect [lreplace $vselect $check_exists $check_exists]
   }
   Export
@@ -86,28 +88,30 @@ proc ::VisualSelect::Modify {args} {
 proc ::VisualSelect::Apply {} {
   global vsel
   variable repid
-  set mol [$vsel molid]
+  variable molid
   if {[info exists repid]} {
-    mol modselect $repid $mol [$vsel text]
+    mol modselect $repid $molid [$vsel text]
   } else {
     mol representation CPK 1.35 0.75
     mol color {ColorID 4}
     mol selection [$vsel text]
-    mol addrep $mol
-    set repid [expr [molinfo $mol get numreps]-1]
+    mol addrep $molid
+    set repid [expr [molinfo $molid get numreps]-1]
   }
 }
 
 proc ::VisualSelect::Destroy {} {
   variable repid
-  mol delrep $repid top
+  variable molid
+  mol delrep $repid $molid
   unset repid
+  unset molid
 }
 
 proc ::VisualSelect::Push {} {
   variable stack
   variable vselect
-  lappend stack $vselect
+  if { $vselect ni $stack } { lappend stack $vselect }
 }
 
 proc ::VisualSelect::RotateStack {} {
@@ -127,10 +131,12 @@ proc ::VisualSelect::Trace {args} {
   global vsel
   variable vselect
   variable active
+  variable molid
   if {!$active} {
     Toggle
   }
   set vselect "[$vsel list]"
+  set molid [$vsel molid]
   Apply
 }
 
@@ -168,12 +174,12 @@ proc ::VisualSelect::TIncr {num} {
 
 proc ::VisualSelect::Export {} {
   global vsel
+  variable molid
   variable vselect
   if {[$vsel list] != [lsort vselect]} {
-    set mol [$vsel molid]
     namespace inscope :: {$vsel delete}
     set sel [expr [llength $vselect]?"index [join $vselect]":"none"]
-    set vsel [atomselect $mol $sel]
+    set vsel [atomselect $molid $sel]
     $vsel global
   }
 }
@@ -182,15 +188,20 @@ proc ::VisualSelect::Yank {} {
   global vsel
   variable vselect
   variable repid
+  variable molid
   if {![info exists vsel]} {
     error "No selection found"
   }
-  set sel [atomselect [$vsel molid] "all"]
+  mol off $molid
+  set sel [atomselect $molid "all"]
   set newmol [::TopoTools::selections2mol "$sel $vsel"]
-  state $newmol
-  mol off [$vsel molid]
-  unset repid
-  namespace inscope :: {$vsel delete}
-  set vsel [atomselect $newmol "index $vselect"]
-  $vsel global
+  pbc set "[pbc get -molid [$vsel molid]]" -molid $newmol
+  $sel delete
+  set tmpselect [$vsel list]
+  Destroy
+  set molid $newmol
+  set vselect $tmpselect
+  after idle {
+    VisualSelect::Export
+  }
 }

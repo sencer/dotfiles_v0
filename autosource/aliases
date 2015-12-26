@@ -7,7 +7,7 @@ alias -g mails="~/.dotfiles/tmp/mails.log"
 alias state='tail -10 mails'
 alias state-clean='cat /dev/null > mails'
 alias shutdown="shutdown -h 0"
-alias clearf="clear && printf '\e[3J'"
+alias clear!="clear && printf '\e[3J'"
 
 alias d='dirs -v'
 for index ({1..20}) alias "$index"="cd +${index}"; unset index
@@ -25,7 +25,7 @@ alias rmv='nocorrect ras mv -iv'
 alias sudo="nocorrect sudo"
 alias mkdir='nocorrect mkdir -p'
 alias sed='sed -r'
-alias grep='grep -P'
+alias grep='grep -P --color=auto'
 alias scp='rsync -azPe "ssh -q"'
 alias tree='ras tree -d -I "pwscf.save|zpe|pp"'
 alias tmuxe='exec tmux'
@@ -56,13 +56,14 @@ alias job="ras find -name *.job -and -not -path '*/zpe/*'"
 alias out="ras find -name output.txt -and -not -path '*/zpe/*'"
 alias find="noglob ras -t find"
 alias watch="ras -t watch"
-alias rscp="ras -t scp -r"
+alias rscp='ras -t rsync -azPe "ssh -q"'
 alias rejob="zmv -Q '(**/)*.job' '\$1\${\${1%/}//\//-}.job'"
 
 alias pwgui="/home/sselcuk/software/espresso-5.1.1/PWgui-5.1/pwgui"
 
-alias e="out|xargs awk 'BEGIN{l=1}/Final energy/{if(l%2){printf \"\\033[38;5;111m\"} l=l+1; printf \"%-50s %18f\\033[0m\\n\", gensub(\"./\",\"\",\"\",gensub(\"/output.txt\",\"\",\"\",FILENAME)), \$4*13.605691930242388}'"
-alias arm='\rm -rf input_tmp.in *.job.* cp_* cp.* output.txt CRASH *.pdb *.cube pw* 2>/dev/null;ls'
+alias e="out|xargs awk 'BEGIN{l=1}/Final energy/{if(l%2){printf \"\\033[38;5;111m\"} l=l+1; printf \"%-50s %18f\\033[0m\\n\", gensub(\"./\",\"\",\"\",gensub(\"/output.txt\",\"\",\"\",FILENAME)), \$4*13.6056923}'"
+alias arm='\rm -rf qe_input.xml input_tmp.in *.job.* cp_* cp.* output.txt CRASH *.pdb *.cube pw* slurm* 2>/dev/null;ls'
+alias listen='coproc notification_listener.py'
 # alias b="find . -name output.txt -exec sh -c \"printf '%-50s' {};tac {}|grep -i -m1 -e 'number of bfgs' -e 'bfgs converged';printf '\n' \" \\;|sed 's/\/output.txt//;s/.\///;/^\$/d'"
 # alias c="grep -i 'Begin final coordinates' -A \$(grep nat input.txt | awk '{printf \$3+2}' | sed 's/,//') output.txt"
 # alias cln='find . -name \*.pdb -or -name input_tmp.in -or -name \*.job.\* -or -name trajs -or -name pdbs -or -name stats.txt|xargs rm -r;ls'

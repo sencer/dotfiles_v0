@@ -7,7 +7,9 @@ if [[ -n $TMUX  || $TERM == *screen* ]]; then
   export TERM=xterm-screen-256color
 else
   export TERM=xterm-256color
-  exec tmux
+  if [[ `tty` == *pts* ]]; then
+    exec tmux
+  fi
 fi
 export PATH=$HOME/bin:$PATH
 export FPATH=$D/autoload:$D/external/completion/src:$FPATH
@@ -28,7 +30,6 @@ mailpath=( "$D/tmp/mails.log?COMPLETED: \$(tail -1 \$_)" )
 autoload -Uz promptinit && promptinit && prompt sencer
 export GREP_COLORS="ms=00;38;5;157:mc=00;38;5;157:sl=:cx=:fn=00;38;5;74\
 :ln=00;38;5;174:bn=00;38;5;174:se=00;38;5;174"
-export GREP_OPTIONS='--color=auto'
 eval "$(dircolors "$D/data/dircolors")"
 tabs -2; tput cuu1
 
@@ -87,7 +88,7 @@ ZSH_HIGHLIGHT_STYLES[globbing]='fg=15,standout'
 ZSH_HIGHLIGHT_STYLES[history-expansion]='fg=81,standout'
 
 unset D i
+disable r
 source ~/.fzf.zsh
 export FZF_DEFAULT_OPTS='-x'
-export FZF_TMUX=0
 cat ~/.dotfiles/tmp/work

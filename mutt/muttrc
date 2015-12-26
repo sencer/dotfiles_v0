@@ -2,7 +2,7 @@
 set realname = "Sencer Selcuk"
 set imap_user     = "sselcuk"
 alternates 'sselcuk@.*princeton.edu'
-source "gpg --no-tty -d ~/.mutt/passwords.gpg 2>/dev/null |" # password from an encrypted file
+source "gpg2 --no-tty -d ~/.mutt/passwords.gpg 2>/dev/null |" # password from an encrypted file
 
 # Princeton IMAP Settings
 #
@@ -43,31 +43,31 @@ macro index,pager A <save-message>=Archives/`date +%Y`\n
 macro index,pager,attach <F12> "<copy-message>/tmp/mutttmpbox\n<enter><shell-escape>~/.mutt/viewhtmlmail.py\n" "View HTML in browser"
 macro index,pager } "<pipe-entry>~/.mutt/create_event\n"
 
-color normal     color069 color187
-color indicator  color187 color069
-color markers    color069 color187
-color quoted     color067 color187
-color attachment color167 color187
-color tree       color069 color187
-color status     color187 color72
-color tilde      color069 color187
-color error      color187 color124
-color message    color124 color187
-color signature  color069 color187
+color normal     color238 color254
+color indicator  color254 color238
+color markers    color238 color254
+color quoted     color067 color254
+color attachment color031 color254
+color tree       color238 color254
+color status     color254 color024
+color tilde      color238 color254
+color error      color254 color124
+color message    color124 color254
+color signature  color238 color254
 
-color index      color069 color187 ~A
-color index      color129 color187 '~N'
-color index      color135 color187 '~O'
-color index      color187 color124 ~D
-color index      color090 color187 ~T
-color index      color124 color187 ~F
-color hdrdefault color187 color72
-color header     color160 color72 ^(Cc|Reply-To):
+color index      color238 color254 ~A
+color index      color253 color014 '~N'
+color index      color135 color254 '~O'
+color index      color254 color009 ~D
+color index      color166 color254 ~T
+color index      color161 color254 ~F
+color hdrdefault color254 color025
+color header     color011 color025 ^(Cc|Reply-To):
 
-color body       color124 color187 [\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+
-color body       color072 color187 (https?|ftp)://[\-\.,/%~_:?&=\#a-zA-Z0-9]+
-color bold       color039 color187
-color underline  color141 color187
+color body       color124 color254 [\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+
+color body       color072 color254 (https?|ftp)://[\-\.,/%~_:?&=\#a-zA-Z0-9]+
+color bold       color039 color254
+color underline  color141 color254
 
 set nomarkers
 # set nosidebar_visible

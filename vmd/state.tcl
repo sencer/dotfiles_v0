@@ -1,120 +1,127 @@
+proc hier_search {f} {
+  set dir [pwd]
+  while { ![file exists $dir/$f] } {
+    set tmp $dir
+    set dir [file normalize $dir/..]
+    if {[string equal $tmp $dir]} {
+      return "view.vmd"
+    }
+  }
+  return $dir/view.vmd
+}
+
 proc state {mid} {
-  global x
-  global y
-  global z
-  global viewvmd
-  set viewvmddir [pwd]
-  while { ! [info exists viewvmd] && ! [string equal / $viewvmddir] } {
-    set tmp [file join $viewvmddir view.vmd]
-    if { [file exists $tmp] } {
-      set viewvmd $tmp
-      puts_red "Sourcing $tmp"
-    } else {
-      set viewvmddir [file dirname $viewvmddir]
-    }
+  load_defaults $mid
+}
+
+proc save_view {} {
+
+  puts_red "INFO) Saving the current view."
+
+  global shift
+
+  if {![info exists viewvmd]} {
+    set viewvmd [hier_search view.vmd]
   }
-  if { ! [info exists viewvmd] } {
-    set viewvmd "view.vmd"
-  }
-  if { [file exists $viewvmd] } {
-    catch { source $viewvmd }
-  } else {
-    #some default settings
-    catch {color Name O pink}
-    catch {color Name Ti white}
-    catch {color Element Ti silver}
-    catch {color Element Ni silver}
-    catch {color Element Co silver}
-    catch {color Element Al gray}
-    molinfo $mid set {center_matrix rotate_matrix scale_matrix global_matrix} {
-      {{1 0 0 -7.8} {0 1 0 -4} {0 0 1 -6} {0 0 0 1}}
-      {{1 0 0 0} {0 0 1 0} {0 -1 0 0} {0 0 0 1}}
-      {{0.16 0 0 0} {0 0.16 0 0} {0 0 0.16 0} {0 0 0 1}}
-      {{1 0 0 0} {0 1 0 0} {0 0 1 0} {0 0 0 1}}
+
+  set fildes [open $viewvmd w]
+
+  puts $fildes "display resize [display get size]"
+
+  puts $fildes "proc state {molid} {"
+  set cond " if"
+  foreach mol [molinfo list] {
+    puts $fildes " $cond { $mol == \$molid } {"
+    set cond elseif
+    puts $fildes "    set nrep \[molinfo $mol get numreps\]"
+    puts $fildes "    for {set i 0} {\$i < \$nrep} {incr i} {"
+    puts $fildes "      mol delrep \$i $mol"
+    puts $fildes "    }"
+    set nrep [molinfo $mol get numreps]
+    for {set i 0} {$i < $nrep} {incr i} {
+      puts $fildes "    mol representation [join [molinfo $mol get "{rep $i}"]]"
+      puts $fildes "    mol color [join [molinfo $mol get "{color $i}"]]"
+      puts $fildes "    mol selection [join [molinfo $mol get "{selection $i}"]]"
+      puts $fildes "    mol material [join [molinfo $mol get "{material $i}"]]"
+      puts $fildes "    mol addrep $mol"
+
+      set sp [mol showperiodic $mol $i]
+      if {[string length $sp]} {
+        puts $fildes "    mol showperiodic $mol $i $sp"
+        puts $fildes "    mol numperiodic $mol $i [mol numperiodic $mol $i]"
+      }
+
+      if { ![mol showrep $mol $i] } {
+        puts $fildes "    mol showrep $mol $i 0"
+      }
     }
-    mol delrep 0 $mid
+    if {![molinfo $mol get drawn]} {
+      puts $fildes "    molinfo $mol set drawn 0"
+    }
+    if {![molinfo $mol get active]} {
+      puts $fildes "    molinfo $mol set active 0"
+    }
+    puts $fildes "    molinfo $mol set center_matrix {[molinfo $mol get center_matrix]}"
+    puts $fildes "    molinfo $mol set rotate_matrix {[molinfo $mol get rotate_matrix]}"
+    puts $fildes "    molinfo $mol set scale_matrix {[molinfo $mol get scale_matrix]}"
+    puts $fildes "    molinfo $mol set global_matrix {[molinfo $mol get global_matrix]}"
+    if {[molinfo $mol get fixed]} {
+      puts $fildes "    molinfo $mol set fixed 1"
+    }
+    if { [molinfo $mol get a] > 0} {
+      puts $fildes "    pbc set [pbc get -now -molid $mol] -molid \$molid -all"
+    }
+    puts -nonewline $fildes "  }"
+  }
+  puts $fildes " else {"
+  puts $fildes "    load_defaults \$molid"
+  puts $fildes "  }"
+  puts $fildes "  catch {mol top [molinfo top]}"
+  puts $fildes "  global shift"
+  puts $fildes "  array set shift {[array get shift]}"
+  puts $fildes "  if { \[info exists shift(\$molid,0)\] } {"
+  puts $fildes "    pbc box -molid \$molid -shiftcenter \"\$shift(\$molid,0) \$shift(\$molid,1) \$shift(\$molid,2)\" -off"
+  puts $fildes "    pbc wrap -molid \$molid -shiftcenter \"\$shift(\$molid,0) \$shift(\$molid,1) \$shift(\$molid,2)\""
+  puts $fildes "  }"
+
+  puts $fildes "}"
+  close $fildes
+}
+
+user add key W save_view
+
+proc load_defaults {mid} {
+    global fname
+    set nrep [molinfo $mid get numreps]
+    for {set i [expr $nrep-1]} {$i > -1} {incr i -1} {
+      mol delrep $i $mid
+    }
     mol representation VDW 0.300000 18.000000
     mol color Element
     mol selection all
     mol addrep $mid
     mol representation DynamicBonds 2.300000 0.100000 16.000000
     mol color Element
-    mol selection all and not name H
+    mol selection not name H
     mol addrep $mid
-    mol representation DynamicBonds 1.100000 0.100000 16.000000
+    mol representation DynamicBonds 1.200000 0.100000 16.000000
     mol color Element
     mol selection all
     mol addrep $mid
-  }
-}
-
-user add key W {
-  puts_red "INFO) Saving the current view."
-  global representations
-  save_reps
-
-  set fildes [open $viewvmd w]
-
-  puts $fildes "display resize [display get size]"
-
-  if {[display get depthcue] == "on"} {
-    puts $fildes "display depthcue on"
-    puts $fildes "display cuestart [display get cuestart]"
-    puts $fildes "display cueend [display get cueend]"
-    puts $fildes "display cuedensity [display get cuedensity]"
-    puts $fildes "display cuemode [display get cuemode]"
-  }
-
-  foreach mol [molinfo list] {
-    puts $fildes "if {[lsearch [molinfo list] $mol] >= 0} {"
-    # delete all representations
-    puts $fildes "  set numrep \[molinfo $mol get numreps]"
-    puts $fildes "  for {set i 0} {\$i < \$numrep} {incr i} {"
-    puts $fildes "    mol delrep \$i $mol"
-    puts $fildes "  }"
-    if [info exists representations($mol)] {
-      set i 0
-      foreach rep $representations($mol) {
-        foreach {r s c m pbc numpbc on selupd colupd colminmax smooth framespec cplist} $rep { break }
-        puts $fildes "  mol representation $r"
-        puts $fildes "  mol color $c"
-        puts $fildes "  mol selection {$s}"
-        puts $fildes "  mol material $m"
-        puts $fildes "  mol addrep $mol"
-        puts $fildes "  mol showrep $mol $i $on"
-        if {[string length $pbc]} {
-          puts $fildes "  mol showperiodic top $i $pbc"
-          puts $fildes "  mol numperiodic top $i $numpbc"
-        }
-        incr i
-      }
+    if {[string match "*.cube" $fname]} {
+      mol representation Isosurface 0.01000 0 0 0 1 1
+      mol color ColorID 0
+      mol selection all
+      mol material Opaque
+      mol addrep 0
+      mol representation Isosurface -0.01000 0 0 0 1 1
+      mol color ColorID 4
+      mol selection all
+      mol material Opaque
+      mol addrep 0
     }
-    if { [molinfo $mol get a] > 0} {
-      puts $fildes "  set x($mol) $x($mol)"
-      puts $fildes "  set y($mol) $y($mol)"
-      puts $fildes "  set z($mol) $z($mol)"
-      puts $fildes "  pbc set [pbc get -now] -molid $mol -all"
-      puts $fildes "  pbc box -molid $mol -shiftcenter \"\$x($mol) \$y($mol) \$z($mol)\""
-      puts $fildes "  pbc wrap -molid $mol -shiftcenter \"\$x($mol) \$y($mol) \$z($mol)\""
-      puts $fildes "  pbc box -off"
-    }
-    global viewpoints
-    save_viewpoint
-    puts $fildes "  molinfo $mol set {center_matrix rotate_matrix scale_matrix \
-      global_matrix} [list $viewpoints($mol)]"
-    puts $fildes "}"
-    puts $fildes "\# done with molecule $mol"
-  }
-
-  foreach i [material list] {
-    foreach j [material settings $i] k {ambient specular diffuse
-      shininess opacity outline outlinewidth transmode} {
-      puts $fildes "material change $k $i $j"
-    }
-  }
-  save_colors $fildes
-  save_labels $fildes
-
-  close $fildes
-  puts -nonewline ""
+    set shift($mid,0) 0
+    set shift($mid,1) 0
+    set shift($mid,2) 0
+    display resetview
 }

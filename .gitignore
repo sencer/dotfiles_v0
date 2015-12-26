@@ -19,3 +19,6 @@ bin/gcalcli
 mutt/passwords.gpg
 mutt/aliases
 vim/view
+tmux/plugins/tmux-*
+tmux/sidebar
+tags*

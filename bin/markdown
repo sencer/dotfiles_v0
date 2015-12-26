@@ -60,8 +60,15 @@ def subscript string
   end
   string
 end
-
+puts <<EOF
+<html>
+  <head>
+    <link href="https://gist.githubusercontent.com/sencer/e1dff4a2b381c71abb2b/raw/2d59e303524a7515b98cf973e0c73ae500830dd3/github.css" rel="stylesheet"></link>
+  </head>
+  <body>
+EOF
 puts subscript(markdown(STDIN.read)).gsub(
   /<\/sub>\s*<sup/, "\\0 style='position: relative; left:-0.5em; top:-0.2em'")
 # if a sub followed by sup, stack them on top; reverse the order if you don't
 # want that
+puts '</body></html>'

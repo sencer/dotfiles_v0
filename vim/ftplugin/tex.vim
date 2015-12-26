@@ -1,16 +1,16 @@
-set textwidth=80
+set textwidth=78
 set conceallevel=2
 set concealcursor=c
 set formatoptions+=n
 hi Conceal guibg=NONE
 
 set spell
+set foldmethod=expr
 syntax spell toplevel
-
-let g:LatexBox_complete_inlineMath = 1
 
 setl thesaurus+=$HOME/.vim/dictionaries/moby
 setl dictionary+=$HOME/.vim/dictionaries/tex
+
 au InsertLeave,CursorHold,CursorHoldI <buffer> :up
 
 function! SyncTex()

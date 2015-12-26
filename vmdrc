@@ -2,7 +2,7 @@
 menu main on
 menu main move 450 641
 menu graphics move 929 115
-display resize 470 500
+display resize 940 1000
 display reposition 450 930
 display projection orthographic
 display nearclip set 0
@@ -34,15 +34,12 @@ proc pov {fname} {
   puts_red "INFO) Image file saved to $tmp.png"
 }
 
-proc puts_red {string} {
-  puts stdout "\033\[31m$string\033\[0m"
-}
-
 # putting these things in a proc gets rid of unnecessary output!
+# TODO make fname an array
 proc initial_settings {molid} {
   global fname
   if { [lsearch [molinfo list] $molid] > -1 } {
-    set fname [molinfo top get filename]
+    set fname [molinfo $molid get filename]
     if {[file pathtype $fname] == "relative"} {
       set fname [pwd]/$fname
     }
@@ -70,13 +67,34 @@ proc initialize_settings_proxy {args} {
 }
 
 after idle {
-  package require pbctools
-  set auto_path [concat $env(HOME)/.vmd $auto_path]
+
+  load_color_definitions
+
   if {$argc > 0} { eval $argv }
-  initial_settings 0
-  trace variable vmd_trajectory_read w initialize_settings_proxy
+
+  if {![info exists viewvmd]} {
+    set viewvmd [hier_search view.vmd]
+  }
+
+  if { [file exists $viewvmd] } {
+    catch { source $viewvmd }
+  }
+
+  foreach molid [molinfo list] {
+    initial_settings $molid
+  }
+  trace variable vmd_initialize_structure w initialize_settings_proxy
   trace variable vmd_quit w clean_tmp_files
   VisualSelect::Initialize
+  animate style Rock
 }
+
+proc packages {} {
+  global env auto_path
+  set auto_path [concat $env(HOME)/.vmd $auto_path]
+  package require pbctools
+  package require topotools
+}
+packages
 
 # vim: ft=tcl

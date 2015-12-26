@@ -18,5 +18,5 @@ awk '/starts/ {
        last = $9
      }
      END {
-       printf "init: %.2f ions: %.2f scf: %.2f\n", t[0]/n[0], t[1]/n[1], t[2]/n[2]
+       printf "init: %.2f forces: %.2f scf: %.2f\n", t[0]/(n[0]?n[0]:1), t[1]/(n[1]?n[1]:1), t[2]/(n[2]?n[2]:1)
      }' ${1-output.txt}

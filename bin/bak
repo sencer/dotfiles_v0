@@ -1,6 +1,6 @@
 #!/bin/bash
 
-while [[ $# > 0 ]]; do
+while [[ $# -gt 0 ]]; do
   if [[ $1 == -c ]]; then
     bak="cp"
   elif [[ ! -e $1 ]]; then

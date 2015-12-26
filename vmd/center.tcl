@@ -21,3 +21,20 @@ proc GetMassCenter {selection} {
   }
   return [vecscale [expr 1.0/$mass] $com]
 }
+
+proc CenterAtom {at {center "none"} {molid top}} {
+  # Fix atom with index $at of mol $molid at $center through out the
+  # simulation. $center is the center of unit cell by default.
+  global shift
+  if {$center == "none"} {
+    set center [vecscale [vecadd {*}[lrange {*}[pbc get -namd] 0 2]] 0.5]
+  }
+  set all [atomselect top all]
+  set atom [atomselect top "index $at"]
+  set nf [molinfo $molid get numframes]
+  for {set i 0} {$i <= $nf} {incr i} {
+    animate goto $i
+    set r [lindex [$atom get {x y z}] 0]
+    $all moveby [vecsub $center $r]
+  }
+}

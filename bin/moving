@@ -1,0 +1,29 @@
+#!/usr/bin/awk -f
+
+BEGIN {
+  shift = 1
+}
+/^\s*\#/ {
+  shift++
+  print
+  next
+}
+# start collecting data till N lines to average is arrived
+# also needs to keep N lines of history
+NR-shift < N {
+  for(i=1; i<NF+1;i++) {
+    sum[i] += $i
+    a[i][NR-shift] = $i
+  }
+}
+# since N lines are arrived, start outputting.
+# drop the history etc.
+NR-shift >= N{
+  for(i=1; i<NF+1;i++) {
+    printf "%13.10f ", sum[i]/N
+    sum[i] -= a[i][(NR-shift)%N]
+    a[i][(NR-shift)%N] = $i
+    sum[i] += $i
+  }
+  printf "\n"
+}

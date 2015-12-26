@@ -56,7 +56,6 @@ setlocal omnifunc=QueryCommandComplete indentexpr=MuttIndent(v:lnum)
 syn match mailTable keepend contains=mailEmail "^\s*|.*" transparent
 setlocal noexpandtab autoindent spell spelllang=en,tr fo+=w tw=80
 setlocal dictionary+=/usr/share/dict/words
-NeoCompleteDisable
 nmap mm Vygv:!marky <C-R>"<BS><CR><CR>gqG''
 nnoremap <C-t> :call search('\v^(To<bar>Bcc<bar>Cc<bar>Subject):')<CR>A
 inoremap <C-t> <ESC>:call search('\v^(To<bar>Bcc<bar>Cc<bar>Subject):')<CR>A
