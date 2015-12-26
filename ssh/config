@@ -1,27 +1,17 @@
-Host ofis
-  Hostname ofis.princeton.edu
-  RemoteForward 2319 localhost:22
-  ForwardAgent yes
-  ForwardX11 yes
-  ForwardX11Trusted yes
-  IdentityFile ~/.ssh/id_ofis
 Host arizona
   Hostname arizona.princeton.edu
 Host della
   ForwardX11 yes
   ForwardX11Trusted yes
   Hostname della4.princeton.edu
-  ProxyCommand ssh -CTqe none arizona -W %h:%p
 Host tiger
   ForwardX11 yes
   ForwardX11Trusted yes
   Hostname tiger2.princeton.edu
-  ProxyCommand ssh -CTqe none ofis -W %h:%p
 Host tigress
   ForwardX11 yes
   ForwardX11Trusted yes
   Hostname tigressdata.princeton.edu
-  ProxyCommand ssh -CTqe none arizona -W %h:%p
 Host edison
   ForwardX11 yes
   ForwardX11Trusted yes
