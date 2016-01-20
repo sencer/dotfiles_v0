@@ -1,0 +1,28 @@
+#!/usr/bin/awk -f
+
+BEGIN {
+  shift = 1
+  rn = 1.0/N
+}
+/^\s*\#/ {
+  shift++
+  print
+  next
+}
+NR-shift < N {
+  for(i=1; i<NF+1;i++) {
+    sum[i] += $i
+    sqr[i] += $i*$i
+    a[i][NR-shift] = $i
+  }
+}
+NR-shift >= N{
+  for(i=1; i<NF+1;i++) {
+    std = (sqr[i] - sum[i]*rn*sum[i])*rn
+    printf "%13.10f ", (std>0?sqrt(std):0)
+    sum[i] += $i - a[i][(NR-shift)%N]
+    sqr[i] += $i*$i - (a[i][(NR-shift)%N]^2)
+    a[i][(NR-shift)%N] = $i
+  }
+  printf "\n"
+}
