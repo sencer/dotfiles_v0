@@ -91,4 +91,5 @@ unset D i
 disable r
 source ~/.fzf.zsh
 export FZF_DEFAULT_OPTS='-x'
+export NVIM_TUI_ENABLE_TRUE_COLOR=1
 cat ~/.dotfiles/tmp/work
