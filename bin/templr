@@ -58,8 +58,8 @@ while IFS= read line; do
     match=${match:1:${#match}-2}
     if [[ -n ${!match} ]]; then
       let j++
-      line="${line//%$match%/${!match}}"
     fi
+    line="${line//%$match%/${!match}}"
     let i++
   done
   # do some simple math
