@@ -16,10 +16,13 @@ if [[ -z $PBS_SERVER ]]; then
   mkdir -p zpe
   cp "$inp" zpe/input.txt
   cd zpe
+  outdir=$(sed -n "/outdir/{s/[^'\"]*['\"]//;s/['\"]//;p}" input.txt)
   header="&control
   restart_mode  = 'from_scratch'
   max_seconds   = 10000
   tprnfor       = .TRUE.
+  disk_io       = 'none'
+  outdir        = '${outdir:-../../..}'
 /
 $(sed -n "/&system/,/_POS/p;/&electrons/a\  startingwfc = 'file'\n\
   startingpot = 'file'" input.txt)"
@@ -58,23 +61,20 @@ $(sed -n "/&system/,/_POS/p;/&electrons/a\  startingwfc = 'file'\n\
     cat "$HOME/$PBS_SERVER/.jobtemplate"
     cat <<-'EOF'
 		path=%path%
-		kpools=1
-		images=1
-		gap=1
-
 		numprocs=%numprocs%
-		maxseconds=$(grep -P -o "\\d+:\\d+:\\d+" %jobname% | sed "s/:/*3600+/;s/:/*60-$gap+/"|bc)
-		dt=$(date +%s)
+		kpools=1
+
+		start=$(date +%s)
 		for i in %all%; do
 		  for j in {1..6};do
-		    if [[ $((maxseconds+dt)) -gt $(date +%s) ]]; then
-		      cd %jobdir%/$i/$j
-		      cp -r %jobdir%/../pwscf.* .
-		      sed -i "s/\\(max_seconds\\s*=\\s*\\)[0-9]*/\\1$((maxseconds+dt-$(date +%s)))/" input.txt
-		      %scheduler% %prepara% $path/pw.x -npool $kpools -nimages $images -inp input.txt >> output.txt
-		      rm -rf pwscf.*
+		    cd %jobdir%/$i/$j
+		    echo -n "$i/$j..."
+		    rem=$((maxseconds+start-$(date +%s)))
+		    if [[ $rem -gt 0 ]] && ! grep -q ! output.txt 2>/dev/null ; then
+		      sed -i "s/\\(max_seconds\\s*=\\s*\\)[0-9]*/\\1$rem/" input.txt
+		      %scheduler% %prepara% $path/pw.x -npool $kpools -inp input.txt >> output.txt
 		    fi
-		    echo $i/$j: $((dt-$(date +%s)))
+		    echo " $(($(date +%s)-start))"
 		  done
 		done
 		EOF
