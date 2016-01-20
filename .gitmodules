@@ -10,18 +10,6 @@
 [submodule "external/opp"]
 	path = external/opp
 	url = https://github.com/hchbaw/opp.zsh.git
-[submodule "tmux/plugins/tmux-copycat"]
-	path = tmux/plugins/tmux-copycat
-	url = https://github.com/tmux-plugins/tmux-copycat
-[submodule "tmux/plugins/tmux-logging"]
-	path = tmux/plugins/tmux-logging
-	url = https://github.com/tmux-plugins/tmux-logging
-[submodule "tmux/plugins/tmux-yank"]
-	path = tmux/plugins/tmux-yank
-	url = https://github.com/tmux-plugins/tmux-yank
-[submodule "tmux/plugins/tpm"]
-	path = tmux/plugins/tpm
-	url = https://github.com/tmux-plugins/tpm
 [submodule "gplt/palettes"]
 	path = gplt/palettes
 	url = https://github.com/Gnuplotting/gnuplot-palettes
