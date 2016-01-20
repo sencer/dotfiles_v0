@@ -39,7 +39,7 @@ alias rsync="noglob rsync"
 alias ln="nocorrect ln -i"
 alias type='type -a'
 
-alias v="vim -T $TERM"
+alias v="nvim"
 alias vv="v input.txt"
 alias vj="v *.job"
 alias vo="v output.txt"
