@@ -49,7 +49,7 @@ zmodload zsh/pcre                   # perl compatible shell regex
 # this is for pbs server management
 
 typeset -xT PBS_SERVER_LIST pbs_server_list
-export PBS_SERVER_LIST=:nano:tiger:della:tigress:edison:hopper:
+export PBS_SERVER_LIST=:nano:tiger:della:tigress:edison:hopper:hecate:cori:adroit:
 
 # vi-mode inner, surround etc text objects
 
@@ -93,3 +93,4 @@ source ~/.fzf.zsh
 export FZF_DEFAULT_OPTS='-x'
 export NVIM_TUI_ENABLE_TRUE_COLOR=1
 cat ~/.dotfiles/tmp/work
+set-pbsserver-var
