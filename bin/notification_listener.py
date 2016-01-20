@@ -29,8 +29,8 @@ class Notifier:
     self.path = None
 
   def message(self, args):
-    self.notify.update('Job Completed', 'Job %s on %s is completed.' % (args[0], args[1]))
-    self.path = args[2]
+    self.notify.update('Job Completed', 'Job %s on %s is completed.' % (args[0], args[2]))
+    self.path = args[1]
 
   def clipboard(self, d1, d2):
     os.system("echo '%s' | xsel -bi" % self.path)
