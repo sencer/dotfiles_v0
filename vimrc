@@ -58,7 +58,7 @@ Plug 'andersoncustodio/vim-tmux'
 Plug 'chrisbra/vim-zsh'
 
 " Completion and Tags {{{2
-Plug 'jiangmiao/auto-pairs'
+Plug 'rstacruz/vim-closer'
 Plug 'SirVer/UltiSnips'
 Plug 'sencer/vim-snippets'
 Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer'}
