@@ -153,6 +153,24 @@ endif
 let &fcs = substitute(&fcs, 'fold:.', 'fold: ', '')
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                       temprorary tmux completion fix                       "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+function TmuxCompleteToggle()
+  if !exists('b:TmuxCompleteBak') || b:TmuxCompleteBak ==# ""
+    let b:TmuxCompleteBak = &completefunc
+    setl completefunc=tmuxcomplete#complete
+    echom "completefunc set to tmuxcomplete#complete"
+  else
+    let &completefunc=b:TmuxCompleteBak
+    echom "completefunc set to " . b:TmuxCompleteBak
+    let b:TmuxCompleteBak = ""
+  endif
+endfunction
+nnoremap <Leader>y :call TmuxCompleteToggle()<CR>
+" inoremap <C-J> <C-o>:call TmuxCompleteToggle()<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                        Insert Spaces until Aligned                         "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! InsertSpaces()
