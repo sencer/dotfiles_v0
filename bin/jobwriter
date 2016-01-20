@@ -30,7 +30,7 @@ g=${3:-300}
 		# run post-job hooks if available
 		[[ -f post.sh ]] && bash post.sh
 	EOF
-} | templr $HOME/$PBS_SERVER/.jobconfig -if -kpools $k -images $i -gap $g
+} | templr $HOME/$PBS_SERVER/.jobconfig -kpools $k -images $i -gap $g
 # if [[ -f $HOME/.jobconfig ]]; then
 # else
 # 	[[ -n $PBS_SERVER ]] && ras -pbs \$HOME/bin/jobwriter "$@"
