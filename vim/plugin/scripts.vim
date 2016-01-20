@@ -4,7 +4,7 @@ if !has("gui_running")
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                     fix alt shortcuts for terminal                      "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
+if !has('nvim')
   let c='a'
   while c <= 'z'
     exec "set <A-".c.">=\e".c
@@ -18,6 +18,7 @@ if !has("gui_running")
   exec "set <A-=>=\e="
   exec "imap \e= <A-=>"
   set timeout ttimeoutlen=50
+endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                           rename tmux window                            "
@@ -151,3 +152,31 @@ if &foldmethod == 'manual'
 endif
 let &fcs = substitute(&fcs, 'fold:.', 'fold: ', '')
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                        Insert Spaces until Aligned                         "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! InsertSpaces()
+  let s:ln   = line(".")
+  let s:cn   = col(".") - 1
+  let s:line = getline(s:ln)
+  let s:char = s:line[s:cn]
+
+  let s:i   = 0
+  let s:pos = -1
+  while s:pos == -1
+    let s:i += 1
+    let s:pline = getline(s:ln - s:i)
+    let s:pos = stridx(s:pline, s:char, s:cn)
+    if s:pos > -1 || s:i == s:ln
+      break
+    endif
+  endwhile
+  if s:pos > -1
+    call setline(s:ln, s:line[:(s:cn)-1] . repeat(" ", s:pos - s:cn) . s:char . s:line[(s:cn)+1:])
+    return s:pos
+  else
+    echom "No `" . s:char . "' found in the previous lines."
+  endif
+endfunction
+
+inoremap <silent> <C-g> <C-[>:call InsertSpaces()<CR>A

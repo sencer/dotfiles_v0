@@ -217,6 +217,7 @@ let g:vcoolor_map = '<F5>'
 let g:notes_suffix = '.md'
 let g:notes_directories = ['~/gdrive/notes']
 let g:agprg = 'ag --nogroup --nocolor --column'
+let g:surround_no_insert_mappings = 1
 
 "}}}1
 
