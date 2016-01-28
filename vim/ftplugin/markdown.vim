@@ -11,10 +11,10 @@ let g:tagbar_type_markdown = {
     \ 'sort' : 0,
 \ }
 
-function! SetMakePrg(arg)
-  let &makeprg="pandoc -f markdown -t ".a:arg." % -o %:t:r.".a:arg
+function! SetMakePrg(format)
+  let &makeprg="panzer % -o %:p:r.".a:format
 endfunction
-command! -n=1 SMP call SetMakePrg(<f-args>)
-SMP html
+
+command! -n=+ SMP call SetMakePrg(<f-args>)
 
 call prose#setup()
