@@ -17,4 +17,8 @@ endfunction
 
 command! -n=+ SMP call SetMakePrg(<f-args>)
 
+if &makeprg == "make"
+  SMP html
+endif
+
 call prose#setup()
