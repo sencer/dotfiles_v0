@@ -1,0 +1,12 @@
+--python-kinds=-i
+--fortran-kinds=+i
+--langdef=markdown
+--langmap=markdown:.mkd
+--regex-markdown=/^#[ \t]+(.*)/\1/h/
+--regex-markdown=/^##[ \t]+(.*)/.  \1/h/
+--regex-markdown=/^###[ \t]+(.*)/.  .  \1/h/
+--langdef=input
+--langmap=input:+.in
+--regex-input=/^\s*&(END.*)$/\1/z,ignore/{exclusive}{scope=pop}
+--regex-input=/^\s*\/\s*$/\1/z,ignore/{exclusive}{scope=pop}
+--regex-input=/^\s*&(\S+)\s*/\1/s,section/{scope=push}
