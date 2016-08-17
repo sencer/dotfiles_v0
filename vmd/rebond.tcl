@@ -207,7 +207,8 @@ proc lcount {inlist} {
 proc strcnt {str char} {
 # count the occurences of a string (char) in another (str). originally written
 # for characters, so the bad naming of variables.
- return [expr {([string length " $str"]-[string length [string map "{ $char} {}" " $str"]])/[string length " $char"]}]
+ set str [string map "{ } {  }" " $str "]
+ return [expr {([string length " $str "]-[string length [string map "{ $char } {}" " $str "]])/[string length " $char "]}]
 }
 
 proc sel2chm {sel frag} {
