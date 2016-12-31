@@ -2,6 +2,7 @@
 get_stats() {
   awk  'func abs(x) { return (x<0) ? x*-1 : x }
         func max(a,b,c,d) {
+          if (fixed[$2] ==  1) return a
           b = abs(b); c = abs(c); d = abs(d)
           if(a < b) a = b
           if(a < c) a = c
@@ -9,8 +10,16 @@ get_stats() {
           return a
         }
         function p(){
-        if(tot%20==1) print "Run SCF ION    t     T   TOT FORCE CORR% MAX FORCE    ENERGY (Ry)     ENERGY (eV)" > "/dev/stderr"
-            printf "%-3d %3d %3d %5.2f %5.1f %9.6f %5.2f %9.6f %16.8f %16.8f\n", run, scf, ionic, t, T, force, corr, maxf, e, e*13.6056923
+          # find fixed atoms, and do not display the force on them.
+          if(!flag) {
+            while(NF!=0) {
+              getline
+              if (NF > 4) fixed[++atom] = 1
+            }
+            flag = 1
+          }
+          if(tot%20==1) print "Run SCF ION    t     T   TOT FORCE CORR% MAX FORCE    ENERGY (Ry)     ENERGY (eV)" > "/dev/stderr"
+              printf "%-3d %3d %3d %5.2f %5.1f %9.6f %5.2f %9.6f %16.8f %16.8f\n", run, scf, ionic, t, T, force, corr, maxf, e, e*13.6056923
         }
         {
           switch($0) {
