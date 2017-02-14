@@ -7,9 +7,6 @@
 [submodule "external/completion"]
 	path = external/completion
 	url = git@github.com:zsh-users/zsh-completions.git
-[submodule "external/opp"]
-	path = external/opp
-	url = https://github.com/hchbaw/opp.zsh.git
 [submodule "gplt/palettes"]
 	path = gplt/palettes
 	url = https://github.com/Gnuplotting/gnuplot-palettes
