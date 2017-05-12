@@ -52,10 +52,12 @@ nat.times do |i|
   min = 100
   sel = nil
   list2.each do |b|
-    dist = list1[i].dist(b)
-    if min > dist
-      sel = b
-      min = dist
+    if b.e == list1[i].e
+      dist = list1[i].dist(b)
+      if min > dist
+        sel = b
+        min = dist
+      end
     end
   end
   if min > 1

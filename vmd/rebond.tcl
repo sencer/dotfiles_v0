@@ -11,7 +11,7 @@ namespace eval ::Rebond {
   variable width 1
 
   namespace eval len {
-    variable OO 1.8 CC 1.8 NN 1.8 HH 1.0 CO 1.8 OC 1.8 CN 1.8 NC 1.8 \
+    variable OO 1.8 CC 2.0 NN 1.8 HH 1.0 CO 1.8 OC 1.8 CN 1.8 NC 1.8 \
              CH 1.3 HC 1.3 ON 1.8 NO 1.8 OH 1.3 HO 1.3 NH 1.3 HN 1.3 \
             TiO 2.3 OTi 2.3 TiH 1.3 HTi 1.3 TiTi 2.3
   }

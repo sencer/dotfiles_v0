@@ -7,26 +7,33 @@ function! prose#setup()
   setlocal nocindent
   setlocal nosmartindent
   setlocal formatoptions=jtcraqn1w
-  colorscheme PaperColor
-  let g:airline_theme='PaperColor'
+  command! W echo "noop"
+  let g:goyo_width = 76
+  set textwidth=73
   let g:limelight_conceal_ctermfg = 'gray'
   let g:limelight_default_coefficient = 0.7
+  call textobj#sentence#init()
   autocmd! User GoyoEnter nested call prose#enter()
   autocmd! User GoyoLeave nested call prose#exit()
 endfunction
 
 function! prose#enter()
-  echom "test!"
   setlocal noshowcmd
   setlocal noshowmode
-  silent !tmux set status off
+  setlocal cursorline
+  if !has("gui_running")
+    silent !tmux set status off
+  endif
   autocmd! RNU
 endfunction
 
 function! prose#exit()
   set showcmd
   set showmode
-  silent !tmux set status on
+  if !has("gui_running")
+    silent !tmux set status on
+  endif
+  setlocal nocursorline
   augroup RNU
     autocmd!
     au RNU InsertEnter * set norelativenumber

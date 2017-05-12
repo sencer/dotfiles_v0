@@ -5,9 +5,9 @@ alternates 'sselcuk@.*princeton.edu'
 source "gpg2 --no-tty -d ~/.mutt/passwords.gpg 2>/dev/null |" # password from an encrypted file
 
 # Princeton IMAP Settings
-#
+
 set folder           = imaps://exchangeimap.princeton.edu:993/
-mailboxes            = +INBOX +Archives/2015 +Archives/2014 +Archives/Research +Drafts
+mailboxes            +INBOX +Archives/2016 +Archives/2015 +Archives/Research +Drafts
 set spoolfile        = +INBOX
 set postponed        = +Drafts
 set record           = +Sent\ Items
@@ -17,62 +17,101 @@ set imap_keepalive   = 300
 set mail_check       = 120
 set timeout          = 1
 
+set folder           = "/opt/mail/pu"
+# set spoolfile        = +Inbox
+mailboxes            +Inbox
+
+set folder           = "/opt/mail/gmail"
+# set spoolfile        = +Inbox
+mailboxes            +Inbox
+
 set header_cache     = ~/.cache/mutt
 set message_cachedir = ~/.cache/mutt
 set noimap_passive
 set nomove
+
+set collapse_all
+unset collapse_unread
 
 # SMTP settings
 set smtp_url              = smtp://sselcuk@smtp.princeton.edu:587
 set from                  = "sselcuk@princeton.edu"
 set use_from              = yes
 set ssl_force_tls         = yes
-set ssl_min_dh_prime_bits = 128
+# set ssl_min_dh_prime_bits = 128
 set editor                = "vim -S '~/.mutt/mutt.vim' -c 'startinsert'"
 set text_flowed
 set pipe_decode
 set pipe_sep = "\n#### NEXT MAIL ####\n"
 
 bind index,pager <F5> imap-fetch-mail
+bind index,pager a group-reply
 bind index G last-entry
-macro compose Y "<first-entry>F markdown\ny^T^Utext/html; charset=utf-8\n\n<send-message>" "send as html mail"
-macro compose a "<attach-file>?c~<Enter>"
-macro index,pager s "<save-message>?<toggle-mailboxes>" "save message to a folder"
-macro index,pager C "<copy-message>?<toggle-mailboxes>" "copy message to a folder"
-macro index,pager A <save-message>=Archives/`date +%Y`\n
-macro index,pager,attach <F12> "<copy-message>/tmp/mutttmpbox\n<enter><shell-escape>~/.mutt/viewhtmlmail.py\n" "View HTML in browser"
-macro index,pager } "<pipe-entry>~/.mutt/create_event\n"
+bind index gg first-entry
+bind pager G bottom
+bind pager gg top
 
-color normal     color238 color254
-color indicator  color254 color238
-color markers    color238 color254
-color quoted     color067 color254
-color attachment color031 color254
-color tree       color238 color254
-color status     color254 color024
-color tilde      color238 color254
-color error      color254 color124
-color message    color124 color254
-color signature  color238 color254
+# bind index,pager X change-vfolder
+# bind index,pager + entire-thread
+# bind index,pager ` modify-labels
+# bind index,pager <Space>a vfolder-from-query
+# bind index - collapse-thread
+# bind index _ collapse-all
 
-color index      color238 color254 ~A
-color index      color253 color014 '~N'
-color index      color135 color254 '~O'
-color index      color254 color009 ~D
-color index      color166 color254 ~T
-color index      color161 color254 ~F
-color hdrdefault color254 color025
-color header     color011 color025 ^(Cc|Reply-To):
+bind index J next-thread
+bind index K previous-thread
 
-color body       color124 color254 [\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+
-color body       color072 color254 (https?|ftp)://[\-\.,/%~_:?&=\#a-zA-Z0-9]+
-color bold       color039 color254
-color underline  color141 color254
+# # bind index ? search-reverse
+# bind index N search-opposite
+
+# bind pager \Ch help
+
+# macro compose Y "<first-entry>F markdown\ny^T^Utext/html; charset=utf-8\n\n<send-message>" "send as html mail"
+# macro compose a "<attach-file>?c~<Enter>"
+# macro index,pager s "<save-message>?<toggle-mailboxes>" "save message to a folder"
+# macro index,pager C "<copy-message>?<toggle-mailboxes>" "copy message to a folder"
+# macro index,pager \Cy "<change-folder>?<toggle-mailboxes>" "change folder"
+# macro index,pager A <save-message>=Archives/`date +%Y`\n
+# macro index,pager,attach <F12> "<copy-message>/tmp/mutttmpbox\n<enter><shell-escape>python2.7 ~/.mutt/viewhtmlmail.py\n" "View HTML in browser"
+# macro index,pager } "<pipe-entry>~/.mutt/create_event\n"
+
+#     field      foreground  background
+color normal     color223    color235 # main colors
+color indicator  color229    color239 # cursor line
+color tree       color223    color235 # thread arrows
+
+color index      color223 color235 ~A # all messages
+color index      color223 color237 ~v # messages flagged
+color index      color229 color66  ~N # new messages
+color index      color229 color109 ~O # old messages, i.e. new but seen before
+color index      color229 color124 ~D # messages marked for deletion
+color index      color229 color106 ~T # messages tagged
+color index      color229 color208 ~F # messages flagged
+
+color markers    color223 color235
+color quoted     color246 color234
+color attachment color214 color235
+color status     color250 color66
+color tilde      color223 color234
+color error      color124 color235
+color message    color132 color235
+color signature  color250 color235
+
+color hdrdefault color223 color235
+color header     color167 color235 ^(Cc|Reply-To):
+
+color body       color142 color234 [\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+
+color body       color142 color234 (https?|ftp)://[\-\.,/%~_:?&=\#a-zA-Z0-9]+
+# color bold       color039 color254
+# color underline  color141 color254
 
 set nomarkers
 # set nosidebar_visible
 # set sidebar_delim = " "
-set index_format = "%4C %Z %-20.20L %s" # "%?X?[%X]& ?" for attachments.
+set date_format     = "[%d/%m/%y] [%I:%M%P]"
+set folder_format="%2C %t %N %8s %d %f"
+set index_format = "%3C [%Z] %D %-20.18F //   %s"# "%?X?[%X]& ?" for attachments.
+set alias_format    = "%4n %t %-20a %r"
 set status_format = "%r--[%f]--[Msgs:%?M?%M/?%m%?n? New:%n?%?o? Old:%o?%?d? Del\
 :%d?%?F? Flag:%F?%?t? Tag:%t?%?p? Post:%p?%?b? Inc:%b?%?l? %l?]---(%s/%S)-%>-(%\
 P)---"
@@ -81,7 +120,7 @@ set status_on_top
 set to_chars = " >~c<l"
 set wrap = 100
 set query_command = "~/bin/ph %s 2>/dev/null"
-alternative_order text/html text/enriched text/plain
+alternative_order text/plain text/enriched text/html 
 set autoedit
 set edit_headers
 set fast_reply
@@ -103,6 +142,7 @@ set pager_context=2
 set pager_index_lines=10
 set pager_stop
 set sort=threads
+set strict_threads=yes
 set sort_aux=reverse-last-date-received
 set ispell="aspell -e -c"
 # set arrow_cursor if set, reverse fg/bg colors
@@ -118,6 +158,28 @@ source $alias_file
 set forward_quote
 set forward_format = "Fwd: %s"
 set include
+set attribution = "On %d, %n wrote:"
+
+# Handler for bzip2 compressed mailboxes
+open-hook   '\.bz2$' "bzip2 -cd '%f' >  '%t'"
+close-hook  '\.bz2$' "bzip2 -c  '%t' >  '%f'"
+append-hook '\.bz2$' "bzip2 -c  '%t' >> '%f'"
+
+# set crypt_use_gpgme=yes
+# set crypt_autosign=yes
+# set pgp_encrypt_self=yes
+# set pgp_default_key=1DED3EBF
+# set pgp_use_gpg_agent = yes
+# set pgp_sign_as = 02C00818  
+# sub rsa4096/1DED3EBF 2016-12-17 [E] [expires: 2019-12-17]
+# set pgp_timeout = 3600
+# set crypt_autosign = yes
+# set crypt_replyencrypt = yes
+
+# mime_lookup text/html
 auto_view text/html
-auto_view text/calendar
+# auto_view text/calendar
 auto_view application/msword
+
+ignore *
+unignore from date subject data to cc

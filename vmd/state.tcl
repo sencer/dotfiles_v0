@@ -31,11 +31,11 @@ proc save_view {} {
   puts $fildes "proc state {molid} {"
   set cond " if"
   foreach mol [molinfo list] {
-    puts $fildes " $cond { $mol == \$molid } {"
+    puts $fildes " $cond { \$molid == $mol } {"
     set cond elseif
-    puts $fildes "    set nrep \[molinfo $mol get numreps\]"
+    puts $fildes "    set nrep \[molinfo \$molid get numreps\]"
     puts $fildes "    for {set i 0} {\$i < \$nrep} {incr i} {"
-    puts $fildes "      mol delrep \$i $mol"
+    puts $fildes "      mol delrep 0 \$molid"
     puts $fildes "    }"
     set nrep [molinfo $mol get numreps]
     for {set i 0} {$i < $nrep} {incr i} {
@@ -43,30 +43,30 @@ proc save_view {} {
       puts $fildes "    mol color [join [molinfo $mol get "{color $i}"]]"
       puts $fildes "    mol selection [join [molinfo $mol get "{selection $i}"]]"
       puts $fildes "    mol material [join [molinfo $mol get "{material $i}"]]"
-      puts $fildes "    mol addrep $mol"
+      puts $fildes "    mol addrep \$molid"
 
       set sp [mol showperiodic $mol $i]
       if {[string length $sp]} {
-        puts $fildes "    mol showperiodic $mol $i $sp"
-        puts $fildes "    mol numperiodic $mol $i [mol numperiodic $mol $i]"
+        puts $fildes "    mol showperiodic \$molid $i $sp"
+        puts $fildes "    mol numperiodic \$molid $i [mol numperiodic $mol $i]"
       }
 
       if { ![mol showrep $mol $i] } {
-        puts $fildes "    mol showrep $mol $i 0"
+        puts $fildes "    mol showrep \$molid $i 0"
       }
     }
     if {![molinfo $mol get drawn]} {
-      puts $fildes "    molinfo $mol set drawn 0"
+      puts $fildes "    molinfo \$molid set drawn 0"
     }
     if {![molinfo $mol get active]} {
-      puts $fildes "    molinfo $mol set active 0"
+      puts $fildes "    molinfo \$molid set active 0"
     }
-    puts $fildes "    molinfo $mol set center_matrix {[molinfo $mol get center_matrix]}"
-    puts $fildes "    molinfo $mol set rotate_matrix {[molinfo $mol get rotate_matrix]}"
-    puts $fildes "    molinfo $mol set scale_matrix {[molinfo $mol get scale_matrix]}"
-    puts $fildes "    molinfo $mol set global_matrix {[molinfo $mol get global_matrix]}"
+    puts $fildes "    molinfo \$molid set center_matrix {[molinfo $mol get center_matrix]}"
+    puts $fildes "    molinfo \$molid set rotate_matrix {[molinfo $mol get rotate_matrix]}"
+    puts $fildes "    molinfo \$molid set scale_matrix {[molinfo $mol get scale_matrix]}"
+    puts $fildes "    molinfo \$molid set global_matrix {[molinfo $mol get global_matrix]}"
     if {[molinfo $mol get fixed]} {
-      puts $fildes "    molinfo $mol set fixed 1"
+      puts $fildes "    molinfo \$molid set fixed 1"
     }
     if { [molinfo $mol get a] > 0} {
       puts $fildes "    pbc set [pbc get -now -molid $mol] -molid \$molid -all"

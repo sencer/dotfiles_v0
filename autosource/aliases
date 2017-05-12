@@ -3,18 +3,21 @@
 alias -g aliases="~/.dotfiles/autosource/aliases"
 alias history-stat="history 0 | awk '{print \$2}' | sort | uniq -c | sort -n -r | head"
 alias show='cat ~/.dotfiles/tmp/dirs'
+alias todo='cat ~/.dotfiles/tmp/work.md'
 alias -g mails="~/.dotfiles/tmp/mails.log"
 alias state='ssh ofis "cat ~/.dotfiles/tmp/mails.log"'
 alias state-clean='ssh ofis "cat /dev/null > ~/.dotfiles/tmp/mails.log"'
 alias shutdown="systemctl poweroff -i"
 alias reboot="systemctl reboot -i"
 alias ofis='gnome-terminal -x ssh -t ofis tmux'
+alias ofisa='gnome-terminal -x ssh -t ofis tmux attach-session'
 alias ekran='ssh ofis vbetool dpms off'
 alias clear!="clear && printf '\e[3J'"
 
 alias d='dirs -v'
 for index ({1..20}) alias "$index"="cd +${index}"; unset index
 alias bc='bc -lq'
+alias pumail='v +NotMuch'
 alias ls='ls --group-directories-first --color=auto'
 alias la='ls -AF'
 alias ll='ls -lh'
@@ -40,19 +43,21 @@ alias ln="nocorrect ln -i"
 alias type='type -a'
 
 alias v="nvim"
+alias vimdiff="nvim -d"
 alias vv="v input.txt"
 alias vj="v *.job"
 alias vo="v output.txt"
 alias xi="xcrysden --pwi input.txt|less -E"
 alias xo="xcrysden --pwo output.txt|less -E"
-alias open="xdg-open"
+# alias open="xdg-open"
+open() { xdg-open $1 &>/dev/null }
 
 alias xgrep="xargs grep -P"
 alias xsed="xargs sed -r"
 alias hgrep="history 0|grep"
 
 alias f="ras -t less +F"
-alias fo="ras -t less +F output.txt"
+alias fo="ras -t less -S +F output.txt"
 
 alias in="ras find -name input.txt -and -not -path \*/zpe/\*"
 alias job="ras find -name *.job -and -not -path \*/zpe/\*"
@@ -62,9 +67,9 @@ alias watch="ras -t watch"
 alias rscp='ras -t rsync -azPe "ssh -q"'
 alias rejob="zmv -Q '(**/)*.job' '\$1\${\${1%/}//\//-}.job'"
 
-alias pwgui="/home/sselcuk/software/espresso-5.1.1/PWgui-5.1/pwgui"
+alias pwgui="/home/sselcuk/software/espresso-5.2.1/PWgui-5.2.1/pwgui"
 
-alias e="out|xargs awk 'BEGIN{l=1}/Final energy/{if(l%2){printf \"\\033[38;5;111m\"} l=l+1; printf \"%-50s %18f\\033[0m\\n\", gensub(\"./\",\"\",\"\",gensub(\"/output.txt\",\"\",\"\",FILENAME)), \$4*13.6056923}'"
+alias e="out|xargs awk 'BEGIN{l=1}/Final energy/{if(l%2){printf \"\\033[38;5;111m\"} l=l+1; printf \"%-50s %18f\\033[0m\\n\", gensub(\"./\",\"\", 1,gensub(\"/output.txt\",\"\", 1,FILENAME)), \$4*13.6056923}'"
 alias arm='ras rm -rf qe_input.xml *.job.* slurm* cp.* output.txt CRASH *.pdb *.cube pw*;ras ls'
 alias listen='coproc notification_listener.py'
 # alias b="find . -name output.txt -exec sh -c \"printf '%-50s' {};tac {}|grep -i -m1 -e 'number of bfgs' -e 'bfgs converged';printf '\n' \" \\;|sed 's/\/output.txt//;s/.\///;/^\$/d'"

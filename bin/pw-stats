@@ -1,7 +1,10 @@
 #!/bin/bash
 get_stats() {
-  awk  'func abs(x) { return (x<0) ? x*-1 : x }
+   awk  -vn=$n '
+        func abs(x) { return (x<0) ? x*-1 : x }
         func max(a,b,c,d) {
+#         f = sqrt(b*b+c*c+d*d)
+#         return (a<f)?f:a
           if (fixed[$2] ==  1) return a
           b = abs(b); c = abs(c); d = abs(d)
           if(a < b) a = b
@@ -10,19 +13,28 @@ get_stats() {
           return a
         }
         function p(){
-          # find fixed atoms, and do not display the force on them.
-          if(!flag) {
-            while(NF!=0) {
-              getline
+          maxd = -1
+          rmsd = 0
+          for ( i = 0; i < nat; i++ ) {
+            getline
+            if(!flag) {
               if (NF > 4) fixed[++atom] = 1
             }
-            flag = 1
+            sd = 0
+            for ( j =2; j<5; j++ ) {
+              sd += ($j - old[i][j])^2
+              old[i][j] = $j
+            }
+            if(maxd<sd) maxd=sd
+            rmsd += sd
           }
-          if(tot%20==1) print "Run SCF ION    t     T   TOT FORCE CORR% MAX FORCE    ENERGY (Ry)     ENERGY (eV)" > "/dev/stderr"
-              printf "%-3d %3d %3d %5.2f %5.1f %9.6f %5.2f %9.6f %16.8f %16.8f\n", run, scf, ionic, t, T, force, corr, maxf, e, e*13.6056923
+          flag = 1
+          if(tot%20==1) print "Run SCF ION    t     T   TOT FORCE CORR% MAXFORCE   RMSD    MAXDISP    ENERGY (Ry)     ENERGY (eV)" > "/dev/stderr"
+          printf "%-3d %3d %3d %5.2f %5.1f %9.6f %5.2f %9.6f %8.5f %8.5f %16.8f %16.8f\n", run, scf, ionic, t, T, force, corr, maxf, (rmsd>1000)?0:sqrt(rmsd/nat), (rmsd>1000)?0:sqrt(maxd), e, e*13.6056923
         }
         {
           switch($0) {
+            case /number of atoms/: nat=$5; break
             case /starts/: run++; break
             case /!/: e = $5; break
             case /temperature/: T = $3; break

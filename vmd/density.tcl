@@ -1,4 +1,4 @@
-proc density {{fname density.dat} {res 0.1} {st all} {molid top}} {
+proc density {{fname density.dat} {res 0.1} {st all} {molid top} {fi 0}} {
 
   if {$molid == "top"} {
     set molid [molinfo top]
@@ -15,7 +15,7 @@ proc density {{fname density.dat} {res 0.1} {st all} {molid top}} {
   set A [expr [lindex $t1 0]*[lindex $t2 1]]
   set nf [molinfo top get numframes]
 
-  for {set i 0} {$i < $nf} {incr i} {
+  for {set i $fi} {$i < $nf} {incr i} {
     $sel frame $i
     set L [vecscale [$sel get z] $r]
     set M [$sel get mass]

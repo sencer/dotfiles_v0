@@ -142,6 +142,7 @@ proc ::VisualSelect::Trace {args} {
 
 proc ::VisualSelect::Rotate {{ axis "z" } { inc 2 }} {
   global vsel
+  # global gc
   set gc [GetCenter $vsel]
   $vsel moveby [vecscale -1 $gc]
   $vsel move [transaxis $axis $inc]

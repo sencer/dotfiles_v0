@@ -5,14 +5,27 @@ awk '$1 ~/ibrav/ {
      }
      $1 ~ /celldm/ {
        a = $3 * 0.529177249
-       if(ibrav == 1) {
-         b = a
-         c = a
-       } else if (ibrav == 8) {
-        getline
-        b = a * $3
-        getline
-        c = a * $3
+       switch(ibrav){
+        case 1:
+          b = a
+          c = a
+          break
+
+        case 6:
+          b = a
+          getline
+          c = a * $3
+          break
+
+        case 8:
+          getline
+          b = a * $3
+          getline
+          c = a * $3
+          break
+
+        default:
+          print "Only ibrav 1, 6, and 8 are implemented"
        }
      }
      $1 ~ /nat/ {

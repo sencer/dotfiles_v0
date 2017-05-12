@@ -1,0 +1,4 @@
+#compdef last first
+
+_arguments \
+  "*::chemical data:_files -g '(#i)*.(lammpstrj)(-.Od)'" && return 0

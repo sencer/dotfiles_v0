@@ -255,8 +255,8 @@ if [ $# -eq 1 ] ; then
         else echo "No unzoo or zoo available"; fi ;;
 
       *)
-        if [ -x "`which rougify`" ]; then
-          rougify -F theme=base16.monokai "$1"
+        if [ -x "`which highlight`" ]; then
+          highlight -O xterm256 -s zenburn "$1"
         else
           cat "$1"
         fi

@@ -7,15 +7,23 @@ Host ofis
   IdentityFile ~/.ssh/id_ofis
 Host arizona
   Hostname arizona.princeton.edu
+Host nobel
+  Hostname nobel.princeton.edu
 Host della
   ForwardX11 yes
   ForwardX11Trusted yes
   Hostname della4.princeton.edu
   ProxyCommand ssh -CTqe none ofis -W %h:%p
-Host tiger
+Host tiger-x
+  User xunhuaz
   ForwardX11 yes
   ForwardX11Trusted yes
   Hostname tiger2.princeton.edu
+  ProxyCommand ssh -CTqe none ofis -W %h:%p
+Host tiger
+  ForwardX11 yes
+  ForwardX11Trusted yes
+  Hostname tiger.princeton.edu
   ProxyCommand ssh -CTqe none ofis -W %h:%p
 Host tigress
   ForwardX11 yes
@@ -31,7 +39,6 @@ Host cori2
   ForwardX11 yes
   ForwardX11Trusted yes
   Hostname cori.nersc.gov
-  ProxyCommand ssh -CTqe none ofis -W %h:%p
 Host edison
   ForwardX11 yes
   ForwardX11Trusted yes
@@ -51,6 +58,13 @@ Host hecate
   User cuiz
   ProxyCommand ssh -CTqe none ofis -W %h:%p
   Hostname hecate.princeton.edu
+Host berlioz
+  User boyacih
+  Hostname berlioz.rockefeller.edu
+Host darst
+  User boyacih
+  Hostname darst-xserve2.rockefeller.edu
+  ProxyCommand ssh -CTqe none berlioz -W %h:%p
 Host *
   Compression yes
   # CompressionLevel 7

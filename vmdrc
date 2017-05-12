@@ -18,7 +18,8 @@ user add key Control-w { savexyz [atomselect top all] vmd.xyz }
 
 # automate povray
 
-render options POV3 {povray +W%w +H%h -I%s -O%s.png -D -X +A +UA +FN}
+# render options POV3 {povray +W%w +H%h -I%s -O%s.png -D -X +A +UA +FN}
+render options POV3 {megapov +W%w +H%h -I%s -O%s.png -D -X +A +UA +FN}
 
 proc pov {fname} {
   set tmp [file rootname $fname]
@@ -29,9 +30,10 @@ proc pov {fname} {
     set tmp $tmp2$i
   }
   puts_red "INFO) Writing $tmp.pov"
-  render POV3 $tmp.pov [render options POV3]
-  file rename  $tmp.pov.png $tmp.png
-  puts_red "INFO) Image file saved to $tmp.png"
+  render POV3 $tmp.pov
+ #[render options POV3]
+ #file rename  $tmp.pov.png $tmp.png
+  # puts_red "INFO) Image file saved to $tmp.png"
 }
 
 # putting these things in a proc gets rid of unnecessary output!
@@ -92,6 +94,9 @@ after idle {
 proc packages {} {
   global env auto_path
   set auto_path [concat $env(HOME)/.vmd $auto_path]
+  lappend auto_path "$env(HOME)/.vmd/la1.0"
+  #                    $env(HOME)/.vmd/orient   \
+  #                    $env(HOME)/.vmd/crystallography"
   package require pbctools
   package require topotools
 }

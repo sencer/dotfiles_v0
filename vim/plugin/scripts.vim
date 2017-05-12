@@ -119,7 +119,8 @@ endfunction
 vnoremap <silent> * :<C-U>call <SID>VSetSearch('/')<CR>/<C-R>/<CR>
 vnoremap <silent> # :<C-U>call <SID>VSetSearch('?')<CR>?<C-R>/<CR>
 vmap <kMultiply> *
-
+" nnoremap q* /<C-r><C-a><CR>
+" nnoremap q# ?<C-r><C-a><CR>
 nmap <silent> <Plug>VLToggle :let g:VeryLiteral = !g:VeryLiteral
   \\| echo "VeryLiteral " . (g:VeryLiteral ? "On" : "Off")<CR>
 if !hasmapto("<Plug>VLToggle")
@@ -156,18 +157,18 @@ let &fcs = substitute(&fcs, 'fold:.', 'fold: ', '')
 "                       temprorary tmux completion fix                       "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-function TmuxCompleteToggle()
-  if !exists('b:TmuxCompleteBak') || b:TmuxCompleteBak ==# ""
-    let b:TmuxCompleteBak = &completefunc
-    setl completefunc=tmuxcomplete#complete
-    echom "completefunc set to tmuxcomplete#complete"
-  else
-    let &completefunc=b:TmuxCompleteBak
-    echom "completefunc set to " . b:TmuxCompleteBak
-    let b:TmuxCompleteBak = ""
-  endif
-endfunction
-nnoremap <Leader>y :call TmuxCompleteToggle()<CR>
+" function! TmuxCompleteToggle()
+"   if !exists('b:TmuxCompleteBak') || b:TmuxCompleteBak ==# ""
+"     let b:TmuxCompleteBak = &completefunc
+"     setl completefunc=tmuxcomplete#complete
+"     echom "completefunc set to tmuxcomplete#complete"
+"   else
+"     let &completefunc=b:TmuxCompleteBak
+"     echom "completefunc set to " . b:TmuxCompleteBak
+"     let b:TmuxCompleteBak = ""
+"   endif
+" endfunction
+" nnoremap <Leader>y :call TmuxCompleteToggle()<CR>
 " inoremap <C-J> <C-o>:call TmuxCompleteToggle()<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -177,7 +178,7 @@ function! InsertSpaces()
   let s:ln   = line(".")
   let s:cn   = col(".") - 1
   let s:line = getline(s:ln)
-  let s:char = s:line[s:cn]
+  let s:char = nr2char(getchar())
 
   let s:i   = 0
   let s:pos = -1
@@ -190,11 +191,15 @@ function! InsertSpaces()
     endif
   endwhile
   if s:pos > -1
-    call setline(s:ln, s:line[:(s:cn)-1] . repeat(" ", s:pos - s:cn) . s:char . s:line[(s:cn)+1:])
-    return s:pos
+    return repeat(" ", s:pos - s:cn) . s:char
   else
     echom "No `" . s:char . "' found in the previous lines."
+    return s:char
   endif
 endfunction
 
-inoremap <silent> <C-g> <C-[>:call InsertSpaces()<CR>A
+inoremap <silent> <C-g> <C-R>=InsertSpaces()<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                Put distance                                "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

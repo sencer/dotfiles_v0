@@ -24,6 +24,27 @@ proc shift_cell {dir p} {
   pbc box -shiftcenter "$shift($t,0) $shift($t,1) $shift($t,2)"
 }
 
+proc pbc_dist {sel1 {sel2 -1}} {
+
+  if {$sel2 == -1} {
+    set dr [vecsub {*}[$sel1 get {x y z}]]
+  } else {
+    set dr [vecsub {*}[$sel1 get {x y z}] {*}[$sel2 get {x y z}]]
+  }
+  
+  set pbc [vecscale 0.5 [molinfo top get {a b c}]]
+
+  set dist 0
+  foreach dx $dr len $pbc {
+    set dx [expr abs($dx)]
+    if { $dx > $len } {
+      set dx [expr 2*$len-$dx]
+    }
+    set dist [expr $dist+$dx*$dx]
+  }
+  return [expr sqrt($dist)]
+}
+
 user add key u {
   set t [molinfo top]
   pbc unwrap -all

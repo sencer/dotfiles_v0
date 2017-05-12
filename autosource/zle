@@ -3,6 +3,9 @@ WORDCHARS='*?_-.[]~&;!#$%^(){}<>'
 bindkey -v
 zmodload zsh/terminfo
 
+autoload -Uz copy-earlier-word
+zle -N copy-earlier-word
+
 for mode in main vicmd; do
    bindkey -M $mode "$terminfo[khome]" beginning-of-line
    bindkey -M $mode "$terminfo[kend]"  end-of-line
@@ -21,6 +24,7 @@ for mode in main vicmd; do
    bindkey -M $mode "q"              get-line
    bindkey -M $mode "$terminfo[kcbt]"  reverse-menu-complete
    bindkey -M $mode "\C-I"             expand-or-complete-with-indicator
+   bindkey -M $mode "m"              copy-earlier-word
 done
 bindkey -M main  "\e[1;5D"          backward-word      #   Ctrl-Right
 bindkey -M main  "\e[1;5C"          forward-word       #   Ctrl-Left
@@ -36,6 +40,9 @@ bindkey -M vicmd "?"    history-incremental-pattern-search-backward
 bindkey -M vicmd "/"    history-incremental-pattern-search-forward
 bindkey -M vicmd "v"    edit-command-line
 bindkey -M vicmd "\C-L" clear-screen
+
+# nbsp=$'\u00A0'
+# bindkey -s $nbsp "\C-u"
 
 # Do not expand ... to ../.. during incremental search.
 bindkey -M isearch . self-insert 2> /dev/null
@@ -104,5 +111,6 @@ function expand-path-then-cmd {
 }
 
 zle -N expand-path-then-cmd
+
 
 # vim: ft=zsh

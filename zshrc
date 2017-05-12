@@ -1,17 +1,21 @@
 # env for interactive shell
+
+# moved this part to /etc/zsh/zshenv
+# if [[ -n $TMUX  || $TERM == *screen* ]]; then
+#   export TERM=xterm-screen-256color
+# else
+#   export TERM=xterm-256color
+#   if [[ `tty` == *pts* ]]; then
+#     exec tmux
+#   fi
+# fi
+#
 D="$HOME/.dotfiles"
 export LANG=en_US.UTF-8
 export LC_ALL=$LANG
 export LANGUAGE=$LANG
-if [[ -n $TMUX  || $TERM == *screen* ]]; then
-  export TERM=xterm-screen-256color
-else
-  export TERM=xterm-256color
-  if [[ `tty` == *pts* ]]; then
-    exec tmux
-  fi
-fi
-export PATH=$HOME/bin:$PATH
+export PATH=$HOME/bin:$PATH:/opt/aiida_epfl-0.5.0/bin
+# export PYTHONPATH=/opt/python-ase-3.8.1.3440:/opt/aiida_epfl-0.5.0:$PYTHONPATH
 export FPATH=$D/autoload:$D/external/completion/src:$FPATH
 export TEXMFHOME=$HOME/.texmf
 export R_LIBS="$HOME/.rlibs/"
@@ -49,12 +53,20 @@ zmodload zsh/pcre                   # perl compatible shell regex
 # this is for pbs server management
 
 typeset -xT PBS_SERVER_LIST pbs_server_list
-export PBS_SERVER_LIST=:nano:tiger:della:tigress:edison:hopper:hecate:cori:adroit:
+export PBS_SERVER_LIST=:nano:tiger:della:tigress:edison:hopper:hecate:cori:adroit:tiger-x:
 
-# vi-mode inner, surround etc text objects
+# # vi-mode inner, surround etc text objects
 
-source $D/external/opp/opp.zsh
-source $D/external/opp/opp/surround.zsh
+# source $D/external/opp/opp.zsh
+# source $D/external/opp/opp/surround.zsh
+autoload -Uz surround
+zle -N delete-surround surround
+zle -N add-surround surround
+zle -N change-surround surround
+bindkey -a cs change-surround
+bindkey -a ds delete-surround
+bindkey -a ys add-surround
+bindkey -M visual S add-surround
 
 # history substring search
 
@@ -91,5 +103,20 @@ unset D i
 disable r
 source ~/.fzf.zsh
 export FZF_DEFAULT_OPTS='-x'
-cat ~/.dotfiles/tmp/work
+# export NVIM_TUI_ENABLE_TRUE_COLOR=1
+export NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+export VIDIR_EDITOR_ARGS="+setf vidir-ls"
+export R_LIBS="/opt/rlibs"
+export A="$HOME/software/awk-scripts"
+
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+export WORKON_HOME=~/.virtualenvs
+source ~/.local/bin/virtualenvwrapper.sh
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+# workon main
+
+cat ~/.dotfiles/tmp/work.md
 set-pbsserver-var
+
+chmod +x ~/.vocab
+~/.vocab
