@@ -14,7 +14,7 @@ D="$HOME/.dotfiles"
 export LANG=en_US.UTF-8
 export LC_ALL=$LANG
 export LANGUAGE=$LANG
-export PATH=$HOME/bin:$PATH:/opt/aiida_epfl-0.5.0/bin
+export PATH=$HOME/bin:/opt/conda/bin:$PATH:/opt/aiida_epfl-0.5.0/bin
 # export PYTHONPATH=/opt/python-ase-3.8.1.3440:/opt/aiida_epfl-0.5.0:$PYTHONPATH
 export FPATH=$D/autoload:$D/external/completion/src:$FPATH
 export TEXMFHOME=$HOME/.texmf
@@ -109,10 +109,10 @@ export VIDIR_EDITOR_ARGS="+setf vidir-ls"
 export R_LIBS="/opt/rlibs"
 export A="$HOME/software/awk-scripts"
 
-export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-export WORKON_HOME=~/.virtualenvs
-source ~/.local/bin/virtualenvwrapper.sh
-export VIRTUAL_ENV_DISABLE_PROMPT=1
+# export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+# export WORKON_HOME=~/.virtualenvs
+# source ~/.local/bin/virtualenvwrapper.sh
+# export VIRTUAL_ENV_DISABLE_PROMPT=1
 # workon main
 
 cat ~/.dotfiles/tmp/work.md

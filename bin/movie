@@ -1,0 +1,17 @@
+#!/bin/bash
+
+a=2500k
+
+if [[ $1 == png ]]; then
+  codec=png
+elif [[ $1==jpg ]]; then
+  codec=mjpeg
+fi
+
+numframes=$(ls -1 *.$1|wc -l)
+totalsize=$(du -cb *.$1|tail -1|cut -f1)
+framerate=$(($numframes/$3))
+bitrate=$((totalsize*2/$3)) # typically enough
+
+cat $(ls -1 *.$1|sort -n) | ffmpeg -framerate $framerate -y -f image2pipe -c:v $codec -i - -c:v libx264 -pix_fmt yuv420p -b:v $bitrate -pass 1 -an -f mp4 /dev/null
+cat $(ls -1 *.$1|sort -n) | ffmpeg -framerate $framerate -y -f image2pipe -c:v $codec -i - -c:v libx264 -pix_fmt yuv420p -b:v $bitrate -pass 2 -an $2.mp4

@@ -1,0 +1,105 @@
+#!/usr/bin/env python
+import sys, re, ast, numpy as np
+
+# parse arguments
+# either c, to clear the results
+# or    cc, to clear the equations (replace them with results)
+# or an integer to set the calculation precision (default 3 decimal points)
+clean = False
+cclean = False
+precision = 3
+if len(sys.argv)>1 :
+    if sys.argv[1] == 'c' :
+        clean = True
+    elif sys.argv[1] == 'cc':
+        cclean = True
+    else:
+        precision = int(sys.argv[1])
+
+fs= "= %."+str(precision)+"f"
+fs_1 = '{: 0.' + str(precision) + 'f}'
+np.set_printoptions(precision=precision, formatter={'float': fs_1.format})
+
+floatify = lambda text: list(map(try_float, text.split()))
+def try_float(arg):
+    try:
+        return float(arg)
+    except:
+        return arg
+
+def finalize_element(dict, key):
+    # in any case we are done with the previous variable. store it
+    # as a numpy array rather than a normal one.
+    if not dict[key]:
+        del dict[key]
+    else:
+        dict[key] = np.array(dict[key])
+
+data = {}
+key = None
+
+for line in sys.stdin:
+    # splitted = re.split("@", line.strip("\n"))
+    splitted = line.strip("\n").split("@")
+
+    key = None
+    if splitted[0]:
+        # I will print this as is any way, so just do it now
+        print(splitted[0], end="")
+
+        # split from spaces, convert numeric strings to floats then iterate
+        # fields
+        for elem in floatify(splitted[0]):
+            # if the current field is a string, it is either a new variable
+            # (to save into data[elem], or will be discarded eventually.
+            if isinstance(elem, str):
+
+                # if this is not the first key in the line then finalize
+                # that is, either discard or convert to numpy array.
+                if key is not None:
+                    finalize_element(data, key)
+
+                # now start collecting new fields under the current key
+                key = elem
+                data[key] = []
+
+            # if element is not a string, then it is a data to save under
+            # the last known key
+            else:
+                # if the current line has started with a number I don't
+                # know under which key I should store these numbers.
+                # So discard them, and save others
+                if key is not None:
+                    data[key].append(elem)
+
+    if key is not None:
+        finalize_element(data, key)
+
+    flag = False
+    # now evaluate the formula fields if they exist
+    for field in splitted[1:]:
+        #discard the dataults of previous evaluation if its pdataent
+        formula = field.split()[0]
+
+        if flag:
+            print(" ", end="")
+
+        # start with printing the formula
+        if not cclean:
+            print("@"+formula, end="")
+
+        # evaluate the formula
+        # print("")
+        # print("### " + formula)
+        # print("### " + str(data['B'].__class__))
+        eval(compile(ast.parse('res=' + formula), '<input>', 'exec'), data)
+
+        # print out the results
+        if not clean:
+            if isinstance(data['res'], float):
+                print(fs % data['res'], end="")
+            else:
+                print(" " + re.sub('\[|\]', '', str(data['res'])), end="")
+        flag = True
+
+    print("")

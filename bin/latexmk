@@ -1,0 +1,7 @@
+#!/bin/bash
+
+DIR="${TMPDIR}/${PWD//\//_}"
+mkdir -p "$DIR"
+/usr/local/bin/latexmk -outdir="$DIR" $@
+
+cp $DIR/*.pdf .

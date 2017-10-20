@@ -1,0 +1,23 @@
+# Who am I
+set realname = "Sencer Selcuk"
+set imap_user     = "sselcuk"
+alternates 'sselcuk@.*princeton.edu'
+source "gpg2 --no-tty -d ~/.mutt/passwords.gpg 2>/dev/null |" # password from an encrypted file
+
+# Princeton IMAP Settings
+#
+set folder           = imaps://exchangeimap.princeton.edu:993/
+mailboxes            +INBOX +Archives/2016 +Archives/2015 +Archives/Research +Drafts
+set spoolfile        = +INBOX
+set postponed        = +Drafts
+set record           = +Sent\ Items
+set trash            = +Deleted\ Items
+set ssl_starttls     = yes
+set imap_keepalive   = 300
+set mail_check       = 120
+set timeout          = 1
+
+set folder           = /opt/mail-bak
+mailboxes            +INBOX +2014 +2013 +2012 +2011 +2010 +Sent\ Items
+
+# vi: ft=muttrc

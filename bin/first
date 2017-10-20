@@ -1,0 +1,15 @@
+#!/bin/bash
+
+if [[ -z $1 ]]; then
+  echo "No input given."
+  exit 1
+fi
+
+out=${2:-first}
+n=$(sed -n "4p;4q" ${1%.lammpstrj}.lammpstrj)
+
+if [[ $# == 3 ]]; then
+  n=$(((n+9)*$3-9))
+fi
+
+head -n $((n+9)) ${1%.lammpstrj}.lammpstrj > ${out%.lammpstrj}.lammpstrj

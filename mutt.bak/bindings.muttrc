@@ -1,0 +1,32 @@
+bind index,pager <F5> imap-fetch-mail
+bind index,pager a group-reply
+bind index G last-entry
+bind index gg first-entry
+bind pager G bottom
+bind pager gg top
+
+# bind index,pager X change-vfolder
+# bind index,pager + entire-thread
+# bind index,pager ` modify-labels
+# bind index,pager <Space>a vfolder-from-query
+# bind index - collapse-thread
+# bind index _ collapse-all
+
+bind index J next-thread
+bind index K previous-thread
+
+# # bind index ? search-reverse
+# bind index N search-opposite
+
+# bind pager \Ch help
+
+# macro compose Y "<first-entry>F markdown\ny^T^Utext/html; charset=utf-8\n\n<send-message>" "send as html mail"
+# macro compose a "<attach-file>?c~<Enter>"
+# macro index,pager s "<save-message>?<toggle-mailboxes>" "save message to a folder"
+# macro index,pager C "<copy-message>?<toggle-mailboxes>" "copy message to a folder"
+# macro index,pager \Cy "<change-folder>?<toggle-mailboxes>" "change folder"
+# macro index,pager A <save-message>=Archives/`date +%Y`\n
+# macro index,pager,attach <F12> "<copy-message>/tmp/mutttmpbox\n<enter><shell-escape>python2.7 ~/.mutt/viewhtmlmail.py\n" "View HTML in browser"
+# macro index,pager } "<pipe-entry>~/.mutt/create_event\n"
+
+# vi: ft=muttrc

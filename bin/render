@@ -1,0 +1,38 @@
+#!/bin/bash
+# set -e
+# set -x
+
+POVRAY=megapov
+
+file=$1
+shift
+
+# get dimensions from the pov file
+dim=($(grep -o "\+W.*-I" $file|sed 's/[^0-9 ]//g'))
+
+# if second argument is a number, scale by it and make sure its integer
+if [[ $1 =~ ^[0-9]+([.][0-9]+)?$ ]]; then
+  dim[0]=$(echo ${dim[0]}*$1|bc)
+  dim[0]=${dim[0]%.*}
+  dim[1]=$(echo ${dim[1]}*$1|bc)
+  dim[1]=${dim[1]%.*}
+  shift
+fi
+
+dim[1]=$((${dim[1]}+1))
+
+# if one of the dimensions are an odd number add a pixel
+# it introduces a very small distortion, but allows making movie
+if [[ $((${dim[0]}%2)) -eq 1 ]]; then
+  let dim[0]++
+fi
+
+if [[ $((${dim[1]}%2)) -eq 1 ]]; then
+  let dim[1]++
+fi
+
+# $POVRAY $params -O${1%.pov}.png +A +FN -C -X -P -D $2
+echo "Rendering $file"
+$POVRAY +W${dim[0]} +H${dim[1]} -I$file -O${file%.pov}.png +A +FN -C -X -P -D $@ &>/dev/null
+# $POVRAY +W${dim[0]} +H${dim[1]} -I$file -O${file%.pov}.png +A +FN -C -X -P -D $@
+

@@ -50,7 +50,16 @@ alias vo="v output.txt"
 alias xi="xcrysden --pwi input.txt|less -E"
 alias xo="xcrysden --pwo output.txt|less -E"
 # alias open="xdg-open"
-open() { xdg-open $1 &>/dev/null }
+open() {
+  if [[ ! -f $1 ]]; then
+    echo "$1 not found."
+    return -1
+  fi
+  if [[ $# -gt 1 ]]; then
+    echo "Opening $1 only."
+    return -1
+  fi
+  xdg-open $1 &>/dev/null }
 
 alias xgrep="xargs grep -P"
 alias xsed="xargs sed -r"

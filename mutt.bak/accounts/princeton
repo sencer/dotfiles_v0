@@ -1,0 +1,13 @@
+alternates 'sselcuk@.*princeton.edu'
+source "gpg2 --no-tty -d ~/.mutt/princeton.gpg 2>/dev/null |"
+
+set realname       = "Sencer Selcuk"
+set imap_user      = "sselcuk"
+set folder         = imaps://exchangeimap.princeton.edu:993/
+mailboxes            +INBOX +Archives/2016 +Archives/2015 +Archives/Research +Drafts
+set spoolfile      = +INBOX
+set postponed      = +Drafts
+set record         = +Sent\ Items
+set trash          = +Deleted\ Items
+
+# vi: ft=muttrc

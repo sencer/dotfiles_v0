@@ -1,0 +1,13 @@
+#!/bin/bash
+
+if [[ -z $1 ]]; then
+  echo "No input given."
+  exit 1
+fi
+
+inf="${1%.lammpstrj}.lammpstrj"
+
+nat=$(sed -n "4p;4q" "$inf")
+nln=$(wc -l < "$inf")
+
+echo "1.0*$nln/(9+$nat)"|bc -lq

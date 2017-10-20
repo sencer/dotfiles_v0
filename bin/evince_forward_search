@@ -42,6 +42,6 @@ try:
     dbus_name = daemon.FindDocument('file://' + pdf_file, True, dbus_interface = "org.gnome.evince.Daemon")
     window = bus.get_object(dbus_name, '/org/gnome/evince/Window/0')
 except dbus.DBusException:
-    print_exc()     
+    print_exc()
 
 window.SyncView(tex_file, (line_number,1), int(time.time()), dbus_interface="org.gnome.evince.Window")

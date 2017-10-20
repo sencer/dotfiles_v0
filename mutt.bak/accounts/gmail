@@ -1,0 +1,13 @@
+alternates 'sencerselcuk@gmail.com
+source "gpg2 --no-tty -d ~/.mutt/gmail.gpg 2>/dev/null |"
+
+set realname       = "Sencer"
+set imap_user      = "sencerselcuk"
+set folder         = imaps://imap.gmail.com:993/
+mailboxes            +Inbox +Starred "+Sent Mail" +Drafts "+Psi K"
+set spoolfile      = +Inbox
+set postponed      = +Drafts
+set record         = "+Sent Mail"
+set trash          = "+All Mail"
+
+# vi: ft=muttrc

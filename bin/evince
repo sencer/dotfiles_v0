@@ -11,7 +11,7 @@ if [ -f "$PDFFILE" ];then
   if [ -f "${PDFFILE%%.pdf}.synctex.gz" ];then
     nohup &>/dev/null evince_backward_search "$PDFFILE" "$EDITORCMD"&
     BACKWARD_SEARCH_PID=$!
-    # echo $BACKWARD_SEARCH_PID
+    echo $BACKWARD_SEARCH_PID
   fi
 fi
 

@@ -12,8 +12,11 @@ Host nobel
 Host della
   ForwardX11 yes
   ForwardX11Trusted yes
-  Hostname della4.princeton.edu
+  Hostname della5.princeton.edu
   ProxyCommand ssh -CTqe none ofis -W %h:%p
+Host michelev
+  User michelev
+  Hostname della.princeton.edu
 Host tiger-x
   User xunhuaz
   ForwardX11 yes
@@ -24,6 +27,11 @@ Host tiger
   ForwardX11 yes
   ForwardX11Trusted yes
   Hostname tiger.princeton.edu
+  ProxyCommand ssh -CTqe none ofis -W %h:%p
+Host tigergpu
+  ForwardX11 yes
+  ForwardX11Trusted yes
+  Hostname tigergpu.princeton.edu
   ProxyCommand ssh -CTqe none ofis -W %h:%p
 Host tigress
   ForwardX11 yes
@@ -64,12 +72,15 @@ Host berlioz
 Host darst
   User boyacih
   Hostname darst-xserve2.rockefeller.edu
-  ProxyCommand ssh -CTqe none berlioz -W %h:%p
+  ProxyCommand ssh -CTqe none james -W %h:%p
+Host james
+  User james
+  Hostname 129.85.199.161
 Host *
   Compression yes
   # CompressionLevel 7
   AddressFamily inet
-  Ciphers arcfour256,arcfour128,arcfour,blowfish-cbc,aes128-cbc,aes128-ctr,aes192-ctr,aes256-ctr,chacha20-poly1305@openssh.com
+  Ciphers arcfour256,arcfour128,arcfour,blowfish-cbc,chacha20-poly1305@openssh.com,aes128-cbc,aes128-ctr,aes192-ctr,aes256-ctr
   PreferredAuthentications publickey,keyboard-interactive,password
   Protocol 2
   XAuthLocation /usr/bin/xauth

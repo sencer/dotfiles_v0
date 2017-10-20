@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Exec=perl /opt/xSwipe/xSwipe.pl -n
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name[en_US]=xSwipe
+Name=xSwipe
+Comment[en_US]=run xSwipe
+Comment=run xSwipe
+X-GNOME-Autostart-Delay=5

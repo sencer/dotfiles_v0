@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if [[ -x "$@" ]]; then
+  "$@"
+elif [[ -f "$@" ]]; then
+  xdg-open "$@" &
+fi

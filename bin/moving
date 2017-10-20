@@ -3,7 +3,7 @@
 BEGIN {
   shift = 1
 }
-/^\s*(\#|@)/ {
+/^\s*(\#|@)/||/^\s*$/ {
   shift++
   print
   next

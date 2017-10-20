@@ -1,0 +1,41 @@
+#!/bin/sh
+images=$1
+first=$2
+last=$3
+dir="$(mktemp -d)"
+
+awk 'BEGIN {
+       i = 0
+       getline < "'$first'"
+       getline < "'$first'"
+       while ( getline line < "'$first'") {
+         split(line, tmp)
+         for(j=1; j<5; j++) {
+           first[i][j] = tmp[j]
+         }
+         i++
+       }
+       atom=i
+       for(i=2; i<9; i++) {
+         printf "%d\n\n", atom > "'$dir'/"i".xyz"
+       }
+       atom = 0
+       getline
+       getline
+     }
+     {
+       for(i=2; i<5; i++) {
+         shift[i] = ($i - first[atom][i])/'$images'
+       }
+       for(i=2; i<9; i++) {
+         printf "%-2s %14.8f %14.8f %14.8f\n", first[atom][1],
+                                               first[atom][2]+(i-1)*shift[2],
+                                               first[atom][3]+(i-1)*shift[3],
+                                               first[atom][4]+(i-1)*shift[4] >> "'$dir'/"i".xyz"
+       }
+       atom++
+     }' $last
+
+cat $first $dir/*.xyz $last
+
+rm -rf $dir

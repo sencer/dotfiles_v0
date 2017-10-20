@@ -1,0 +1,10 @@
+#!/usr/bin/awk -f
+
+{
+  if ( line % 2 ) {
+    printf "\033[38;5;111m%s\033[0m\n", $0
+  } else {
+    print
+  }
+  line++
+}

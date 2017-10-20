@@ -1,0 +1,17 @@
+- gmail
+- princeton
+- gmail archive
+- princeton archive
+- notmuch
+- mbsync
+- msmpt
+
+mutt 4 ayri mailbox acabilmeli.
+gmail'de her sey tek klasor, mutt'ta acarken maximum siniri olmali
+yeni gelen emailler properly taglenmeli
+  - notmuch hook post-new under .notmuch/hooks/post-new file
+mutt mbsync cagirabilmeli
+  - hangi account aciksa oradan.
+mbsync@ service notmuch cagirmali
+gpg X-PGP-KEY, signing, encrypting vs
+Ziplenmis email denemeli

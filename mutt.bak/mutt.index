@@ -1,0 +1,175 @@
+^B                             M <enter-command> set my_pipe_decode=$p... call urlview to extract URLs out of a message
+^D                             delete-thread                              delete all messages in thread
+^E                             edit-type                                  edit attachment content type
+^F                             forget-passphrase                          wipe passphrase(s) from memory
+<Tab>                          next-new-then-unread                       jump to the next new or unread message
+<Enter>                        display-message                            display a message
+^K                             extract-keys                               extract supported public keys
+<Return>                       display-message                            display a message
+^N                             next-thread                                jump to the next thread
+^P                             previous-thread                            jump to previous thread
+^R                             read-thread                                mark the current thread as read
+^T                             untag-pattern                              untag messages matching a pattern
+^U                             undelete-thread                            undelete all messages in thread
+^Y                             M <change-folder>?<toggle-mailboxes>       change folder
+<Esc><Tab>                     previous-new-then-unread                   jump to the previous new or unread message
+<Esc>C                         decode-copy                                make decoded (text/plain) copy
+<Esc>P                         check-traditional-pgp                      check for classic PGP
+<Esc>V                         collapse-all                               collapse/uncollapse all threads
+<Esc>b                         M <search>~b                               search in message bodies
+<Esc>c                         change-folder-readonly                     open a different folder in read only mode
+<Esc>d                         delete-subthread                           delete all messages in subthread
+<Esc>e                         resend-message                             use the current message as a template for a new one
+<Esc>k                         mail-key                                   mail a PGP public key
+<Esc>l                         show-limit                                 show currently active limit pattern
+<Esc>n                         next-subthread                             jump to the next subthread
+<Esc>p                         previous-subthread                         jump to previous subthread
+<Esc>r                         read-subthread                             mark the current subthread as read
+<Esc>s                         decode-save                                make decoded copy (text/plain) and delete
+<Esc>t                         tag-thread                                 tag the current thread
+<Esc>u                         undelete-subthread                         undelete all messages in subthread
+<Esc>v                         collapse-thread                            collapse/uncollapse current thread
+<Space>a                       vfolder-from-query                         generate virtual folder from query
+#                              break-thread                               break the thread in two
+$                              sync-mailbox                               save changes to mailbox
+%                              toggle-write                               toggle whether the mailbox will be rewritten
+&                              link-threads                               link tagged message to the current one
++                              entire-thread                              read entire thread of the current message
+-                              collapse-thread                            collapse/uncollapse current thread
+.                              buffy-list                                 list mailboxes with new mail
+@                              display-address                            display full address of sender
+A                              macro                                      <save-message>=Archives/2016\n
+C                              M <copy-message>?<toggle-mailboxes>        copy message to a folder
+D                              delete-pattern                             delete messages matching a pattern
+F                              flag-message                               toggle a message's 'important' flag
+G                              last-entry                                 move to the last entry
+J                              next-thread                                jump to the next thread
+K                              previous-thread                            jump to previous thread
+L                              list-reply                                 reply to specified mailing list
+N                              search-opposite                            search for next match in opposite direction
+O                              sort-reverse                               sort messages in reverse order
+P                              parent-message                             jump to parent message in thread
+Q                              query                                      query external program for addresses
+R                              group-reply                                reply to all recipients
+T                              tag-pattern                                tag messages matching a pattern
+U                              undelete-pattern                           undelete messages matching a pattern
+V                              show-version                               show the Mutt version number and date
+W                              clear-flag                                 clear a status flag from a message
+X                              change-vfolder                             open a different virtual folder
+_                              collapse-all                               collapse/uncollapse all threads
+a                              create-alias                               create an alias from a message sender
+b                              bounce-message                             remail a message to another user
+c                              change-folder                              open a different folder
+d                              delete-message                             delete the current entry
+e                              edit                                       edit the raw message
+f                              forward-message                            forward a message with comments
+g                              first-entry                                move to the first entry
+h                              display-toggle-weed                        display message and toggle header weeding
+index                          modify-labels                              modify (notmuch) tags
+j                              next-undeleted                             move to the next undeleted message
+k                              previous-undeleted                         move to the previous undeleted message
+l                              limit                                      show only messages matching a pattern
+m                              mail                                       compose a new mail message
+o                              sort-mailbox                               sort messages
+p                              print-message                              print the current entry
+q                              quit                                       save changes to mailbox and quit
+r                              reply                                      reply to a message
+s                              M <save-message>?<toggle-mailboxes>        save message to a folder
+u                              undelete-message                           undelete the current entry
+v                              view-attachments                           show MIME attachments
+w                              set-flag                                   set a status flag on a message
+x                              exit                                       exit this menu
+y                              M <change-folder>?<toggle-mailboxes>       show incoming mailboxes list
+|                              pipe-message                               pipe message/attachment to a shell command
+}                              macro                                      <pipe-entry>~/.mutt/create_event\n
+~                              mark-message                               create a hotkey macro for the current message
+<Down>                         next-undeleted                             move to the next undeleted message
+<Up>                           previous-undeleted                         move to the previous undeleted message
+<F5>                           imap-fetch-mail                            force retrieval of mail from IMAP server
+<F12>                          M <copy-message>/tmp/mutttmpbox\n<enter... View HTML in browser
+
+Generic bindings:
+
+<Enter>                        select-entry                               select the current entry
+^L                             refresh                                    clear and redraw the screen
+<Return>                       select-entry                               select the current entry
+<Esc>/                         search-reverse                             search backwards for a regular expression
+!                              shell-escape                               invoke a command in a subshell
+*                              last-entry                                 move to the last entry
+/                              search                                     search for a regular expression
+1                              jump                                       jump to an index number
+2                              jump                                       jump to an index number
+3                              jump                                       jump to an index number
+4                              jump                                       jump to an index number
+5                              jump                                       jump to an index number
+6                              jump                                       jump to an index number
+7                              jump                                       jump to an index number
+8                              jump                                       jump to an index number
+9                              jump                                       jump to an index number
+:                              enter-command                              enter a muttrc command
+;                              tag-prefix                                 apply next function to tagged messages
+<                              previous-line                              scroll up one line
+=                              first-entry                                move to the first entry
+>                              next-line                                  scroll down one line
+?                              help                                       this screen
+H                              top-page                                   move to the top of the page
+L                              bottom-page                                move to the bottom of the page
+M                              middle-page                                move to the middle of the page
+Z                              previous-page                              move to the previous page
+[                              half-up                                    scroll up 1/2 page
+]                              half-down                                  scroll down 1/2 page
+j                              next-entry                                 move to the next entry
+k                              previous-entry                             move to the previous entry
+n                              search-next                                search for next match
+q                              exit                                       exit this menu
+t                              tag-entry                                  tag the current entry
+z                              next-page                                  move to the next page
+<Down>                         next-entry                                 move to the next entry
+<Up>                           previous-entry                             move to the previous entry
+<Left>                         previous-page                              move to the previous page
+<Right>                        next-page                                  move to the next page
+<Home>                         first-entry                                move to the first entry
+<F1>                           M <shell-escape> less /usr/local/share/... show Mutt documentation
+<PageDown>                     next-page                                  move to the next page
+<PageUp>                       previous-page                              move to the previous page
+<End>                          last-entry                                 move to the last entry
+
+Unbound functions:
+
+next-unread-mailbox                                                       open next mailbox with new mail
+copy-message                                                              copy a message to a file/mailbox
+edit-label                                                                add, change, or delete a message's label
+imap-logout-all                                                           logout from all IMAP servers
+limit-current-thread                                                      limit view to current thread
+toggle-new                                                                toggle a message's 'new' flag
+purge-message                                                             really delete the current entry, bypassing the trash folder
+purge-thread                                                              really delete the current thread, bypassing the trash folder
+recall-message                                                            recall a postponed message
+compose-to-sender                                                         compose a new message to the sender
+save-message                                                              save message/attachment to a mailbox/file
+tag-subthread                                                             tag the current subthread
+toggle-read                                                               toggle view of read messages
+next-new                                                                  jump to the next new message
+previous-new                                                              jump to the previous new message
+next-unread                                                               jump to the next unread message
+previous-unread                                                           jump to the previous unread message
+root-message                                                              jump to root message in thread
+decrypt-copy                                                              make decrypted copy
+decrypt-save                                                              make decrypted copy and delete
+quasi-delete                                                              delete from mutt, don't touch on disk
+sidebar-next                                                              move the highlight to next mailbox
+sidebar-next-new                                                          move the highlight to next mailbox with new mail
+sidebar-open                                                              open highlighted mailbox
+sidebar-page-down                                                         scroll the sidebar down 1 page
+sidebar-page-up                                                           scroll the sidebar up 1 page
+sidebar-prev                                                              move the highlight to previous mailbox
+sidebar-prev-new                                                          move the highlight to previous mailbox with new mail
+sidebar-toggle-virtual                                                    toggle between mailboxes and virtual mailboxes
+sidebar-toggle-visible                                                    make the sidebar (in)visible
+modify-labels-then-hide                                                   modify labels and then hide message
+tag-prefix-cond                                                           apply next function ONLY to tagged messages
+end-cond                                                                  end of conditional execution (noop)
+current-top                                                               move entry to top of screen
+current-middle                                                            move entry to middle of screen
+current-bottom                                                            move entry to bottom of screen
+what-key                                                                  display the keycode for a key press

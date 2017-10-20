@@ -11,6 +11,7 @@ while (( $# )); do
   fi
   shift
 done
+
 if [[ $args == -args ]]; then
   eval "/usr/local/bin/vmd $other"
 else

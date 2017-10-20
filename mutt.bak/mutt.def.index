@@ -1,0 +1,160 @@
+L_generic          bottom-page                                move to the bottom of the page
+b                  bounce-message                             remail a message to another user
+#                  break-thread                               break the thread in two
+.                  buffy-list                                 list mailboxes with new mail
+c                  change-folder                              open a different folder
+<Esc>c             change-folder-readonly                     open a different folder in read only mode
+unbound            change-vfolder                             open a different virtual folder
+<Esc>P             check-traditional-pgp                      check for classic PGP
+W                  clear-flag                                 clear a status flag from a message
+<Esc>V             collapse-all                               collapse/uncollapse all threads
+<Esc>v             collapse-thread                            collapse/uncollapse current thread
+unbound            compose-to-sender                          compose a new message to the sender
+C                  copy-message                               copy a message to a file/mailbox
+a                  create-alias                               create an alias from a message sender
+unbound            current-bottom                             move entry to bottom of screen
+unbound            current-middle                             move entry to middle of screen
+unbound            current-top                                move entry to top of screen
+<Esc>C             decode-copy                                make decoded (text/plain) copy
+<Esc>s             decode-save                                make decoded copy (text/plain) and delete
+unbound            decrypt-copy                               make decrypted copy
+unbound            decrypt-save                               make decrypted copy and delete
+d                  delete-message                             delete the current entry
+D                  delete-pattern                             delete messages matching a pattern
+<Esc>d             delete-subthread                           delete all messages in subthread
+^D                 delete-thread                              delete all messages in thread
+@                  display-address                            display full address of sender
+<Enter>            display-message                            display a message
+<Space>            display-message                            display a message
+<Return>           display-message                            display a message
+h                  display-toggle-weed                        display message and toggle header weeding
+e                  edit                                       edit the raw message
+unbound            edit-label                                 add, change, or delete a message's label
+^E                 edit-type                                  edit attachment content type
+unbound            end-cond                                   end of conditional execution (noop)
+:_generic          enter-command                              enter a muttrc command
+unbound            entire-thread                              read entire thread of the current message
+q_generic          exit                                       exit this menu
+x                  exit                                       exit this menu
+^K                 extract-keys                               extract supported public keys
+=_generic          first-entry                                move to the first entry
+<Home>_generic     first-entry                                move to the first entry
+F                  flag-message                               toggle a message's 'important' flag
+^F                 forget-passphrase                          wipe passphrase(s) from memory
+f                  forward-message                            forward a message with comments
+g                  group-reply                                reply to all recipients
+]_generic          half-down                                  scroll down 1/2 page
+[_generic          half-up                                    scroll up 1/2 page
+?_generic          help                                       this screen
+unbound            imap-fetch-mail                            force retrieval of mail from IMAP server
+unbound            imap-logout-all                            logout from all IMAP servers
+1_generic          jump                                       jump to an index number
+2_generic          jump                                       jump to an index number
+3_generic          jump                                       jump to an index number
+4_generic          jump                                       jump to an index number
+5_generic          jump                                       jump to an index number
+6_generic          jump                                       jump to an index number
+7_generic          jump                                       jump to an index number
+8_generic          jump                                       jump to an index number
+9_generic          jump                                       jump to an index number
+*_generic          last-entry                                 move to the last entry
+<End>_generic      last-entry                                 move to the last entry
+l                  limit                                      show only messages matching a pattern
+unbound            limit-current-thread                       limit view to current thread
+&                  link-threads                               link tagged message to the current one
+L                  list-reply                                 reply to specified mailing list
+<F1>_generic       M <shell-escape> less /usr/local/share/... show Mutt documentation
+<Esc>b             M <search>~b                               search in message bodies
+^B                 M <enter-command> set my_pipe_decode=$p... call urlview to extract URLs out of a message
+y                  M <change-folder>?<toggle-mailboxes>       show incoming mailboxes list
+m                  mail                                       compose a new mail message
+<Esc>k             mail-key                                   mail a PGP public key
+~                  mark-message                               create a hotkey macro for the current message
+M_generic          middle-page                                move to the middle of the page
+unbound            modify-labels                              modify (notmuch) tags
+unbound            modify-labels-then-hide                    modify labels and then hide message
+J                  next-entry                                 move to the next entry
+j_generic          next-entry                                 move to the next entry
+<Down>_generic     next-entry                                 move to the next entry
+>_generic          next-line                                  scroll down one line
+unbound            next-new                                   jump to the next new message
+<Tab>              next-new-then-unread                       jump to the next new or unread message
+z_generic          next-page                                  move to the next page
+<Right>_generic    next-page                                  move to the next page
+<PageDown>_generic next-page                                  move to the next page
+<Esc>n             next-subthread                             jump to the next subthread
+^N                 next-thread                                jump to the next thread
+j                  next-undeleted                             move to the next undeleted message
+<Down>             next-undeleted                             move to the next undeleted message
+unbound            next-unread                                jump to the next unread message
+unbound            next-unread-mailbox                        open next mailbox with new mail
+P                  parent-message                             jump to parent message in thread
+|                  pipe-message                               pipe message/attachment to a shell command
+K                  previous-entry                             move to the previous entry
+k_generic          previous-entry                             move to the previous entry
+<Up>_generic       previous-entry                             move to the previous entry
+<_generic          previous-line                              scroll up one line
+unbound            previous-new                               jump to the previous new message
+<Esc><Tab>         previous-new-then-unread                   jump to the previous new or unread message
+Z_generic          previous-page                              move to the previous page
+<Left>_generic     previous-page                              move to the previous page
+<PageUp>_generic   previous-page                              move to the previous page
+<Esc>p             previous-subthread                         jump to previous subthread
+^P                 previous-thread                            jump to previous thread
+k                  previous-undeleted                         move to the previous undeleted message
+<Up>               previous-undeleted                         move to the previous undeleted message
+unbound            previous-unread                            jump to the previous unread message
+p                  print-message                              print the current entry
+unbound            purge-message                              really delete the current entry, bypassing the trash folder
+unbound            purge-thread                               really delete the current thread, bypassing the trash folder
+unbound            quasi-delete                               delete from mutt, don't touch on disk
+Q                  query                                      query external program for addresses
+q                  quit                                       save changes to mailbox and quit
+<Esc>r             read-subthread                             mark the current subthread as read
+^R                 read-thread                                mark the current thread as read
+R                  recall-message                             recall a postponed message
+^L_generic         refresh                                    clear and redraw the screen
+r                  reply                                      reply to a message
+<Esc>e             resend-message                             use the current message as a template for a new one
+unbound            root-message                               jump to root message in thread
+s                  save-message                               save message/attachment to a mailbox/file
+/_generic          search                                     search for a regular expression
+n_generic          search-next                                search for next match
+unbound            search-opposite                            search for next match in opposite direction
+<Esc>/_generic     search-reverse                             search backwards for a regular expression
+<Enter>_generic    select-entry                               select the current entry
+<Return>_generic   select-entry                               select the current entry
+w                  set-flag                                   set a status flag on a message
+!_generic          shell-escape                               invoke a command in a subshell
+<Esc>l             show-limit                                 show currently active limit pattern
+V                  show-version                               show the Mutt version number and date
+unbound            sidebar-next                               move the highlight to next mailbox
+unbound            sidebar-next-new                           move the highlight to next mailbox with new mail
+unbound            sidebar-open                               open highlighted mailbox
+unbound            sidebar-page-down                          scroll the sidebar down 1 page
+unbound            sidebar-page-up                            scroll the sidebar up 1 page
+unbound            sidebar-prev                               move the highlight to previous mailbox
+unbound            sidebar-prev-new                           move the highlight to previous mailbox with new mail
+unbound            sidebar-toggle-virtual                     toggle between mailboxes and virtual mailboxes
+unbound            sidebar-toggle-visible                     make the sidebar (in)visible
+o                  sort-mailbox                               sort messages
+O                  sort-reverse                               sort messages in reverse order
+$                  sync-mailbox                               save changes to mailbox
+t_generic          tag-entry                                  tag the current entry
+T                  tag-pattern                                tag messages matching a pattern
+;_generic          tag-prefix                                 apply next function to tagged messages
+unbound            tag-prefix-cond                            apply next function ONLY to tagged messages
+unbound            tag-subthread                              tag the current subthread
+<Esc>t             tag-thread                                 tag the current thread
+N                  toggle-new                                 toggle a message's 'new' flag
+unbound            toggle-read                                toggle view of read messages
+%                  toggle-write                               toggle whether the mailbox will be rewritten
+H_generic          top-page                                   move to the top of the page
+u                  undelete-message                           undelete the current entry
+U                  undelete-pattern                           undelete messages matching a pattern
+<Esc>u             undelete-subthread                         undelete all messages in subthread
+^U                 undelete-thread                            undelete all messages in thread
+^T                 untag-pattern                              untag messages matching a pattern
+unbound            vfolder-from-query                         generate virtual folder from query
+v                  view-attachments                           show MIME attachments
+unbound            what-key                                   display the keycode for a key press

@@ -1,0 +1,25 @@
+#!/bin/bash
+
+img_h=$(identify -format "%h" $1)
+img_w=$(identify -format "%w" $1)
+
+ter_h=$(tput lines)
+ter_w=$(tput cols)
+
+img_r=$(echo '1.0*'$img_w/$img_h|bc -lq)
+
+sca_w=$(echo '1.0*'$ter_w/$img_w|bc -lq)
+sca_h=$(echo '1.0*'$ter_h/$img_h|bc -lq)
+
+if echo "$sca_w<$sca_h"|bc; then
+  sca=$sca_w
+else
+  sca=$sca_h
+fi
+
+width=$(echo 5*$sca*$img_w|bc -lq)
+height=$(echo 5*$sca*$img_h|bc -lq)
+width=$(printf "%.0f" $width)
+height=$(printf "%.0f" $height)
+
+echo -e "2;3;\n0;1;0;10;${width};${height};0;0;0;0;$1\n4;\n3;" |  /usr/lib/w3m/w3mimgdisplay &

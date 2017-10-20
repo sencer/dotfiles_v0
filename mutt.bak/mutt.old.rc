@@ -1,0 +1,96 @@
+set header_cache     = ~/.cache/mutt
+set message_cachedir = ~/.cache/mutt
+set noimap_passive
+set nomove
+
+set collapse_all
+unset collapse_unread
+
+# SMTP settings
+set smtp_url              = smtp://sselcuk@smtp.princeton.edu:587
+set from                  = "sselcuk@princeton.edu"
+set use_from              = yes
+set ssl_force_tls         = yes
+# set ssl_min_dh_prime_bits = 128
+set editor                = "vim -S '~/.mutt/mutt.vim' -c 'startinsert'"
+set text_flowed
+set pipe_decode
+set pipe_sep = "\n#### NEXT MAIL ####\n"
+
+set nomarkers
+# set nosidebar_visible
+# set sidebar_delim = " "
+set date_format     = "[%d/%m/%y] [%I:%M%P]"
+set folder_format="%2C %t %N %8s %d %f"
+set index_format = "%3C [%Z] %D %-20.18F //   %s"# "%?X?[%X]& ?" for attachments.
+set alias_format    = "%4n %t %-20a %r"
+set status_format = "%r--[%f]--[Msgs:%?M?%M/?%m%?n? New:%n?%?o? Old:%o?%?d? Del\
+:%d?%?F? Flag:%F?%?t? Tag:%t?%?p? Post:%p?%?b? Inc:%b?%?l? %l?]---(%s/%S)-%>-(%\
+P)---"
+set status_chars = " +%A"
+set status_on_top
+set to_chars = " >~c<l"
+set wrap = 100
+set query_command = "~/bin/ph %s 2>/dev/null"
+alternative_order text/html text/enriched text/plain
+set autoedit
+set edit_headers
+set fast_reply
+set nobeep
+set beep_new
+set nowait_key
+set menu_scroll
+set narrow_tree
+set nosig_dashes
+set sig_on_top
+set signature = 'echo "\nSencer\n" |'
+set ignore_linear_white_space
+set delete
+set quit = ask-yes
+set mime_forward = ask-no
+set auto_tag
+set noconfirmappend
+set pager_context=2
+set pager_index_lines=10
+set pager_stop
+set sort=threads
+set strict_threads=yes
+set sort_aux=reverse-last-date-received
+set ispell="aspell -e -c"
+# set arrow_cursor if set, reverse fg/bg colors
+set uncollapse_jump #jump to first unread in the thread.
+set tilde
+set abort_nosubject = ask-no
+set history = 100
+set save_history = 1000
+set history_file = ~/.dotfiles/tmp/mutt_history
+set alias_file   = ~/.mutt/aliases
+set reverse_alias
+source $alias_file
+set forward_quote
+set forward_format = "Fwd: %s"
+set include
+set attribution = "On %d, %n wrote:"
+
+# Handler for bzip2 compressed mailboxes
+open-hook   '\.bz2$' "bzip2 -cd '%f' >  '%t'"
+close-hook  '\.bz2$' "bzip2 -c  '%t' >  '%f'"
+append-hook '\.bz2$' "bzip2 -c  '%t' >> '%f'"
+
+# set crypt_use_gpgme=yes
+# set crypt_autosign=yes
+# set pgp_encrypt_self=yes
+# set pgp_default_key=1DED3EBF
+# set pgp_use_gpg_agent = yes
+# set pgp_sign_as = 02C00818  
+# sub   rsa4096/1DED3EBF 2016-12-17 [E] [expires: 2019-12-17]
+# set pgp_timeout = 3600
+# set crypt_autosign = yes
+# set crypt_replyencrypt = yes
+
+auto_view text/html
+auto_view text/calendar
+auto_view application/msword
+
+ignore *
+unignore from date subject data to cc

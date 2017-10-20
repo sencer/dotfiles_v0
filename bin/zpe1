@@ -37,6 +37,7 @@ if [[ -z $PBS_SERVER ]]; then
   coor="$(awk -vs=" ${all[*]//\//} " -vl=$l 'BEGIN{
         m["H"]   = 1.0079
         m["C"]   = 12.011
+        m["N"]   = 14.0067
         m["O"]   = 15.9994
         m["Ti"]  = 47.867
         m["Co"]  = 58.933
